@@ -1,0 +1,131 @@
+\documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts
+% Document Class: IEEEtran 2015/08/26 V1.8b by Michael Shell
+% -- See the "IEEEtran_HOWTO" manual for usage information.
+% -- http://www.michaelshell.org/tex/ieeetran/
+
+% past year documentations for reference
+% https://github.com/SWE-AIManager/document/blob/main/documentation/ai-jansori.pdf
+% https://github.com/goodtho/WakeupBuddy/blob/main/Documentation/Documentation_WakeUpBuddy.pdf
+% https://github.com/2021hyt6-techblog/se-paper/blob/main/RecyclingAssistant-Paper.tex
+
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{float}
+\begin{document}
+
+\title{MulMeokNyang\\
+{\footnotesize \textsuperscript{}Intelligent cat watering machine that Recognizes individual cats with AI}
+}
+
+\author{\IEEEauthorblockN{Ann Jukyung}
+\IEEEauthorblockA{\textit{Dept. Information Systems} \\
+\textit{Hanyang University}\\
+Seoul, South Korea \\
+email@hanyang.ac.kr}
+\and
+\IEEEauthorblockN{Choi Chansol}
+\IEEEauthorblockA{\textit{Dept. Information Systems} \\
+\textit{Hanyang University}\\
+Seoul, South Korea \\
+email@gmail.com}
+\and
+\IEEEauthorblockN{Lee Yunsun}
+\IEEEauthorblockA{\textit{Dept. Information Systems} \\
+\textit{Hanyang University}\\
+Seoul, South Korea \\
+email@gmail.com}
+\and
+\IEEEauthorblockN{Hong JunGgi}
+\IEEEauthorblockA{\textit{Dept. Information Systems} \\
+\textit{Hanyang University}\\
+Seoul, South Korea \\
+sentorino@hanyang.ac.kr}
+}
+
+\maketitle
+
+\begin{abstract}
+Cats are known for their discerning palates and can be quite selective, particularly when it comes to wet food, especially if they haven't been exposed to a variety of flavors previously. This dietary preference, coupled with a reluctance to consume adequate water, can lead to dehydration and pose a significant threat to feline health. To address this issue, smart cat water dispensing systems aim to offer a solution through the identification and in-depth analysis of individual cats' unique preferences and hydration needs.
+\end{abstract}
+
+\begin{IEEEkeywords}
+identification, detection, classification, opencv, cats
+\end{IEEEkeywords}
+
+\section{Role Assignment}
+% add description if needed
+\begin{table}[!htbp]\normalsize
+\begin{center}
+\begin{tabular}{|p{1.2cm}|p{1.9cm}|p{4.5cm}|}
+\hline
+\textbf{Name} & \textbf{\textit{Role}}& \textbf{\textit{Responsibilities}}\\
+\hline
+Choi Chansol & Development manager \& Front-end &
+This role involves task allocation, project assessment, translating requirements into practical functionality, framework selection, executing software features, collaborating with developers, maintaining code, coordinating pull requests.\newline 
+\newline The role also involves developing mobile apps for Android and iOS using React Native. It includes UI/UX design, feature integration, and communication with the backend server via RESTful API for seamless functionality.
+\\ \hline
+\end{tabular}
+\label{tab1}
+\end{center}
+\end{table}
+\newpage
+\begin{table}[!htbp]\normalsize
+\begin{center}
+\begin{tabular}{|p{1.2cm}|p{1.9cm}|p{4.5cm}|}
+\hline
+Ann Jukyung & Software developer \& Back-end &
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis commodo massa at neque bibendum cursus. Suspendisse potenti. Morbi sagittis risus quis magna faucibus tincidunt. Nullam eros purus, facilisis vitae feugiat a, porta vel eros. Cras ac nunc metus. Pellentesque rhoncus sem vel condimentum auctor. Nullam venenatis in urna vitae euismod. Aenean arcu nulla, porttitor et lacinia a, laoreet sed nisi. In hac habitasse platea dictumst. Aenean at felis diam. Morbi a urna lacus.
+\\ \hline
+Lee Yunsun & Customer \& Back-end &
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis commodo massa at neque bibendum cursus. Suspendisse potenti. Morbi sagittis risus quis magna faucibus tincidunt. Nullam eros purus, facilisis vitae feugiat a, porta vel eros. Cras ac nunc metus. Pellentesque rhoncus sem vel condimentum auctor. Nullam venenatis in urna vitae euismod. Aenean arcu nulla, porttitor et lacinia a, laoreet sed nisi. In hac habitasse platea dictumst. Aenean at felis diam. Morbi a urna lacus.
+\\ \hline
+\end{tabular}
+\label{tab2}
+\end{center}
+\end{table}
+\newpage
+\begin{table}[htbp!]\normalsize
+\begin{center}
+\begin{tabular}{|p{1.2cm}|p{1.9cm}|p{4.5cm}|}
+\hline
+Hong JunGgi & User \newline \& AI &
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis commodo massa at neque bibendum cursus. Suspendisse potenti. Morbi sagittis risus quis magna faucibus tincidunt. Nullam eros purus, facilisis vitae feugiat a, porta vel eros. Cras ac nunc metus. Pellentesque rhoncus sem vel condimentum auctor. Nullam venenatis in urna vitae euismod. Aenean arcu nulla, porttitor et lacinia a, laoreet sed nisi. In hac habitasse platea dictumst. Aenean at felis diam. Morbi a urna lacus.
+\\ \hline
+\end{tabular}
+\label{tab3}
+\end{center}
+\end{table}
+
+\section{INTRODUCTION}
+\subsection{Motivation}
+Cats tend to consume only the least amount of water, and due to this lack of drinking water, they often have health problems and have to go to the hospital regularly. Since animals are not applied by insurance, the burden of owners is considerable. In addition, in order to increase the amount of water consumed, the owners make them drink wet feed or force them to drink water through injections, but some cats suffer from allergic reactions to wet feed, and they show severe rejection to forced water intake by injection. \\
+So we need a natural way to increase the amount of water consumed. Also, the number of households raising companion animals is increasing these days due to the increase in single or two-person households. \\
+
+Therefore, we will proceed this project so that households with cats can manage the amount of water consumed by cat through smart cat water supply machine and mobile applications. \\
+
+\subsection{Problem Statement}
+Though there are some exceptions, most cats are particularly susceptible to becoming dehydrated as they abhor drinking water like other animals do. Smart cat water supply machine is a project aiming to recognize individual cats and analyze their water consumption data in order to make sure they are consuming appropriate amounts of food and water to avoid dehydration. We envision Smart cat water supply machines to allow clients, especially with more than two or more cats, to have access to cats' water consumption data easily and notify them if they may be in a threatening condition. \\
+
+In the existing pet water supply system, only one animal per water supply system could be managed because there was no individual identification function in case of raising multiple cats and dogs in one household. With this in mind, our team will recognize the faces of multiple pets to enable differentiated negative number management for each individual. \\
+
+Our goal is to provide clients with an application that can monitor their cats’ water consumption data individually and hopefully give clients information on cats’ health conditions. Identification will be done by embedding a camera on the feeder product and capturing cats’ faces to analyze their facial features through Machine Learning. This solution will be able to help both clients and cats themselves by being able to monitor their water intake easily and providing them with necessary information regarding cats' health condition. \\
+
+\subsection{Research on any related software}
+empty \\
+
+\section{REQUIREMENTS ANALYSIS}
+\section{TASK DISTRIBUTION}
+\section{GENERAL APPROACH}
+\section{DEVELOPMENT ENVIRONMENT}
+\section{SPECIFICATIONS}
+\section{ARCHITECTURE IMPLEMENTATION}
+\section{USE CASES}
+\section{DISCUSSIONS}
+
+
+\end{document}
