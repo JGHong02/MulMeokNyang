@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.10) (preloaded format=pdflatex 2023.10.10)  13 OCT 2023 03:14
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.10) (preloaded format=pdflatex 2023.10.10)  13 OCT 2023 03:29
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -573,7 +573,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 209--210
  []
 
 [3]
-Underfull \hbox (badness 10000) in paragraph at lines 249--250
+Underfull \hbox (badness 10000) in paragraph at lines 250--251
 
  []
 
@@ -608,182 +608,192 @@ Underfull \hbox (badness 10000) in paragraph at lines 345--346
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 357--357
+Underfull \hbox (badness 10000) in paragraph at lines 350--352
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 362--363
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 375--375
 []\OT1/ptm/m/n/10 Choi
  []
 
 
-Underfull \hbox (badness 3260) in paragraph at lines 358--359
+Underfull \hbox (badness 3260) in paragraph at lines 376--377
 \OT1/ptm/m/n/10 iOS us-ing Re-act Na-tive. It
  []
 
 
-Underfull \hbox (badness 2035) in paragraph at lines 358--359
+Underfull \hbox (badness 2035) in paragraph at lines 376--377
 \OT1/ptm/m/n/10 in-cludes UI/UX de-sign, fea-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 369--369
+Underfull \hbox (badness 10000) in paragraph at lines 378--378
 []\OT1/ptm/m/n/10 Ann
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 369--369
+Underfull \hbox (badness 10000) in paragraph at lines 378--378
 \OT1/ptm/m/n/10 Jukyung
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 369--369
+Underfull \hbox (badness 10000) in paragraph at lines 378--378
 \OT1/ptm/m/n/10 & Lee
  []
 
 
-Underfull \hbox (badness 3942) in paragraph at lines 370--371
+Underfull \hbox (badness 3942) in paragraph at lines 379--380
 []\OT1/ptm/m/n/10 The re-spon-si-bil-i-ties for this
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 370--371
+Underfull \hbox (badness 10000) in paragraph at lines 379--380
 \OT1/ptm/m/n/10 database man-age-ment. This
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 370--371
+Underfull \hbox (badness 10000) in paragraph at lines 379--380
 \OT1/ptm/m/n/10 in-cludes database de-sign
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 370--371
+Underfull \hbox (badness 10000) in paragraph at lines 379--380
 \OT1/ptm/m/n/10 and man-age-ment, which
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 370--371
+Underfull \hbox (badness 10000) in paragraph at lines 379--380
 \OT1/ptm/m/n/10 in-volves over-see-ing and
  []
 
 
-Underfull \hbox (badness 6575) in paragraph at lines 370--371
+Underfull \hbox (badness 6575) in paragraph at lines 379--380
 \OT1/ptm/m/n/10 or-ga-niz-ing user in-for-ma-tion,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 370--371
+Underfull \hbox (badness 10000) in paragraph at lines 379--380
 \OT1/ptm/m/n/10 de-vice in-for-ma-tion, and
  []
 
 
-Underfull \hbox (badness 5908) in paragraph at lines 370--371
+Underfull \hbox (badness 5908) in paragraph at lines 379--380
 \OT1/ptm/m/n/10 sta-tis-ti-cal data. Ad-di-tion-ally,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 370--371
+Underfull \hbox (badness 10000) in paragraph at lines 379--380
 \OT1/ptm/m/n/10 specif-i-cally uti-lizes Node.js
  []
 
 
-Underfull \hbox (badness 5787) in paragraph at lines 370--371
+Underfull \hbox (badness 5787) in paragraph at lines 379--380
 \OT1/ptm/m/n/10 for this pur-pose. In terms
  []
 
 
-Underfull \hbox (badness 5681) in paragraph at lines 370--371
+Underfull \hbox (badness 5681) in paragraph at lines 379--380
 \OT1/ptm/m/n/10 of de-vel-op-ment frame-works,
  []
 
 
-Underfull \hbox (badness 2662) in paragraph at lines 370--371
+Underfull \hbox (badness 2662) in paragraph at lines 379--380
 \OT1/ptm/m/n/10 it re-lies on Ex-press.js. The
  []
 
 
-Underfull \hbox (badness 2426) in paragraph at lines 370--371
+Underfull \hbox (badness 2426) in paragraph at lines 379--380
 \OT1/ptm/m/n/10 cho-sen database en-vi-ron-ment
  []
 
 
-Underfull \hbox (badness 1629) in paragraph at lines 370--371
+Underfull \hbox (badness 1629) in paragraph at lines 379--380
 \OT1/ptm/m/n/10 is AWS with MySQL. This
  []
 
 
-Underfull \hbox (badness 2521) in paragraph at lines 370--371
+Underfull \hbox (badness 2521) in paragraph at lines 379--380
 \OT1/ptm/m/n/10 mul-ti-faceted role en-tails not
  []
 
 
-Underfull \hbox (badness 2799) in paragraph at lines 370--371
+Underfull \hbox (badness 2799) in paragraph at lines 379--380
 \OT1/ptm/m/n/10 only cre-at-ing and man-ag-ing
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 370--371
+Underfull \hbox (badness 10000) in paragraph at lines 379--380
 \OT1/ptm/m/n/10 main-tain-ing ef-fi-cient server-
  []
 
 
-Underfull \hbox (badness 5374) in paragraph at lines 370--371
+Underfull \hbox (badness 5374) in paragraph at lines 379--380
 \OT1/ptm/m/n/10 client com-mu-ni-ca-tion for a
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 372--372
+[5]
+Underfull \hbox (badness 10000) in paragraph at lines 390--390
 []\OT1/ptm/m/n/10 Hong
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 373--374
+Underfull \hbox (badness 10000) in paragraph at lines 391--392
 \OT1/ptm/m/n/10 for this project com-prises
  []
 
 
-Underfull \hbox (badness 2302) in paragraph at lines 373--374
+Underfull \hbox (badness 2302) in paragraph at lines 391--392
 \OT1/ptm/m/n/10 Python 3.11 within a WSL
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 373--374
+Underfull \hbox (badness 10000) in paragraph at lines 391--392
 \OT1/ptm/m/n/10 (Win-dows Sub-sys-tem for
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 373--374
+Underfull \hbox (badness 10000) in paragraph at lines 391--392
 \OT1/ptm/m/n/10 Linux) setup. The core
  []
 
 
-Underfull \hbox (badness 5374) in paragraph at lines 373--374
+Underfull \hbox (badness 5374) in paragraph at lines 391--392
 \OT1/ptm/m/n/10 ob-jec-tive in-volves in-di-vid-ual
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 373--374
+Underfull \hbox (badness 10000) in paragraph at lines 391--392
 \OT1/ptm/m/n/10 pro-cess-ing and the likely
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 373--374
+Underfull \hbox (badness 10000) in paragraph at lines 391--392
 \OT1/ptm/m/n/10 in-te-gra-tion of scikit-learn
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 373--374
+Underfull \hbox (badness 10000) in paragraph at lines 391--392
 \OT1/ptm/m/n/10 ca-pa-bil-i-ties. Ad-di-tion-ally,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 373--374
+Underfull \hbox (badness 10000) in paragraph at lines 391--392
 \OT1/ptm/m/n/10 for data vi-su-al-iza-tion and
  []
 
 
-Underfull \hbox (badness 4242) in paragraph at lines 373--374
+Underfull \hbox (badness 4242) in paragraph at lines 391--392
 \OT1/ptm/m/n/10 like Mat-plotlib are uti-lized.
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 373--374
+Underfull \hbox (badness 10000) in paragraph at lines 391--392
 \OT1/ptm/m/n/10 Fur-ther-more, the project
  []
 
@@ -798,7 +808,9 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
-[5] (paper.aux)
+[6
+
+] (paper.aux)
  ***********
 LaTeX2e <2023-06-01> patch level 1
 L3 programming layer <2023-08-29>
@@ -815,11 +827,11 @@ Here is how much of TeX's memory you used:
  26167 multiletter control sequences out of 15000+600000
  594945 words of font info for 107 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 79i,10n,93p,1593b,383s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 79i,10n,93p,1593b,309s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/sento/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/sento/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Users/sento/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmb8a.pfb><C:/Users/sento/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmbi8a.pfb><C:/Users/sento/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmr8a.pfb><C:/Users/sento/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmri8a.pfb>
-Output written on paper.pdf (5 pages, 98279 bytes).
+Output written on paper.pdf (6 pages, 99389 bytes).
 PDF statistics:
- 49 PDF objects out of 1000 (max. 8388607)
+ 52 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

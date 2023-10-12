@@ -222,32 +222,32 @@ In response to the central proposition concerning the daily water intake recomme
         \item Uses Nose Print Recognition AI model.
         \item To identify the individual cat, submit multiple photos of the cat's nose from various angles.
         \item After uploading the photos, you can press the next button to proceed to the Wet Food Intake Information Registration screen.
-        \item Wet Food Intake Information Entry Screen
+    \end{itemize}
+\item{\emph{Wet Food Intake Information Entry Screen}}
+    \begin{itemize}
+        \item Select 'Yes/No' for consumption status.
+        \item If 'No' is selected, activate the "Next" button.
+        \item If 'Yes' is selected, input the daily intake amount in grams and the moisture content of the food. Once all details are entered, activate the "Next" button.
         \begin{itemize}
-            \item Select 'Yes/No' for consumption status.
-            \item If 'No' is selected, activate the "Next" button.
-            \item If 'Yes' is selected, input the daily intake amount in grams and the moisture content of the food. Once all details are entered, activate the "Next" button.
-            \begin{itemize}
-                \item If the moisture content is unknown, a default value of 70\% is set.
-            \end{itemize}
-            \item Clicking the "Next" button leads to the hydration setting screen.
+            \item If the moisture content is unknown, a default value of 70\% is set.
         \end{itemize}
-        \item Hydration Setting Screen
+        \item Clicking the "Next" button leads to the hydration setting screen.
+    \end{itemize}
+\item{\emph{Hydration Setting Screen}}
+    \begin{itemize}
+        \item Choose between 'Automatic setting/Manual setting'.
+        \item If 'Automatic setting' is chosen, the recommended hydration formula is applied, and the "Next" button gets activated.
         \begin{itemize}
-            \item Choose between 'Automatic setting/Manual setting'.
-            \item If 'Automatic setting' is chosen, the recommended hydration formula is applied, and the "Next" button gets activated.
-            \begin{itemize}
-                \item Daily basis formula: `( Weight(kg) * 50ml ) - ( Wet food amount (g) * Moisture content(\%) )`
-            \end{itemize}
-            \item If 'Manual setting' is chosen, users input the daily target hydration amount, and then the "Next" button gets activated.
-            \item Add another cat button:
-            \begin{itemize}
-                \item Redirects to the second cat profile registration screen.
-            \end{itemize}
-            \item Complete profile registration button:
-            \begin{itemize}
-                \item Directs to the cat hydration management space.\\
-            \end{itemize}
+            \item Daily basis formula: `( Weight(kg) * 50ml ) - ( Wet food amount (g) * Moisture content(\%) )`
+        \end{itemize}
+        \item If 'Manual setting' is chosen, users input the daily target hydration amount, and then the "Next" button gets activated.
+        \item Add another cat button:
+        \begin{itemize}
+            \item Redirects to the second cat profile registration screen.
+        \end{itemize}
+        \item Complete profile registration button:
+        \begin{itemize}
+            \item Directs to the cat hydration management space.\\
         \end{itemize}
     \end{itemize}
 \end{itemize}
@@ -346,6 +346,24 @@ To quickly transition to the desired screen, navigation links are provided in th
     \end{itemize}
 \end{itemize}
 
+\subsection{Co-admin Management}
+To enable the use of the Cat Hydration Management Space at the family level, a co-admin feature is provided.\newline
+\begin{itemize}
+\item Co-admin Profile Card List
+    \begin{itemize}
+        \item Each card displays the co-admin's profile picture, nickname, and self-introduction.
+        \item There is a delete button on the card, which, when pressed, removes the co-admin rights for that user.
+    \end{itemize}
+\item Add Co-admin Button
+    \begin{itemize}
+        \item Pressing this button brings up a dialog box prompting the user to enter the nickname of the co-admin they wish to add.
+        \item If the entered nickname exists in the system, that user will be added as a co-admin. If the nickname does not exist, the user will be prompted to re-enter a valid nickname.
+        \item Once a co-admin is added, a push notification is sent to that user.
+        \item When the newly added co-admin logs into the app, if auto-login is set, they are immediately directed to the Cat Hydration Management Space to which they belong.\\
+    \end{itemize}
+\end{itemize}
+
+\newpage
 \section{TASK DISTRIBUTION}
 % add description if needed
 \begin{table}[!htbp]\normalsize
@@ -357,6 +375,9 @@ To quickly transition to the desired screen, navigation links are provided in th
 Choi Chansol & Front-end &
 The role involves developing mobile apps for Android and iOS using React Native. It includes UI/UX design, feature integration, and communication with the backend server via RESTful API for seamless functionality.
 \\ \hline
+Ann Jukyung \& Lee Yunsun & Back-end &
+The responsibilities for this role encompass various aspects of software development and database management. This includes database design and management, which involves overseeing and organizing user information, device information, and statistical data. Additionally, this position involves server-client communication, and it specifically utilizes Node.js for this purpose. In terms of development frameworks, it relies on Express.js. The chosen database environment is AWS with MySQL. This multifaceted role entails not only creating and managing the database structure but also maintaining efficient server-client communication for a seamless and responsive user experience.
+\\ \hline
 \end{tabular}
 \label{tab1}
 \end{center}
@@ -366,9 +387,6 @@ The role involves developing mobile apps for Android and iOS using React Native.
 \begin{center}
 \begin{tabular}{|p{1.2cm}|p{1.9cm}|p{4.5cm}|}
 \hline
-Ann Jukyung \& Lee Yunsun & Back-end &
-The responsibilities for this role encompass various aspects of software development and database management. This includes database design and management, which involves overseeing and organizing user information, device information, and statistical data. Additionally, this position involves server-client communication, and it specifically utilizes Node.js for this purpose. In terms of development frameworks, it relies on Express.js. The chosen database environment is AWS with MySQL. This multifaceted role entails not only creating and managing the database structure but also maintaining efficient server-client communication for a seamless and responsive user experience.
-\\ \hline
 Hong Jun Ggi & AI &
 The development environment for this project comprises Python 3.11 within a WSL (Windows Subsystem for Linux) setup. The core objective involves individual cat recognition based on unique nose prints. To achieve this, various libraries are employed, including OpenCV 4 for image processing and the likely integration of scikit-learn (sklearn) for machine learning capabilities. Additionally, for data visualization and analysis, visualization libraries like Matplotlib are utilized. Furthermore, the project explores the realm of generative AI (OpenAI API), possibly in collaboration with SKT NUGU, to enhance its capabilities and further its objectives.
 \\ \hline
