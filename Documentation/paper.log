@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.10) (preloaded format=pdflatex 2023.10.10)  12 OCT 2023 01:05
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.10) (preloaded format=pdflatex 2023.10.10)  13 OCT 2023 03:14
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -236,41 +236,65 @@ Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \float@box=\box55
 \@float@everytoks=\toks25
 \@floatcapt=\box56
-) (C:\Users\sento\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdftex.def
+) (C:\Users\sento\AppData\Local\Programs\MiKTeX\tex/latex/filecontents\filecontents.sty
+Package: filecontents 2023/04/02 v1.5a Create an external file from within a LaTeX document
+
+
+Package filecontents Warning: This package is obsolete. Disabling it and
+(filecontents)                passing control to the filecontents environment
+(filecontents)                defined by the LaTeX kernel.
+
+) (C:\Users\sento\AppData\Local\Programs\MiKTeX\tex/latex/lipsum\lipsum.sty (C:\Users\sento\AppData\Local\Programs\MiKTeX\tex/latex/l3packages/l3keys2e\l3keys2e.sty (C:\Users\sento\AppData\Local\Programs\MiKTeX\tex/latex/l3kernel\expl3.sty
+Package: expl3 2023-08-29 L3 programming layer (loader) 
+ (C:\Users\sento\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdftex.def
 File: l3backend-pdftex.def 2023-04-19 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count283
 \l__pdf_internal_box=\box57
+))
+Package: l3keys2e 2023-08-29 LaTeX2e option processing using LaTeX3 keys
 )
-No file paper.aux.
+Package: lipsum 2021-09-20 v2.7 150 paragraphs of Lorem Ipsum dummy text
+\g__lipsum_par_int=\count284
+\l__lipsum_a_int=\count285
+\l__lipsum_b_int=\count286
+ (C:\Users\sento\AppData\Local\Programs\MiKTeX\tex/latex/lipsum\lipsum.ltd.tex)) (paper.aux
+
+LaTeX Warning: Label `tab1' multiply defined.
+
+
+LaTeX Warning: Label `tab2' multiply defined.
+
+)
 \openout1 = `paper.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+
 -- Lines per column: 56 (exact).
 (C:\Users\sento\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count284
+\scratchcounter=\count287
 \scratchdimen=\dimen175
 \scratchbox=\box58
-\nofMPsegments=\count285
-\nofMParguments=\count286
+\nofMPsegments=\count288
+\nofMParguments=\count289
 \everyMPshowfont=\toks26
-\MPscratchCnt=\count287
+\MPscratchCnt=\count290
 \MPscratchDim=\dimen176
-\MPnumerator=\count288
-\makeMPintoPDFobject=\count289
+\MPnumerator=\count291
+\makeMPintoPDFobject=\count292
 \everyMPtoPDFconversion=\toks27
 ) (C:\Users\sento\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
@@ -278,258 +302,198 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 48
  (C:\Users\sento\AppData\Local\Programs\MiKTeX\tex/latex/00miktex\epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 ))
-LaTeX Font Info:    Trying to load font information for U+msa on input line 50.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 52.
  (C:\Users\sento\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 50.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 52.
  (C:\Users\sento\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-Underfull \hbox (badness 10000) in paragraph at lines 68--68
+Underfull \hbox (badness 2181) in paragraph at lines 63--65
+[]\OT1/ptm/m/n/10 Roles are as-signed to im-prove soft-ware de-vel-op-ment
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 63--65
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 73--73
 []\OT1/ptm/m/n/10 Choi
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 68--68
+Underfull \hbox (badness 10000) in paragraph at lines 73--73
 []\OT1/ptm/m/n/10 Development
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 68--68
-\OT1/ptm/m/n/10 man-ager &
+Underfull \hbox (badness 10000) in paragraph at lines 74--76
+[]\OT1/ptm/m/n/10 The role in-volves task
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 69--71
-[]\OT1/ptm/m/n/10 This role in-volves task
+Underfull \hbox (badness 10000) in paragraph at lines 74--76
+\OT1/ptm/m/n/10 as-sess-ment, trans-lat-ing
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 69--71
-\OT1/ptm/m/n/10 trans-lat-ing re-quire-ments
+Underfull \hbox (badness 10000) in paragraph at lines 74--76
+\OT1/ptm/m/n/10 re-quire-ments into prac-ti-cal
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 69--71
-\OT1/ptm/m/n/10 into prac-ti-cal func-tion-al-ity,
+Underfull \hbox (badness 6348) in paragraph at lines 74--76
+\OT1/ptm/m/n/10 func-tion-al-ity, and dis-cern-ing
  []
 
 
-Underfull \hbox (badness 3758) in paragraph at lines 69--71
-\OT1/ptm/m/n/10 with de-vel-op-ers, main-tain-ing
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 69--71
-\OT1/ptm/m/n/10 code, co-or-di-nat-ing pull
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 69--71
+Underfull \hbox (badness 10000) in paragraph at lines 74--76
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 69--71
-\OT1/ptm/m/n/10 The role also in-volves
+Underfull \hbox (badness 10000) in paragraph at lines 74--76
+\OT1/ptm/m/n/10 the ex-e-cu-tion of soft-ware
  []
 
 
-Underfull \hbox (badness 4266) in paragraph at lines 69--71
-\OT1/ptm/m/n/10 de-vel-op-ing mo-bile apps for
+Underfull \hbox (badness 10000) in paragraph at lines 74--76
+\OT1/ptm/m/n/10 fea-tures and ac-tive
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 69--71
-\OT1/ptm/m/n/10 Na-tive. It in-cludes UI/UX
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 69--71
-\OT1/ptm/m/n/10 de-sign, fea-ture in-te-gra-tion,
- []
-
-
-Underfull \hbox (badness 1412) in paragraph at lines 69--71
-\OT1/ptm/m/n/10 and com-mu-ni-ca-tion with the
- []
-
-
-Underfull \hbox (badness 2020) in paragraph at lines 69--71
-\OT1/ptm/m/n/10 back-end server via REST-ful
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 81--81
+Underfull \hbox (badness 10000) in paragraph at lines 86--86
 []\OT1/ptm/m/n/10 Ann
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 81--81
-[]\OT1/ptm/m/n/10 Software
+Underfull \hbox (badness 2913) in paragraph at lines 87--89
+[]\OT1/ptm/m/n/10 This role pri-mar-ily in-volves
  []
 
 
-Underfull \hbox (badness 1558) in paragraph at lines 81--81
-\OT1/ptm/m/n/10 de-vel-oper &
+Underfull \hbox (badness 10000) in paragraph at lines 87--89
+\OT1/ptm/m/n/10 de-vel-op-ers to meet fea-ture
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 82--83
-\OT1/ptm/m/n/10 con-secte-tur adip-isc-ing elit.
+Underfull \hbox (badness 10000) in paragraph at lines 87--89
+\OT1/ptm/m/n/10 re-quire-ments. Ad-di-tion-ally,
  []
 
 
-Underfull \hbox (badness 3713) in paragraph at lines 82--83
-\OT1/ptm/m/n/10 po-tenti. Morbi sagit-tis risus
+Underfull \hbox (badness 5359) in paragraph at lines 87--89
+\OT1/ptm/m/n/10 en-sur-ing that the min-i-mum
  []
 
 
-Underfull \hbox (badness 3803) in paragraph at lines 82--83
-\OT1/ptm/m/n/10 Nul-lam eros pu-rus, fa-cil-i-sis
+Underfull \hbox (badness 10000) in paragraph at lines 87--89
+\OT1/ptm/m/n/10 vi-able prod-uct re-mains on
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 82--83
-\OT1/ptm/m/n/10 vi-tae feu-giat a, porta vel
+Underfull \hbox (badness 10000) in paragraph at lines 87--89
+
  []
 
 
-Underfull \hbox (badness 4819) in paragraph at lines 82--83
-\OT1/ptm/m/n/10 eros. Cras ac nunc me-tus.
+Underfull \hbox (badness 10000) in paragraph at lines 87--89
+\OT1/ptm/m/n/10 cus-tomers to gather and
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 82--83
-\OT1/ptm/m/n/10 Pel-len-tesque rhon-cus sem
+Underfull \hbox (badness 10000) in paragraph at lines 87--89
+\OT1/ptm/m/n/10 in-te-grate feed-back into
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 82--83
-\OT1/ptm/m/n/10 vel condi-men-tum auc-tor.
+Underfull \hbox (badness 10000) in paragraph at lines 87--89
+\OT1/ptm/m/n/10 the prod-uct's de-vel-op-ment
  []
 
 
-Underfull \hbox (badness 1418) in paragraph at lines 82--83
-\OT1/ptm/m/n/10 eu-is-mod. Ae-nean arcu nulla,
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 84--84
+Underfull \hbox (badness 10000) in paragraph at lines 90--90
 []\OT1/ptm/m/n/10 Lee
  []
 
 
-Underfull \hbox (badness 1742) in paragraph at lines 84--84
-[]\OT1/ptm/m/n/10 Customer &
+Underfull \hbox (badness 10000) in paragraph at lines 91--93
+\OT1/ptm/m/n/10 iden-ti-fy-ing any de-fi-cien-cies
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 85--86
-\OT1/ptm/m/n/10 con-secte-tur adip-isc-ing elit.
+Underfull \hbox (badness 10000) in paragraph at lines 91--93
+\OT1/ptm/m/n/10 role also in-volves of-fer-ing
  []
 
 
-Underfull \hbox (badness 3713) in paragraph at lines 85--86
-\OT1/ptm/m/n/10 po-tenti. Morbi sagit-tis risus
+Underfull \hbox (badness 10000) in paragraph at lines 91--93
+\OT1/ptm/m/n/10 goals, ex-pec-ta-tions, and
  []
 
 
-Underfull \hbox (badness 3803) in paragraph at lines 85--86
-\OT1/ptm/m/n/10 Nul-lam eros pu-rus, fa-cil-i-sis
+Underfull \hbox (badness 10000) in paragraph at lines 91--93
+\OT1/ptm/m/n/10 de-liv-er-ables for im-prov-ing
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 85--86
-\OT1/ptm/m/n/10 vi-tae feu-giat a, porta vel
+Underfull \hbox (badness 10000) in paragraph at lines 91--93
+\OT1/ptm/m/n/10 on-go-ing com-pli-ance with
  []
 
 
-Underfull \hbox (badness 4819) in paragraph at lines 85--86
-\OT1/ptm/m/n/10 eros. Cras ac nunc me-tus.
+Underfull \hbox (badness 10000) in paragraph at lines 91--93
+
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 85--86
-\OT1/ptm/m/n/10 Pel-len-tesque rhon-cus sem
+Underfull \hbox (badness 10000) in paragraph at lines 91--93
+\OT1/ptm/m/n/10 Should the re-quire-ments
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 85--86
-\OT1/ptm/m/n/10 vel condi-men-tum auc-tor.
+Underfull \hbox (badness 2608) in paragraph at lines 91--93
+\OT1/ptm/m/n/10 in-di-vid-ual is re-spon-si-ble for
  []
 
 
-Underfull \hbox (badness 1418) in paragraph at lines 85--86
-\OT1/ptm/m/n/10 eu-is-mod. Ae-nean arcu nulla,
+Underfull \hbox (badness 10000) in paragraph at lines 91--93
+\OT1/ptm/m/n/10 com-mu-ni-cat-ing ac-tion-able
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 91--93
+\OT1/ptm/m/n/10 feed-back and eval-u-at-ing
  []
 
 [1{C:/Users/sento/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}{C:/Users/sento/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/base/8r.enc}
 
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 96--96
+Underfull \hbox (badness 10000) in paragraph at lines 103--103
 []\OT1/ptm/m/n/10 Hong
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 97--98
-\OT1/ptm/m/n/10 con-secte-tur adip-isc-ing elit.
+Underfull \hbox (badness 2205) in paragraph at lines 104--105
+[]\OT1/ptm/m/n/10 This role is re-spon-si-ble for
  []
 
 
-Underfull \hbox (badness 3713) in paragraph at lines 97--98
-\OT1/ptm/m/n/10 po-tenti. Morbi sagit-tis risus
+Underfull \hbox (badness 2582) in paragraph at lines 104--105
+\OT1/ptm/m/n/10 and over-all user ex-pe-ri-ence.
  []
 
 
-Underfull \hbox (badness 3803) in paragraph at lines 97--98
-\OT1/ptm/m/n/10 Nul-lam eros pu-rus, fa-cil-i-sis
+Underfull \hbox (badness 3189) in paragraph at lines 104--105
+\OT1/ptm/m/n/10 a com-pre-hen-sive as-sess-ment,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 97--98
-\OT1/ptm/m/n/10 vi-tae feu-giat a, porta vel
- []
-
-
-Underfull \hbox (badness 4819) in paragraph at lines 97--98
-\OT1/ptm/m/n/10 eros. Cras ac nunc me-tus.
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 97--98
-\OT1/ptm/m/n/10 Pel-len-tesque rhon-cus sem
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 97--98
-\OT1/ptm/m/n/10 vel condi-men-tum auc-tor.
- []
-
-
-Underfull \hbox (badness 1418) in paragraph at lines 97--98
-\OT1/ptm/m/n/10 eu-is-mod. Ae-nean arcu nulla,
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 106--108
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 109--110
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 112--113
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 114--115
+Underfull \hbox (badness 10000) in paragraph at lines 113--115
 
  []
 
@@ -544,6 +508,286 @@ Underfull \hbox (badness 10000) in paragraph at lines 119--120
  []
 
 
+Underfull \hbox (badness 10000) in paragraph at lines 121--122
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 123--124
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 127--129
+
+ []
+
+
+Underfull \hbox (badness 1803) in paragraph at lines 132--134
+\OT1/ptm/m/n/10 hy-dra-tion mon-i-tor-ing sys-tem seeks to ad-dress the vi-tal
+ []
+
+
+Underfull \hbox (badness 2237) in paragraph at lines 132--134
+\OT1/ptm/m/n/10 in-di-vid-ual iden-ti-fi-ca-tion for multi-pet house-holds, which
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 132--134
+
+ []
+
+[2]
+Underfull \hbox (badness 3514) in paragraph at lines 153--154
+[]\OT1/ptm/m/n/10 If all the fields are cor-rectly filled out and
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 153--154
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 170--171
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 184--185
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 191--192
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 197--198
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 209--210
+
+ []
+
+[3]
+Underfull \hbox (badness 10000) in paragraph at lines 249--250
+
+ []
+
+
+Underfull \hbox (badness 4647) in paragraph at lines 297--298
+[]\OT1/ptm/m/n/10 Tapping the Nav-i-ga-tion-BarI-con slides out the
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 297--298
+
+ []
+
+
+Underfull \hbox (badness 3229) in paragraph at lines 310--311
+[]\OT1/ptm/m/n/10 A cal-en-dar but-ton al-lows users to se-lect spe-cific
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 321--322
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 326--328
+
+ []
+
+[4]
+Underfull \hbox (badness 10000) in paragraph at lines 345--346
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 357--357
+[]\OT1/ptm/m/n/10 Choi
+ []
+
+
+Underfull \hbox (badness 3260) in paragraph at lines 358--359
+\OT1/ptm/m/n/10 iOS us-ing Re-act Na-tive. It
+ []
+
+
+Underfull \hbox (badness 2035) in paragraph at lines 358--359
+\OT1/ptm/m/n/10 in-cludes UI/UX de-sign, fea-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 369--369
+[]\OT1/ptm/m/n/10 Ann
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 369--369
+\OT1/ptm/m/n/10 Jukyung
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 369--369
+\OT1/ptm/m/n/10 & Lee
+ []
+
+
+Underfull \hbox (badness 3942) in paragraph at lines 370--371
+[]\OT1/ptm/m/n/10 The re-spon-si-bil-i-ties for this
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 370--371
+\OT1/ptm/m/n/10 database man-age-ment. This
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 370--371
+\OT1/ptm/m/n/10 in-cludes database de-sign
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 370--371
+\OT1/ptm/m/n/10 and man-age-ment, which
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 370--371
+\OT1/ptm/m/n/10 in-volves over-see-ing and
+ []
+
+
+Underfull \hbox (badness 6575) in paragraph at lines 370--371
+\OT1/ptm/m/n/10 or-ga-niz-ing user in-for-ma-tion,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 370--371
+\OT1/ptm/m/n/10 de-vice in-for-ma-tion, and
+ []
+
+
+Underfull \hbox (badness 5908) in paragraph at lines 370--371
+\OT1/ptm/m/n/10 sta-tis-ti-cal data. Ad-di-tion-ally,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 370--371
+\OT1/ptm/m/n/10 specif-i-cally uti-lizes Node.js
+ []
+
+
+Underfull \hbox (badness 5787) in paragraph at lines 370--371
+\OT1/ptm/m/n/10 for this pur-pose. In terms
+ []
+
+
+Underfull \hbox (badness 5681) in paragraph at lines 370--371
+\OT1/ptm/m/n/10 of de-vel-op-ment frame-works,
+ []
+
+
+Underfull \hbox (badness 2662) in paragraph at lines 370--371
+\OT1/ptm/m/n/10 it re-lies on Ex-press.js. The
+ []
+
+
+Underfull \hbox (badness 2426) in paragraph at lines 370--371
+\OT1/ptm/m/n/10 cho-sen database en-vi-ron-ment
+ []
+
+
+Underfull \hbox (badness 1629) in paragraph at lines 370--371
+\OT1/ptm/m/n/10 is AWS with MySQL. This
+ []
+
+
+Underfull \hbox (badness 2521) in paragraph at lines 370--371
+\OT1/ptm/m/n/10 mul-ti-faceted role en-tails not
+ []
+
+
+Underfull \hbox (badness 2799) in paragraph at lines 370--371
+\OT1/ptm/m/n/10 only cre-at-ing and man-ag-ing
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 370--371
+\OT1/ptm/m/n/10 main-tain-ing ef-fi-cient server-
+ []
+
+
+Underfull \hbox (badness 5374) in paragraph at lines 370--371
+\OT1/ptm/m/n/10 client com-mu-ni-ca-tion for a
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 372--372
+[]\OT1/ptm/m/n/10 Hong
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 373--374
+\OT1/ptm/m/n/10 for this project com-prises
+ []
+
+
+Underfull \hbox (badness 2302) in paragraph at lines 373--374
+\OT1/ptm/m/n/10 Python 3.11 within a WSL
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 373--374
+\OT1/ptm/m/n/10 (Win-dows Sub-sys-tem for
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 373--374
+\OT1/ptm/m/n/10 Linux) setup. The core
+ []
+
+
+Underfull \hbox (badness 5374) in paragraph at lines 373--374
+\OT1/ptm/m/n/10 ob-jec-tive in-volves in-di-vid-ual
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 373--374
+\OT1/ptm/m/n/10 pro-cess-ing and the likely
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 373--374
+\OT1/ptm/m/n/10 in-te-gra-tion of scikit-learn
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 373--374
+\OT1/ptm/m/n/10 ca-pa-bil-i-ties. Ad-di-tion-ally,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 373--374
+\OT1/ptm/m/n/10 for data vi-su-al-iza-tion and
+ []
+
+
+Underfull \hbox (badness 4242) in paragraph at lines 373--374
+\OT1/ptm/m/n/10 like Mat-plotlib are uti-lized.
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 373--374
+\OT1/ptm/m/n/10 Fur-ther-more, the project
+ []
+
+
 ** Conference Paper **
 Before submitting the final camera ready copy, remember to:
 
@@ -554,28 +798,28 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
-[2] (paper.aux)
+[5] (paper.aux)
  ***********
 LaTeX2e <2023-06-01> patch level 1
 L3 programming layer <2023-08-29>
  ***********
 
 
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 4239 strings out of 475248
- 66282 string characters out of 5757812
- 1932785 words of memory out of 5000000
- 25726 multiletter control sequences out of 15000+600000
+ 4699 strings out of 475248
+ 77814 string characters out of 5757812
+ 1942785 words of memory out of 5000000
+ 26167 multiletter control sequences out of 15000+600000
  594945 words of font info for 107 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 57i,10n,65p,678b,309s stack positions out of 10000i,1000n,20000p,200000b,200000s
-<C:/Users/sento/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmb8a.pfb><C:/Users/sento/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmbi8a.pfb><C:/Users/sento/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmr8a.pfb><C:/Users/sento/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmri8a.pfb>
-Output written on paper.pdf (2 pages, 62134 bytes).
+ 79i,10n,93p,1593b,383s stack positions out of 10000i,1000n,20000p,200000b,200000s
+<C:/Users/sento/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/sento/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Users/sento/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmb8a.pfb><C:/Users/sento/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmbi8a.pfb><C:/Users/sento/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmr8a.pfb><C:/Users/sento/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmri8a.pfb>
+Output written on paper.pdf (5 pages, 98279 bytes).
 PDF statistics:
- 30 PDF objects out of 1000 (max. 8388607)
+ 49 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -16,6 +16,8 @@
 \usepackage{textcomp}
 \usepackage{xcolor}
 \usepackage{float}
+\usepackage{filecontents}   
+\usepackage{lipsum}
 \begin{document}
 
 \title{MulMeokNyang\\
@@ -58,6 +60,9 @@ identification, detection, classification, opencv, cats
 \end{IEEEkeywords}
 
 \section{Role Assignment}
+Roles are assigned to improve software development process and increase team productivity.
+\newline
+
 % add description if needed
 \begin{table}[!htbp]\normalsize
 \begin{center}
@@ -65,9 +70,9 @@ identification, detection, classification, opencv, cats
 \hline
 \textbf{Name} & \textbf{\textit{Role}}& \textbf{\textit{Responsibilities}}\\
 \hline
-Choi Chansol & Development manager \& Front-end &
-This role involves task allocation, project assessment, translating requirements into practical functionality, framework selection, executing software features, collaborating with developers, maintaining code, coordinating pull requests.\newline 
-\newline The role also involves developing mobile apps for Android and iOS using React Native. It includes UI/UX design, feature integration, and communication with the backend server via RESTful API for seamless functionality.
+Choi Chansol & Development manager &
+The role involves task allocation, project progression assessment, translating requirements into practical functionality, and discerning the most suitable frameworks for the project.\newline 
+\newline This position also encompasses the execution of software features and active collaboration with co-workning Software Developers to deliver essential functionalities.
 \\ \hline
 \end{tabular}
 \label{tab1}
@@ -78,11 +83,13 @@ This role involves task allocation, project assessment, translating requirements
 \begin{center}
 \begin{tabular}{|p{1.2cm}|p{1.9cm}|p{4.5cm}|}
 \hline
-Ann Jukyung & Software developer \& Back-end &
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis commodo massa at neque bibendum cursus. Suspendisse potenti. Morbi sagittis risus quis magna faucibus tincidunt. Nullam eros purus, facilisis vitae feugiat a, porta vel eros. Cras ac nunc metus. Pellentesque rhoncus sem vel condimentum auctor. Nullam venenatis in urna vitae euismod. Aenean arcu nulla, porttitor et lacinia a, laoreet sed nisi. In hac habitasse platea dictumst. Aenean at felis diam. Morbi a urna lacus.
+Ann Jukyung & Software developer &
+This role primarily involves implementing software features and collaborating with fellow developers to meet feature requirements. Additionally, it includes the vital task of ensuring that the minimum viable product remains on schedule. \newline
+\newline This position is also responsible for engaging with users and customers to gather and integrate feedback into the product's development process. Code maintenance and overseeing the coordination of pull requests are also integral aspects of this role.
 \\ \hline
-Lee Yunsun & Customer \& Back-end &
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis commodo massa at neque bibendum cursus. Suspendisse potenti. Morbi sagittis risus quis magna faucibus tincidunt. Nullam eros purus, facilisis vitae feugiat a, porta vel eros. Cras ac nunc metus. Pellentesque rhoncus sem vel condimentum auctor. Nullam venenatis in urna vitae euismod. Aenean arcu nulla, porttitor et lacinia a, laoreet sed nisi. In hac habitasse platea dictumst. Aenean at felis diam. Morbi a urna lacus.
+Lee Yunsun & User &
+Tasked with app testing and identifying any deficiencies that require enhancement, this role also involves offering goals, expectations, and deliverables for improving these weaknesses and ensuring ongoing compliance with requirements. \newline 
+\newline Should the requirements fall short of expectations, the individual is responsible for communicating actionable feedback and evaluating implemented features.
 \\ \hline
 \end{tabular}
 \label{tab2}
@@ -93,8 +100,8 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis commodo massa at n
 \begin{center}
 \begin{tabular}{|p{1.2cm}|p{1.9cm}|p{4.5cm}|}
 \hline
-Hong JunGgi & User \newline \& AI &
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis commodo massa at neque bibendum cursus. Suspendisse potenti. Morbi sagittis risus quis magna faucibus tincidunt. Nullam eros purus, facilisis vitae feugiat a, porta vel eros. Cras ac nunc metus. Pellentesque rhoncus sem vel condimentum auctor. Nullam venenatis in urna vitae euismod. Aenean arcu nulla, porttitor et lacinia a, laoreet sed nisi. In hac habitasse platea dictumst. Aenean at felis diam. Morbi a urna lacus.
+Hong JunGgi & Customer &
+This role is responsible for thoroughly testing the application, not only for functionality but also for usability, design, and overall user experience. This testing process allows for a comprehensive assessment, providing valuable insights that can guide improvements and refinements in various aspects of the application, ensuring it meets the user's distinct needs and requirements more effectively.
 \\ \hline
 \end{tabular}
 \label{tab3}
@@ -116,16 +123,265 @@ In the existing pet water supply system, only one animal per water supply system
 Our goal is to provide clients with an application that can monitor their cats’ water consumption data individually and hopefully give clients information on cats’ health conditions. Identification will be done by embedding a camera on the feeder product and capturing cats’ faces to analyze their facial features through Machine Learning. This solution will be able to help both clients and cats themselves by being able to monitor their water intake easily and providing them with necessary information regarding cats' health condition. \\
 
 \subsection{Research on any related software}
-empty \\
+
+The AI cat feeding product landscape is indeed populated with various existing solutions, reflecting the strong interest of pet owners in this field. However, it's important to note that the majority of these solutions fall into two categories: not AI, commercially-driven products, and non-open source projects. It was either too simple to be called Artificial Intelligence or AI part was very confidential.
+\newline
+
+\subsubsection*{VaraemPet's Welli Smart Hydration Care}
+
+In response to the central proposition concerning the daily water intake recommendation for humans, this innovative AI-driven pet hydration monitoring system seeks to address the vital question of how to ensure our pets' proper hydration. This system offers comprehensive hydration monitoring, enabling pet owners to precisely gauge their pets' hydration levels in comparison to recommended averages. It meticulously records and evaluates crucial data, including food intake, water consumption, and weight, all consolidated within a comprehensive health record. Furthermore, it provides real-time notifications via the Baraem app, keeping pet owners updated each time their pets drink and offering valuable insights into their hydration patterns. To facilitate a deeper understanding of their pet's hydration trends, the app displays detailed daily, weekly, and monthly hydration graphs, along with comparisons against peer averages. Additional features encompass monitoring remaining water levels and issuing timely cleaning notifications. The system's adjustable height feature caters to pets of various sizes, ensuring a comfortable drinking experience. Moreover, it follows a standard hydration formula based on the pet's weight, recommending a daily water intake of (Weight x 50 ml). It's important to note that the product's limitation lies in its inability to provide individual identification for multi-pet households, which means it cannot differentiate or tailor services for each pet separately.
+\newline
+
+\newpage
 
 \section{REQUIREMENTS ANALYSIS}
-\section{TASK DISTRIBUTION}
-\section{GENERAL APPROACH}
-\section{DEVELOPMENT ENVIRONMENT}
-\section{SPECIFICATIONS}
-\section{ARCHITECTURE IMPLEMENTATION}
-\section{USE CASES}
-\section{DISCUSSIONS}
+\subsection{Sign up}
+\begin{itemize}
+\item{\emph{Basic Information Input Screen:}}
+    \begin{itemize}
+        \item Method 1) Quick Sign-Up Feature
+        \begin{itemize}
+            \item Utilizes the Kakao, Google, and Naver sign-up APIs.
+            \item If a quick sign-up is done, it directly proceeds to the user profile setup screen.
+        \end{itemize}
+        \item Method 2) Local Sign-Up Feature
+        \begin{itemize}
+            \item Email Input: The system checks and displays whether the input is in the correct email format or if the email has already been registered.
+            \item Password and Password Confirmation Input: The system checks if both values match and displays the result on the screen.
+            \item Phone Number Input and Authentication: Uses the NICE mobile phone authentication API. Once the authentication is complete, it displays the result on the screen.
+        \end{itemize}
+        \item If all the fields are correctly filled out and authentication is complete, the "Next" button is activated, leading the user to the user profile setup screen. \newline 
+    \end{itemize}
+\item{\emph{User Profile Setup Screen:}}
+    \begin{itemize}
+        \item Profile Picture Registration (optional)
+            \begin{itemize}
+            \item Clicking the "Add Photo" button allows the user to either fetch a photo from the album or take one instantly with the camera. The chosen photo can then be registered.
+            \item If no photo is registered separately, a default image is displayed. - Nickname Input (Required)
+            \end{itemize}
+        \item Nickname Input (Required)
+            \begin{itemize}
+            \item The system checks the format and checks for duplicates, then displays the result on the screen.
+            \end{itemize}
+        \item Self-Introduction Input (optional)
+            \begin{itemize}
+            \item A maximum character count is specified.
+            \end{itemize}
+        \item If the nickname is correctly entered, the "Complete Sign-Up" button is activated. After sign-up, the user starts from the <water dispenser device registration> screen in a logged-in state and proceeds through the cat hydration management space creation procedure.\\
+    \end{itemize}
+\end{itemize}
 
+\subsection{Login}
+\begin{itemize}
+\item{\emph{Method 1) Quick Login:}}
+\item{\emph{Method 2) Local Login}}
+    \begin{itemize}
+        \item The system checks whether the email address and password have been entered.
+        \item If entered, the system verifies if there's a matching user in the database.
+        \item If no match is found, the user is prompted to re-enter. If a match is found, a cookie is generated to maintain the logged-in state continuously.
+        \item If the auto-login checkbox is checked, a session is generated to remember the login details, and upon logging out, the login details are automatically filled in.
+        \item After successful login, if the user has their own space or is a part of any, they are directed to the cat hydration management space.
+        \item Otherwise, they begin from the water dispenser device registration screen and proceed through the cat hydration management space creation procedure.\\
+    \end{itemize}
+\end{itemize}
+
+\subsection{Find Email}
+\begin{itemize}
+\item First, authenticate the user using the NICE Mobile Phone Verification API.
+\item Upon successful authentication, the system searches the database using the phone number and displays the user's email on the screen.\\
+\end{itemize}
+
+\subsection{Forgot Password}
+\begin{itemize}
+\item Enter the email address for which you want to retrieve the password.
+\item After authentication, the system searches the database using the email and phone number, and then sends the user's password to the specified email.\\
+\end{itemize} 
+
+\subsection{Water Dispenser Device Registration}
+(Step 1 of Creating a Cat Hydration Management Space)
+\begin{itemize}
+\item Instruct the user to put the water dispenser device into pairing mode.
+    \begin{itemize}
+        \item Provide a picture indicating the location of the pairing button on the dispenser.
+    \end{itemize}
+\item Search for available water dispenser devices and display them in a list.
+\item The user selects the desired device from the list.
+\item Once paired successfully, register the device information in the application and then navigate to the cat profile registration screen.\\
+\end{itemize}
+
+\subsection{Cat Profile Registration}
+(Step 2 of Creating a Cat Hydration Management Space)
+\begin{itemize}
+\item{\emph{Basic Information Entry Screen}}
+    \begin{itemize}
+        \item Register a profile picture of the pet cat, and enter its name, weight, and age.
+        \item Once all details are entered, the next button is activated, allowing the user to proceed to the Nose Print Photo Registration screen.
+    \end{itemize}
+\item{\emph{Nose Print Photo Registration Screen}}
+    \begin{itemize}
+        \item Uses Nose Print Recognition AI model.
+        \item To identify the individual cat, submit multiple photos of the cat's nose from various angles.
+        \item After uploading the photos, you can press the next button to proceed to the Wet Food Intake Information Registration screen.
+        \item Wet Food Intake Information Entry Screen
+        \begin{itemize}
+            \item Select 'Yes/No' for consumption status.
+            \item If 'No' is selected, activate the "Next" button.
+            \item If 'Yes' is selected, input the daily intake amount in grams and the moisture content of the food. Once all details are entered, activate the "Next" button.
+            \begin{itemize}
+                \item If the moisture content is unknown, a default value of 70\% is set.
+            \end{itemize}
+            \item Clicking the "Next" button leads to the hydration setting screen.
+        \end{itemize}
+        \item Hydration Setting Screen
+        \begin{itemize}
+            \item Choose between 'Automatic setting/Manual setting'.
+            \item If 'Automatic setting' is chosen, the recommended hydration formula is applied, and the "Next" button gets activated.
+            \begin{itemize}
+                \item Daily basis formula: `( Weight(kg) * 50ml ) - ( Wet food amount (g) * Moisture content(\%) )`
+            \end{itemize}
+            \item If 'Manual setting' is chosen, users input the daily target hydration amount, and then the "Next" button gets activated.
+            \item Add another cat button:
+            \begin{itemize}
+                \item Redirects to the second cat profile registration screen.
+            \end{itemize}
+            \item Complete profile registration button:
+            \begin{itemize}
+                \item Directs to the cat hydration management space.\\
+            \end{itemize}
+        \end{itemize}
+    \end{itemize}
+\end{itemize}
+
+\subsection{Cat Hydration Management Space (Main)}
+\subsubsection{Daily Hydration Info for Each Cat}
+\begin{itemize}
+    \item Cat Profile Selection Top Bar
+    \begin{itemize}
+        \item By tapping the profile picture, users can access the hydration info screen for that specific cat.
+    \end{itemize}
+    \item Cat Profile
+    \begin{itemize}
+        \item Displays the cat's profile picture, name, age, and weight.
+        \item An edit button lets users access a screen where they can modify that cat's profile. (Reuses the Cat Profile Registration screen).
+        \item Tapping the right arrow displays the daily hydration info for the next cat. The last item is a plus button, which leads to a screen to add a new cat profile. (Reuses the Cat Profile Registration screen).
+    \end{itemize}
+    \item Daily Hydration Gauge
+    \begin{itemize}
+        \item Displays how much of the daily hydration goal the cat has achieved, as a percentage(\%).
+        \item Different colors indicate hydration ranges:
+        \begin{itemize}
+            \item 0\% ~ 29\%: Red
+            \item 30\% ~ 59\%: Yellow
+            \item 60\% ~ 89\%: Green
+            \item 90\% ~ Upper Limit: Blue
+            \item Upper Limit ~ 200\%: Blue up to the upper limit, then red
+        \end{itemize}
+        \item The upper limit is set to address excessive hydration, calculated using the recommended formula.
+        \item Push notifications are sent to the user if the upper limit is exceeded.
+    \end{itemize}
+    \item Daily Hydration Evaluation \& Advice
+    \begin{itemize}
+        \item Based on the cat's water intake for the day, an evaluation is given, advising if more water intake is needed.
+    \end{itemize}
+    \item Hydration Statistics Button
+    \begin{itemize}
+        \item Leads to the periodical hydration statistics screen for that cat.
+    \end{itemize}
+    \item Watering Attempt Button
+    \begin{itemize}
+        \item Tapping this button prompts the water dispenser to make a cat-calling sound, enticing the cat to approach and drink.
+        \item If the cat drinks within 30 minutes, a push notification is sent to the user.
+    \end{itemize}
+    \item Navigation Bar
+    \begin{itemize}
+        \item Tapping the NavigationBarIcon slides out the navigation bar from the left.\\
+    \end{itemize}
+\end{itemize}
+\subsubsection{Periodical Hydration Statistics Screen}
+\begin{itemize}
+    \item Cat Profile Selection Top Bar
+    \begin{itemize}
+        \item If accessed from a specific cat's daily hydration info screen, that cat is selected.
+        \item Otherwise, the first cat is selected by default.
+        \item Users can view statistics for other cats by selecting their profiles.
+    \end{itemize}
+    \item By default, displays a bar graph of the past week's hydration data.
+    \item Users can choose between 'One Week/One Month/One Year' durations.
+    \item A calendar button allows users to select specific 'Week/Month/Year'.
+    \item Tapping a bar displays hydration data for that specific 'Day/Week/Month'.
+    \begin{itemize}
+        \item If the graph is set for one week, it displays data for that day.
+        \item If set for one month, it displays data for that week.
+        \item If set for one year, it displays data for that month.
+    \end{itemize}
+    \item At the bottom, an evaluation and advice on hydration are provided.
+    \begin{itemize}
+        \item If 'Red' or 'Yellow' days make up more than half, a message suggests increasing water intake.
+        \item If 'Green' or 'Blue' days make up more than half, a message confirms adequate hydration.
+        \item If days with 'Blue + Red' make up more than half, a message advises consulting with a veterinarian due to excessive water intake.\\
+    \end{itemize}
+\end{itemize}
+
+\subsection{Navigation}
+To quickly transition to the desired screen, navigation links are provided in the navigation bar. The navigation bar is applied to screens where necessary, providing relevant links for each screen.\newline
+\begin{itemize}
+\item User Profile: Displays the user's nickname, email, profile picture, and self-introduction.
+\item Menu Link List:
+    \begin{itemize}
+        \item Profile Management: Takes the user to a screen where they can modify their profile.
+        \begin{itemize}
+            \item (Reuses the User Profile Setup screen from the sign-up process)
+        \end{itemize}
+        \item Cat Profile Management: Takes the user to a screen where they can modify the cat's profile.
+        \begin{itemize}
+            \item (Reuses the Cat Profile Registration screen)
+        \end{itemize}
+        \item Today's Hydration Info: Takes the user to the screen that displays the day's hydration information.
+        \item Hydration Statistics: Takes the user to the screen that displays periodic hydration statistics.
+        \item Co-admin Management: Takes the user to the Co-admin Management screen.
+    \end{itemize}
+    \item Logout Button:
+    \begin{itemize}
+        \item Upon selection, the app processes the logout and redirects the user to the initial screen (Sign-up and Login).\\
+    \end{itemize}
+\end{itemize}
+
+\section{TASK DISTRIBUTION}
+% add description if needed
+\begin{table}[!htbp]\normalsize
+\begin{center}
+\begin{tabular}{|p{1.2cm}|p{1.9cm}|p{4.5cm}|}
+\hline
+\textbf{Name} & \textbf{\textit{Role}}& \textbf{\textit{Responsibilities}}\\
+\hline
+Choi Chansol & Front-end &
+The role involves developing mobile apps for Android and iOS using React Native. It includes UI/UX design, feature integration, and communication with the backend server via RESTful API for seamless functionality.
+\\ \hline
+\end{tabular}
+\label{tab1}
+\end{center}
+\end{table}
+\newpage
+\begin{table}[!htbp]\normalsize
+\begin{center}
+\begin{tabular}{|p{1.2cm}|p{1.9cm}|p{4.5cm}|}
+\hline
+Ann Jukyung \& Lee Yunsun & Back-end &
+The responsibilities for this role encompass various aspects of software development and database management. This includes database design and management, which involves overseeing and organizing user information, device information, and statistical data. Additionally, this position involves server-client communication, and it specifically utilizes Node.js for this purpose. In terms of development frameworks, it relies on Express.js. The chosen database environment is AWS with MySQL. This multifaceted role entails not only creating and managing the database structure but also maintaining efficient server-client communication for a seamless and responsive user experience.
+\\ \hline
+Hong Jun Ggi & AI &
+The development environment for this project comprises Python 3.11 within a WSL (Windows Subsystem for Linux) setup. The core objective involves individual cat recognition based on unique nose prints. To achieve this, various libraries are employed, including OpenCV 4 for image processing and the likely integration of scikit-learn (sklearn) for machine learning capabilities. Additionally, for data visualization and analysis, visualization libraries like Matplotlib are utilized. Furthermore, the project explores the realm of generative AI (OpenAI API), possibly in collaboration with SKT NUGU, to enhance its capabilities and further its objectives.
+\\ \hline
+\end{tabular}
+\label{tab2}
+\end{center}
+\end{table}
+
+% \section{GENERAL APPROACH}
+% \section{DEVELOPMENT ENVIRONMENT}
+% \section{SPECIFICATIONS}
+% \section{ARCHITECTURE IMPLEMENTATION}
+% \section{USE CASES}
+% \section{DISCUSSIONS}
 
 \end{document}
