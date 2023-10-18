@@ -1,19 +1,16 @@
-# catFeeder
+# MulMeokNyang
 
 ## Team members
 
-- Hyo Joo Ahn | Dept. Information Systems at Hanyang University | email
-- Chan Sol Choi | Dept. Information Systems at Hanyang University | email
+- Hyo Joo Ahn | Dept. Information Systems at Hanyang University | <hyoju8618@naver.com>
+- Chan Sol Choi | Dept. Information Systems at Hanyang University | <hjk9216@hanyang.ac.kr>
 - Jun Ggi Hong | Dept. Information Systems at Hanyang University | <sentorino@hanyang.ac.kr>
 - Yun Seon Lee | Dept. Information Systems at Hanyang University | <justina7182@gmail.com>
 
-## Research Proposal
+## Proposal:
 
-Title: catFeeder
+Cats are known for their discerning palates and can be quite selective, particularly when it comes to wet food including water. This dietary preference can lead to dehydration and pose a significant threat to feline health. To address this issue, smart cat water dispensing systems aim to offer a solution through the identification and in-depth analysis of individual cats’ preferences and hydration needs.
 
-Proposal: Though there are many facial recognition models, it is hard to find facial recognition for specific animals such as cats. So, we are trying to make a model which recognizes individual cats with muzzle point image. There are requirements that need to be fulfilled. Firstly, the model should be able to extract the nasal part of the given cat image and register the cat to be able to recognize the cat afterwards. Secondly, the model should be able to recognize the cat while drinking their water in real-time using the preliminarily given data. We will be learning and refactoring YOLOv5(or 8), a computer vision model built by Ultralytics. We hope to make our own models in future.
-The major contributions of the learning are as follows: (1) prepare muzzle point image dataset. (2) train the model using SVM (3) analyze results and see if it can analyze nasal parts using given dataset.
-A step-by-step procedure on how to do learning: (assuming the model is perfect)
+Though there are many object or face recognition models, it is hard to find recognition model for individual animals such as cats. So, we will try to make a Artificial Intelligence(AI) model which recognizes individual cats with classifying cat breed. Assuming that one household own one or more than two cat breed, we can recognize individual cats. If there are two or more cats with the same breed, we are planning to detect them using simple algorithms like color distinguishing. There are requirements that need to be fulfilled. Firstly, the model should be able to detect the cat itself with image data. Secondly, the model should be able to recognize the cat’s breed. For image classification, Convolution Neural Network(CNN) seems to be the best choice therefore, we are going to make use of those AI model.
 
-1. Yolo v5 to extract and crop nose images. (client)
-2. Image Normalization, feature Extraction, feature vectorization, vector classification (server)
+Blog: <https://medium.com/@junggihong/cat-breed-classification-dd9e92d5c064>
