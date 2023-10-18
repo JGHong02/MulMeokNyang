@@ -7,7 +7,7 @@
 - Jun Ggi Hong | Dept. Information Systems at Hanyang University | <sentorino@hanyang.ac.kr>
 - Yun Seon Lee | Dept. Information Systems at Hanyang University | <justina7182@gmail.com>
 
-## Proposal:
+## Proposal
 
 Cats are known for their discerning palates and can be quite selective, particularly when it comes to wet food including water. This dietary preference can lead to dehydration and pose a significant threat to feline health. To address this issue, smart cat water dispensing systems aim to offer a solution through the identification and in-depth analysis of individual cats’ preferences and hydration needs.
 
