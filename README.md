@@ -5,7 +5,7 @@
 - Hyo Joo Ahn | Dept. Information Systems at Hanyang University | <hyoju8618@naver.com>
 - Chan Sol Choi | Dept. Information Systems at Hanyang University | <hjk9216@hanyang.ac.kr>
 - Jun Ggi Hong | Dept. Information Systems at Hanyang University | <sentorino@hanyang.ac.kr>
-- Yun Seon Lee | Dept. Information Systems at Hanyang University | <justina7182@gmail.com>
+- Yun Sun Lee | Dept. Film and Theatre at Hanyang University | <justina7182@gmail.com>
 
 ## Proposal
 
