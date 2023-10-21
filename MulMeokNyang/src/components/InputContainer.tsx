@@ -1,17 +1,25 @@
 import React, { useState, useCallback, useEffect } from "react";
 import type { FC, Dispatch, SetStateAction } from "react";
 import { StyleSheet, View, Text, TextInput } from "react-native";
-import { checkEmail, checkPw, checkPwConfirm } from "../utils/checkValid";
+import {
+  checkEmpty,
+  checkEmail,
+  checkPw,
+  checkPwConfirm,
+  checkPhoneNum,
+} from "../utils/checkValid";
 
 type InputContainerProps = {
   value: string;
   setValue: Dispatch<SetStateAction<any>>;
   prop: string;
   title: string;
+  placeholder?: string;
   isSecret?: boolean;
   optional?: boolean;
   compareValue?: string;
-  noCheckValid?: boolean;
+  noResultMsg?: boolean;
+  isFindPw?: boolean;
 };
 
 const InputContainer: FC<InputContainerProps> = ({
@@ -19,10 +27,12 @@ const InputContainer: FC<InputContainerProps> = ({
   setValue,
   prop,
   title,
+  placeholder = "",
   isSecret = false,
   optional = false,
   compareValue = "",
-  noCheckValid = false,
+  noResultMsg = false,
+  isFindPw = false,
 }) => {
   const [resultMsgInfo, setResultMsgInfo] = useState<{
     msg: string;
@@ -31,11 +41,40 @@ const InputContainer: FC<InputContainerProps> = ({
 
   const checkValid = useCallback(() => {
     if (prop === "userEmail") {
-      setResultMsgInfo(checkEmail(value));
+      setResultMsgInfo(checkEmail(value)[0]);
+      setValue((prevForm: any) => ({
+        ...prevForm,
+        valid: { ...prevForm.valid, userEmail: checkEmail(value)[1] },
+      }));
     } else if (prop === "userPw") {
-      setResultMsgInfo(checkPw(value));
+      setResultMsgInfo(checkPw(value)[0]);
+      setValue((prevForm: any) => ({
+        ...prevForm,
+        valid: { ...prevForm.valid, userPw: checkPw(value)[1] },
+      }));
     } else if (prop === "userPwConfirm") {
-      setResultMsgInfo(checkPwConfirm(compareValue, value));
+      setResultMsgInfo(checkPwConfirm(compareValue, value)[0]);
+      setValue((prevForm: any) => ({
+        ...prevForm,
+        valid: {
+          ...prevForm.valid,
+          userPwConfirm: checkPwConfirm(compareValue, value)[1],
+        },
+      }));
+    } else if (prop === "userName") {
+      setValue((prevForm: any) => ({
+        ...prevForm,
+        valid: {
+          ...prevForm.valid,
+          userName: checkEmpty(value),
+        },
+      }));
+    } else if (prop === "userPhoneNum") {
+      setResultMsgInfo(checkPhoneNum(value)[0]);
+      setValue((prevForm: any) => ({
+        ...prevForm,
+        valid: { ...prevForm.valid, userPhoneNum: checkPhoneNum(value)[1] },
+      }));
     }
   }, [value, compareValue]);
 
@@ -50,7 +89,7 @@ const InputContainer: FC<InputContainerProps> = ({
   );
 
   useEffect(() => {
-    if (!noCheckValid) checkValid();
+    checkValid();
   }, [value, compareValue]);
 
   return (
@@ -59,10 +98,11 @@ const InputContainer: FC<InputContainerProps> = ({
       <TextInput
         style={[styles.input]}
         value={value}
+        placeholder={placeholder}
         onChangeText={onChangeText}
         secureTextEntry={isSecret}
       />
-      {resultMsgInfo.msg && (
+      {!noResultMsg && resultMsgInfo.msg && (
         <Text style={[styles.log, { color: resultMsgInfo.color }]}>
           {resultMsgInfo.msg}
         </Text>

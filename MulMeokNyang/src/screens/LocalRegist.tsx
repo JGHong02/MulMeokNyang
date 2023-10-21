@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { StyleSheet } from "react-native";
-import { SafeAreaView, View } from "react-native";
+import { SafeAreaView, View, Text } from "react-native";
 import TopBar from "../components/TopBar";
 import InputContainer from "../components/InputContainer";
 import Button from "../components/Button";
@@ -8,6 +8,7 @@ import {
   localRegistFormType,
   initialLocalRegistForm,
 } from "../data/localRegistFormType";
+import { checkCanPress } from "../utils/checkCanPress";
 
 const LocalRegist = () => {
   const [localRegistFormInfo, setLocalRegistFormInfo] =
@@ -38,7 +39,11 @@ const LocalRegist = () => {
           isSecret
           compareValue={localRegistFormInfo.userPw}
         />
-        <Button content="본인인증하기" />
+        <Button
+          content="본인인증하기"
+          route="Start"
+          canPress={checkCanPress(localRegistFormInfo.valid)}
+        />
       </View>
     </SafeAreaView>
   );
