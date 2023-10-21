@@ -1,11 +1,7 @@
 import React, { useCallback } from "react";
 import type { FC } from "react";
 import { StyleSheet, TouchableOpacity, View, Text } from "react-native";
-<<<<<<< Updated upstream
-import { useNavigation } from "@react-navigation/native";
-=======
 import useGoRoute from "../hooks/useGoRoute";
->>>>>>> Stashed changes
 
 type ButtonProps = {
   content: string;
@@ -13,10 +9,8 @@ type ButtonProps = {
 };
 
 const Button: FC<ButtonProps> = ({ content, route }) => {
-  const navigation = useNavigation();
-  const goRoute = useCallback(() => {
-    navigation.navigate(route);
-  }, [route]);
+  const goRoute = useGoRoute(route);
+
   return (
     <TouchableOpacity onPress={goRoute}>
       <View style={[styles.buttonView]}>

@@ -1,12 +1,8 @@
-import React, { useCallback } from "react";
+import React from "react";
 import type { FC } from "react";
 import { StyleSheet } from "react-native";
 import { TouchableOpacity, Text } from "react-native";
-<<<<<<< Updated upstream
-import { useNavigation } from "@react-navigation/native";
-=======
 import useGoRoute from "../hooks/useGoRoute";
->>>>>>> Stashed changes
 
 type UnderlineTextButtonProps = {
   text: string;
@@ -14,10 +10,7 @@ type UnderlineTextButtonProps = {
 };
 
 const UnderlineTextButton: FC<UnderlineTextButtonProps> = ({ text, route }) => {
-  const navigation = useNavigation();
-  const goRoute = useCallback(() => {
-    navigation.navigate(route);
-  }, [route]);
+  const goRoute = useGoRoute(route);
 
   return (
     <TouchableOpacity onPress={goRoute}>

@@ -1,8 +1,7 @@
-import React, { useCallback } from "react";
+import React from "react";
 import { Dimensions, StyleSheet } from "react-native";
 // prettier-ignore
 import { SafeAreaView, View, Image, Text } from "react-native";
-import { useNavigation } from "@react-navigation/native";
 import RegistButton from "../components/RegistButton";
 import UnderlineTextButton from "../components/UnderlineTextButton";
 
@@ -11,9 +10,6 @@ const { width } = Dimensions.get("window");
 const desiredLogoWidth = width * 0.8;
 
 const Start = () => {
-  const navigation = useNavigation();
-  const goLogin = useCallback(() => navigation.navigate("Login"), []);
-
   return (
     <SafeAreaView style={[styles.safeAreaView]}>
       <Image source={logo} style={[styles.logoImage]} />
@@ -21,7 +17,7 @@ const Start = () => {
         <RegistButton method="Naver" />
         <RegistButton method="Kakao" />
         <RegistButton method="Google" />
-        <RegistButton method="local" />
+        <RegistButton method="LocalRegist" />
       </View>
       <View style={[styles.textListView]}>
         <Text style={[styles.text]}>이미 가입 하셨나요?</Text>

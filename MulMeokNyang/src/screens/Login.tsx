@@ -1,39 +1,42 @@
 import React, { useState } from "react";
 import { StyleSheet, SafeAreaView, View } from "react-native";
 import TopBar from "../components/TopBar";
-import InputContainer from "../components/Input";
+import InputContainer from "../components/InputContainer";
 import Button from "../components/Button";
 import UnderlineTextButton from "../components/UnderlineTextButton";
+import { loginFormType, initialLoginForm } from "../data/loginFormType";
 
 const Login = () => {
-  // userEmail, userPw 바뀌는 거 확인 함
-  const [userEmail, setUserEmail] = useState<string>("");
-  const [userPw, setUserPw] = useState<string>("");
+  const [loginFormInfo, setLoginFormInfo] =
+    useState<loginFormType>(initialLoginForm);
 
   return (
     <SafeAreaView style={[styles.safeAreaView]}>
-      <TopBar back drawer={false} title="로그인" />
+      <TopBar title="로그인" />
       <View style={[styles.formView]}>
         <InputContainer
-          value={userEmail}
-          setInput={setUserEmail}
+          value={loginFormInfo.userEmail}
+          setValue={setLoginFormInfo}
+          prop="userEmail"
           title="이메일"
-          logColor="green"
+          noCheckValid
         />
         <InputContainer
-          value={userPw}
-          setInput={setUserPw}
+          value={loginFormInfo.userPw}
+          setValue={setLoginFormInfo}
+          prop="userPw"
           title="비밀번호"
-          logColor="red"
+          isSecret
+          noCheckValid
         />
         <Button content="로그인" route="Start" />
       </View>
       <View style={[styles.underlineTextButtonView]}>
-        <UnderlineTextButton text="이메일 찾기" route="" />
+        <UnderlineTextButton text="이메일 찾기" route="FindEmail" />
         <View style={[styles.line]} />
-        <UnderlineTextButton text="비밀번호 찾기" route="" />
+        <UnderlineTextButton text="비밀번호 찾기" route="FindPw" />
         <View style={[styles.line]} />
-        <UnderlineTextButton text="회원가입" route="" />
+        <UnderlineTextButton text="회원가입" route="LocalRegist" />
       </View>
     </SafeAreaView>
   );

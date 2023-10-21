@@ -1,11 +1,8 @@
-import React from "react";
+import React, { useCallback } from "react";
 import type { FC } from "react";
 // prettier-ignore
 import { Platform, StyleSheet, Image, Text, TouchableOpacity } from "react-native";
-<<<<<<< Updated upstream
-=======
 import useGoRoute from "../hooks/useGoRoute";
->>>>>>> Stashed changes
 
 type RegistButtonProps = {
   method: string;
@@ -13,6 +10,7 @@ type RegistButtonProps = {
 
 const RegistButton: FC<RegistButtonProps> = ({ method }) => {
   let logoSource, bgColor;
+  const route = method;
   if (method === "Naver") {
     logoSource = require("../../assets/registLogo/naver.png");
     bgColor = "#1DC800";
@@ -26,14 +24,17 @@ const RegistButton: FC<RegistButtonProps> = ({ method }) => {
     bgColor = "white";
   }
 
+  const goRoute = useGoRoute(route);
+
   return (
     <TouchableOpacity
       style={[
         styles.buttonView,
         Platform.OS === "android" ? styles.shadowAndroid : styles.shadowIOS,
         { backgroundColor: bgColor },
-      ]}>
-      {method !== "local" ? (
+      ]}
+      onPress={goRoute}>
+      {method !== "LocalRegist" ? (
         <>
           <Image source={logoSource} style={[styles.logoImage]} />
           <Text style={[styles.Text]}>{method} 로그인</Text>
