@@ -8,6 +8,7 @@ import {
   findEmailFormType,
   initialFindEmailForm,
 } from "../data/findEmailFormType";
+import { checkEmpty, checkPhoneNum } from "../utils/checkValid";
 import { checkCanPress } from "../utils/checkCanPress";
 
 const FindEmail = () => {
@@ -23,6 +24,7 @@ const FindEmail = () => {
           setValue={setFindEmailFormInfo}
           prop="userName"
           title="이름"
+          checkValue={checkEmpty}
         />
         <InputContainer
           value={findEmailFormInfo.userPhoneNum}
@@ -30,6 +32,7 @@ const FindEmail = () => {
           prop="userPhoneNum"
           title="전화번호"
           placeholder="010-XXXX-XXXX"
+          checkValue={checkPhoneNum}
         />
         <Button
           content="이메일 찾기"

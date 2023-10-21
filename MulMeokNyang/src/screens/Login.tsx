@@ -5,6 +5,7 @@ import InputContainer from "../components/InputContainer";
 import Button from "../components/Button";
 import UnderlineTextButton from "../components/UnderlineTextButton";
 import { loginFormType, initialLoginForm } from "../data/loginFormType";
+import { checkEmail, checkPw } from "../utils/checkValid";
 
 const Login = () => {
   const [loginFormInfo, setLoginFormInfo] =
@@ -19,6 +20,7 @@ const Login = () => {
           setValue={setLoginFormInfo}
           prop="userEmail"
           title="이메일"
+          checkValue={checkEmail}
           noResultMsg
         />
         <InputContainer
@@ -27,6 +29,7 @@ const Login = () => {
           prop="userPw"
           title="비밀번호"
           isSecret
+          checkValue={checkPw}
           noResultMsg
         />
         <Button content="로그인" route="Start" canPress />

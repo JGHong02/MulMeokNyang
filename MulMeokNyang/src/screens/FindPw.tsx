@@ -5,6 +5,7 @@ import TopBar from "../components/TopBar";
 import InputContainer from "../components/InputContainer";
 import Button from "../components/Button";
 import { findPwFormType, initialFindPwForm } from "../data/findPwFormType";
+import { checkEmail } from "../utils/checkValid";
 import { checkCanPress } from "../utils/checkCanPress";
 
 const FindPw = () => {
@@ -20,8 +21,9 @@ const FindPw = () => {
           setValue={setFindPwFormInfo}
           prop="userEmail"
           title="이메일"
+          placeholder="이메일 형식에 맞게 입력해주세요"
           noResultMsg
-          isFindPw
+          checkValue={checkEmail}
         />
         <Button
           content="본인인증하기"
