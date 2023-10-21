@@ -2,7 +2,7 @@ import React, { useCallback } from "react";
 import type { FC } from "react";
 // prettier-ignore
 import { Platform, StyleSheet, Image, Text, TouchableOpacity } from "react-native";
-import useGoRoute from "../Hooks/useGoRoute";
+import useGoRoute from "../hooks/useGoRoute";
 
 type RegistButtonProps = {
   method: string;
