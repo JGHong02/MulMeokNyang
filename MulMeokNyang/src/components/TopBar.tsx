@@ -6,12 +6,12 @@ import { useNavigation } from "@react-navigation/native";
 import Icon from "react-native-vector-icons/Entypo";
 
 type TopBarProps = {
-  back: boolean;
-  drawer: boolean;
+  back?: boolean;
+  drawer?: boolean;
   title: string;
 };
 
-const TopBar: FC<TopBarProps> = ({ back, drawer, title }) => {
+const TopBar: FC<TopBarProps> = ({ back = true, drawer = false, title }) => {
   const navigation = useNavigation();
   const goBack = useCallback(() => navigation.goBack(), []);
 
