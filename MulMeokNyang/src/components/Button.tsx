@@ -6,15 +6,18 @@ import useGoRoute from "../hooks/useGoRoute";
 type ButtonProps = {
   content: string;
   route: string;
+  canPress: boolean;
 };
 
-const Button: FC<ButtonProps> = ({ content, route }) => {
+const Button: FC<ButtonProps> = ({ content, route, canPress }) => {
   const goRoute = useGoRoute(route);
 
   return (
-    <TouchableOpacity onPress={goRoute}>
-      <View style={[styles.buttonView]}>
-        <Text style={[styles.text]}>{content}</Text>
+    <TouchableOpacity disabled={!canPress} onPress={goRoute}>
+      <View style={[styles.buttonView, !canPress && styles.canNotPressBtn]}>
+        <Text style={[styles.text, !canPress && styles.canNotPressText]}>
+          {content}
+        </Text>
       </View>
     </TouchableOpacity>
   );
@@ -34,5 +37,11 @@ const styles = StyleSheet.create({
   text: {
     color: "white",
     fontSize: 20,
+  },
+  canNotPressBtn: {
+    backgroundColor: "#004aad",
+  },
+  canNotPressText: {
+    color: "#a3a3a3",
   },
 });
