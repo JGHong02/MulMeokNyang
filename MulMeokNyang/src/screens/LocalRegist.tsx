@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { StyleSheet } from "react-native";
-import { SafeAreaView, View, Text } from "react-native";
+import { SafeAreaView, View } from "react-native";
 import TopBar from "../components/TopBar";
 import InputContainer from "../components/InputContainer";
 import Button from "../components/Button";

@@ -2,7 +2,7 @@ import React from "react";
 import type { FC } from "react";
 import { StyleSheet } from "react-native";
 import { TouchableOpacity, Text } from "react-native";
-import useGoRoute from "../Hooks/useGoRoute";
+import useGoRoute from "../hooks/useGoRoute";
 
 type UnderlineTextButtonProps = {
   text: string;
