@@ -1,7 +1,11 @@
 import React, { useCallback } from "react";
 import type { FC } from "react";
 import { StyleSheet, TouchableOpacity, View, Text } from "react-native";
+<<<<<<< Updated upstream
 import { useNavigation } from "@react-navigation/native";
+=======
+import useGoRoute from "../hooks/useGoRoute";
+>>>>>>> Stashed changes
 
 type ButtonProps = {
   content: string;

@@ -2,6 +2,10 @@ import React from "react";
 import type { FC } from "react";
 // prettier-ignore
 import { Platform, StyleSheet, Image, Text, TouchableOpacity } from "react-native";
+<<<<<<< Updated upstream
+=======
+import useGoRoute from "../hooks/useGoRoute";
+>>>>>>> Stashed changes
 
 type RegistButtonProps = {
   method: string;

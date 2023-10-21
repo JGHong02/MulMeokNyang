@@ -2,7 +2,11 @@ import React, { useCallback } from "react";
 import type { FC } from "react";
 import { StyleSheet } from "react-native";
 import { TouchableOpacity, Text } from "react-native";
+<<<<<<< Updated upstream
 import { useNavigation } from "@react-navigation/native";
+=======
+import useGoRoute from "../hooks/useGoRoute";
+>>>>>>> Stashed changes
 
 type UnderlineTextButtonProps = {
   text: string;
