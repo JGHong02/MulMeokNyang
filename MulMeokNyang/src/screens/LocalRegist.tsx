@@ -48,6 +48,11 @@ const LocalRegist = () => {
           route="Start"
           canPress={checkCanPress(localRegistFormInfo.valid)}
         />
+        {/* <Text>
+          {localRegistFormInfo.valid.userEmail.toString()}
+          {localRegistFormInfo.valid.userPw.toString()}
+          {localRegistFormInfo.valid.userPwConfirm.toString()}
+        </Text> */}
       </View>
     </SafeAreaView>
   );

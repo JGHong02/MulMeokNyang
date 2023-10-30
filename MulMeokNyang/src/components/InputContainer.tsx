@@ -33,10 +33,13 @@ const InputContainer: FC<InputContainerProps> = ({
   }>({ msg: "", color: "" });
 
   const checkValid = useCallback(() => {
-    setResultMsgInfo(checkValue(value)[0]);
+    setResultMsgInfo(checkValue(value, compareValue)[0]);
     setValue((prevForm: any) => ({
       ...prevForm,
-      valid: { ...prevForm.valid, userEmail: checkValue(value)[1] },
+      valid: {
+        ...prevForm.valid,
+        [prop]: checkValue(value, compareValue)[1],
+      },
     }));
   }, [value, compareValue]);
 
