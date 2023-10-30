@@ -22,8 +22,8 @@ const FindPw = () => {
           prop="userEmail"
           title="이메일"
           placeholder="이메일 형식에 맞게 입력해주세요"
-          noResultMsg
           checkValue={checkEmail}
+          noResultMsg
         />
         <Button
           content="본인인증하기"

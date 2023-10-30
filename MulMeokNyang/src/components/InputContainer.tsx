@@ -68,7 +68,7 @@ const InputContainer: FC<InputContainerProps> = ({
         secureTextEntry={isSecret}
       />
       {!noResultMsg && resultMsgInfo.msg && (
-        <Text style={[styles.log, { color: resultMsgInfo.color }]}>
+        <Text style={[styles.msg, { color: resultMsgInfo.color }]}>
           {resultMsgInfo.msg}
         </Text>
       )}
@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: "rgba(0, 0, 0, 0.7)",
   },
-  log: {
+  msg: {
     marginTop: 5,
   },
 });

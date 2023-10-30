@@ -1,6 +1,6 @@
 export const checkEmpty = (value: string) => {
-  if (value) return true;
-  return false;
+  if (value) return [{ msg: "", color: "" }, true];
+  return [{ msg: "", color: "" }, false];
 };
 
 export const checkEmail = (email: string) => {
