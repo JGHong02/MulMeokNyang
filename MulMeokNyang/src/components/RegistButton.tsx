@@ -37,7 +37,7 @@ const RegistButton: FC<RegistButtonProps> = ({ method }) => {
       {method !== "LocalRegist" ? (
         <>
           <Image source={logoSource} style={[styles.logoImage]} />
-          <Text style={[styles.Text]}>{method} 로그인</Text>
+          <Text style={[styles.Text]}>{method}로 시작하기</Text>
         </>
       ) : (
         <>

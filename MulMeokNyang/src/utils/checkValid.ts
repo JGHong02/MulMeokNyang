@@ -1,10 +1,10 @@
 export const checkEmpty = (value: string) => {
-  if (value) return true;
-  return false;
+  if (value) return [{ msg: "", color: "" }, true];
+  return [{ msg: "", color: "" }, false];
 };
 
 export const checkEmail = (email: string) => {
-  console.log(1);
+  console.log(1, "email :", email);
   if (!email) {
     return [{ msg: "", color: "" }, false];
   }
@@ -18,7 +18,7 @@ export const checkEmail = (email: string) => {
 };
 
 export const checkPw = (pw: string) => {
-  console.log(2);
+  console.log(2, "pw :", pw);
   if (!pw) {
     return [{ msg: "", color: "" }, false];
   }
@@ -36,8 +36,8 @@ export const checkPw = (pw: string) => {
   }
 };
 
-export const checkPwConfirm = (pw: string, pwConfirm: string) => {
-  console.log(pw, pwConfirm);
+export const checkPwConfirm = (pwConfirm: string, pw: string) => {
+  console.log(3, "pw :", pw, "pwConfirm :", pwConfirm);
   if (!pwConfirm) {
     return [{ msg: "", color: "" }, false];
   }
@@ -59,7 +59,7 @@ export const checkPwConfirm = (pw: string, pwConfirm: string) => {
 };
 
 export const checkPhoneNum = (phoneNum: string) => {
-  console.log(4);
+  console.log(4, "phoneNum :", phoneNum);
   if (!phoneNum) {
     return [{ msg: "", color: "" }, false];
   }
