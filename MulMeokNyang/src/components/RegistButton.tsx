@@ -2,7 +2,14 @@ import React from "react";
 import type { FC } from "react";
 // prettier-ignore
 import { Platform, StyleSheet, Image, Text, TouchableOpacity } from "react-native";
-import useGoRoute from "../hooks/useGoRoute";
+import axios from "axios";
+
+// const quickSignUpRequest = async () => {
+//   try {
+//     const url = ''; // API 엔드포인트
+//     const response = await axios.post(url);
+//   }
+// }
 
 type RegistButtonProps = {
   method: string;
@@ -24,16 +31,13 @@ const RegistButton: FC<RegistButtonProps> = ({ method }) => {
     bgColor = "white";
   }
 
-  const goRoute = useGoRoute(route);
-
   return (
     <TouchableOpacity
       style={[
         styles.buttonView,
         Platform.OS === "android" ? styles.shadowAndroid : styles.shadowIOS,
         { backgroundColor: bgColor },
-      ]}
-      onPress={goRoute}>
+      ]}>
       {method !== "LocalRegist" ? (
         <>
           <Image source={logoSource} style={[styles.logoImage]} />

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import Start from "../screens/Start";
 import Login from "../screens/Login";
