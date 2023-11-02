@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect } from "react";
 import type { FC, Dispatch, SetStateAction } from "react";
 import { StyleSheet, View, Text, TextInput } from "react-native";
 

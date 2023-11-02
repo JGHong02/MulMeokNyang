@@ -1,3 +1,5 @@
+import { checkEmailAvailable as checkAvailable } from "../api/checkEmailAvailable";
+
 export const checkEmpty = (value: string) => {
   if (value) return [{ msg: "", color: "" }, true];
   return [{ msg: "", color: "" }, false];
@@ -8,8 +10,7 @@ export const checkEmail = (email: string) => {
   if (!email) {
     return [{ msg: "", color: "" }, false];
   }
-  const emailPattern =
-    /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+  const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   if (emailPattern.test(email)) {
     return [{ msg: "유효한 이메일입니다.", color: "#00cb51" }, true];
   } else {
@@ -17,8 +18,34 @@ export const checkEmail = (email: string) => {
   }
 };
 
+// API 연결하고 async 붙이고 주석 풀어
+export const checkEmailAvailable = (email: string) => {
+  console.log(2, "email :", email);
+  if (!email) {
+    return [{ msg: "", color: "" }, false];
+  }
+  const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  if (emailPattern.test(email)) {
+    return [
+      {
+        msg: "사용 가능 이메일인지 확인하는 API 결과 출력 예정",
+        color: "#00cb51",
+      },
+      true,
+    ];
+    // const isAvailable = await checkAvailable(email);
+    // if (isAvailable) {
+    //   return [{ msg: "사용 가능한 이메일입니다.", color: "#00cb51" }, true];
+    // } else {
+    //   return [{ msg: "이미 가입된 이메일입니다.", color: "red" }, true];
+    // }
+  } else {
+    return [{ msg: "형식에 맞게 이메일을 입력해주세요.", color: "red" }, false];
+  }
+};
+
 export const checkPw = (pw: string) => {
-  console.log(2, "pw :", pw);
+  console.log(3, "pw :", pw);
   if (!pw) {
     return [{ msg: "", color: "" }, false];
   }
@@ -37,7 +64,7 @@ export const checkPw = (pw: string) => {
 };
 
 export const checkPwConfirm = (pwConfirm: string, pw: string) => {
-  console.log(3, "pw :", pw, "pwConfirm :", pwConfirm);
+  console.log(4, "pw :", pw, "pwConfirm :", pwConfirm);
   if (!pwConfirm) {
     return [{ msg: "", color: "" }, false];
   }
@@ -59,7 +86,7 @@ export const checkPwConfirm = (pwConfirm: string, pw: string) => {
 };
 
 export const checkPhoneNum = (phoneNum: string) => {
-  console.log(4, "phoneNum :", phoneNum);
+  console.log(5, "phoneNum :", phoneNum);
   if (!phoneNum) {
     return [{ msg: "", color: "" }, false];
   }

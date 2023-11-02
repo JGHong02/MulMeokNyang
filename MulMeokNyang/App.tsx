@@ -1,42 +1,25 @@
-import React, { useState } from "react";
-import { UserGVContext } from "./src/contexts/userGVContext";
+// Navigation
 import "react-native-gesture-handler";
 import { enableScreens } from "react-native-screens";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { NavigationContainer } from "@react-navigation/native";
 import MainNavigator from "./src/navigation/MainNavigator";
+// Context Provider
+import { UserContextProvider } from "./src/contexts/UserContext";
+import { CatContextProvider } from "./src/contexts/CatContext";
 
 enableScreens();
 
 const App = () => {
-  // 전역 변수로 관리할 상태 값 및 setter 함수 정의
-  const [userEmailGV, setUserEmailGV] = useState<string>("");
-  const [managementSpaceIdGV, setManagementSpaceIdGV] = useState<string>("");
-  const [catIdArrGV, setCatIdArrGV] = useState<number[]>([]);
-  const [catProfilePhotoArrGV, setCatProfilePhotoArrGV] = useState<string[]>(
-    []
-  );
-  const [currentSelectedCatIdGV, setCurrentSelectedCatIdGV] =
-    useState<number>(1);
-
   return (
     <SafeAreaProvider>
       <NavigationContainer>
-        <UserGVContext.Provider
-          value={{
-            userEmailGV,
-            setUserEmailGV,
-            managementSpaceIdGV,
-            setManagementSpaceIdGV,
-            catIdArrGV,
-            setCatIdArrGV,
-            catProfilePhotoArrGV,
-            setCatProfilePhotoArrGV,
-            currentSelectedCatIdGV,
-            setCurrentSelectedCatIdGV,
-          }}>
-          <MainNavigator />
-        </UserGVContext.Provider>
+        {/* 아쉬운 점: 특정 화면들만 ContextProvider로 감싸고 싶은데, Navigator를 분리하는 법을 모르겠음 */}
+        <UserContextProvider>
+          <CatContextProvider>
+            <MainNavigator />
+          </CatContextProvider>
+        </UserContextProvider>
       </NavigationContainer>
     </SafeAreaProvider>
   );

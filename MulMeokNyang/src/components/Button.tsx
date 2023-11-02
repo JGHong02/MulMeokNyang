@@ -1,4 +1,4 @@
-import React from "react";
+// 삭제할 예정인 컴포넌트
 import type { FC } from "react";
 import { StyleSheet, TouchableOpacity, View, Text } from "react-native";
 import useGoRoute from "../hooks/useGoRoute";

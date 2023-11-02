@@ -1,8 +1,8 @@
-import React, { useCallback } from "react";
-import type { FC } from "react";
-// prettier-ignore
-import { Platform, StyleSheet, View, TouchableOpacity, Text } from "react-native";
+import { useCallback } from "react";
 import { useNavigation } from "@react-navigation/native";
+import type { FC } from "react";
+import { Platform, StyleSheet } from "react-native";
+import { View, TouchableOpacity, Text } from "react-native";
 import Icon from "react-native-vector-icons/Entypo";
 
 type TopBarProps = {

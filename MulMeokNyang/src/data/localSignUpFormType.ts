@@ -1,4 +1,4 @@
-export type localRegistFormType = {
+export type LocalSignUpFormType = {
   userEmail: string;
   userPw: string;
   userPwConfirm: string;
@@ -9,7 +9,7 @@ export type localRegistFormType = {
   };
 };
 
-export const initialLocalRegistForm = {
+export const initialLocalSignUpForm = {
   userEmail: "",
   userPw: "",
   userPwConfirm: "",

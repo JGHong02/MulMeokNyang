@@ -1,4 +1,4 @@
-export type findPwFormType = {
+export type FindPwFormType = {
   userEmail: string;
   valid: {
     userEmail: boolean;

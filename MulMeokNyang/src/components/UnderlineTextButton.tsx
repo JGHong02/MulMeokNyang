@@ -1,4 +1,3 @@
-import React from "react";
 import type { FC } from "react";
 import { StyleSheet } from "react-native";
 import { TouchableOpacity, Text } from "react-native";

@@ -1,4 +1,4 @@
-export type loginFormType = {
+export type LoginFormType = {
   userEmail: string;
   userPw: string;
   valid: {
