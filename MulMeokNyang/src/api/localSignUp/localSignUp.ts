@@ -7,7 +7,7 @@ export const localSignUp = async (
   phoneNum: string
 ) => {
   try {
-    const res = await axios.post("localSignUp", {
+    const res = await axios.post("/localSignUp", {
       userEmail: email,
       userPw: pw,
       userName: name,

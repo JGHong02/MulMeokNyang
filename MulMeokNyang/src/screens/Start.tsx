@@ -75,7 +75,7 @@ const Start = () => {
   const [onAlert, setOnAlert] = useState<boolean>(false);
   const [alertMsg, setAlertMsg] =
     useState<string>("자동 로그인을\n설정하시겠습니까?");
-  const [alertRoute, setAlertRoute] = useState<string>("Login");
+  const [alertRoute, setAlertRoute] = useState<string>("Login"); // Login은 확인용
 
   // 자동 로그인 설정 Alert에서 '예' 버튼을 누를 경우
   const alertButtonPressHandler = useCallback(async () => {

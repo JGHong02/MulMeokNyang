@@ -32,7 +32,7 @@ const RequestMessageAuth = () => {
   const { setUserNameGV, setUserPhoneNumGV } = useContext(UserContext);
 
   // ProcessButton의 onPress 이벤트 핸들러 함수
-  const auth = useCallback(async () => {
+  const authButtonPressHandler = useCallback(async () => {
     // 회원가입 '완료' 버튼을 눌러, user table에 값을 저장하기 전까지 필요한 값들 전역변수로 저장
     setUserNameGV(formInfo.userName);
     setUserPhoneNumGV(formInfo.userPhoneNum);
@@ -67,7 +67,7 @@ const RequestMessageAuth = () => {
         <ProcessButton
           content="문자인증하기"
           canPress={checkCanPress(formInfo.valid)}
-          onPressHandler={auth}
+          onPressHandler={authButtonPressHandler}
           route="CheckMessageAuthCode"
         />
       </View>

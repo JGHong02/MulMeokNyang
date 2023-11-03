@@ -2,8 +2,8 @@
 import { UserContext } from "../../contexts/UserContext";
 // Hook
 import { useState, useContext, useCallback } from "react";
-// Dimensions, StyleSheet, Component
-import { Dimensions, StyleSheet } from "react-native";
+// StyleSheet, Component
+import { StyleSheet } from "react-native";
 import { SafeAreaView, View, Text } from "react-native";
 // Custom Component
 import TopBar from "../../components/TopBar";
@@ -40,7 +40,7 @@ const CheckMessageAuthCode = () => {
   const [alertMsg, setAlertMsg] = useState<string>("");
   const [alertCloseRoute, setAlertCloseRoute] = useState<string>("");
 
-  // 전역변수 값을 바꿀 setter 함수 불러오기
+  // 전역 변수와 setter 함수 불러오기
   const {
     userEmailGV,
     userPwGV,
@@ -52,7 +52,7 @@ const CheckMessageAuthCode = () => {
     setUserPhoneNumGV,
   } = useContext(UserContext);
 
-  const complete = useCallback(async () => {
+  const completeButtonPressHandler = useCallback(async () => {
     // -----------------------checkMessageAuthCode API 호출----------------------------
     // try {
     //   authSuccess = await checkMessageAuthCode(
@@ -127,7 +127,7 @@ const CheckMessageAuthCode = () => {
           <ProcessButton
             content="완료"
             canPress={checkCanPress(formInfo.valid)}
-            onPressHandler={complete}
+            onPressHandler={completeButtonPressHandler}
           />
           {/* 나중에 아래 Text들 지워야 돼 */}
           <Text>{userEmailGV}</Text>
