@@ -51,7 +51,9 @@ const Alert: FC<AlertProps> = ({
       <TouchableOpacity onPress={closePressHandler} style={[styles.closeIcon]}>
         <Icon name="close" size={35} color="#343434" />
       </TouchableOpacity>
-      <Text style={[styles.text]}>{msg}</Text>
+      <Text style={[styles.text, isButton && styles.textWithButton]}>
+        {msg}
+      </Text>
       {isButton && (
         <View style={[styles.buttonView]}>
           <ProcessButton
@@ -88,6 +90,8 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 20,
     textAlign: "center",
+  },
+  textWithButton: {
     bottom: 10,
   },
   buttonView: {

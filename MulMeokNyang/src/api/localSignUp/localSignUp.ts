@@ -7,14 +7,14 @@ export const localSignUp = async (
   phoneNum: string
 ) => {
   try {
-    const res = await axios.post("localSignUp", {
+    const res = await axios.post("/localSignUp", {
       userEmail: email,
       userPw: pw,
       userName: name,
       userPhoneNum: phoneNum,
     });
     const signUpSuccess = res.data.signUpSuccess;
-    return signUpSuccess;
+    if (signUpSuccess) return true;
   } catch (error) {
     throw error;
   }

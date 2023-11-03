@@ -6,9 +6,14 @@ import Login from "../screens/Login";
 import {
   BasicForm,
   RequestMessageAuth,
-  CheckMessageAuthCode,
+  CheckMessageAuthCode as CheckMessageAuthCodeInLS,
 } from "../screens/localSignUp";
-import { FindEmail, FindPw } from "../screens/find";
+import {
+  FindEmail,
+  FindEmailResult,
+  FindPw,
+  CheckMessageAuthCode as CheckMessageAuthCodeInFP,
+} from "../screens/find";
 
 const Stack = createStackNavigator();
 
@@ -20,11 +25,16 @@ const MainNavigator = () => {
       <Stack.Screen name="BasicForm" component={BasicForm} />
       <Stack.Screen name="RequestMessageAuth" component={RequestMessageAuth} />
       <Stack.Screen
-        name="CheckMessageAuthCode"
-        component={CheckMessageAuthCode}
+        name="CheckMessageAuthCodeInLS"
+        component={CheckMessageAuthCodeInLS}
       />
       <Stack.Screen name="FindEmail" component={FindEmail} />
+      <Stack.Screen name="FindEmailResult" component={FindEmailResult} />
       <Stack.Screen name="FindPw" component={FindPw} />
+      <Stack.Screen
+        name="CheckMessageAuthCodeInFP"
+        component={CheckMessageAuthCodeInFP}
+      />
     </Stack.Navigator>
   );
 };

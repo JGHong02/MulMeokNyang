@@ -2,8 +2,7 @@
 import { UserContext } from "../../contexts/UserContext";
 // Hook
 import { useState, useContext, useCallback } from "react";
-// Dimensions, StyleSheet, Component
-import { Dimensions, StyleSheet } from "react-native";
+// Component
 import { SafeAreaView, View, Text } from "react-native";
 // Custom Component
 import TopBar from "../../components/TopBar";
@@ -40,7 +39,7 @@ const CheckMessageAuthCode = () => {
   const [alertMsg, setAlertMsg] = useState<string>("");
   const [alertCloseRoute, setAlertCloseRoute] = useState<string>("");
 
-  // 전역변수 값을 바꿀 setter 함수 불러오기
+  // 전역 변수와 setter 함수 불러오기
   const {
     userEmailGV,
     userPwGV,
@@ -52,19 +51,18 @@ const CheckMessageAuthCode = () => {
     setUserPhoneNumGV,
   } = useContext(UserContext);
 
-  const complete = useCallback(async () => {
+  const completeButtonPressHandler = useCallback(async () => {
     // -----------------------checkMessageAuthCode API 호출----------------------------
-    // try {
-    //   authSuccess = await checkMessageAuthCode(
-    //     userPhoneNumGV,
-    //     formInfo.authCode
-    //   );
-    // } catch (error) {
-    //   throw error;
-    // }
+    try {
+      const authSuccess = await checkMessageAuthCode(
+        userPhoneNumGV,
+        formInfo.authCode
+      );
+      setAuthSuccess(authSuccess);
+    } catch (error) {
+      throw error;
+    }
 
-    // #######################API 연결 후 아래 코드 삭제########################
-    // setAuthSuccess(true);
     if (!authSuccess) {
       // Alert Component property 값 바꾸기
       setAlertMsg("인증번호가\n일치하지 않습니다.");
@@ -75,37 +73,28 @@ const CheckMessageAuthCode = () => {
 
     // 문자 인증을 통과했다면
     // ------------------------localSignUp API 호출---------------------------
-    // try {
-    //   signUpSuccess = await localSignUp(
-    //     userEmailGV,
-    //     userPwGV,
-    //     userNameGV,
-    //     userPhoneNumGV
-    //   );
-    // } catch (error) {
-    //   throw error;
-    // }
-
-    // #######################API 연결 후 아래 코드 삭제########################
-    setSignUpSuccess(true);
-    if (signUpSuccess) {
-      // user table에 전역변수에 저장된 회원가입 정보 초기화
-      setUserEmailGV("");
-      setUserPwGV("");
-      setUserNameGV("");
-      setUserPhoneNumGV("");
-
-      // Alert Component property 값 바꾸기
-      setAlertMsg("회원가입이\n완료되었습니다!");
-      setAlertCloseRoute("Login");
-      // Alert Component 보여주기
-      setOnAlert(true);
+    try {
+      await localSignUp(userEmailGV, userPwGV, userNameGV, userPhoneNumGV);
+    } catch (error) {
+      throw error;
     }
+
+    setSignUpSuccess(true);
+    // user table에 전역변수에 저장된 회원가입 정보 초기화
+    setUserEmailGV("");
+    setUserPwGV("");
+    setUserNameGV("");
+    setUserPhoneNumGV("");
+
+    // Alert Component property 값 바꾸기
+    setAlertMsg("회원가입이\n완료되었습니다!");
+    setAlertCloseRoute("Login");
+    // Alert Component 보여주기
+    setOnAlert(true);
   }, [
     formInfo,
     authSuccess,
     setAuthSuccess,
-    signUpSuccess,
     setSignUpSuccess,
     setOnAlert,
     setAlertMsg,
@@ -113,7 +102,7 @@ const CheckMessageAuthCode = () => {
   ]);
 
   return (
-    <SafeAreaView style={[styles.safeAreaView]}>
+    <SafeAreaView>
       <View>
         <TopBar title="회원가입" />
         <View style={[formStyles.formView]}>
@@ -127,7 +116,7 @@ const CheckMessageAuthCode = () => {
           <ProcessButton
             content="완료"
             canPress={checkCanPress(formInfo.valid)}
-            onPressHandler={complete}
+            onPressHandler={completeButtonPressHandler}
           />
           {/* 나중에 아래 Text들 지워야 돼 */}
           <Text>{userEmailGV}</Text>
@@ -150,9 +139,3 @@ const CheckMessageAuthCode = () => {
 };
 
 export default CheckMessageAuthCode;
-
-const styles = StyleSheet.create({
-  safeAreaView: {
-    position: "relative",
-  },
-});

@@ -8,19 +8,22 @@ type ButtonUIProps = {
   content: string;
   canPress: boolean;
   isInAlert?: boolean;
+  halfSize?: boolean;
 };
 
 const ButtonUI: FC<ButtonUIProps> = ({
   content,
   canPress,
   isInAlert = false,
+  halfSize = false,
 }) => {
   return (
     <View
       style={[
         styles.buttonView,
-        isInAlert && styles.alertButton,
         !canPress && styles.canNotPressButton,
+        isInAlert && styles.alertButton,
+        halfSize && styles.halfSize,
       ]}>
       <Text style={[styles.text, !canPress && styles.canNotPressText]}>
         {content}
@@ -55,5 +58,8 @@ const styles = StyleSheet.create({
   },
   canNotPressText: {
     color: "#a3a3a3",
+  },
+  halfSize: {
+    width: 150,
   },
 });
