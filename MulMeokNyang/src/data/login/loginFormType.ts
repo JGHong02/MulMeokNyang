@@ -1,21 +1,17 @@
-export type localRegistFormType = {
+export type LoginFormType = {
   userEmail: string;
   userPw: string;
-  userPwConfirm: string;
   valid: {
     userEmail: boolean;
     userPw: boolean;
-    userPwConfirm: boolean;
   };
 };
 
-export const initialLocalRegistForm = {
+export const initialLoginForm = {
   userEmail: "",
   userPw: "",
-  userPwConfirm: "",
   valid: {
     userEmail: false,
     userPw: false,
-    userPwConfirm: false,
   },
 };

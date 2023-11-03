@@ -1,4 +1,4 @@
-export type findEmailFormType = {
+export type RequestMessageAuthFormType = {
   userName: string;
   userPhoneNum: string;
   valid: {
@@ -7,7 +7,7 @@ export type findEmailFormType = {
   };
 };
 
-export const initialFindEmailForm = {
+export const initialRequestMessageAuthForm = {
   userName: "",
   userPhoneNum: "",
   valid: {

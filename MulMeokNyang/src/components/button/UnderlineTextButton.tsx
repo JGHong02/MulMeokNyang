@@ -1,8 +1,10 @@
-import React from "react";
+// FC Type
 import type { FC } from "react";
+// Custom Hook
+import useGoRoute from "../../hooks/useGoRoute";
+// StyleSheet, Component
 import { StyleSheet } from "react-native";
 import { TouchableOpacity, Text } from "react-native";
-import useGoRoute from "../hooks/useGoRoute";
 
 type UnderlineTextButtonProps = {
   text: string;
