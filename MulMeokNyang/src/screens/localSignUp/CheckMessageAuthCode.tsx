@@ -80,7 +80,7 @@ const CheckMessageAuthCode = () => {
     }
 
     setSignUpSuccess(true);
-    // user table에 전역변수에 저장된 회원가입 정보 초기화
+    // 회원가입 전역변수 초기화
     setUserEmailGV("");
     setUserPwGV("");
     setUserNameGV("");
