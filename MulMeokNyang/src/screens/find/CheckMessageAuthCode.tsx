@@ -31,7 +31,8 @@ const CheckMessageAuthCode = () => {
   );
 
   // 전역 변수와 setter 함수 불러오기
-  const { userEmailGV, userPhoneNumGV } = useContext(UserContext);
+  const { userEmailGV, userPhoneNumGV, setUserEmailGV, setUserPhoneNumGV } =
+    useContext(UserContext);
 
   // Alert 관련 state
   const [authSuccess, setAuthSuccess] = useState<boolean>(false);
@@ -71,6 +72,10 @@ const CheckMessageAuthCode = () => {
     }
 
     setSendPwSuccess(true);
+    // 비밀번호 찾기 전역변수 초기화
+    setUserEmailGV("");
+    setUserPhoneNumGV("");
+
     // Alert Component property 값 바꾸기
     setAlertMsg("입력하신 이메일로\n비밀번호가 전송되었습니다!");
     setAlertCloseRoute("Login");
