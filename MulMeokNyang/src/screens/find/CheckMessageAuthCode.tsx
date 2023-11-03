@@ -72,7 +72,7 @@ const CheckMessageAuthCode = () => {
     }
 
     setSendPwSuccess(true);
-    // user table에 전역변수에 저장된 회원가입 정보 초기화
+    // user table에 전역변수에 저장된 비밀번호 찾기 정보 초기화
     setUserEmailGV("");
     setUserPhoneNumGV("");
 
