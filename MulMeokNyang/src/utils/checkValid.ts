@@ -33,8 +33,8 @@ export const checkEmailAvailable = (email: string) => {
       },
       true,
     ];
-    // const isAvailable = await checkAvailable(email);
-    // if (isAvailable) {
+    // const available = await checkAvailable(email);
+    // if (available) {
     //   return [{ msg: "사용 가능한 이메일입니다.", color: "#00cb51" }, true];
     // } else {
     //   return [{ msg: "이미 가입된 이메일입니다.", color: "red" }, true];

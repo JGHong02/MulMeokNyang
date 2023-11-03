@@ -4,8 +4,7 @@ import { UserContext } from "../../contexts/UserContext";
 import { useCallback, useContext, useState } from "react";
 // Custom Hook
 import useGoRoute from "../../hooks/useGoRoute";
-// StyleSheet, Component
-import { StyleSheet } from "react-native";
+// Component
 import { SafeAreaView, View } from "react-native";
 // Custom Component
 import TopBar from "../../components/TopBar";
@@ -44,8 +43,11 @@ const FindEmail = () => {
 
   const findEmailButtonPressHandler = useCallback(async () => {
     try {
-      const res = await getFindEmail(formInfo.userName, formInfo.userPhoneNum);
-      const userEmail = res.userEmail;
+      // ------------------getFindEmail API 호출------------------------
+      const userEmail = await getFindEmail(
+        formInfo.userName,
+        formInfo.userPhoneNum
+      );
 
       // userEmail 값이 있다면
       if (userEmail) {

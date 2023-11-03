@@ -38,6 +38,7 @@ const Start = () => {
   useEffect(() => {
     const autoLogin = async (sessionID: string) => {
       try {
+        // -------------------------getAutoLoginInfo API 호출----------------------
         const res = await getAutoLoginInfo(sessionID);
         const { userEmail, managementSpaceId } = res;
         setUserEmailGV(userEmail);

@@ -48,6 +48,7 @@ const Login = () => {
 
   const loginButtonPressHandler = useCallback(async () => {
     try {
+      // ----------------------login API 호출---------------------
       const res = await login(formInfo.userEmail, formInfo.userPw, check);
       if (res.hasOwnProperty("userExists")) {
         setAlertMsg("회원가입된\n사용자가 아닙니다.");

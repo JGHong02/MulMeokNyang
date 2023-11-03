@@ -68,7 +68,7 @@ const RequestMessageAuth = () => {
           content="문자인증하기"
           canPress={checkCanPress(formInfo.valid)}
           onPressHandler={authButtonPressHandler}
-          route="CheckMessageAuthCode"
+          route="CheckMessageAuthCodeInLS"
         />
       </View>
     </SafeAreaView>
