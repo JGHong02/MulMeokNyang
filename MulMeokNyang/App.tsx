@@ -3,7 +3,7 @@ import "react-native-gesture-handler";
 import { enableScreens } from "react-native-screens";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { NavigationContainer } from "@react-navigation/native";
-import MainNavigator from "./src/navigation/MainNavigator";
+import MainNavigator from "./src/nav/MainNavigator";
 // Context Provider
 import { UserContextProvider } from "./src/contexts/UserContext";
 import { CatContextProvider } from "./src/contexts/CatContext";

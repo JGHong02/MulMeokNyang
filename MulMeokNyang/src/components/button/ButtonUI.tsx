@@ -1,14 +1,27 @@
+// FC Type
 import type { FC } from "react";
-import { StyleSheet, View, Text } from "react-native";
+// StyleSheet, Component
+import { StyleSheet } from "react-native";
+import { View, Text } from "react-native";
 
 type ButtonUIProps = {
   content: string;
   canPress: boolean;
+  isInAlert?: boolean;
 };
 
-const ButtonUI: FC<ButtonUIProps> = ({ content, canPress }) => {
+const ButtonUI: FC<ButtonUIProps> = ({
+  content,
+  canPress,
+  isInAlert = false,
+}) => {
   return (
-    <View style={[styles.buttonView, !canPress && styles.canNotPressButton]}>
+    <View
+      style={[
+        styles.buttonView,
+        isInAlert && styles.alertButton,
+        !canPress && styles.canNotPressButton,
+      ]}>
       <Text style={[styles.text, !canPress && styles.canNotPressText]}>
         {content}
       </Text>
@@ -27,12 +40,18 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  text: {
-    color: "white",
-    fontSize: 20,
+  alertButton: {
+    borderTopLeftRadius: 0,
+    borderTopRightRadius: 0,
+    borderBottomLeftRadius: 9,
+    borderBottomRightRadius: 9,
   },
   canNotPressButton: {
     backgroundColor: "#004aad",
+  },
+  text: {
+    color: "white",
+    fontSize: 20,
   },
   canNotPressText: {
     color: "#a3a3a3",

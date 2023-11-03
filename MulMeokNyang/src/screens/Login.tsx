@@ -1,11 +1,19 @@
-import React, { useState } from "react";
-import { StyleSheet, SafeAreaView, View } from "react-native";
+// Hook
+import { useState } from "react";
+// StyleSheet, Component
+import { StyleSheet } from "react-native";
+import { SafeAreaView, View } from "react-native";
+// Custom Component
 import TopBar from "../components/TopBar";
 import InputContainer from "../components/InputContainer";
 import Button from "../components/Button";
-import UnderlineTextButton from "../components/UnderlineTextButton";
-import { LoginFormType, initialLoginForm } from "../data/loginFormType";
+import UnderlineTextButton from "../components/button/UnderlineTextButton";
+// State Type
+import { LoginFormType, initialLoginForm } from "../data/login/loginFormType";
+// utils
 import { checkEmail, checkPw } from "../utils/checkValid";
+// styles
+import formStyles from "../styles/formStyles";
 
 const Login = () => {
   const [formInfo, setFormInfo] = useState<LoginFormType>(initialLoginForm);
@@ -13,7 +21,7 @@ const Login = () => {
   return (
     <SafeAreaView style={[styles.safeAreaView]}>
       <TopBar title="로그인" />
-      <View style={[styles.formView]}>
+      <View style={[formStyles.formView]}>
         <InputContainer
           value={formInfo.userEmail}
           setValue={setFormInfo}
@@ -48,7 +56,6 @@ export default Login;
 
 const styles = StyleSheet.create({
   safeAreaView: { flex: 1 },
-  formView: { alignItems: "center", marginTop: 30 },
   underlineTextButtonView: {
     flexDirection: "row",
     alignItems: "center",

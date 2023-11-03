@@ -1,6 +1,10 @@
-import { useState, useCallback, useEffect } from "react";
+// FC, Dispatch, SetStateAction Type
 import type { FC, Dispatch, SetStateAction } from "react";
-import { StyleSheet, View, Text, TextInput } from "react-native";
+// Hook
+import { useState, useCallback, useEffect } from "react";
+// StyleSheet, Component
+import { StyleSheet } from "react-native";
+import { View, Text, TextInput } from "react-native";
 
 type InputContainerProps = {
   value: string;

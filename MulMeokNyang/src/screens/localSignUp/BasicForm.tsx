@@ -4,16 +4,16 @@ import { UserContext } from "../../contexts/UserContext";
 import { useState, useContext, useCallback } from "react";
 // StyleSheet, Component
 import { StyleSheet } from "react-native";
-import { SafeAreaView, View, Text } from "react-native";
+import { SafeAreaView, View } from "react-native";
 // Custom Component
 import TopBar from "../../components/TopBar";
 import InputContainer from "../../components/InputContainer";
-import ProcessButton from "../../components/ProcessButton";
+import ProcessButton from "../../components/button/ProcessButton";
 // State Type
 import {
   LocalSignUpFormType,
   initialLocalSignUpForm,
-} from "../../data/localSignUpFormType";
+} from "../../data/localSignUp/localSignUpFormType";
 // utils
 import {
   checkEmailAvailable,
@@ -21,6 +21,8 @@ import {
   checkPwConfirm,
 } from "../../utils/checkValid";
 import { checkCanPress } from "../../utils/checkCanPress";
+// styles
+import formStyles from "../../styles/formStyles";
 
 const BasicForm = () => {
   // userEmail, userPw, userPwConfirm, 각각의 valid 값이 담긴 state
@@ -41,7 +43,7 @@ const BasicForm = () => {
   return (
     <SafeAreaView>
       <TopBar title="회원가입" />
-      <View style={[styles.formView]}>
+      <View style={[formStyles.formView]}>
         <InputContainer
           value={formInfo.userEmail}
           setValue={setFormInfo}
@@ -78,7 +80,3 @@ const BasicForm = () => {
 };
 
 export default BasicForm;
-
-const styles = StyleSheet.create({
-  formView: { alignItems: "center", marginTop: 30 },
-});

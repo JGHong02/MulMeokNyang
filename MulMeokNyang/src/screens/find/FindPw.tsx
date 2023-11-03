@@ -1,12 +1,22 @@
-import React, { useState } from "react";
+// Hook
+import { useState } from "react";
+// StyleSheet, Component
 import { StyleSheet } from "react-native";
 import { SafeAreaView, View } from "react-native";
+// Custom Component
 import TopBar from "../../components/TopBar";
 import InputContainer from "../../components/InputContainer";
 import Button from "../../components/Button";
-import { FindPwFormType, initialFindPwForm } from "../../data/findPwFormType";
+// State Type
+import {
+  FindPwFormType,
+  initialFindPwForm,
+} from "../../data/find/findPwFormType";
+// utils
 import { checkEmail } from "../../utils/checkValid";
 import { checkCanPress } from "../../utils/checkCanPress";
+// styles
+import formStyles from "../../styles/formStyles";
 
 const FindPw = () => {
   const [formInfo, setFormInfo] = useState<FindPwFormType>(initialFindPwForm);
@@ -14,7 +24,7 @@ const FindPw = () => {
   return (
     <SafeAreaView>
       <TopBar title="비밀번호 찾기" />
-      <View style={[styles.formView]}>
+      <View style={[formStyles.formView]}>
         <InputContainer
           value={formInfo.userEmail}
           setValue={setFormInfo}
@@ -35,7 +45,3 @@ const FindPw = () => {
 };
 
 export default FindPw;
-
-const styles = StyleSheet.create({
-  formView: { alignItems: "center", marginTop: 30 },
-});

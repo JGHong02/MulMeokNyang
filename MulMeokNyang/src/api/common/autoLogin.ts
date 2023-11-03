@@ -4,17 +4,16 @@ import axios from "axios";
 export const setAutoLogin = async (email: string) => {
   try {
     const res = await axios.post("/autoLogin", { userEmail: email });
-    const userEmail = res.data.userEmail;
     const managementSpaceId = res.data.managementSpaceId;
     const sessionID = res.data.sessionID;
-    return { userEmail, managementSpaceId, sessionID };
+    return { managementSpaceId, sessionID };
   } catch (error) {
     throw error;
   }
 };
 
 // Case 2. 자동 로그인이 설정된 사용자 -> DB에서 로그인 상태를 유지할 데이터 받아오기
-export const autoLogin = async (sessionID: string) => {
+export const getAutoLoginInfo = async (sessionID: string) => {
   try {
     const res = await axios.get("/autoLogin", {
       params: { sessionID: sessionID },

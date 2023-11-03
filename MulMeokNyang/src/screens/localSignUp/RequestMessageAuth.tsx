@@ -8,17 +8,19 @@ import { SafeAreaView, View, Text } from "react-native";
 // Custom Component
 import TopBar from "../../components/TopBar";
 import InputContainer from "../../components/InputContainer";
-import ProcessButton from "../../components/ProcessButton";
+import ProcessButton from "../../components/button/ProcessButton";
 // State Type
 import {
   RequestMessageAuthFormType,
   initialRequestMessageAuthForm,
-} from "../../data/requestMessageAuthFormType";
+} from "../../data/localSignUp/requestMessageAuthFormType";
 // utils
 import { checkEmpty, checkPhoneNum } from "../../utils/checkValid";
 import { checkCanPress } from "../../utils/checkCanPress";
 // API
-import { messageAuth } from "../../api/messageAuth";
+import { messageAuth } from "../../api/common/messageAuth";
+// styles
+import formStyles from "../../styles/formStyles";
 
 const RequestMessageAuth = () => {
   // userName, userPhoneNum과 valid가 담긴 state
@@ -46,7 +48,7 @@ const RequestMessageAuth = () => {
   return (
     <SafeAreaView>
       <TopBar title="회원가입" />
-      <View style={[styles.formView]}>
+      <View style={[formStyles.formView]}>
         <InputContainer
           value={formInfo.userName}
           setValue={setFormInfo}
@@ -59,6 +61,7 @@ const RequestMessageAuth = () => {
           setValue={setFormInfo}
           prop="userPhoneNum"
           title="전화번호"
+          placeholder="010-XXXX-XXXX"
           checkValue={checkPhoneNum}
         />
         <ProcessButton
@@ -73,7 +76,3 @@ const RequestMessageAuth = () => {
 };
 
 export default RequestMessageAuth;
-
-const styles = StyleSheet.create({
-  formView: { alignItems: "center", marginTop: 30 },
-});

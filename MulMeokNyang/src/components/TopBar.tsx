@@ -1,8 +1,12 @@
+// FC Type
+import type { FC } from "react";
+// Hook
 import { useCallback } from "react";
 import { useNavigation } from "@react-navigation/native";
-import type { FC } from "react";
+// Platform, StyleSheet, Component
 import { Platform, StyleSheet } from "react-native";
 import { View, TouchableOpacity, Text } from "react-native";
+// Icon
 import Icon from "react-native-vector-icons/Entypo";
 
 type TopBarProps = {

@@ -1,15 +1,22 @@
-import React, { useState } from "react";
+// Hook
+import { useState } from "react";
+// StyleSheet, Component
 import { StyleSheet } from "react-native";
 import { SafeAreaView, View } from "react-native";
+// Custom Component
 import TopBar from "../../components/TopBar";
 import InputContainer from "../../components/InputContainer";
 import Button from "../../components/Button";
+// State Type
 import {
   FindEmailFormType,
   initialFindEmailForm,
-} from "../../data/findEmailFormType";
+} from "../../data/find/findEmailFormType";
+// utils
 import { checkEmpty, checkPhoneNum } from "../../utils/checkValid";
 import { checkCanPress } from "../../utils/checkCanPress";
+// styles
+import formStyles from "../../styles/formStyles";
 
 const FindEmail = () => {
   const [formInfo, setFormInfo] =
@@ -18,7 +25,7 @@ const FindEmail = () => {
   return (
     <SafeAreaView>
       <TopBar title="이메일 찾기" />
-      <View style={[styles.formView]}>
+      <View style={[formStyles.formView]}>
         <InputContainer
           value={formInfo.userName}
           setValue={setFormInfo}
@@ -45,7 +52,3 @@ const FindEmail = () => {
 };
 
 export default FindEmail;
-
-const styles = StyleSheet.create({
-  formView: { alignItems: "center", marginTop: 30 },
-});

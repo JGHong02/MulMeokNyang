@@ -1,4 +1,4 @@
-import { checkEmailAvailable as checkAvailable } from "../api/checkEmailAvailable";
+import { checkEmailAvailable as checkAvailable } from "../api/localSignUp/checkEmailAvailable";
 
 export const checkEmpty = (value: string) => {
   if (value) return [{ msg: "", color: "" }, true];
@@ -95,7 +95,7 @@ export const checkPhoneNum = (phoneNum: string) => {
     return [{ msg: "", color: "" }, true];
   } else {
     return [
-      { msg: "형식에 맞게 전화번호를 입력해주세요.", color: "red" },
+      { msg: "'-' 을 포함하여 전화번호를 입력해주세요.", color: "red" },
       false,
     ];
   }
