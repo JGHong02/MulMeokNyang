@@ -85,7 +85,7 @@ const Login = () => {
     } catch (error) {
       throw error;
     }
-  }, [setOnAlert, setAlertMsg, setAlertCloseRoute]);
+  }, [formInfo, setOnAlert, setAlertMsg, setAlertCloseRoute]);
 
   return (
     <SafeAreaView style={[styles.safeAreaView]}>

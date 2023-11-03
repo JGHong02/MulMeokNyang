@@ -8,7 +8,7 @@ import {
   RequestMessageAuth,
   CheckMessageAuthCode,
 } from "../screens/localSignUp";
-import { FindEmail, FindPw } from "../screens/find";
+import { FindEmail, FindEmailResult, FindPw } from "../screens/find";
 
 const Stack = createStackNavigator();
 
@@ -24,6 +24,7 @@ const MainNavigator = () => {
         component={CheckMessageAuthCode}
       />
       <Stack.Screen name="FindEmail" component={FindEmail} />
+      <Stack.Screen name="FindEmailResult" component={FindEmailResult} />
       <Stack.Screen name="FindPw" component={FindPw} />
     </Stack.Navigator>
   );
