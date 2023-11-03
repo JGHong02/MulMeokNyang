@@ -2,21 +2,26 @@
 import { useState } from "react";
 // StyleSheet, Component
 import { StyleSheet } from "react-native";
-import { SafeAreaView, View } from "react-native";
+import { SafeAreaView, View, Text } from "react-native";
 // Custom Component
 import TopBar from "../components/TopBar";
 import InputContainer from "../components/InputContainer";
-import Button from "../components/Button";
+import AutoLoginCheckBox from "../components/AutoLoginCheckBox";
+import ProcessButton from "../components/button/ProcessButton";
 import UnderlineTextButton from "../components/button/UnderlineTextButton";
 // State Type
 import { LoginFormType, initialLoginForm } from "../data/login/loginFormType";
 // utils
-import { checkEmail, checkPw } from "../utils/checkValid";
+import { checkEmpty } from "../utils/checkValid";
+import { checkCanPress } from "../utils/checkCanPress";
 // styles
 import formStyles from "../styles/formStyles";
 
 const Login = () => {
+  // userEmail, userPw, 각각의 valid 값이 담긴 state
   const [formInfo, setFormInfo] = useState<LoginFormType>(initialLoginForm);
+  // 자동로그인 체크박스 체크 여부
+  const [check, setCheck] = useState<boolean>(true);
 
   return (
     <SafeAreaView style={[styles.safeAreaView]}>
@@ -27,7 +32,7 @@ const Login = () => {
           setValue={setFormInfo}
           prop="userEmail"
           title="이메일"
-          checkValue={checkEmail}
+          checkValue={checkEmpty}
           noResultMsg
         />
         <InputContainer
@@ -36,10 +41,15 @@ const Login = () => {
           prop="userPw"
           title="비밀번호"
           isSecret
-          checkValue={checkPw}
+          checkValue={checkEmpty}
           noResultMsg
         />
-        <Button content="로그인" route="Start" canPress />
+        <AutoLoginCheckBox isChecked={check} setCheck={setCheck} />
+        <ProcessButton
+          content="로그인"
+          canPress={checkCanPress(formInfo.valid)}
+          onPressHandler={() => {}}
+        />
       </View>
       <View style={[styles.underlineTextButtonView]}>
         <UnderlineTextButton text="이메일 찾기" route="FindEmail" />
