@@ -49,7 +49,10 @@ const SignUpButton: FC<SignUpButtonProps> = ({
       // 다음 두 경우는 바로 UserProfileRegistation 화면으로 이동한다.
       // 1. registSuccess 값이 있으면 간편 로그인이 아닌 간편 회원가입인 경우
       // 2. 간편 로그인이지만 아직 사용자 프로필 등록을 마치지 않아 userNickname 값이 없는 경우
-      if (res.registSuccess || !res.userNickname) {
+      if (
+        res.hasOwnProperty("registSuccess") ||
+        (res.hasOwnProperty("userNickname") && !res.userNickname)
+      ) {
         goUserProfileRegistration();
         return;
       }
@@ -60,10 +63,12 @@ const SignUpButton: FC<SignUpButtonProps> = ({
       // 값이 있냐 없냐에 따라 Alert에서 화면 다르게 이동
       if (res.managementSpaceId) {
         setManagementSpaceIdGV(res.managementSpaceId);
-        // 값이 있다면 바로 Main 화면으로 이동
+        // 값이 있다면 alert route를 Main 화면으로 설정
         setAlertRoute("Main");
+      } else {
+        // 값이 없다면 alert route를 HowToGoSpace 화면으로 설정
+        setAlertRoute("HowToGoSpace");
       }
-      setAlertRoute("HowToGoSpace");
       setOnAlert(true);
     } catch (error) {
       throw error;

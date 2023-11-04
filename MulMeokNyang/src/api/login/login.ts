@@ -10,7 +10,8 @@ export const login = async (email: string, pw: string, checked: boolean) => {
 
     // Case 1. 등록되지 않은 사용자 (이 경우에만 res에 userExists 속성이 있음)
     if (res.data.hasOwnProperty("userExists")) {
-      return res.data.userExists;
+      const userExists = res.data.userExists;
+      return { userExists };
     }
 
     const userEmail = res.data.userEmail;

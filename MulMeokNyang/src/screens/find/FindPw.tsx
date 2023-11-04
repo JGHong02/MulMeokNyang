@@ -6,7 +6,7 @@ import { useCallback, useState, useContext } from "react";
 import { SafeAreaView, View } from "react-native";
 // Custom Component
 import TopBar from "../../components/TopBar";
-import InputContainer from "../../components/InputContainer";
+import InputContainer from "../../components/inputContainer/InputContainer";
 import ProcessButton from "../../components/button/ProcessButton";
 import Alert from "../../components/alert/Alert";
 // State Type
@@ -95,7 +95,7 @@ const FindPw = () => {
       </View>
       {onAlert && (
         <View style={[alertBackgroundStyles.alertBackgroundView]}>
-          <Alert msg={alertMsg} />
+          <Alert msg={alertMsg} setOnAlert={setOnAlert} />
         </View>
       )}
     </SafeAreaView>

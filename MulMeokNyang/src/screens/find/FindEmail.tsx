@@ -8,7 +8,7 @@ import useGoRoute from "../../hooks/useGoRoute";
 import { SafeAreaView, View } from "react-native";
 // Custom Component
 import TopBar from "../../components/TopBar";
-import InputContainer from "../../components/InputContainer";
+import InputContainer from "../../components/inputContainer/InputContainer";
 import ProcessButton from "../../components/button/ProcessButton";
 import Alert from "../../components/alert/Alert";
 // State Type
@@ -57,17 +57,13 @@ const FindEmail = () => {
         goFindEmailResult();
         return;
       }
+
+      // userEmail 값이 없다면 Alert 보여주기
       setOnAlert(true);
     } catch (error) {
       throw error;
     }
   }, [formInfo, setOnAlert]);
-
-  // ####################API 연결하면 이 함수 지우고 진짜 핸들러 연결#######################
-  const findEmailButtonPressHandler_fake = useCallback(() => {
-    setUserEmailGV("hjk9216@naver.com");
-    goFindEmailResult();
-  }, []);
 
   return (
     <SafeAreaView>
@@ -92,7 +88,7 @@ const FindEmail = () => {
           <ProcessButton
             content="이메일 찾기"
             canPress={checkCanPress(formInfo.valid)}
-            onPressHandler={findEmailButtonPressHandler_fake}
+            onPressHandler={findEmailButtonPressHandler}
           />
         </View>
       </View>

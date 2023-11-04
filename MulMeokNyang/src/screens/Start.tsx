@@ -25,7 +25,6 @@ const desiredLogoWidth = width * 0.8;
 
 const Start = () => {
   // 자동로그인 혹은 자동로그인 설정 시 사용할 전역변수와 setter 함수 불러오기
-  // ##############useEffect 안에서 useContext 사용할 수 없나..?################3
   const { userEmailGV, setUserEmailGV, setManagementSpaceIdGV } =
     useContext(UserContext);
 
@@ -82,13 +81,11 @@ const Start = () => {
   const alertButtonPressHandler = useCallback(async () => {
     try {
       // ------------------setAutoLogin API 호출-----------------------
-      // const res = await setAutoLogin(userEmailGV);
-      // const sessionID = res.sessionID;
-      // ################API 연동 되면 아래 코드 지우기###################
-      const sessionID = "1234567";
+      const res = await setAutoLogin(userEmailGV);
+      const sessionID = res.sessionID;
       // 서버에서 생성된 sessionID를 클라이언트의 AsyncStorage에 sessionID로 저장
       await AsyncStorage.setItem("sessionID", sessionID);
-      // ################sessionID 저장됐나 확인용#################### (확인함)
+      // ################sessionID 저장됐나 확인용####################
       const savedSessionID = await AsyncStorage.getItem("sessionID");
       console.log(savedSessionID);
     } catch (error) {

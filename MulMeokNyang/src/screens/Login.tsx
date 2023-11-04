@@ -9,9 +9,10 @@ import useGoRoute from "../hooks/useGoRoute";
 // StyleSheet, Component
 import { StyleSheet } from "react-native";
 import { SafeAreaView, View } from "react-native";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 // Custom Component
 import TopBar from "../components/TopBar";
-import InputContainer from "../components/InputContainer";
+import InputContainer from "../components/inputContainer/InputContainer";
 import AutoLoginCheckBox from "../components/AutoLoginCheckBox";
 import ProcessButton from "../components/button/ProcessButton";
 import UnderlineTextButton from "../components/button/UnderlineTextButton";
@@ -46,6 +47,7 @@ const Login = () => {
   const [alertMsg, setAlertMsg] = useState<string>("");
   const [alertCloseRoute, setAlertCloseRoute] = useState<string>("");
 
+  // '로그인' ProcessButton의 onPress 이벤트 핸들러 함수
   const loginButtonPressHandler = useCallback(async () => {
     try {
       // ----------------------login API 호출---------------------
@@ -67,7 +69,9 @@ const Login = () => {
         return;
       }
 
-      if (res.sessionID) {
+      // 자동로그인를 체크한 사용자
+      // 이 경우에만 sessionID property가 전달됨
+      if (res.hasOwnProperty("sessionID")) {
         await AsyncStorage.setItem("sessionID", res.sessionID);
         // ################sessionID 저장됐나 확인용####################
         const savedSessionID = await AsyncStorage.getItem("sessionID");
@@ -82,6 +86,7 @@ const Login = () => {
         goMain();
         return;
       }
+      // 아직 관리 스페이스가 없는 사용자는 HowToGoSpace 화면으로 이동
       goHowToGoSpace();
     } catch (error) {
       throw error;
@@ -89,10 +94,10 @@ const Login = () => {
   }, [formInfo, setOnAlert, setAlertMsg, setAlertCloseRoute]);
 
   return (
-    <SafeAreaView style={[styles.safeAreaView]}>
+    <SafeAreaView>
       <View>
         <TopBar title="로그인" />
-        <View style={[formStyles.formView]}>
+        <KeyboardAwareScrollView contentContainerStyle={formStyles.formView}>
           <InputContainer
             value={formInfo.userEmail}
             setValue={setFormInfo}
@@ -116,14 +121,14 @@ const Login = () => {
             canPress={checkCanPress(formInfo.valid)}
             onPressHandler={loginButtonPressHandler}
           />
-        </View>
-        <View style={[styles.underlineTextButtonView]}>
-          <UnderlineTextButton text="이메일 찾기" route="FindEmail" />
-          <View style={[styles.line]} />
-          <UnderlineTextButton text="비밀번호 찾기" route="FindPw" />
-          <View style={[styles.line]} />
-          <UnderlineTextButton text="회원가입" route="BasicForm" />
-        </View>
+          <View style={[styles.underlineTextButtonView]}>
+            <UnderlineTextButton text="이메일 찾기" route="FindEmail" />
+            <View style={[styles.line]} />
+            <UnderlineTextButton text="비밀번호 찾기" route="FindPw" />
+            <View style={[styles.line]} />
+            <UnderlineTextButton text="회원가입" route="BasicForm" />
+          </View>
+        </KeyboardAwareScrollView>
       </View>
       {onAlert && (
         <View style={[alertBackgroundStyles.alertBackgroundView]}>
@@ -141,7 +146,6 @@ const Login = () => {
 export default Login;
 
 const styles = StyleSheet.create({
-  safeAreaView: { flex: 1 },
   underlineTextButtonView: {
     flexDirection: "row",
     alignItems: "center",

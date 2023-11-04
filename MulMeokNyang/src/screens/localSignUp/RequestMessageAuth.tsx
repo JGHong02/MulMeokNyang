@@ -2,12 +2,11 @@
 import { UserContext } from "../../contexts/UserContext";
 // Hook
 import { useState, useContext, useCallback } from "react";
-// StyleSheet, Component
-import { StyleSheet } from "react-native";
-import { SafeAreaView, View, Text } from "react-native";
+// Component
+import { SafeAreaView, View } from "react-native";
 // Custom Component
 import TopBar from "../../components/TopBar";
-import InputContainer from "../../components/InputContainer";
+import InputContainer from "../../components/inputContainer/InputContainer";
 import ProcessButton from "../../components/button/ProcessButton";
 // State Type
 import {
@@ -31,18 +30,18 @@ const RequestMessageAuth = () => {
   // 전역변수 값을 바꿀 setter함수 불러오기
   const { setUserNameGV, setUserPhoneNumGV } = useContext(UserContext);
 
-  // ProcessButton의 onPress 이벤트 핸들러 함수
+  // '문자인증하기' ProcessButton의 onPress 이벤트 핸들러 함수
   const authButtonPressHandler = useCallback(async () => {
     // 회원가입 '완료' 버튼을 눌러, user table에 값을 저장하기 전까지 필요한 값들 전역변수로 저장
     setUserNameGV(formInfo.userName);
     setUserPhoneNumGV(formInfo.userPhoneNum);
 
     // -------------------messageAuth API 호출-----------------------
-    // try {
-    //   await messageAuth(formInfo.userPhoneNum);
-    // } catch (error) {
-    //   throw error;
-    // }
+    try {
+      await messageAuth(formInfo.userPhoneNum);
+    } catch (error) {
+      throw error;
+    }
   }, [formInfo]);
 
   return (

@@ -15,7 +15,7 @@ type InputContainerProps = {
   isSecret?: boolean;
   optional?: boolean;
   compareValue?: string;
-  checkValue: (arg1: string, arg2?: any) => any;
+  checkValue?: (arg1: string, arg2?: any) => any;
   noResultMsg?: boolean;
 };
 
@@ -28,7 +28,7 @@ const InputContainer: FC<InputContainerProps> = ({
   isSecret = false,
   optional = false,
   compareValue = "",
-  checkValue,
+  checkValue = () => {},
   noResultMsg = false,
 }) => {
   const [resultMsgInfo, setResultMsgInfo] = useState<{
@@ -37,6 +37,8 @@ const InputContainer: FC<InputContainerProps> = ({
   }>({ msg: "", color: "" });
 
   const checkValid = useCallback(() => {
+    // 필수 입력이 아닌 경우, early return으로 valid 속성이 추가되지 않도록 하기
+    if (optional) return;
     setResultMsgInfo(checkValue(value, compareValue)[0]);
     setValue((prevForm: any) => ({
       ...prevForm,
