@@ -95,7 +95,7 @@ const FindPw = () => {
       </View>
       {onAlert && (
         <View style={[alertBackgroundStyles.alertBackgroundView]}>
-          <Alert msg={alertMsg} />
+          <Alert msg={alertMsg} setOnAlert={setOnAlert} />
         </View>
       )}
     </SafeAreaView>

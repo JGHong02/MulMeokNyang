@@ -30,15 +30,6 @@ const CheckMessageAuthCode = () => {
     initialCheckMessageAuthCodeForm
   );
 
-  // Alert 관련 state
-  const [authSuccess, setAuthSuccess] = useState<boolean>(false);
-  const [signUpSuccess, setSignUpSuccess] = useState<boolean>(false);
-
-  // Alert 관련 property state
-  const [onAlert, setOnAlert] = useState<boolean>(false);
-  const [alertMsg, setAlertMsg] = useState<string>("");
-  const [alertCloseRoute, setAlertCloseRoute] = useState<string>("");
-
   // 전역 변수와 setter 함수 불러오기
   const {
     userEmailGV,
@@ -51,6 +42,16 @@ const CheckMessageAuthCode = () => {
     setUserPhoneNumGV,
   } = useContext(UserContext);
 
+  // Alert 관련 state
+  const [authSuccess, setAuthSuccess] = useState<boolean>(false);
+  const [signUpSuccess, setSignUpSuccess] = useState<boolean>(false);
+
+  // Alert 관련 property state
+  const [onAlert, setOnAlert] = useState<boolean>(false);
+  const [alertMsg, setAlertMsg] = useState<string>("");
+  const [alertCloseRoute, setAlertCloseRoute] = useState<string>("");
+
+  // '완료' ProcessButton의 onPress 이벤트 핸들러 함수
   const completeButtonPressHandler = useCallback(async () => {
     // -----------------------checkMessageAuthCode API 호출----------------------------
     try {
@@ -74,27 +75,35 @@ const CheckMessageAuthCode = () => {
     // 문자 인증을 통과했다면
     // ------------------------localSignUp API 호출---------------------------
     try {
-      await localSignUp(userEmailGV, userPwGV, userNameGV, userPhoneNumGV);
+      const signUpSuccess = await localSignUp(
+        userEmailGV,
+        userPwGV,
+        userNameGV,
+        userPhoneNumGV
+      );
+      setSignUpSuccess(signUpSuccess);
     } catch (error) {
       throw error;
     }
 
-    setSignUpSuccess(true);
-    // 회원가입 전역변수 초기화
-    setUserEmailGV("");
-    setUserPwGV("");
-    setUserNameGV("");
-    setUserPhoneNumGV("");
+    if (signUpSuccess) {
+      // 회원가입 전역변수 초기화
+      setUserEmailGV("");
+      setUserPwGV("");
+      setUserNameGV("");
+      setUserPhoneNumGV("");
 
-    // Alert Component property 값 바꾸기
-    setAlertMsg("회원가입이\n완료되었습니다!");
-    setAlertCloseRoute("Login");
-    // Alert Component 보여주기
-    setOnAlert(true);
+      // Alert Component property 값 바꾸기
+      setAlertMsg("회원가입이\n완료되었습니다!");
+      setAlertCloseRoute("Login");
+      // Alert Component 보여주기
+      setOnAlert(true);
+    }
   }, [
     formInfo,
     authSuccess,
     setAuthSuccess,
+    signUpSuccess,
     setSignUpSuccess,
     setOnAlert,
     setAlertMsg,
@@ -118,7 +127,7 @@ const CheckMessageAuthCode = () => {
             canPress={checkCanPress(formInfo.valid)}
             onPressHandler={completeButtonPressHandler}
           />
-          {/* 나중에 아래 Text들 지워야 돼 */}
+          {/* ################전역 변수 저장 확인############### */}
           <Text>{userEmailGV}</Text>
           <Text>{userPwGV}</Text>
           <Text>{userNameGV}</Text>

@@ -14,7 +14,7 @@ export const localSignUp = async (
       userPhoneNum: phoneNum,
     });
     const signUpSuccess = res.data.signUpSuccess;
-    if (signUpSuccess) return true;
+    return signUpSuccess;
   } catch (error) {
     throw error;
   }

@@ -2,8 +2,7 @@
 import { UserContext } from "../../contexts/UserContext";
 // Hook
 import { useState, useContext, useCallback } from "react";
-// StyleSheet, Component
-import { StyleSheet } from "react-native";
+// Component
 import { SafeAreaView, View } from "react-native";
 // Custom Component
 import TopBar from "../../components/TopBar";
@@ -33,7 +32,7 @@ const BasicForm = () => {
   // 전역변수 값을 바꿀 setter함수 불러오기
   const { setUserEmailGV, setUserPwGV } = useContext(UserContext);
 
-  // ProcessButton의 onPress 이벤트 핸들러 함수
+  // '다음' ProcessButton의 onPress 이벤트 핸들러 함수
   const nextButtonPressHandler = useCallback(() => {
     // 회원가입 '완료' 버튼을 눌러, user table에 값을 저장하기 전까지 필요한 값들 전역변수로 저장
     setUserEmailGV(formInfo.userEmail);

@@ -67,7 +67,9 @@ const Login = () => {
         return;
       }
 
-      if (res.sessionID) {
+      // 자동로그인를 체크한 사용자
+      // 이 경우에만 sessionID property가 전달됨
+      if (res.hasOwnProperty("sessionID")) {
         await AsyncStorage.setItem("sessionID", res.sessionID);
         // ################sessionID 저장됐나 확인용####################
         const savedSessionID = await AsyncStorage.getItem("sessionID");
@@ -82,6 +84,7 @@ const Login = () => {
         goMain();
         return;
       }
+      // 아직 관리 스페이스가 없는 사용자는 HowToGoSpace 화면으로 이동
       goHowToGoSpace();
     } catch (error) {
       throw error;

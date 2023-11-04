@@ -2,7 +2,7 @@
 import { UserContext } from "../../contexts/UserContext";
 // Hook
 import { useState, useContext, useCallback } from "react";
-// StyleSheet, Component
+// Component
 import { SafeAreaView, View, Text } from "react-native";
 // Custom Component
 import TopBar from "../../components/TopBar";
@@ -36,7 +36,7 @@ const CheckMessageAuthCode = () => {
 
   // Alert 관련 state
   const [authSuccess, setAuthSuccess] = useState<boolean>(false);
-  const [sendPwSuccess, setSendPwSuccess] = useState<boolean>(false);
+  const [sendMailSuccess, setSendMailSuccess] = useState<boolean>(false);
 
   // Alert 관련 property state
   const [onAlert, setOnAlert] = useState<boolean>(false);
@@ -66,26 +66,29 @@ const CheckMessageAuthCode = () => {
     // 문자 인증을 통과했다면
     // ------------------------sendPW API 호출---------------------------
     try {
-      await sendPw(userEmailGV);
+      const sendMail = await sendPw(userEmailGV);
+      setSendMailSuccess(sendMail);
     } catch (error) {
       throw error;
     }
 
-    setSendPwSuccess(true);
-    // 비밀번호 찾기 전역변수 초기화
-    setUserEmailGV("");
-    setUserPhoneNumGV("");
+    if (sendMailSuccess) {
+      // 비밀번호 찾기 전역변수 초기화
+      setUserEmailGV("");
+      setUserPhoneNumGV("");
 
-    // Alert Component property 값 바꾸기
-    setAlertMsg("입력하신 이메일로\n비밀번호가 전송되었습니다!");
-    setAlertCloseRoute("Login");
-    // Alert Component 보여주기
-    setOnAlert(true);
+      // Alert Component property 값 바꾸기
+      setAlertMsg("입력하신 이메일로\n비밀번호가 전송되었습니다!");
+      setAlertCloseRoute("Login");
+      // Alert Component 보여주기
+      setOnAlert(true);
+    }
   }, [
     formInfo,
     authSuccess,
     setAuthSuccess,
-    setSendPwSuccess,
+    sendMailSuccess,
+    setSendMailSuccess,
     setOnAlert,
     setAlertMsg,
     setAlertCloseRoute,
@@ -117,8 +120,8 @@ const CheckMessageAuthCode = () => {
         <View style={[alertBackgroundStyles.alertBackgroundView]}>
           <Alert
             msg={alertMsg}
-            closeRoute={sendPwSuccess ? alertCloseRoute : ""}
-            setOnAlert={!sendPwSuccess ? setOnAlert : () => {}}
+            closeRoute={sendMailSuccess ? alertCloseRoute : ""}
+            setOnAlert={!sendMailSuccess ? setOnAlert : () => {}}
           />
         </View>
       )}

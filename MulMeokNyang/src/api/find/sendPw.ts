@@ -8,7 +8,7 @@ export const sendPw = async (email: string) => {
       },
     });
     const sendMail = res.data.sendMail;
-    if (sendMail) return true;
+    return sendMail;
   } catch (error) {
     throw error;
   }
