@@ -14,12 +14,19 @@ import {
   FindPw,
   CheckMessageAuthCode as CheckMessageAuthCodeInFP,
 } from "../screens/find";
+import {
+  UserProfileRegistration,
+  UserProfileModification,
+} from "../screens/UserProfileSet";
 
 const Stack = createStackNavigator();
 
 const MainNavigator = () => {
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <Stack.Navigator
+      screenOptions={{ headerShown: false }}
+      // 화면 확인용
+      initialRouteName="UserProfileRegistration">
       <Stack.Screen name="Start" component={Start} />
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="BasicForm" component={BasicForm} />
@@ -34,6 +41,14 @@ const MainNavigator = () => {
       <Stack.Screen
         name="CheckMessageAuthCodeInFP"
         component={CheckMessageAuthCodeInFP}
+      />
+      <Stack.Screen
+        name="UserProfileRegistration"
+        component={UserProfileRegistration}
+      />
+      <Stack.Screen
+        name="UserProfileModification"
+        component={UserProfileModification}
       />
     </Stack.Navigator>
   );

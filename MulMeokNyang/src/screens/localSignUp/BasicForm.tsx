@@ -3,10 +3,11 @@ import { UserContext } from "../../contexts/UserContext";
 // Hook
 import { useState, useContext, useCallback } from "react";
 // Component
-import { SafeAreaView, View } from "react-native";
+import { SafeAreaView } from "react-native";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 // Custom Component
 import TopBar from "../../components/TopBar";
-import InputContainer from "../../components/InputContainer";
+import InputContainer from "../../components/inputContainer/InputContainer";
 import ProcessButton from "../../components/button/ProcessButton";
 // State Type
 import {
@@ -42,7 +43,7 @@ const BasicForm = () => {
   return (
     <SafeAreaView>
       <TopBar title="회원가입" />
-      <View style={[formStyles.formView]}>
+      <KeyboardAwareScrollView contentContainerStyle={formStyles.formView}>
         <InputContainer
           value={formInfo.userEmail}
           setValue={setFormInfo}
@@ -73,7 +74,7 @@ const BasicForm = () => {
           onPressHandler={nextButtonPressHandler}
           route="RequestMessageAuth"
         />
-      </View>
+      </KeyboardAwareScrollView>
     </SafeAreaView>
   );
 };
