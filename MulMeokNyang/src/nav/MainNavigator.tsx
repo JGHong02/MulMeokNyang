@@ -25,8 +25,7 @@ const MainNavigator = () => {
   return (
     <Stack.Navigator
       screenOptions={{ headerShown: false }}
-      // 화면 확인용
-      initialRouteName="UserProfileRegistration">
+      initialRouteName="FindEmail">
       <Stack.Screen name="Start" component={Start} />
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="BasicForm" component={BasicForm} />

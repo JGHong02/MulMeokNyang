@@ -28,8 +28,6 @@ import { checkCanPress } from "../../utils/checkCanPress";
 import { getUserProfile } from "../../api/userProfileSet/getUserProfile";
 import { registUserProfile } from "../../api/userProfileSet/registUserProfile";
 import { modifyUserProfile } from "../../api/userProfileSet/modifyUserProfile";
-// Form Data
-import FormData from "form-data";
 // styles
 import formStyles from "../../styles/formStyles";
 import alertBackgroundStyles from "../../styles/alertBackgroundStyles";
@@ -69,7 +67,7 @@ const UserProfileSet: FC<UserProfileSetType> = ({
       try {
         const res = await getUserProfile(userEmailGV);
         setFormInfo({
-          userProfilePhoto: res.userProfilePhoto,
+          userProfilePhotoUrl: res.userProfilePhotoUrl,
           userNickname: res.userNickname,
           userIntroduction: res.userIntroduction,
           // '수정'의 경우, '등록'을 했을 때 valid가 true여서 DB에 저장된 것이기 때문에
@@ -85,8 +83,6 @@ const UserProfileSet: FC<UserProfileSetType> = ({
     setPrevFormInfo();
   }, [setFormInfo]);
 
-  // 등록 후 화면 이동
-  const goHowToGoSpace = useGoRoute("HowToGoSpace");
   // 수정 후 화면 이동
   const navigation = useNavigation();
   const goBack = useCallback(() => navigation.goBack(), []);
@@ -106,7 +102,7 @@ const UserProfileSet: FC<UserProfileSetType> = ({
     try {
       const res = await registUserProfile(
         userEmailGV,
-        formInfo.userProfilePhoto,
+        formInfo.userProfilePhotoUrl,
         formInfo.userNickname,
         formInfo.userIntroduction
       );
@@ -119,7 +115,7 @@ const UserProfileSet: FC<UserProfileSetType> = ({
         return;
       }
 
-      if (res.hasOwnProperty("registDone")) {
+      if (res.hasOwnProperty("registSuccess")) {
         setAlertMsg("자동 로그인을\n설정하시겠습니까?");
         setAlertRoute("HowToGoSpace");
         setOnNicknameAlert(false);
@@ -148,7 +144,7 @@ const UserProfileSet: FC<UserProfileSetType> = ({
     try {
       const res = await modifyUserProfile(
         userEmailGV,
-        formInfo.userProfilePhoto,
+        formInfo.userProfilePhotoUrl,
         formInfo.userNickname,
         formInfo.userIntroduction
       );
@@ -161,7 +157,7 @@ const UserProfileSet: FC<UserProfileSetType> = ({
         return;
       }
 
-      if (res.hasOwnProperty("modifyDone")) {
+      if (res.hasOwnProperty("modifySuccess")) {
         goBack();
       }
     } catch (error) {
@@ -188,8 +184,8 @@ const UserProfileSet: FC<UserProfileSetType> = ({
         />
         <KeyboardAwareScrollView contentContainerStyle={formStyles.formView}>
           <ImageInputContainer
-            photo={formInfo.userProfilePhoto}
-            setPhoto={setFormInfo}
+            photoUrl={formInfo.userProfilePhotoUrl}
+            setPhotoUrl={setFormInfo}
           />
           <InputContainer
             value={formInfo.userNickname}
