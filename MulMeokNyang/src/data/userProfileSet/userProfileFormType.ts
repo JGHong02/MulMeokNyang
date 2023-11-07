@@ -1,5 +1,5 @@
 export type UserProfileFormType = {
-  userProfilePhoto: string;
+  userProfilePhotoUrl: string;
   userNickname: string;
   userIntroduction: string;
   valid: {
@@ -8,8 +8,7 @@ export type UserProfileFormType = {
 };
 
 export const initialUserProfileForm = {
-  userProfilePhoto:
-    "file:///data/user/0/host.exp.exponent/cache/ExperienceData/%2540chansolchoi%252Fmulmeoknyang/ImagePicker/0ed8bd00-0719-4cdd-85b2-03e0f27a46d4.jpeg",
+  userProfilePhotoUrl: "",
   userNickname: "",
   userIntroduction: "",
   valid: {

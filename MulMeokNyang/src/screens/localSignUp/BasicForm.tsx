@@ -22,7 +22,7 @@ import {
 } from "../../utils/checkValid";
 import { checkCanPress } from "../../utils/checkCanPress";
 // styles
-import formStyles from "../../styles/formStyles";
+import mainViewStyles from "../../styles/mainViewStyles";
 
 const BasicForm = () => {
   // userEmail, userPw, userPwConfirm, 각각의 valid 값이 담긴 state
@@ -43,7 +43,7 @@ const BasicForm = () => {
   return (
     <SafeAreaView>
       <TopBar title="회원가입" />
-      <KeyboardAwareScrollView contentContainerStyle={formStyles.formView}>
+      <KeyboardAwareScrollView contentContainerStyle={mainViewStyles.mainView}>
         <InputContainer
           value={formInfo.userEmail}
           setValue={setFormInfo}

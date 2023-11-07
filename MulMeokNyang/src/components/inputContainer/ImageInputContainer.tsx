@@ -6,18 +6,18 @@ import type { FC, Dispatch, SetStateAction } from "react";
 import { useCallback } from "react";
 // StyleSheet, Component
 import { StyleSheet } from "react-native";
-import { View, Image, TouchableOpacity } from "react-native";
+import { View, Image, TouchableOpacity, Text } from "react-native";
 // Icon
 import Icon from "react-native-vector-icons/FontAwesome";
 
 type ImageInputContainerProps = {
-  photo: string;
-  setPhoto: Dispatch<SetStateAction<any>>;
+  photoUrl: string;
+  setPhotoUrl: Dispatch<SetStateAction<any>>;
 };
 
 const ImageInputContainer: FC<ImageInputContainerProps> = ({
-  photo,
-  setPhoto,
+  photoUrl,
+  setPhotoUrl,
 }) => {
   // Default 사진
   const defaultPhoto = require("../../../assets/UserProfileDefaultPhoto.png");
@@ -50,9 +50,9 @@ const ImageInputContainer: FC<ImageInputContainerProps> = ({
 
       // 사진 업로드 결과 및 사진 경로 업데이트
       console.log(result);
-      setPhoto((prevForm: any) => ({
+      setPhotoUrl((prevForm: any) => ({
         ...prevForm,
-        userProfilePhoto: result.assets[0].uri,
+        userProfilePhotoUrl: result.assets[0].uri,
       }));
     } catch (error) {
       throw error;
@@ -62,7 +62,7 @@ const ImageInputContainer: FC<ImageInputContainerProps> = ({
   return (
     <View style={[styles.view]}>
       <Image
-        source={photo ? { uri: photo } : defaultPhoto}
+        source={photoUrl ? { uri: photoUrl } : defaultPhoto}
         style={[styles.image]}
       />
       <TouchableOpacity onPress={pickImage} style={[styles.icon]}>

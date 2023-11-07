@@ -8,6 +8,8 @@ import { SafeAreaView, View, Text } from "react-native";
 // Custom Component
 import TopBar from "../../components/TopBar";
 import ProcessButton from "../../components/button/ProcessButton";
+// styles
+import mainViewStyles from "../../styles/mainViewStyles";
 
 const FindEmailResult = () => {
   // userEmail 전역 변수와 setter 함수 불러오기
@@ -23,7 +25,7 @@ const FindEmailResult = () => {
   return (
     <SafeAreaView>
       <TopBar title="이메일 찾기" />
-      <View style={[styles.mainView]}>
+      <View style={[mainViewStyles.mainView]}>
         <View style={[styles.textView]}>
           <Text style={[styles.text]}>회원님의 이메일은</Text>
           <Text style={[styles.text, styles.userEmailText]}>{userEmailGV}</Text>
@@ -47,9 +49,6 @@ const FindEmailResult = () => {
 export default FindEmailResult;
 
 const styles = StyleSheet.create({
-  mainView: {
-    alignItems: "center",
-  },
   textView: {
     marginTop: 90,
     marginBottom: 90,

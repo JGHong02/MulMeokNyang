@@ -25,7 +25,7 @@ import { checkCanPress } from "../utils/checkCanPress";
 // API
 import { login } from "../api/login/login";
 // styles
-import formStyles from "../styles/formStyles";
+import mainViewStyles from "../styles/mainViewStyles";
 import alertBackgroundStyles from "../styles/alertBackgroundStyles";
 
 const Login = () => {
@@ -97,7 +97,8 @@ const Login = () => {
     <SafeAreaView>
       <View>
         <TopBar title="로그인" />
-        <KeyboardAwareScrollView contentContainerStyle={formStyles.formView}>
+        <KeyboardAwareScrollView
+          contentContainerStyle={mainViewStyles.mainView}>
           <InputContainer
             value={formInfo.userEmail}
             setValue={setFormInfo}

@@ -21,7 +21,7 @@ import { checkCanPress } from "../../utils/checkCanPress";
 import { checkMessageAuthCode } from "../../api/common/checkMessageAuthCode";
 import { sendPw } from "../../api/find/sendPw";
 // styles
-import formStyles from "../../styles/formStyles";
+import mainViewStyles from "../../styles/mainViewStyles";
 import alertBackgroundStyles from "../../styles/alertBackgroundStyles";
 
 const CheckMessageAuthCode = () => {
@@ -36,7 +36,7 @@ const CheckMessageAuthCode = () => {
 
   // Alert 관련 state
   const [authSuccess, setAuthSuccess] = useState<boolean>(false);
-  const [sendMailSuccess, setSendMailSuccess] = useState<boolean>(false);
+  const [sendPwSuccess, setSendPwSuccess] = useState<boolean>(false);
 
   // Alert 관련 property state
   const [onAlert, setOnAlert] = useState<boolean>(false);
@@ -66,13 +66,13 @@ const CheckMessageAuthCode = () => {
     // 문자 인증을 통과했다면
     // ------------------------sendPW API 호출---------------------------
     try {
-      const sendMail = await sendPw(userEmailGV);
-      setSendMailSuccess(sendMail);
+      const sendPwSuccess = await sendPw(userEmailGV);
+      setSendPwSuccess(sendPwSuccess);
     } catch (error) {
       throw error;
     }
 
-    if (sendMailSuccess) {
+    if (sendPwSuccess) {
       // 비밀번호 찾기 전역변수 초기화
       setUserEmailGV("");
       setUserPhoneNumGV("");
@@ -87,8 +87,8 @@ const CheckMessageAuthCode = () => {
     formInfo,
     authSuccess,
     setAuthSuccess,
-    sendMailSuccess,
-    setSendMailSuccess,
+    sendPwSuccess,
+    setSendPwSuccess,
     setOnAlert,
     setAlertMsg,
     setAlertCloseRoute,
@@ -98,7 +98,7 @@ const CheckMessageAuthCode = () => {
     <SafeAreaView>
       <View>
         <TopBar title="비밀번호 찾기" />
-        <View style={[formStyles.formView]}>
+        <View style={[mainViewStyles.mainView]}>
           <InputContainer
             value={formInfo.authCode}
             setValue={setFormInfo}
@@ -120,8 +120,8 @@ const CheckMessageAuthCode = () => {
         <View style={[alertBackgroundStyles.alertBackgroundView]}>
           <Alert
             msg={alertMsg}
-            closeRoute={sendMailSuccess ? alertCloseRoute : ""}
-            setOnAlert={!sendMailSuccess ? setOnAlert : () => {}}
+            closeRoute={sendPwSuccess ? alertCloseRoute : ""}
+            setOnAlert={!sendPwSuccess ? setOnAlert : () => {}}
           />
         </View>
       )}

@@ -7,10 +7,10 @@ export const getUserProfile = async (email: string) => {
         userEmail: email,
       },
     });
-    const userProfilePhoto = res.data.userProfilePhoto;
+    const userProfilePhotoUrl = res.data.userProfilePhotoUrl;
     const userNickname = res.data.userNickname;
     const userIntroduction = res.data.userIntroduction;
-    return { userProfilePhoto, userNickname, userIntroduction };
+    return { userProfilePhotoUrl, userNickname, userIntroduction };
   } catch (error) {
     throw error;
   }

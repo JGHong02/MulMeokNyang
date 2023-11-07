@@ -17,7 +17,10 @@ import {
 import {
   UserProfileRegistration,
   UserProfileModification,
-} from "../screens/UserProfileSet";
+} from "../screens/userProfileSet";
+import HowToGoSpace from "../screens/HowToGoSpace";
+import DeviceRegistration from "../screens/DeviceRegistration";
+import PendingCoManagerAddition from "../screens/PendingCoManagerAddition";
 
 const Stack = createStackNavigator();
 
@@ -25,8 +28,7 @@ const MainNavigator = () => {
   return (
     <Stack.Navigator
       screenOptions={{ headerShown: false }}
-      // 화면 확인용
-      initialRouteName="UserProfileRegistration">
+      initialRouteName="HowToGoSpace">
       <Stack.Screen name="Start" component={Start} />
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="BasicForm" component={BasicForm} />
@@ -49,6 +51,12 @@ const MainNavigator = () => {
       <Stack.Screen
         name="UserProfileModification"
         component={UserProfileModification}
+      />
+      <Stack.Screen name="HowToGoSpace" component={HowToGoSpace} />
+      <Stack.Screen name="DeviceRegistration" component={DeviceRegistration} />
+      <Stack.Screen
+        name="PendingCoManagerAddition"
+        component={PendingCoManagerAddition}
       />
     </Stack.Navigator>
   );

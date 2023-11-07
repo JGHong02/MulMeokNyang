@@ -2,14 +2,14 @@ import axios from "axios";
 
 export const modifyUserProfile = async (
   email: string,
-  profilePhoto: string,
+  profilePhotoUrl: string,
   nickname: string,
   introduction: string
 ) => {
   try {
     const res = await axios.put("/modifyUserProfile", {
       userEmail: email,
-      userProfilePhoto: profilePhoto,
+      userProfilePhotoUrl: profilePhotoUrl,
       userNickname: nickname,
       userIntroduction: introduction,
     });
@@ -21,8 +21,8 @@ export const modifyUserProfile = async (
     }
 
     // 사용자 프로필 수정 성공
-    const modifyDone = res.data.modifyDone;
-    return { modifyDone };
+    const modifySuccess = res.data.modifySuccess;
+    return { modifySuccess };
   } catch (error) {
     throw error;
   }

@@ -7,8 +7,8 @@ export const sendPw = async (email: string) => {
         userEmail: email,
       },
     });
-    const sendMail = res.data.sendMail;
-    return sendMail;
+    const sendPwSuccess = res.data.sendPwSuccess;
+    return sendPwSuccess;
   } catch (error) {
     throw error;
   }
