@@ -6,7 +6,7 @@ import type { FC, Dispatch, SetStateAction } from "react";
 import { useCallback } from "react";
 // StyleSheet, Component
 import { StyleSheet } from "react-native";
-import { View, Image, TouchableOpacity } from "react-native";
+import { View, Image, TouchableOpacity, Text } from "react-native";
 // Icon
 import Icon from "react-native-vector-icons/FontAwesome";
 
@@ -52,7 +52,7 @@ const ImageInputContainer: FC<ImageInputContainerProps> = ({
       console.log(result);
       setPhotoUrl((prevForm: any) => ({
         ...prevForm,
-        userProfilePhoto: result.assets[0].uri,
+        userProfilePhotoUrl: result.assets[0].uri,
       }));
     } catch (error) {
       throw error;

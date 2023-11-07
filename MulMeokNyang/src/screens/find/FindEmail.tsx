@@ -22,7 +22,7 @@ import { checkCanPress } from "../../utils/checkCanPress";
 // API
 import { getFindEmail } from "../../api/find/getFindEmail";
 // styles
-import formStyles from "../../styles/formStyles";
+import mainViewStyles from "../../styles/mainViewStyles";
 import alertBackgroundStyles from "../../styles/alertBackgroundStyles";
 
 const FindEmail = () => {
@@ -69,7 +69,7 @@ const FindEmail = () => {
     <SafeAreaView>
       <View>
         <TopBar title="이메일 찾기" />
-        <View style={[formStyles.formView]}>
+        <View style={[mainViewStyles.mainView]}>
           <InputContainer
             value={formInfo.userName}
             setValue={setFormInfo}

@@ -21,7 +21,7 @@ import { checkCanPress } from "../../utils/checkCanPress";
 import { checkMessageAuthCode } from "../../api/common/checkMessageAuthCode";
 import { sendPw } from "../../api/find/sendPw";
 // styles
-import formStyles from "../../styles/formStyles";
+import mainViewStyles from "../../styles/mainViewStyles";
 import alertBackgroundStyles from "../../styles/alertBackgroundStyles";
 
 const CheckMessageAuthCode = () => {
@@ -98,7 +98,7 @@ const CheckMessageAuthCode = () => {
     <SafeAreaView>
       <View>
         <TopBar title="비밀번호 찾기" />
-        <View style={[formStyles.formView]}>
+        <View style={[mainViewStyles.mainView]}>
           <InputContainer
             value={formInfo.authCode}
             setValue={setFormInfo}

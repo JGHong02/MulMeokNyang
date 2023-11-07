@@ -21,7 +21,7 @@ import { checkCanPress } from "../../utils/checkCanPress";
 import { checkUserExists } from "../../api/find/checkUserExists";
 import { messageAuth } from "../../api/common/messageAuth";
 // styles
-import formStyles from "../../styles/formStyles";
+import mainViewStyles from "../../styles/mainViewStyles";
 import alertBackgroundStyles from "../../styles/alertBackgroundStyles";
 
 const FindPw = () => {
@@ -66,7 +66,7 @@ const FindPw = () => {
     <SafeAreaView>
       <View>
         <TopBar title="비밀번호 찾기" />
-        <View style={[formStyles.formView]}>
+        <View style={[mainViewStyles.mainView]}>
           <InputContainer
             value={formInfo.userEmail}
             setValue={setFormInfo}

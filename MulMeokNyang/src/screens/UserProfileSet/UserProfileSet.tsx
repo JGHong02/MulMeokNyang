@@ -20,7 +20,7 @@ import Alert from "../../components/alert/Alert";
 import {
   UserProfileFormType,
   initialUserProfileForm,
-} from "../../data/userProfile/userProfileFormType";
+} from "../../data/userProfileSet/userProfileFormType";
 // utils
 import { checkEmpty } from "../../utils/checkValid";
 import { checkCanPress } from "../../utils/checkCanPress";
@@ -29,7 +29,7 @@ import { getUserProfile } from "../../api/userProfileSet/getUserProfile";
 import { registUserProfile } from "../../api/userProfileSet/registUserProfile";
 import { modifyUserProfile } from "../../api/userProfileSet/modifyUserProfile";
 // styles
-import formStyles from "../../styles/formStyles";
+import mainViewStyles from "../../styles/mainViewStyles";
 import alertBackgroundStyles from "../../styles/alertBackgroundStyles";
 
 type UserProfileSetType = {
@@ -182,7 +182,8 @@ const UserProfileSet: FC<UserProfileSetType> = ({
           back={method === "등록" ? false : true}
           title={`프로필 ${method}`}
         />
-        <KeyboardAwareScrollView contentContainerStyle={formStyles.formView}>
+        <KeyboardAwareScrollView
+          contentContainerStyle={mainViewStyles.mainView}>
           <ImageInputContainer
             photoUrl={formInfo.userProfilePhotoUrl}
             setPhotoUrl={setFormInfo}

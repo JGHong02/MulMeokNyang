@@ -19,7 +19,7 @@ import { checkCanPress } from "../../utils/checkCanPress";
 // API
 import { messageAuth } from "../../api/common/messageAuth";
 // styles
-import formStyles from "../../styles/formStyles";
+import mainViewStyles from "../../styles/mainViewStyles";
 
 const RequestMessageAuth = () => {
   // userName, userPhoneNum과 valid가 담긴 state
@@ -47,7 +47,7 @@ const RequestMessageAuth = () => {
   return (
     <SafeAreaView>
       <TopBar title="회원가입" />
-      <View style={[formStyles.formView]}>
+      <View style={[mainViewStyles.mainView]}>
         <InputContainer
           value={formInfo.userName}
           setValue={setFormInfo}
