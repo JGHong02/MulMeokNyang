@@ -55,9 +55,7 @@ const DeviceRegistration = () => {
         setOnDeviceSelectWindow(false);
       }, 300);
       // 0.5초 후에 화면 이동
-      setTimeout(() => {
-        goCatProfileRegistration();
-      }, 800);
+      setTimeout(goCatProfileRegistration, 800);
     },
     [setOnLoading, setOptionBgColors, setOnDeviceSelectWindow]
   );
