@@ -1,7 +1,7 @@
 // FC Type
 import type { FC } from "react";
 // Custom Hook
-import useGoRoute from "../../hooks/useGoRoute";
+import { useGoRoute } from "../../hooks/useGoScreen";
 // StyleSheet, Component
 import { StyleSheet } from "react-native";
 import { TouchableOpacity, Text } from "react-native";

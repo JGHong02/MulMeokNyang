@@ -21,6 +21,11 @@ import {
 import HowToGoSpace from "../screens/HowToGoSpace";
 import DeviceRegistration from "../screens/DeviceRegistration";
 import PendingCoManagerAddition from "../screens/PendingCoManagerAddition";
+import {
+  CatProfileRegistration,
+  CatProfileModification,
+} from "../screens/catInfoSet/catProfileSet";
+import CatPhotosForAIRegistration from "../screens/catInfoSet/catPhotosForAISet/CatPhotosForAIRegistration";
 
 const Stack = createStackNavigator();
 
@@ -57,6 +62,18 @@ const MainNavigator = () => {
       <Stack.Screen
         name="PendingCoManagerAddition"
         component={PendingCoManagerAddition}
+      />
+      <Stack.Screen
+        name="CatProfileRegistration"
+        component={CatProfileRegistration}
+      />
+      <Stack.Screen
+        name="CatProfileModification"
+        component={CatProfileModification}
+      />
+      <Stack.Screen
+        name="CatPhotosForAIRegistration"
+        component={CatPhotosForAIRegistration}
       />
     </Stack.Navigator>
   );

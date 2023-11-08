@@ -6,21 +6,28 @@ import type { FC, Dispatch, SetStateAction } from "react";
 import { useCallback } from "react";
 // StyleSheet, Component
 import { StyleSheet } from "react-native";
-import { View, Image, TouchableOpacity, Text } from "react-native";
+import { View, Image, TouchableOpacity } from "react-native";
 // Icon
 import Icon from "react-native-vector-icons/FontAwesome";
 
 type ImageInputContainerProps = {
+  method: string;
   photoUrl: string;
   setPhotoUrl: Dispatch<SetStateAction<any>>;
+  prop: string;
 };
 
 const ImageInputContainer: FC<ImageInputContainerProps> = ({
+  method,
   photoUrl,
   setPhotoUrl,
+  prop,
 }) => {
   // Default 사진
-  const defaultPhoto = require("../../../assets/UserProfileDefaultPhoto.png");
+  const defaultPhoto =
+    method === "사람"
+      ? require("../../../assets/profileDefaultPhoto/UserProfileDefaultPhoto.png")
+      : require("../../../assets/profileDefaultPhoto/CatProfileDefaultPhoto.png");
 
   // 사진 권한 요청 Hook
   const [status, requestPermission] = ImagePicker.useMediaLibraryPermissions();
@@ -52,7 +59,7 @@ const ImageInputContainer: FC<ImageInputContainerProps> = ({
       console.log(result);
       setPhotoUrl((prevForm: any) => ({
         ...prevForm,
-        userProfilePhotoUrl: result.assets[0].uri,
+        [prop]: result.assets[0].uri,
       }));
     } catch (error) {
       throw error;
@@ -60,7 +67,11 @@ const ImageInputContainer: FC<ImageInputContainerProps> = ({
   }, []);
 
   return (
-    <View style={[styles.view]}>
+    <View
+      style={[
+        styles.view,
+        method === "사람" ? styles.personView : styles.catView,
+      ]}>
       <Image
         source={photoUrl ? { uri: photoUrl } : defaultPhoto}
         style={[styles.image]}
@@ -78,8 +89,14 @@ export default ImageInputContainer;
 const styles = StyleSheet.create({
   view: {
     position: "relative",
+  },
+  personView: {
     marginTop: 40,
     marginBottom: 60,
+  },
+  catView: {
+    marginTop: 20,
+    marginBottom: 30,
   },
   image: {
     borderRadius: 100,

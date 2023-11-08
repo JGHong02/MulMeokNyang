@@ -15,7 +15,8 @@ export const quickSignUp = async (method: string) => {
     // Case 2. 간편 회원가입
     const registSuccess = res.data.registSuccess;
     return { registSuccess, userEmail };
-  } catch (error) {
+  } catch (error: any) {
+    console.log("quickSignUp API 호출 함수에서 error 발생 :", error.message);
     throw error;
   }
 };

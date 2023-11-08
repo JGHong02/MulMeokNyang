@@ -23,7 +23,11 @@ export const modifyUserProfile = async (
     // 사용자 프로필 수정 성공
     const modifySuccess = res.data.modifySuccess;
     return { modifySuccess };
-  } catch (error) {
+  } catch (error: any) {
+    console.log(
+      "modifyUserProfile API 호출 함수에서 error 발생 :",
+      error.message
+    );
     throw error;
   }
 };

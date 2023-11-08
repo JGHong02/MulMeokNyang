@@ -10,7 +10,11 @@ export const checkMessageAuthCode = async (phoneNum: string, code: string) => {
     });
     const authSuccess = res.data.authSuccess;
     return authSuccess;
-  } catch (error) {
+  } catch (error: any) {
+    console.log(
+      "checkMessageAuthCode API 호출 함수에서 error 발생 :",
+      error.message
+    );
     throw error;
   }
 };

@@ -27,7 +27,8 @@ export const login = async (email: string, pw: string, checked: boolean) => {
 
     // Case 3. 자동 로그인 체크하지 않은 사용자
     return { userEmail, userNickname, managementSpaceId };
-  } catch (error) {
+  } catch (error: any) {
+    console.log("login API 호출 함수에서 error 발생 :", error.message);
     throw error;
   }
 };

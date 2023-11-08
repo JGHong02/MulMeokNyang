@@ -16,7 +16,8 @@ import {
 } from "../../data/localSignUp/localSignUpFormType";
 // utils
 import {
-  checkEmailAvailable,
+  // checkEmailAvailable,
+  checkEmail,
   checkPw,
   checkPwConfirm,
 } from "../../utils/checkValid";
@@ -49,7 +50,8 @@ const BasicForm = () => {
           setValue={setFormInfo}
           prop="userEmail"
           title="이메일"
-          checkValue={checkEmailAvailable}
+          // checkValue={checkEmailAvailable}
+          checkValue={checkEmail}
         />
         <InputContainer
           value={formInfo.userPw}

@@ -4,10 +4,9 @@ import { UserContext } from "../../contexts/UserContext";
 import type { FC } from "react";
 // Hook
 import { useState, useEffect, useContext, useCallback } from "react";
-import { useNavigation } from "@react-navigation/native";
 // Custom Hook
-import useGoRoute from "../../hooks/useGoRoute";
-// StyleSheet, Component
+import { useGoBack } from "../../hooks/useGoScreen";
+// Component
 import { SafeAreaView, View } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 // Custom Component
@@ -34,7 +33,7 @@ import alertBackgroundStyles from "../../styles/alertBackgroundStyles";
 
 type UserProfileSetType = {
   method: string;
-  // 등록의 경우에만 자동 로그인 설정 Alert가 뜨기 때문에
+  // '등록'의 경우에만 자동 로그인 설정 Alert가 뜨기 때문에
   // Alert Component의 ProcessButton의 onPressHandler가 필요
   alertButtonPressHandeler?: () => void;
 };
@@ -48,14 +47,8 @@ const UserProfileSet: FC<UserProfileSetType> = ({
     initialUserProfileForm
   );
 
-  // 전역변수 불러오기
+  // API 호출 시 전달할 userEmail 전역변수 불러오기
   const { userEmailGV } = useContext(UserContext);
-
-  // ####################formInfo userProfilePhoto 값 어떻게 저장되는 지 확인용####################
-  useEffect(() => {
-    console.log("formInfo를 출력하겠다!!!!!!!!!!!!");
-    console.log(formInfo);
-  }, [formInfo]);
 
   // '수정'의 경우, formInfo의 값을 getUserProfile API를 호출하여 새로 할당해야 함.
   useEffect(() => {
@@ -76,16 +69,16 @@ const UserProfileSet: FC<UserProfileSetType> = ({
             userNickname: true,
           },
         });
-      } catch (error) {
+      } catch (error: any) {
+        console.log(
+          "UserProfileSet의 getUserProfile 호출에서 error 발생:",
+          error.message
+        );
         throw error;
       }
     };
     setPrevFormInfo();
   }, [setFormInfo]);
-
-  // 수정 후 화면 이동
-  const navigation = useNavigation();
-  const goBack = useCallback(() => navigation.goBack(), []);
 
   // Alert On 관련 property state
   const [onAlert, setOnAlert] = useState<boolean>(false);
@@ -95,7 +88,8 @@ const UserProfileSet: FC<UserProfileSetType> = ({
   const [alertMsg, setAlertMsg] = useState<string>("");
   const [alertRoute, setAlertRoute] = useState<string>("");
 
-  // '등록' ProcessButton의 onPress 이벤트 핸들러 함수
+  // ProcessButton의 onPress 이벤트 핸들러 함수
+  // 1. '등록'
   const registButtonPressHandler = useCallback(async () => {
     if (method !== "등록") return;
 
@@ -122,10 +116,10 @@ const UserProfileSet: FC<UserProfileSetType> = ({
         setOnAutoLoginAlert(true);
         setOnAlert(true);
       }
-    } catch (error) {
-      console.error(
-        "UserProfileSet의 registButtonPressHandler에서 에러 발생:",
-        error
+    } catch (error: any) {
+      console.log(
+        "UserProfileSet 화면 registButtonPressHandler 이벤트 핸들러 함수의 registUserProfile 호출에서 error 발생 :",
+        error.message
       );
       throw error;
     }
@@ -137,7 +131,10 @@ const UserProfileSet: FC<UserProfileSetType> = ({
     setOnAutoLoginAlert,
   ]);
 
-  // '수정' ProcessButton의 onPress 이벤트 핸들러 함수
+  // 2. '수정'
+  // '수정' 후 화면 이동할 함수 선언
+  const goBack = useGoBack();
+  // 이벤트 핸들러 함수
   const modifyButtonPressHandler = useCallback(async () => {
     if (method !== "수정") return;
 
@@ -160,10 +157,10 @@ const UserProfileSet: FC<UserProfileSetType> = ({
       if (res.hasOwnProperty("modifySuccess")) {
         goBack();
       }
-    } catch (error) {
-      console.error(
-        "UserProfileSet의 modifyButtonPressHandler에서 에러 발생:",
-        error
+    } catch (error: any) {
+      console.log(
+        "UserProfileSet 화면 modifyButtonPressHandler 이벤트 핸들러 함수의 modifyUserProfile 호출에서 error 발생:",
+        error.message
       );
       throw error;
     }
@@ -175,6 +172,16 @@ const UserProfileSet: FC<UserProfileSetType> = ({
     setOnAutoLoginAlert,
   ]);
 
+  // #######################################################
+  // ####################formInfo 확인용####################
+  useEffect(() => {
+    console.log(
+      "------------------------------------------------------------------------------------------------------------"
+    );
+    console.log("UserProfileSet 화면의 formInfo를 출력");
+    console.log(formInfo);
+  }, [formInfo]);
+
   return (
     <SafeAreaView>
       <View>
@@ -185,8 +192,10 @@ const UserProfileSet: FC<UserProfileSetType> = ({
         <KeyboardAwareScrollView
           contentContainerStyle={mainViewStyles.mainView}>
           <ImageInputContainer
+            method="사람"
             photoUrl={formInfo.userProfilePhotoUrl}
             setPhotoUrl={setFormInfo}
+            prop="userProfilePhotoUrl"
           />
           <InputContainer
             value={formInfo.userNickname}

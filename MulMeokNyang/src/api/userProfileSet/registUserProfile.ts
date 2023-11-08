@@ -49,7 +49,11 @@ export const registUserProfile = async (
 
     const registSuccess = res.data.registSuccess;
     return { registSuccess };
-  } catch (error) {
+  } catch (error: any) {
+    console.log(
+      "registUserProfile API 호출 함수에서 error 발생 :",
+      error.message
+    );
     throw error;
   }
 };

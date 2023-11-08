@@ -13,7 +13,8 @@ export const getFindEmail = async (name: string, phoneNum: string) => {
     );
     const userEmail = res.data.userEmail;
     return userEmail;
-  } catch (error) {
-    console.log("getFindEmail에서 Error 발생", error);
+  } catch (error: any) {
+    console.log("getFindEmail API 호출 함수에서 error 발생 :", error.message);
+    throw error;
   }
 };

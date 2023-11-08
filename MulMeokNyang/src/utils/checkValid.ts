@@ -18,27 +18,19 @@ export const checkEmail = (email: string) => {
   }
 };
 
-// API 연결하고 async 붙이고 주석 풀어
-export const checkEmailAvailable = (email: string) => {
+export const checkEmailAvailable = async (email: string) => {
   console.log(2, "email :", email);
   if (!email) {
     return [{ msg: "", color: "" }, false];
   }
   const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   if (emailPattern.test(email)) {
-    return [
-      {
-        msg: "사용 가능 이메일인지 확인하는 API 결과 출력 예정",
-        color: "#00cb51",
-      },
-      true,
-    ];
-    // const available = await checkAvailable(email);
-    // if (available) {
-    //   return [{ msg: "사용 가능한 이메일입니다.", color: "#00cb51" }, true];
-    // } else {
-    //   return [{ msg: "이미 가입된 이메일입니다.", color: "red" }, true];
-    // }
+    const available = await checkAvailable(email);
+    if (available) {
+      return [{ msg: "사용 가능한 이메일입니다.", color: "#00cb51" }, true];
+    } else {
+      return [{ msg: "이미 가입된 이메일입니다.", color: "red" }, true];
+    }
   } else {
     return [{ msg: "형식에 맞게 이메일을 입력해주세요.", color: "red" }, false];
   }

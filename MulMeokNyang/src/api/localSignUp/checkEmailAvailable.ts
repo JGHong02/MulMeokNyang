@@ -7,7 +7,11 @@ export const checkEmailAvailable = async (email: string) => {
     });
     const available = res.data.available;
     return available;
-  } catch (error) {
+  } catch (error: any) {
+    console.log(
+      "checkEmailAvailable API 호출 함수에서 error 발생 :",
+      error.message
+    );
     throw error;
   }
 };

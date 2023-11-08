@@ -14,6 +14,7 @@ type CatContextType = {
 
 // Default Context
 const defaultCatContext = {
+  // GV
   catIdArrGV: [],
   catProfilePhotoArrGV: [],
   currentSelectedCatIdGV: 1,

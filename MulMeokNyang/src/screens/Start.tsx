@@ -5,7 +5,7 @@ import { UserContext } from "../contexts/UserContext";
 // Hook
 import { useEffect, useContext, useState, useCallback } from "react";
 // Custom Hook
-import useGoRoute from "../hooks/useGoRoute";
+import { useGoRoute } from "../hooks/useGoScreen";
 // Dimension, StyleSheet, Component
 import { Dimensions, StyleSheet } from "react-native";
 import { SafeAreaView, View, Image, Text } from "react-native";
@@ -50,19 +50,28 @@ const Start = () => {
           return;
         }
         goHowToGoSpace();
-      } catch (error) {
+      } catch (error: any) {
+        console.log(
+          "Start 화면 getAutoLoginInfo 호출에서 error 발생 :",
+          error.message
+        );
         throw error;
       }
     };
 
     const checkAutoLogin = async () => {
       try {
+        await AsyncStorage.clear();
         const sessionID = await AsyncStorage.getItem("sessionID");
         if (sessionID) {
           console.log(sessionID);
           autoLogin(sessionID);
         }
-      } catch (error) {
+      } catch (error: any) {
+        console.log(
+          "Start 화면 AsyncStorage.getItem에서 error 발생 :",
+          error.message
+        );
         throw error;
       }
     };
@@ -88,7 +97,11 @@ const Start = () => {
       // ################sessionID 저장됐나 확인용####################
       const savedSessionID = await AsyncStorage.getItem("sessionID");
       console.log(savedSessionID);
-    } catch (error) {
+    } catch (error: any) {
+      console.log(
+        "Start 화면 alertButtonPressHandler 이벤트 핸들러 함수의 setAutoLogin 호출에서 error 발생 :",
+        error.message
+      );
       throw error;
     }
   }, []);

@@ -7,7 +7,8 @@ export const setAutoLogin = async (email: string) => {
     const managementSpaceId = res.data.managementSpaceId;
     const sessionID = res.data.sessionID;
     return { managementSpaceId, sessionID };
-  } catch (error) {
+  } catch (error: any) {
+    console.log("setAutoLogin API 호출 함수에서 error 발생 :", error.message);
     throw error;
   }
 };
@@ -21,7 +22,11 @@ export const getAutoLoginInfo = async (sessionID: string) => {
     const userEmail = res.data.userEmail;
     const managementSpaceId = res.data.managementSpaceId;
     return { userEmail, managementSpaceId };
-  } catch (error) {
+  } catch (error: any) {
+    console.log(
+      "getAutoLoginInfo API 호출 함수에서 error 발생 :",
+      error.message
+    );
     throw error;
   }
 };

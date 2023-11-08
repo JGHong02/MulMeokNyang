@@ -60,7 +60,11 @@ const CheckMessageAuthCode = () => {
         formInfo.authCode
       );
       setAuthSuccess(authSuccess);
-    } catch (error) {
+    } catch (error: any) {
+      console.log(
+        "localSignUp/CheckMessageAuthCode 화면 completeButtonPressHandler 이벤트 핸들러 함수의 checkMessageAuthCode 호출에서 error 발생 :",
+        error.message
+      );
       throw error;
     }
 
@@ -82,7 +86,11 @@ const CheckMessageAuthCode = () => {
         userPhoneNumGV
       );
       setSignUpSuccess(signUpSuccess);
-    } catch (error) {
+    } catch (error: any) {
+      console.log(
+        "localSignUp/CheckMessageAuthCode 화면 completeButtonPressHandler 이벤트 핸들러 함수의 localSignUp 호출에서 error 발생 :",
+        error.message
+      );
       throw error;
     }
 
