@@ -1,5 +1,3 @@
-// Context Provider
-import { CatInfoContextProvider } from "../../../contexts/CatInfoContext";
 // FC Type
 import type { FC } from "react";
 // Custom Component
@@ -12,11 +10,7 @@ type CatProfileRegistrationType = {
 const CatProfileRegistration: FC<CatProfileRegistrationType> = ({ route }) => {
   const { method } = route.params;
 
-  return (
-    <CatInfoContextProvider>
-      <CatProfileSet method={method} />
-    </CatInfoContextProvider>
-  );
+  return <CatProfileSet method={method} />;
 };
 
 export default CatProfileRegistration;

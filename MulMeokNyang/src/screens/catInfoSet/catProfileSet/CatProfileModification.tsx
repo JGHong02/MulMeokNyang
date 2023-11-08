@@ -10,11 +10,7 @@ type CatProfileModificationType = {
 const CatProfileModification: FC<CatProfileModificationType> = ({ route }) => {
   const { catId } = route.params;
 
-  return (
-    <>
-      <CatProfileSet method="수정" catId={catId} />
-    </>
-  );
+  return <CatProfileSet method="수정" catId={catId} />;
 };
 
 export default CatProfileModification;

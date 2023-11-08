@@ -25,6 +25,7 @@ import {
   CatProfileRegistration,
   CatProfileModification,
 } from "../screens/catInfoSet/catProfileSet";
+import CatPhotosForAIRegistration from "../screens/catInfoSet/catPhotosForAISet/CatPhotosForAIRegistration";
 
 const Stack = createStackNavigator();
 
@@ -69,6 +70,10 @@ const MainNavigator = () => {
       <Stack.Screen
         name="CatProfileModification"
         component={CatProfileModification}
+      />
+      <Stack.Screen
+        name="CatPhotosForAIRegistration"
+        component={CatPhotosForAIRegistration}
       />
     </Stack.Navigator>
   );

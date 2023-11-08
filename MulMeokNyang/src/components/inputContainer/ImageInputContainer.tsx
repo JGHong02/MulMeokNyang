@@ -6,7 +6,7 @@ import type { FC, Dispatch, SetStateAction } from "react";
 import { useCallback } from "react";
 // StyleSheet, Component
 import { StyleSheet } from "react-native";
-import { View, Image, TouchableOpacity, Text } from "react-native";
+import { View, Image, TouchableOpacity } from "react-native";
 // Icon
 import Icon from "react-native-vector-icons/FontAwesome";
 
@@ -26,8 +26,8 @@ const ImageInputContainer: FC<ImageInputContainerProps> = ({
   // Default 사진
   const defaultPhoto =
     method === "사람"
-      ? require("../../../assets/UserProfileDefaultPhoto.png")
-      : require("../../../assets/CatProfileDefaultPhoto.png");
+      ? require("../../../assets/profileDefaultPhoto/UserProfileDefaultPhoto.png")
+      : require("../../../assets/profileDefaultPhoto/CatProfileDefaultPhoto.png");
 
   // 사진 권한 요청 Hook
   const [status, requestPermission] = ImagePicker.useMediaLibraryPermissions();

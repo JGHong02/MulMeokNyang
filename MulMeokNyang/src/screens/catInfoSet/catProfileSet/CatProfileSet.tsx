@@ -6,7 +6,7 @@ import type { FC } from "react";
 // Hook
 import { useState, useContext, useEffect, useCallback } from "react";
 // Custom Hook
-import { useGoRoute, useGoBack } from "../../../hooks/useGoScreen";
+import { useGoRouteWithParams, useGoBack } from "../../../hooks/useGoScreen";
 // Component
 import { SafeAreaView } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
@@ -80,21 +80,22 @@ const CatProfileSet: FC<CatProfileSetType> = ({ method, catId = 0 }) => {
   // ProcessButton의 onPress 이벤트 핸들러 함수
   // 1. '등록'
   // '등록' 시 화면 이동할 함수 선언
-  const goCatPhotosForAIRegistration = useGoRoute("CatPhotosForAIRegistration");
+  const goCatPhotosForAIRegistration = useGoRouteWithParams(
+    "CatPhotosForAIRegistration",
+    "method",
+    method
+  );
+  // 새로운 고양이 정보를 등록할 때는
+  // 프로필, AI 모델용 사진, 습식 사료, 음수량 설정 화면을 모두 거친 다음에
+  // cat table에 저장할 수 있기 때문에
+  // 마지막 음수량 설정 화면을 가기 전까지 전역 변수에 저장해놓기
+  // (아쉬운 점) method가 "수정"일 때는 setter함수를 사용할 필요 없는데..
+  //            useCallback 안에서 useContext를 사용할 수 없네
+  const { setCatProfilePhotoUrlGV, setCatNameGV, setCatAgeGV, setCatWeightGV } =
+    useContext(CatInfoContext);
   // 이벤트 핸들러 함수
-  const nextButtonPressHandler = useCallback(async () => {
+  const nextButtonPressHandler = useCallback(() => {
     if (method === "수정") return;
-
-    // 새로운 고양이 정보를 등록할 때는
-    // 프로필, AI 모델용 사진, 습식 사료, 음수량 설정 화면을 모두 거친 다음에
-    // cat table에 저장할 수 있기 때문에
-    // 마지막 음수량 설정 화면을 가기 전까지 전역 변수에 저장해놓기
-    const {
-      setCatProfilePhotoUrlGV,
-      setCatNameGV,
-      setCatAgeGV,
-      setCatWeightGV,
-    } = useContext(CatInfoContext);
 
     setCatProfilePhotoUrlGV(formInfo.catProfilePhotoUrl);
     setCatNameGV(formInfo.catName);
