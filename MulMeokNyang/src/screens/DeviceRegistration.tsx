@@ -42,11 +42,7 @@ const DeviceRegistration = () => {
     (index: number) => {
       // 옵션의 배경색 변경
       const updatedColors = optionBgColors.map((color, i) =>
-        i === index
-          ? color === "#343434"
-            ? "rgba(163, 163, 163, 0.4)"
-            : "#343434"
-          : color
+        i === index ? "rgba(163, 163, 163, 0.4)" : color
       );
       setOptionBgColors(updatedColors);
       // 디바이스 선택 창 닫기
