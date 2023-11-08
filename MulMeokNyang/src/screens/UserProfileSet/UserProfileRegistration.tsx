@@ -21,10 +21,10 @@ const UserProfileRegistration = () => {
       // ################sessionID 저장됐나 확인용####################
       const savedSessionID = await AsyncStorage.getItem("sessionID");
       console.log(savedSessionID);
-    } catch (error) {
-      console.error(
-        "UserProfileRegistration의 alertButtonPressHandeler에서 에러 발생:",
-        error
+    } catch (error: any) {
+      console.log(
+        "UserProfileRegistration 화면 alertButtonPressHandeler 이벤트 핸들러 함수의 AsyncStorage.getItem에서 error 발생 :",
+        error.message
       );
       throw error;
     }

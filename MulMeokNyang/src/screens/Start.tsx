@@ -50,7 +50,11 @@ const Start = () => {
           return;
         }
         goHowToGoSpace();
-      } catch (error) {
+      } catch (error: any) {
+        console.log(
+          "Start 화면 getAutoLoginInfo 호출에서 error 발생 :",
+          error.message
+        );
         throw error;
       }
     };
@@ -62,7 +66,11 @@ const Start = () => {
           console.log(sessionID);
           autoLogin(sessionID);
         }
-      } catch (error) {
+      } catch (error: any) {
+        console.log(
+          "Start 화면 AsyncStorage.getItem에서 error 발생 :",
+          error.message
+        );
         throw error;
       }
     };
@@ -88,7 +96,11 @@ const Start = () => {
       // ################sessionID 저장됐나 확인용####################
       const savedSessionID = await AsyncStorage.getItem("sessionID");
       console.log(savedSessionID);
-    } catch (error) {
+    } catch (error: any) {
+      console.log(
+        "Start 화면 alertButtonPressHandler 이벤트 핸들러 함수의 setAutoLogin 호출에서 error 발생 :",
+        error.message
+      );
       throw error;
     }
   }, []);

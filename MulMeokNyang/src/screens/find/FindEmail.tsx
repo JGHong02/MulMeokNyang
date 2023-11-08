@@ -60,7 +60,11 @@ const FindEmail = () => {
 
       // userEmail 값이 없다면 Alert 보여주기
       setOnAlert(true);
-    } catch (error) {
+    } catch (error: any) {
+      console.log(
+        "FindEmail 화면 findEmailButtonPressHandler 이벤트 핸들러 함수의 getFindEmail 호출에서 error 발생 :",
+        error.message
+      );
       throw error;
     }
   }, [formInfo, setOnAlert]);

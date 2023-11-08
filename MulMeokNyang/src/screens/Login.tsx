@@ -88,7 +88,11 @@ const Login = () => {
       }
       // 아직 관리 스페이스가 없는 사용자는 HowToGoSpace 화면으로 이동
       goHowToGoSpace();
-    } catch (error) {
+    } catch (error: any) {
+      console.log(
+        "Login 화면 loginButtonPressHandler 이벤트 핸들러 함수의 login 호출에서 error 발생 :",
+        error.message
+      );
       throw error;
     }
   }, [formInfo, setOnAlert, setAlertMsg, setAlertCloseRoute]);

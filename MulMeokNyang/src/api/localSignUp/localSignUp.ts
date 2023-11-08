@@ -15,7 +15,8 @@ export const localSignUp = async (
     });
     const signUpSuccess = res.data.signUpSuccess;
     return signUpSuccess;
-  } catch (error) {
+  } catch (error: any) {
+    console.log("localSignUp API 호출 함수에서 error 발생 :", error.message);
     throw error;
   }
 };

@@ -76,7 +76,11 @@ const UserProfileSet: FC<UserProfileSetType> = ({
             userNickname: true,
           },
         });
-      } catch (error) {
+      } catch (error: any) {
+        console.log(
+          "UserProfileSet의 getUserProfile 호출에서 error 발생:",
+          error.message
+        );
         throw error;
       }
     };
@@ -122,10 +126,10 @@ const UserProfileSet: FC<UserProfileSetType> = ({
         setOnAutoLoginAlert(true);
         setOnAlert(true);
       }
-    } catch (error) {
-      console.error(
-        "UserProfileSet의 registButtonPressHandler에서 에러 발생:",
-        error
+    } catch (error: any) {
+      console.log(
+        "UserProfileSet 화면 registButtonPressHandler 이벤트 핸들러 함수의 registUserProfile 호출에서 error 발생 :",
+        error.message
       );
       throw error;
     }
@@ -160,10 +164,10 @@ const UserProfileSet: FC<UserProfileSetType> = ({
       if (res.hasOwnProperty("modifySuccess")) {
         goBack();
       }
-    } catch (error) {
-      console.error(
-        "UserProfileSet의 modifyButtonPressHandler에서 에러 발생:",
-        error
+    } catch (error: any) {
+      console.log(
+        "UserProfileSet 화면 modifyButtonPressHandler 이벤트 핸들러 함수의 modifyUserProfile 호출에서 error 발생:",
+        error.message
       );
       throw error;
     }

@@ -47,14 +47,22 @@ const FindPw = () => {
         setOnAlert(true);
         return;
       }
-    } catch (error) {
+    } catch (error: any) {
+      console.log(
+        "FindPw 화면 authButtonPressHandler 이벤트 핸들러 함수의 checkUserExists 호출에서 error 발생 :",
+        error.message
+      );
       throw error;
     }
 
     // -------------------messageAuth API 호출-----------------------
     try {
       await messageAuth(formInfo.userPhoneNum);
-    } catch (error) {
+    } catch (error: any) {
+      console.log(
+        "FindPw 화면 authButtonPressHandler 이벤트 핸들러 함수의 messageAuth 호출에서 error 발생 :",
+        error.message
+      );
       throw error;
     }
     // 전역 변수 저장
