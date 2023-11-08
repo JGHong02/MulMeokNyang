@@ -21,6 +21,10 @@ import {
 import HowToGoSpace from "../screens/HowToGoSpace";
 import DeviceRegistration from "../screens/DeviceRegistration";
 import PendingCoManagerAddition from "../screens/PendingCoManagerAddition";
+import {
+  CatProfileRegistration,
+  CatProfileModification,
+} from "../screens/catInfoSet/catProfileSet";
 
 const Stack = createStackNavigator();
 
@@ -28,7 +32,7 @@ const MainNavigator = () => {
   return (
     <Stack.Navigator
       screenOptions={{ headerShown: false }}
-      initialRouteName="HowToGoSpace">
+      initialRouteName="Start">
       <Stack.Screen name="Start" component={Start} />
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="BasicForm" component={BasicForm} />
@@ -57,6 +61,14 @@ const MainNavigator = () => {
       <Stack.Screen
         name="PendingCoManagerAddition"
         component={PendingCoManagerAddition}
+      />
+      <Stack.Screen
+        name="CatProfileRegistration"
+        component={CatProfileRegistration}
+      />
+      <Stack.Screen
+        name="CatProfileModification"
+        component={CatProfileModification}
       />
     </Stack.Navigator>
   );
