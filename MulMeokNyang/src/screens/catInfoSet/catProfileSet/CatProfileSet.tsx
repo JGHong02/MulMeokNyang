@@ -17,8 +17,8 @@ import InputContainer from "../../../components/inputContainer/InputContainer";
 import ProcessButton from "../../../components/button/ProcessButton";
 // State Type
 import {
-  CatProfileFormType,
-  initialCatProfileForm,
+  CatProfileSetFormType,
+  initialCatProfileSetForm,
 } from "../../../data/catInfoSet/catProfileSet/catProfileFormType";
 // utils
 import { checkEmpty } from "../../../utils/checkValid";
@@ -37,8 +37,8 @@ type CatProfileSetType = {
 
 const CatProfileSet: FC<CatProfileSetType> = ({ method, catId = 0 }) => {
   // catProfilePhoto, catName, catAge, catWeight와 각각의 valid 값이 담긴 state
-  const [formInfo, setFormInfo] = useState<CatProfileFormType>(
-    initialCatProfileForm
+  const [formInfo, setFormInfo] = useState<CatProfileSetFormType>(
+    initialCatProfileSetForm
   );
 
   // API 호출 시 전달할 managementSpaceId 전역변수 불러오기

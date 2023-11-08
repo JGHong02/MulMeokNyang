@@ -1,4 +1,4 @@
-export type CatProfileFormType = {
+export type CatProfileSetFormType = {
   catProfilePhotoUrl: string;
   catName: string;
   catAge: string;
@@ -10,7 +10,7 @@ export type CatProfileFormType = {
   };
 };
 
-export const initialCatProfileForm = {
+export const initialCatProfileSetForm = {
   catProfilePhotoUrl: "",
   catName: "",
   catAge: "",
