@@ -4,7 +4,6 @@ import { UserContext } from "../../contexts/UserContext";
 import type { FC } from "react";
 // Hook
 import { useState, useEffect, useContext, useCallback } from "react";
-import { useNavigation } from "@react-navigation/native";
 // Custom Hook
 import { useGoBack } from "../../hooks/useGoScreen";
 // Component
