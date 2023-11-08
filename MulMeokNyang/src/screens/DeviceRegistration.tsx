@@ -1,7 +1,7 @@
 // Hook
 import { useState, useEffect, useCallback } from "react";
 // Custom Hook
-import useGoRoute from "../hooks/useGoRoute";
+import { useGoRouteWithParams } from "../hooks/useGoScreen";
 // StyleSheet, Component
 import { StyleSheet } from "react-native";
 import {
@@ -36,7 +36,11 @@ const DeviceRegistration = () => {
     Array.from({ length: 10 }, (_, index) => "#343434")
   );
   // 3. 디바이스 연결 후, 1초 뒤에 화면 이동
-  const goCatProfileRegistration = useGoRoute("Start");
+  const goCatProfileRegistration = useGoRouteWithParams(
+    "CatProfileRegistration",
+    "method",
+    "첫 등록"
+  );
   // 4. 연결할 디바이스 클릭 시
   const onPressOption = useCallback(
     (index: number) => {

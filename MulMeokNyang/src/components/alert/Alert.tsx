@@ -3,7 +3,7 @@ import type { FC, Dispatch, SetStateAction } from "react";
 // Hook
 import { useCallback } from "react";
 // Custom Hook
-import useGoRoute from "../../hooks/useGoRoute";
+import { useGoRoute } from "../../hooks/useGoScreen";
 // StyleSheet, Component
 import { StyleSheet } from "react-native";
 import { View, TouchableOpacity, Text } from "react-native";

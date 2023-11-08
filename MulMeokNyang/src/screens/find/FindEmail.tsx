@@ -3,7 +3,7 @@ import { UserContext } from "../../contexts/UserContext";
 // Hook
 import { useCallback, useContext, useState } from "react";
 // Custom Hook
-import useGoRoute from "../../hooks/useGoRoute";
+import { useGoRoute } from "../../hooks/useGoScreen";
 // Component
 import { SafeAreaView, View } from "react-native";
 // Custom Component

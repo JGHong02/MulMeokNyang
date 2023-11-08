@@ -5,7 +5,7 @@ import { UserContext } from "../../contexts/UserContext";
 // Hook
 import { useCallback, useContext } from "react";
 // Custom Hook
-import useGoRoute from "../../hooks/useGoRoute";
+import { useGoRoute } from "../../hooks/useGoScreen";
 // Platform, StyleSheet, Component
 import { Platform, StyleSheet } from "react-native";
 import { TouchableOpacity, Image, Text } from "react-native";

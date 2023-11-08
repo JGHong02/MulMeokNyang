@@ -142,6 +142,9 @@ const UserProfileSet: FC<UserProfileSetType> = ({
   ]);
 
   // '수정' ProcessButton의 onPress 이벤트 핸들러 함수
+  // '수정' 후 화면 이동할 함수 선언
+  const goBack = useGoBack();
+  // 이벤트 핸들러 함수
   const modifyButtonPressHandler = useCallback(async () => {
     if (method !== "수정") return;
 

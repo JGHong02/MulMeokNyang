@@ -3,7 +3,7 @@ import type { FC } from "react";
 // Hook
 import { useCallback } from "react";
 // Custom Hook
-import useGoRoute from "../../hooks/useGoRoute";
+import { useGoRoute } from "../../hooks/useGoScreen";
 // Component
 import { TouchableOpacity } from "react-native";
 // Custom Component

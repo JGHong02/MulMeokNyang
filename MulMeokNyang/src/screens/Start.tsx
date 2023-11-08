@@ -5,7 +5,7 @@ import { UserContext } from "../contexts/UserContext";
 // Hook
 import { useEffect, useContext, useState, useCallback } from "react";
 // Custom Hook
-import useGoRoute from "../hooks/useGoRoute";
+import { useGoRoute } from "../hooks/useGoScreen";
 // Dimension, StyleSheet, Component
 import { Dimensions, StyleSheet } from "react-native";
 import { SafeAreaView, View, Image, Text } from "react-native";
