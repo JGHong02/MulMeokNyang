@@ -19,6 +19,7 @@ type UserContextType = {
 
 // Default Context
 const defaultUserContext = {
+  // GV
   userEmailGV: "",
   managementSpaceIdGV: "",
   userPwGV: "",
