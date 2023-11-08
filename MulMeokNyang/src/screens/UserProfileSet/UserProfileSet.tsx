@@ -6,8 +6,9 @@ import type { FC } from "react";
 import { useState, useEffect, useContext, useCallback } from "react";
 import { useNavigation } from "@react-navigation/native";
 // Custom Hook
-import useGoRoute from "../../hooks/useGoRoute";
 // StyleSheet, Component
+import { useGoBack } from "../../hooks/useGoScreen";
+// Component
 import { SafeAreaView, View } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 // Custom Component
@@ -86,10 +87,6 @@ const UserProfileSet: FC<UserProfileSetType> = ({
     };
     setPrevFormInfo();
   }, [setFormInfo]);
-
-  // 수정 후 화면 이동
-  const navigation = useNavigation();
-  const goBack = useCallback(() => navigation.goBack(), []);
 
   // Alert On 관련 property state
   const [onAlert, setOnAlert] = useState<boolean>(false);
