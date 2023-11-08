@@ -19,7 +19,7 @@ import ProcessButton from "../../../components/button/ProcessButton";
 import {
   CatProfileSetFormType,
   initialCatProfileSetForm,
-} from "../../../data/catInfoSet/catProfileSet/catProfileFormType";
+} from "../../../data/catInfoSet/catProfileSet/catProfileSetFormType";
 // utils
 import { checkEmpty } from "../../../utils/checkValid";
 import { checkCanPress } from "../../../utils/checkCanPress";
