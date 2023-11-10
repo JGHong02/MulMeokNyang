@@ -5,8 +5,6 @@ import { CatInfoContext } from "../../../contexts/CatInfoContext";
 import type { FC } from "react";
 // Hook
 import { useState, useContext, useEffect, useCallback } from "react";
-// Custom Hook
-import { useGoRouteWithParams, useGoBack } from "../../../hooks/useGoScreen";
 // Component
 import { SafeAreaView } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
@@ -32,10 +30,15 @@ import mainViewStyles from "../../../styles/mainViewStyles";
 type CatProfileSetType = {
   method: string;
   // '수정'의 경우 catId가 같이 전달됨
-  catId?: number;
+  catId?: string;
+  goAfterRoute: () => void;
 };
 
-const CatProfileSet: FC<CatProfileSetType> = ({ method, catId = 0 }) => {
+const CatProfileSet: FC<CatProfileSetType> = ({
+  method,
+  catId = "",
+  goAfterRoute,
+}) => {
   // catProfilePhoto, catName, catAge, catWeight와 각각의 valid 값이 담긴 state
   const [formInfo, setFormInfo] = useState<CatProfileSetFormType>(
     initialCatProfileSetForm
@@ -44,7 +47,7 @@ const CatProfileSet: FC<CatProfileSetType> = ({ method, catId = 0 }) => {
   // API 호출 시 전달할 managementSpaceId 전역변수 불러오기
   const { managementSpaceIdGV } = useContext(UserContext);
 
-  // '수정'의 경우, formInfo의 값을 getCatProfile API를 호출하여 새로 할당해야 함.
+  // '수정'의 경우, formInfo의 값을 getCatProfile API를 호출하여 새로 할당해야 함
   useEffect(() => {
     if (method !== "수정") return; // "첫 등록", "추가 등록"
 
@@ -68,23 +71,17 @@ const CatProfileSet: FC<CatProfileSetType> = ({ method, catId = 0 }) => {
         });
       } catch (error: any) {
         console.log(
-          "CatProfileSet 화면 setPrevFormInfo 호출에서 error 발생 :",
+          "CatProfileSet 화면 getCatProfile 호출에서 error 발생 :",
           error.message
         );
         throw error;
       }
     };
     setPrevFormInfo();
-  }, [setFormInfo]);
+  }, []);
 
   // ProcessButton의 onPress 이벤트 핸들러 함수
   // 1. '등록'
-  // '등록' 시 화면 이동할 함수 선언
-  const goCatPhotosForAIRegistration = useGoRouteWithParams(
-    "CatPhotosForAIRegistration",
-    "method",
-    method
-  );
   // 새로운 고양이 정보를 등록할 때는
   // 프로필, AI 모델용 사진, 습식 사료, 음수량 설정 화면을 모두 거친 다음에
   // cat table에 저장할 수 있기 때문에
@@ -102,27 +99,32 @@ const CatProfileSet: FC<CatProfileSetType> = ({ method, catId = 0 }) => {
     setCatAgeGV(formInfo.catAge);
     setCatWeightGV(formInfo.catWeight);
 
-    // 그 다음 AI 모델용 사진 등록 화면으로 이동
-    goCatPhotosForAIRegistration();
+    // 그 다음 화면으로 이동
+    goAfterRoute();
   }, [formInfo]);
 
   // 2. '수정'
-  // '수정' 후 화면 이동할 함수 선언
-  const goBack = useGoBack();
   // 이벤트 핸들러 함수
   const modifyButtonPressHandler = useCallback(async () => {
     if (method !== "수정") return;
 
     try {
-      const modifySuccess = await modifyCatProfile(managementSpaceIdGV, catId);
-      if (modifySuccess) goBack();
+      const modifySuccess = await modifyCatProfile(
+        managementSpaceIdGV,
+        catId,
+        formInfo.catProfilePhotoUrl,
+        formInfo.catName,
+        formInfo.catAge,
+        formInfo.catWeight
+      );
+      if (modifySuccess) goAfterRoute();
     } catch (error: any) {
       console.log(
         "CatProfileSet 화면 modifyButtonPressHandler 이벤트 핸들러 함수의 modifyCatProfile 호출에서 error 발생 :",
         error.message
       );
     }
-  }, []);
+  }, [formInfo]);
 
   // ############################################################################################
   // ####################formInfo 확인용####################

@@ -3,13 +3,13 @@ import { useState, createContext, ReactNode } from "react";
 // Context Type
 type CatContextType = {
   // GV : Global Variable
-  catIdArrGV: number[];
+  catIdArrGV: string[];
   catProfilePhotoArrGV: string[];
-  currentSelectedCatIdGV: number;
+  currentSelectedCatIdGV: string;
   // setter 함수
-  setCatIdArrGV: (idArr: number[]) => void;
+  setCatIdArrGV: (idArr: string[]) => void;
   setCatProfilePhotoArrGV: (photoArr: string[]) => void;
-  setCurrentSelectedCatIdGV: (id: number) => void;
+  setCurrentSelectedCatIdGV: (id: string) => void;
 };
 
 // Default Context
@@ -17,7 +17,7 @@ const defaultCatContext = {
   // GV
   catIdArrGV: [],
   catProfilePhotoArrGV: [],
-  currentSelectedCatIdGV: 1,
+  currentSelectedCatIdGV: "",
   // setter 함수
   setCatIdArrGV: () => {},
   setCatProfilePhotoArrGV: () => {},
@@ -35,12 +35,12 @@ interface ProviderProps {
 }
 
 export const CatContextProvider = ({ children }: ProviderProps) => {
-  const [catIdArrGV, setCatIdArrGV] = useState<number[]>([]);
+  const [catIdArrGV, setCatIdArrGV] = useState<string[]>([]);
   const [catProfilePhotoArrGV, setCatProfilePhotoArrGV] = useState<string[]>(
     []
   );
   const [currentSelectedCatIdGV, setCurrentSelectedCatIdGV] =
-    useState<number>(1);
+    useState<string>("");
 
   return (
     <CatContext.Provider

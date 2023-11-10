@@ -78,7 +78,7 @@ const UserProfileSet: FC<UserProfileSetType> = ({
       }
     };
     setPrevFormInfo();
-  }, [setFormInfo]);
+  }, []);
 
   // Alert On 관련 property state
   const [onAlert, setOnAlert] = useState<boolean>(false);
