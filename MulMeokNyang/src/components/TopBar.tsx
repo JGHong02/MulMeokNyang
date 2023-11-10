@@ -1,19 +1,32 @@
-import React, { useCallback } from "react";
+// FC Type
 import type { FC } from "react";
-// prettier-ignore
-import { Platform, StyleSheet, View, TouchableOpacity, Text } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+// CustomHook
+import { useGoRoute, useGoBack } from "../hooks/useGoScreen";
+// Platform, StyleSheet, Component
+import { Platform, StyleSheet } from "react-native";
+import { View, TouchableOpacity, Text } from "react-native";
+// Icon
 import Icon from "react-native-vector-icons/Entypo";
 
 type TopBarProps = {
   back?: boolean;
+  backRoute?: string;
   drawer?: boolean;
   title: string;
 };
 
-const TopBar: FC<TopBarProps> = ({ back = true, drawer = false, title }) => {
-  const navigation = useNavigation();
-  const goBack = useCallback(() => navigation.goBack(), []);
+const TopBar: FC<TopBarProps> = ({
+  back = true,
+  backRoute = "",
+  drawer = false,
+  title,
+}) => {
+  let goBackIconRoute;
+  if (backRoute) {
+    goBackIconRoute = useGoRoute(backRoute);
+  } else {
+    goBackIconRoute = useGoBack();
+  }
 
   return (
     <>
@@ -24,7 +37,7 @@ const TopBar: FC<TopBarProps> = ({ back = true, drawer = false, title }) => {
         ]}>
         {back && (
           <TouchableOpacity
-            onPress={goBack}
+            onPress={goBackIconRoute}
             style={[styles.icon, styles.backIcon]}>
             <Icon name="chevron-thin-left" size={30} color="#343434" />
           </TouchableOpacity>

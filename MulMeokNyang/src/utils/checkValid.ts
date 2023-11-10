@@ -1,3 +1,5 @@
+import { checkEmailAvailable as checkAvailable } from "../api/localSignUp/checkEmailAvailable";
+
 export const checkEmpty = (value: string) => {
   if (value) return [{ msg: "", color: "" }, true];
   return [{ msg: "", color: "" }, false];
@@ -8,8 +10,7 @@ export const checkEmail = (email: string) => {
   if (!email) {
     return [{ msg: "", color: "" }, false];
   }
-  const emailPattern =
-    /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+  const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   if (emailPattern.test(email)) {
     return [{ msg: "유효한 이메일입니다.", color: "#00cb51" }, true];
   } else {
@@ -17,8 +18,26 @@ export const checkEmail = (email: string) => {
   }
 };
 
+export const checkEmailAvailable = async (email: string) => {
+  console.log(2, "email :", email);
+  if (!email) {
+    return [{ msg: "", color: "" }, false];
+  }
+  const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  if (emailPattern.test(email)) {
+    const available = await checkAvailable(email);
+    if (available) {
+      return [{ msg: "사용 가능한 이메일입니다.", color: "#00cb51" }, true];
+    } else {
+      return [{ msg: "이미 가입된 이메일입니다.", color: "red" }, true];
+    }
+  } else {
+    return [{ msg: "형식에 맞게 이메일을 입력해주세요.", color: "red" }, false];
+  }
+};
+
 export const checkPw = (pw: string) => {
-  console.log(2, "pw :", pw);
+  console.log(3, "pw :", pw);
   if (!pw) {
     return [{ msg: "", color: "" }, false];
   }
@@ -37,7 +56,7 @@ export const checkPw = (pw: string) => {
 };
 
 export const checkPwConfirm = (pwConfirm: string, pw: string) => {
-  console.log(3, "pw :", pw, "pwConfirm :", pwConfirm);
+  console.log(4, "pw :", pw, "pwConfirm :", pwConfirm);
   if (!pwConfirm) {
     return [{ msg: "", color: "" }, false];
   }
@@ -59,7 +78,7 @@ export const checkPwConfirm = (pwConfirm: string, pw: string) => {
 };
 
 export const checkPhoneNum = (phoneNum: string) => {
-  console.log(4, "phoneNum :", phoneNum);
+  console.log(5, "phoneNum :", phoneNum);
   if (!phoneNum) {
     return [{ msg: "", color: "" }, false];
   }
@@ -68,7 +87,7 @@ export const checkPhoneNum = (phoneNum: string) => {
     return [{ msg: "", color: "" }, true];
   } else {
     return [
-      { msg: "형식에 맞게 전화번호를 입력해주세요.", color: "red" },
+      { msg: "'-' 을 포함하여 전화번호를 입력해주세요.", color: "red" },
       false,
     ];
   }
