@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const getCatProfile = async (spaceId: string, id: number) => {
+export const getCatProfile = async (spaceId: string, id: string) => {
   try {
     const res = await axios.get("/getCatProfile", {
       params: {

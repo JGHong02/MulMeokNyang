@@ -6,14 +6,16 @@ import { View, Text } from "react-native";
 
 type ButtonUIProps = {
   content: string;
-  canPress: boolean;
+  canPress?: boolean;
+  pressed?: boolean;
   isInAlert?: boolean;
   halfSize?: boolean;
 };
 
 const ButtonUI: FC<ButtonUIProps> = ({
   content,
-  canPress,
+  canPress = true,
+  pressed = false,
   isInAlert = false,
   halfSize = false,
 }) => {
@@ -21,7 +23,7 @@ const ButtonUI: FC<ButtonUIProps> = ({
     <View
       style={[
         styles.buttonView,
-        !canPress && styles.canNotPressButton,
+        (!canPress || pressed) && styles.deepBlueButton,
         isInAlert && styles.alertButton,
         halfSize && styles.halfSize,
       ]}>
@@ -49,7 +51,7 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 9,
     borderBottomRightRadius: 9,
   },
-  canNotPressButton: {
+  deepBlueButton: {
     backgroundColor: "#004aad",
   },
   text: {

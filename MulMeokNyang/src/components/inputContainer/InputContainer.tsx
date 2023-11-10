@@ -14,6 +14,7 @@ type InputContainerProps = {
   placeholder?: string;
   isSecret?: boolean;
   optional?: boolean;
+  readonly?: boolean;
   compareValue?: string;
   checkValue?: (arg1: string, arg2?: any) => any;
   noResultMsg?: boolean;
@@ -27,6 +28,7 @@ const InputContainer: FC<InputContainerProps> = ({
   placeholder = "",
   isSecret = false,
   optional = false,
+  readonly = false,
   compareValue = "",
   checkValue = () => {},
   noResultMsg = false,
@@ -40,10 +42,10 @@ const InputContainer: FC<InputContainerProps> = ({
     // 필수 입력이 아닌 경우, early return으로 valid 속성이 추가되지 않도록 하기
     if (optional) return;
     setResultMsgInfo(checkValue(value, compareValue)[0]);
-    setValue((prevForm: any) => ({
-      ...prevForm,
+    setValue((prevFormInfo: any) => ({
+      ...prevFormInfo,
       valid: {
-        ...prevForm.valid,
+        ...prevFormInfo.valid,
         [prop]: checkValue(value, compareValue)[1],
       },
     }));
@@ -51,8 +53,8 @@ const InputContainer: FC<InputContainerProps> = ({
 
   const onChangeText = useCallback(
     (newValue: string) => {
-      setValue((prevForm: any) => ({
-        ...prevForm,
+      setValue((prevFormInfo: any) => ({
+        ...prevFormInfo,
         [prop]: newValue,
       }));
     },
@@ -72,6 +74,7 @@ const InputContainer: FC<InputContainerProps> = ({
         placeholder={placeholder}
         onChangeText={onChangeText}
         secureTextEntry={isSecret}
+        editable={!readonly}
       />
       {!noResultMsg && resultMsgInfo.msg && (
         <Text style={[styles.msg, { color: resultMsgInfo.color }]}>

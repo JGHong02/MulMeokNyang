@@ -26,6 +26,14 @@ import {
   CatProfileModification,
 } from "../screens/catInfoSet/catProfileSet";
 import CatPhotosForAIRegistration from "../screens/catInfoSet/catPhotosForAISet/CatPhotosForAIRegistration";
+import {
+  CatFeedStuffRegistration,
+  CatFeedStuffModification,
+} from "../screens/catInfoSet/catFeedStuffSet";
+import {
+  CatHydrationRegistration,
+  CatHydrationModification,
+} from "../screens/catInfoSet/catHydrationSet";
 
 const Stack = createStackNavigator();
 
@@ -33,7 +41,7 @@ const MainNavigator = () => {
   return (
     <Stack.Navigator
       screenOptions={{ headerShown: false }}
-      initialRouteName="HowToGoSpace">
+      initialRouteName="FindEmail">
       <Stack.Screen name="Start" component={Start} />
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="BasicForm" component={BasicForm} />
@@ -74,6 +82,22 @@ const MainNavigator = () => {
       <Stack.Screen
         name="CatPhotosForAIRegistration"
         component={CatPhotosForAIRegistration}
+      />
+      <Stack.Screen
+        name="CatFeedStuffRegistration"
+        component={CatFeedStuffRegistration}
+      />
+      <Stack.Screen
+        name="CatFeedStuffModification"
+        component={CatFeedStuffModification}
+      />
+      <Stack.Screen
+        name="CatHydrationRegistration"
+        component={CatHydrationRegistration}
+      />
+      <Stack.Screen
+        name="CatHydrationModification"
+        component={CatHydrationModification}
       />
     </Stack.Navigator>
   );

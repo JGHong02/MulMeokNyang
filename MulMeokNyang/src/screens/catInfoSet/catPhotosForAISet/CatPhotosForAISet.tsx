@@ -6,8 +6,6 @@ import { CatInfoContext } from "../../../contexts/CatInfoContext";
 import type { FC } from "react";
 // Hook
 import { useState, useContext, useCallback, useEffect } from "react";
-// Custom Hook
-import { useGoRouteWithParams } from "../../../hooks/useGoScreen";
 // StyleSheet, Component
 import { StyleSheet } from "react-native";
 import {
@@ -33,10 +31,10 @@ import MIIcon from "react-native-vector-icons/MaterialIcons";
 import mainViewStyles from "../../../styles/mainViewStyles";
 
 type CatPhotosForAISetType = {
-  method: string;
+  goAfterRotue: () => void;
 };
 
-const CatPhotosForAISet: FC<CatPhotosForAISetType> = ({ method }) => {
+const CatPhotosForAISet: FC<CatPhotosForAISetType> = ({ goAfterRotue }) => {
   // catPhotosUrlForAI와 valid 값이 담긴 state
   const [formInfo, setFormInfo] = useState<CatPhotosForAISetFormType>(
     initialCatPhotosForAISetForm
@@ -110,19 +108,14 @@ const CatPhotosForAISet: FC<CatPhotosForAISetType> = ({ method }) => {
   );
 
   // ProcessButton의 onPress 이벤트 핸들러 함수
-  // 전역 변수 저장
-  const { setCatPhotosUrlforAIGV } = useContext(CatInfoContext);
-  // 화면 이동할 함수 선언
-  const goCatFeedStuffRegistration = useGoRouteWithParams(
-    "CatFeedStuffRegistration",
-    "method",
-    method
-  );
+  // DB에 저장하기 전까지 전역 변수 저장
+  const { setCatPhotosUrlForAIGV } = useContext(CatInfoContext);
+  // 이벤트 핸들러 함수
   const nextButtonPressHandler = useCallback(() => {
-    setCatPhotosUrlforAIGV(formInfo.catPhotosUrlForAI);
+    setCatPhotosUrlForAIGV(formInfo.catPhotosUrlForAI);
 
-    // 그 다음 습식 사료 등록 화면으로 이동
-    goCatFeedStuffRegistration();
+    // 그 다음 화면으로 이동
+    goAfterRotue();
   }, [formInfo]);
 
   // ############################################################################################
@@ -131,7 +124,7 @@ const CatPhotosForAISet: FC<CatPhotosForAISetType> = ({ method }) => {
     console.log(
       "------------------------------------------------------------------------------------------------------------"
     );
-    console.log("CatProfileSet 화면의 formInfo를 출력");
+    console.log("CatPhotosForAISet 화면의 formInfo를 출력");
     console.log(formInfo);
   }, [formInfo]);
 
