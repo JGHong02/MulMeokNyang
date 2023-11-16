@@ -102,8 +102,8 @@ const CatHydrationSet: FC<CatHydrationSetType> = ({
     // useEffect에서는 async, await를 직접 쓸 수 없기 때문에
     // async 함수를 선언하고 호출해야 함.
     const setPrevFormInfo = async () => {
-      const res = await getCatHydration(managementSpaceIdGV, catId);
       try {
+        const res = await getCatHydration(managementSpaceIdGV, catId);
         setFormInfo({
           isHydrationAuto: res.isHydrationAuto,
           catGoalHydration: res.catGoalHydration,
