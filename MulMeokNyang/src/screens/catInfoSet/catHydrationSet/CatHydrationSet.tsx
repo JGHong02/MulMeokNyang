@@ -146,14 +146,6 @@ const CatHydrationSet: FC<CatHydrationSetType> = ({
     async (goAfterRoute: () => void) => {
       if (method === "수정") return;
 
-      // 만약 음수량 설정이 자동이었다면 일일 목표 음수량을 권장 음수량으로 설정
-      if (formInfo.isHydrationAuto) {
-        setFormInfo((prevFormInfo) => ({
-          ...prevFormInfo,
-          catGoalHydration: recommendedHydration,
-        }));
-      }
-
       try {
         const res = await registCatInfo(
           userEmailGV,
