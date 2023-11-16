@@ -23,7 +23,7 @@ import { checkEmpty } from "../../../utils/checkValid";
 import { checkCanPress } from "../../../utils/checkCanPress";
 // API
 import { getCatHydration } from "../../../api/catInfoSet/catHydrationSet/getCatHydration";
-import { registCatInfo } from "../../../api/catInfoSet/catHydrationSet/registCatInfo";
+import { registCatInfo } from "../../../api/catInfoSet/registCatInfo";
 import { modifyCatHydration } from "../../../api/catInfoSet/catHydrationSet/modifyCatHydration";
 // styles
 import mainViewStyles from "../../../styles/mainViewStyles";
