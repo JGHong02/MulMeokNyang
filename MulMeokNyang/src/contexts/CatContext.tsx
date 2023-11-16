@@ -4,11 +4,11 @@ import { useState, createContext, ReactNode } from "react";
 type CatContextType = {
   // GV : Global Variable
   catIdArrGV: string[];
-  catProfilePhotoArrGV: string[];
+  catProfilePhotoUrlArrGV: string[];
   currentSelectedCatIdGV: string;
   // setter 함수
   setCatIdArrGV: (idArr: string[]) => void;
-  setCatProfilePhotoArrGV: (photoArr: string[]) => void;
+  setCatProfilePhotoUrlArrGV: (photoUrlArr: string[]) => void;
   setCurrentSelectedCatIdGV: (id: string) => void;
 };
 
@@ -16,11 +16,11 @@ type CatContextType = {
 const defaultCatContext = {
   // GV
   catIdArrGV: [],
-  catProfilePhotoArrGV: [],
+  catProfilePhotoUrlArrGV: [],
   currentSelectedCatIdGV: "",
   // setter 함수
   setCatIdArrGV: () => {},
-  setCatProfilePhotoArrGV: () => {},
+  setCatProfilePhotoUrlArrGV: () => {},
   setCurrentSelectedCatIdGV: () => {},
 };
 
@@ -35,20 +35,39 @@ interface ProviderProps {
 }
 
 export const CatContextProvider = ({ children }: ProviderProps) => {
-  const [catIdArrGV, setCatIdArrGV] = useState<string[]>([]);
-  const [catProfilePhotoArrGV, setCatProfilePhotoArrGV] = useState<string[]>(
-    []
-  );
+  // 임시 데이터
+  const [catIdArrGV, setCatIdArrGV] = useState<string[]>([
+    "kage",
+    "hina",
+    "tuki",
+    "yama",
+    "suga",
+    "asa",
+    "nishi",
+    "tana",
+  ]);
+  const [catProfilePhotoUrlArrGV, setCatProfilePhotoUrlArrGV] = useState<
+    string[]
+  >([
+    "file:///data/user/0/host.exp.exponent/cache/ExperienceData/%2540chansolchoi%252Fmulmeoknyang/ImagePicker/00a0b1b7-67e4-49a5-9846-c71ccc0d58bf.jpeg",
+    "",
+    "",
+    "file:///data/user/0/host.exp.exponent/cache/ExperienceData/%2540chansolchoi%252Fmulmeoknyang/ImagePicker/2f54f402-96b1-41d8-8f93-9eb9bbf5ea6f.jpeg",
+    "",
+    "",
+    "",
+    "",
+  ]);
   const [currentSelectedCatIdGV, setCurrentSelectedCatIdGV] =
-    useState<string>("");
+    useState<string>("kage");
 
   return (
     <CatContext.Provider
       value={{
         catIdArrGV,
         setCatIdArrGV,
-        catProfilePhotoArrGV,
-        setCatProfilePhotoArrGV,
+        catProfilePhotoUrlArrGV,
+        setCatProfilePhotoUrlArrGV,
         currentSelectedCatIdGV,
         setCurrentSelectedCatIdGV,
       }}>
