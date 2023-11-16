@@ -1,6 +1,6 @@
 import axios from "axios";
 import FormData from "form-data";
-import localUriToFormData from "../../../utils/localUriToFormData";
+import localUriToFormData from "../../utils/localUriToFormData";
 
 export const registCatInfo = async (
   email: string,
