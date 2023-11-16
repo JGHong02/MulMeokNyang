@@ -23,7 +23,7 @@ import { checkEmpty } from "../../../utils/checkValid";
 import { checkCanPress } from "../../../utils/checkCanPress";
 // API
 import { getCatHydration } from "../../../api/catInfoSet/catHydrationSet/getCatHydration";
-import { registCatInfo } from "../../../api/catInfoSet/catHydrationSet/registCatInfo";
+import { registCatInfo } from "../../../api/catInfoSet/registCatInfo";
 import { modifyCatHydration } from "../../../api/catInfoSet/catHydrationSet/modifyCatHydration";
 // styles
 import mainViewStyles from "../../../styles/mainViewStyles";
@@ -102,8 +102,8 @@ const CatHydrationSet: FC<CatHydrationSetType> = ({
     // useEffect에서는 async, await를 직접 쓸 수 없기 때문에
     // async 함수를 선언하고 호출해야 함.
     const setPrevFormInfo = async () => {
-      const res = await getCatHydration(managementSpaceIdGV, catId);
       try {
+        const res = await getCatHydration(managementSpaceIdGV, catId);
         setFormInfo({
           isHydrationAuto: res.isHydrationAuto,
           catGoalHydration: res.catGoalHydration,
@@ -145,14 +145,6 @@ const CatHydrationSet: FC<CatHydrationSetType> = ({
   const regist = useCallback(
     async (goAfterRoute: () => void) => {
       if (method === "수정") return;
-
-      // 만약 음수량 설정이 자동이었다면 일일 목표 음수량을 권장 음수량으로 설정
-      if (formInfo.isHydrationAuto) {
-        setFormInfo((prevFormInfo) => ({
-          ...prevFormInfo,
-          catGoalHydration: recommendedHydration,
-        }));
-      }
 
       try {
         const res = await registCatInfo(
