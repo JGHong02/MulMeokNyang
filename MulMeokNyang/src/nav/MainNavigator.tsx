@@ -34,6 +34,8 @@ import {
   CatHydrationRegistration,
   CatHydrationModification,
 } from "../screens/catInfoSet/catHydrationSet";
+import Main from "../screens/Main";
+import HydrationStatistics from "../screens/HydrationStatistics";
 
 const Stack = createStackNavigator();
 
@@ -41,7 +43,7 @@ const MainNavigator = () => {
   return (
     <Stack.Navigator
       screenOptions={{ headerShown: false }}
-      initialRouteName="FindEmail">
+      initialRouteName="Main">
       <Stack.Screen name="Start" component={Start} />
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="BasicForm" component={BasicForm} />
@@ -98,6 +100,11 @@ const MainNavigator = () => {
       <Stack.Screen
         name="CatHydrationModification"
         component={CatHydrationModification}
+      />
+      <Stack.Screen name="Main" component={Main} />
+      <Stack.Screen
+        name="HydrationStatistics"
+        component={HydrationStatistics}
       />
     </Stack.Navigator>
   );
