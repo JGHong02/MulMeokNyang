@@ -61,7 +61,7 @@ const Start = () => {
 
     const checkAutoLogin = async () => {
       try {
-        await AsyncStorage.clear();
+        // await AsyncStorage.clear();
         const sessionID = await AsyncStorage.getItem("sessionID");
         if (sessionID) {
           console.log(sessionID);

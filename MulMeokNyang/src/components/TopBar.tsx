@@ -1,5 +1,5 @@
-// FC Type
-import type { FC } from "react";
+// FC, Dispatch, SetStateAction Type
+import type { FC, Dispatch, SetStateAction } from "react";
 // CustomHook
 import { useGoRoute, useGoBack } from "../hooks/useGoScreen";
 // Platform, StyleSheet, Component
@@ -12,6 +12,7 @@ type TopBarProps = {
   back?: boolean;
   backRoute?: string;
   drawer?: boolean;
+  openDrawer?: Dispatch<SetStateAction<boolean>>;
   title: string;
 };
 
@@ -19,6 +20,7 @@ const TopBar: FC<TopBarProps> = ({
   back = true,
   backRoute = "",
   drawer = false,
+  openDrawer = () => {},
   title,
 }) => {
   let goBackIconRoute;
@@ -44,7 +46,9 @@ const TopBar: FC<TopBarProps> = ({
         )}
         <Text style={[styles.text]}>{title}</Text>
         {drawer && (
-          <TouchableOpacity style={[styles.icon, styles.menuIcon]}>
+          <TouchableOpacity
+            onPress={() => openDrawer(true)}
+            style={[styles.icon, styles.menuIcon]}>
             <Icon name="menu" size={35} />
           </TouchableOpacity>
         )}
