@@ -11,6 +11,7 @@ type CatProfileModificationType = {
 
 const CatProfileModification: FC<CatProfileModificationType> = ({ route }) => {
   const { catId } = route.params;
+  console.log(catId);
   // 화면 이동 함수 선언
   const goBack = useGoBack();
 

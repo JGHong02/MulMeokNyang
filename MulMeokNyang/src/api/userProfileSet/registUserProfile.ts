@@ -31,11 +31,15 @@ export const registUserProfile = async (
     formData.append("jsonData", JSON.stringify(jsonData));
 
     // 5. Axios를 사용하여 등록할 FormData를 POST 요청으로 보냄
-    const res = await axios.post("/registUserProfile", formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    });
+    const res = await axios.post(
+      "https://grhu55elr7.execute-api.ap-northeast-2.amazonaws.com/prod/registUserProfile",
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
 
     // 중복되는 닉네임인 경우
     if (res.hasOwnProperty("nicknameExists")) {
