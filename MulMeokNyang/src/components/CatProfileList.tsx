@@ -1,9 +1,7 @@
-// FC Type
-import type { FC } from "react";
-// Context
-import { CatContext } from "../contexts/CatContext";
+// FC, Dispatch, SetStateAction Type
+import type { FC, Dispatch, SetStateAction } from "react";
 // Hook
-import { useEffect, useContext, useCallback } from "react";
+import { useCallback } from "react";
 // StyleSheet, Component
 import { StyleSheet } from "react-native";
 import { FlatList, TouchableOpacity, View, Image, Text } from "react-native";
@@ -11,13 +9,16 @@ import { FlatList, TouchableOpacity, View, Image, Text } from "react-native";
 type CatProfileListProps = {
   idArr: string[];
   photoUrlArr: string[];
+  currentSelectedCatId: string;
+  setCurrentSelectedCatId: Dispatch<SetStateAction<string>>;
 };
 
-const CatProfileList: FC<CatProfileListProps> = ({ idArr, photoUrlArr }) => {
-  // 사진 눌렀을 때, currentSelectedCatId를 변경하고 style을 바꾸기 위해 전역 변수와 setter 함수 불러오기
-  const { currentSelectedCatIdGV, setCurrentSelectedCatIdGV } =
-    useContext(CatContext);
-
+const CatProfileList: FC<CatProfileListProps> = ({
+  idArr,
+  photoUrlArr,
+  currentSelectedCatId,
+  setCurrentSelectedCatId,
+}) => {
   // FlatList의 item으로 사용할 listData 생성
   // listData: [{id: 1, photoUrl: url1}, {id: 2, photoUrl: url2}, ...]
   let listData = [];
@@ -31,7 +32,7 @@ const CatProfileList: FC<CatProfileListProps> = ({ idArr, photoUrlArr }) => {
 
   // 사진 눌렀을 때, currentSelectedCatId 변경하는 이벤트 핸들러 함수
   const changeCurrentCat = useCallback((id: string) => {
-    setCurrentSelectedCatIdGV(id);
+    setCurrentSelectedCatId(id);
   }, []);
 
   return (
@@ -46,7 +47,7 @@ const CatProfileList: FC<CatProfileListProps> = ({ idArr, photoUrlArr }) => {
           <View
             style={[
               styles.imageBorder,
-              item.id === currentSelectedCatIdGV
+              item.id === currentSelectedCatId
                 ? styles.imageBorderGreen
                 : styles.imageBorderGrey,
             ]}>

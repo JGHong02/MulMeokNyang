@@ -5,11 +5,9 @@ type CatContextType = {
   // GV : Global Variable
   catIdArrGV: string[];
   catProfilePhotoUrlArrGV: string[];
-  currentSelectedCatIdGV: string;
   // setter 함수
   setCatIdArrGV: (idArr: string[]) => void;
   setCatProfilePhotoUrlArrGV: (photoUrlArr: string[]) => void;
-  setCurrentSelectedCatIdGV: (id: string) => void;
 };
 
 // Default Context
@@ -17,11 +15,9 @@ const defaultCatContext = {
   // GV
   catIdArrGV: [],
   catProfilePhotoUrlArrGV: [],
-  currentSelectedCatIdGV: "",
   // setter 함수
   setCatIdArrGV: () => {},
   setCatProfilePhotoUrlArrGV: () => {},
-  setCurrentSelectedCatIdGV: () => {},
 };
 
 // CatContext 생성
@@ -58,8 +54,6 @@ export const CatContextProvider = ({ children }: ProviderProps) => {
     "",
     "",
   ]);
-  const [currentSelectedCatIdGV, setCurrentSelectedCatIdGV] =
-    useState<string>("kage");
 
   return (
     <CatContext.Provider
@@ -68,8 +62,6 @@ export const CatContextProvider = ({ children }: ProviderProps) => {
         setCatIdArrGV,
         catProfilePhotoUrlArrGV,
         setCatProfilePhotoUrlArrGV,
-        currentSelectedCatIdGV,
-        setCurrentSelectedCatIdGV,
       }}>
       {children}
     </CatContext.Provider>
