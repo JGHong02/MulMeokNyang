@@ -2,9 +2,7 @@
 import { UserContext } from "../contexts/UserContext";
 import { CatContext } from "../contexts/CatContext";
 // Hook
-import { useEffect, useContext, useState, useCallback } from "react";
-// Custom Hook
-import { useGoRoute } from "../hooks/useGoScreen";
+import { useEffect, useContext, useState } from "react";
 // StyleSheet, Component
 import { StyleSheet } from "react-native";
 import {
@@ -18,10 +16,12 @@ import {
 import TopBar from "../components/TopBar";
 import CatProfileList from "../components/CatProfileList";
 import ProcessButton from "../components/button/ProcessButton";
-import Alert from "../components/alert/Alert";
+import SelectCatAlert from "../components/alert/SelectCatAlert";
+import Drawer from "../components/drawer/Drawer";
 // API
 import { getCatProfileList } from "../api/main/getCatProfileList";
 import { getCatMainInfo } from "../api/main/getCatMainInfo";
+import { getUserProfile } from "../api/userProfileSet/getUserProfile";
 // styles
 import mainViewStyles from "../styles/mainViewStyles";
 import alertBackgroundStyles from "../styles/alertBackgroundStyles";
@@ -42,151 +42,157 @@ const Main = () => {
   ];
 
   // 관리 스페이스의 메인 데이터를 불러오고 저장하기 위한 전역변수, setter 함수 불러오기
-  const { managementSpaceIdGV } = useContext(UserContext);
+  const { userEmailGV, managementSpaceIdGV } = useContext(UserContext);
   const {
     catIdArrGV,
     setCatIdArrGV,
     catProfilePhotoUrlArrGV,
     setCatProfilePhotoUrlArrGV,
-    currentSelectedCatIdGV,
-    setCurrentSelectedCatIdGV,
   } = useContext(CatContext);
 
-  // 현재 선택된 고양이의 프로필 사진 state
+  // 현재 선택된 고양이의 메인 정보 state
+  const [currentSelectedCatId, setCurrentSelectedCatId] =
+    useState<string>("kage");
   // const [currentSelectedCatPhotoUrl, setCurrentSelectedCatPhotoUrl] =
   //   useState<string>("");
-  // // 현재 선택된 고양이의 메인 정보 state
   // const [catName, setCatName] = useState<string>("");
   // const [catAge, setCatAge] = useState<string>("");
   // const [catWeight, setCatWeight] = useState<string>("");
   // const [hydrationGuage, setHydrationGuage] = useState<number>(0);
   // const [hydrationGuageColor, setHydrationGuageColor] = useState<string>("");
 
+  // Drawer 여닫기 State
+  const [onDrawer, setOnDrawer] = useState<boolean>(false);
+  // Drawer과 '사용자 프로필 수정'에서 사용할 사용자 프로필 정보 state
+  const [userProfile, setUserProfile] = useState({
+    profilePhotoUrl: "",
+    nickname: "",
+    introduction: "",
+  });
+  // Drawer에서 고양이 프로필 수정 or 삭제 클릭 시 뜨는 alert 관련 state
+  const [selectCatAlertInfo, setSelectCatAlertInfo] = useState({
+    onSelectCatAlert: false,
+    typeOfInfo: "",
+    typeOfAction: "",
+    route: "",
+  });
+
   // #################################API 연동되면 지워#################################
   const [currentSelectedCatPhotoUrl, setCurrentSelectedCatPhotoUrl] =
     useState<string>(
-      catProfilePhotoUrlArrGV[catIdArrGV.indexOf(currentSelectedCatIdGV)]
+      catProfilePhotoUrlArrGV[catIdArrGV.indexOf(currentSelectedCatId)]
     );
   // 현재 선택된 고양이의 메인 정보 state
   const [catName, setCatName] = useState<string>(
-    fakeMainData[catIdArrGV.indexOf(currentSelectedCatIdGV)].name
+    fakeMainData[catIdArrGV.indexOf(currentSelectedCatId)].name
   );
   const [catAge, setCatAge] = useState<string>(
-    fakeMainData[catIdArrGV.indexOf(currentSelectedCatIdGV)].age
+    fakeMainData[catIdArrGV.indexOf(currentSelectedCatId)].age
   );
   const [catWeight, setCatWeight] = useState<string>(
-    fakeMainData[catIdArrGV.indexOf(currentSelectedCatIdGV)].weight
+    fakeMainData[catIdArrGV.indexOf(currentSelectedCatId)].weight
   );
   const [hydrationGuage, setHydrationGuage] = useState<number>(
-    fakeMainData[catIdArrGV.indexOf(currentSelectedCatIdGV)].hydrationGuage
+    fakeMainData[catIdArrGV.indexOf(currentSelectedCatId)].hydrationGuage
   );
   const [hydrationGuageColor, setHydrationGuageColor] = useState<string>("");
   const [evaluation, setEvaluation] = useState<string>("");
+  // #############################여기까지 지울 코드####################################
 
-  // 마운트 시, 해당 관리 스페이스에서 관리하는 고양이의 Id와 프로필 사진 리스트 불러오기
+  // 1. 마운트 시, 해당 관리 스페이스에서 관리하는 고양이의 Id와 프로필 사진 리스트 불러오기
+  // 또한, Drawer을 열었을 때 보이는 사용자 프로필 정보와
+  // Drawer에서 '사용자 프로필 수정' 버튼을 눌렀을 때 기존 정보를 전달하기 위해
+  // 사용자 프로필 정보도 불러오기
   useEffect(() => {
     // useEffect에서는 async, await를 직접 쓸 수 없기 때문에
     // async 함수를 선언하고 호출해야 함.
-    //
-    // ##################################여기부터 진짜 코드#####################################
-    // const setCatProfileListInfo = async () => {
-    //   try {
-    //     const res = await getCatProfileList(managementSpaceIdGV);
-    //     // 데이터 바인딩을 위해 전역 변수로 관리
-    //     setCatIdArrGV(res.catIdArr);
-    //     setCatProfilePhotoUrlArrGV(res.catProfilePhotoUrlArr);
-    //     setCurrentSelectedCatIdGV(res.catIdArr[0]);
-    //   } catch (error: any) {
-    //     console.log(
-    //       "Main 화면 getCatProfileList 호출에서 error 발생 :",
-    //       error.message
-    //     );
-    //     throw error;
-    //   }
-    // };
+
+    // 고양이의 Id와 프로필 사진 리스트 불러올 함수
+    const setCatProfileListInfo = async () => {
+      try {
+        const res = await getCatProfileList(managementSpaceIdGV);
+        // 다른 화면에서도 사용하기 위해 전역 변수로 관리
+        setCatIdArrGV(res.catIdArr);
+        setCatProfilePhotoUrlArrGV(res.catProfilePhotoUrlArr);
+        setCurrentSelectedCatId(res.catIdArr[0]);
+      } catch (error: any) {
+        console.log(
+          "Main 화면 getCatProfileList 호출에서 error 발생 :",
+          error.message
+        );
+        throw error;
+      }
+    };
+    // 사용자 프로필 정보 불러올 함수
+    const setUserProfileInfo = async () => {
+      try {
+        const res = await getUserProfile(userEmailGV);
+        setUserProfile({
+          profilePhotoUrl: res.userProfilePhotoUrl,
+          nickname: res.userNickname,
+          introduction: res.userIntroduction,
+        });
+      } catch (error: any) {
+        console.log(
+          "Main 화면 getUserProfile 호출에서 error 발생 :",
+          error.message
+        );
+        throw error;
+      }
+    };
     // setCatProfileListInfo();
-    // ################################여기까지 진짜 코드#######################################
-    // ################################API 연결 후 아래 코드 삭제################################
-    // setCatIdArrGV([
-    //   "kage",
-    //   "hina",
-    //   "tuki",
-    //   "yama",
-    //   "suga",
-    //   "asa",
-    //   "nishi",
-    //   "tana",
-    // ]);
-    // setCatProfilePhotoUrlArrGV([
-    //   "file:///data/user/0/host.exp.exponent/cache/ExperienceData/%2540chansolchoi%252Fmulmeoknyang/ImagePicker/00a0b1b7-67e4-49a5-9846-c71ccc0d58bf.jpeg",
-    //   "",
-    //   "",
-    //   "file:///data/user/0/host.exp.exponent/cache/ExperienceData/%2540chansolchoi%252Fmulmeoknyang/ImagePicker/2f54f402-96b1-41d8-8f93-9eb9bbf5ea6f.jpeg",
-    //   "",
-    //   "",
-    //   "",
-    //   "",
-    // ]);
-    // setCurrentSelectedCatIdGV("kage");
+    // setUserProfileInfo();
+
+    // ######################가짜 데이터#########################
+    setUserProfile({
+      profilePhotoUrl: "",
+      nickname: "무적코털슝슝",
+      introduction: "안녕? 반갑다. 잘 지내보자.",
+    });
   }, []);
 
-  // currentSelectedCatIdGV 값이 바뀔 때마다,
+  // 2. currentSelectedCatIdGV 값이 바뀔 때마다,
   // currentSelectedCatPhotoUrl state 값 바꿔서 MainView에 띄울 고양이 프로필 사진 바꾸고,
   // 해당 고양이의 mainInfo 불러와 데이터 바인딩
   useEffect(() => {
-    // console.log("catIdArrGV--------------------------------->", catIdArrGV);
-    // console.log(
-    //   "catProfilePhotoUrlArrGV--------------------------------->",
-    //   catProfilePhotoUrlArrGV
-    // );
-    // console.log(
-    //   "currentSelectedCatIdGV--------------------------------->",
-    //   currentSelectedCatIdGV
-    // );
-
+    // currentSelectedCatId가 catIdArrGV에서 몇 번째 index에 위치해 있는 지를 저장할 변수
+    const currentArrIdx = catIdArrGV.indexOf(currentSelectedCatId);
     // currentSelectedCatPhotoUrl 바꾸기
-    setCurrentSelectedCatPhotoUrl(
-      catProfilePhotoUrlArrGV[catIdArrGV.indexOf(currentSelectedCatIdGV)]
-    );
+    setCurrentSelectedCatPhotoUrl(catProfilePhotoUrlArrGV[currentArrIdx]);
 
     // ##################################여기부터 진짜 코드#####################################
-    // getCatMainInfo 호출하는 async 함수 선언 후 호출
-    // const setCatMainInfo = async () => {
-    //   try {
-    //     const res = await getCatMainInfo(
-    //       currentSelectedCatIdGV,
-    //       managementSpaceIdGV
-    //     );
-    //     setCatName(res.catName);
-    //     setCatAge(res.catAge);
-    //     setCatWeight(res.catWeight);
-    //     setHydrationGuage(res.hydrationGuage);
-    //   } catch (error: any) {
-    //     console.log(
-    //       "Main 화면 getCatMainInfo 호출에서 error 발생 :",
-    //       error.message
-    //     );
-    //     throw error;
-    //   }
-    // };
+    const setCatMainInfo = async () => {
+      try {
+        const res = await getCatMainInfo(
+          currentSelectedCatId,
+          managementSpaceIdGV
+        );
+        setCatName(res.catName);
+        setCatAge(res.catAge);
+        setCatWeight(res.catWeight);
+        setHydrationGuage(res.hydrationGuage);
+      } catch (error: any) {
+        console.log(
+          "Main 화면 getCatMainInfo 호출에서 error 발생 :",
+          error.message
+        );
+        throw error;
+      }
+    };
     // setCatMainInfo();
     // ################################여기까지 진짜 코드#######################################
 
     // ################################API 연결 후 아래 코드 삭제################################
-    setCatName(fakeMainData[catIdArrGV.indexOf(currentSelectedCatIdGV)].name);
-    setCatAge(fakeMainData[catIdArrGV.indexOf(currentSelectedCatIdGV)].age);
-    setCatWeight(
-      fakeMainData[catIdArrGV.indexOf(currentSelectedCatIdGV)].weight
-    );
-    setHydrationGuage(
-      fakeMainData[catIdArrGV.indexOf(currentSelectedCatIdGV)].hydrationGuage
-    );
-  }, [currentSelectedCatIdGV]);
+    setCatName(fakeMainData[currentArrIdx].name);
+    setCatAge(fakeMainData[currentArrIdx].age);
+    setCatWeight(fakeMainData[currentArrIdx].weight);
+    setHydrationGuage(fakeMainData[currentArrIdx].hydrationGuage);
+  }, [currentSelectedCatId]);
 
   // 사진이 등록되지 않았을 경우, 기본 사진 사용
   const defaultPhoto = require("../../assets/profileDefaultPhoto/CatProfileDefaultPhoto.png");
 
-  // hydrationGuage 값에 따라 guage 색상과 평가글 다르게 저장
+  // 3. hydrationGuage 값에 따라 guage 색상과 평가글 다르게 저장
   useEffect(() => {
     let color = "";
     let evaluation = "";
@@ -213,12 +219,14 @@ const Main = () => {
 
   return (
     <SafeAreaView>
-      <View>
-        <TopBar back={false} title="물먹냥" drawer />
+      <View pointerEvents={onDrawer ? "none" : "auto"}>
+        <TopBar back={false} title="물먹냥" drawer openDrawer={setOnDrawer} />
         <View style={[styles.catProfileListView]}>
           <CatProfileList
             idArr={catIdArrGV}
             photoUrlArr={catProfilePhotoUrlArrGV}
+            currentSelectedCatId={currentSelectedCatId}
+            setCurrentSelectedCatId={setCurrentSelectedCatId}
           />
         </View>
         <View style={[mainViewStyles.mainView]}>
@@ -301,7 +309,30 @@ const Main = () => {
           </View>
         </View>
       </View>
-      <View></View>
+      {onDrawer && (
+        <View style={[styles.drawerView]}>
+          <Drawer
+            userEmail={userEmailGV}
+            userProfile={userProfile}
+            closeDrawer={setOnDrawer}
+            setAlertInfo={setSelectCatAlertInfo}
+          />
+        </View>
+      )}
+      {selectCatAlertInfo.onSelectCatAlert && (
+        <View style={[alertBackgroundStyles.alertBackgroundView]}>
+          <SelectCatAlert
+            setAlertInfo={setSelectCatAlertInfo}
+            // state로
+            typeOfInfo={selectCatAlertInfo.typeOfInfo}
+            typeOfAction={selectCatAlertInfo.typeOfAction}
+            idArr={catIdArrGV}
+            photoUrlArr={catProfilePhotoUrlArrGV}
+            // state로
+            route={selectCatAlertInfo.route}
+          />
+        </View>
+      )}
     </SafeAreaView>
   );
 };
@@ -367,7 +398,6 @@ const styles = StyleSheet.create({
     position: "relative",
     width: 200,
     borderRightWidth: 1,
-    // borderStyle: "dashed",
     borderRightColor: "#a3a3a3",
   },
   rightGuageBar: {
@@ -406,5 +436,11 @@ const styles = StyleSheet.create({
   buttonView: {
     position: "absolute",
     bottom: 250,
+  },
+
+  // 드로어
+  drawerView: {
+    position: "absolute",
+    right: 0,
   },
 });
