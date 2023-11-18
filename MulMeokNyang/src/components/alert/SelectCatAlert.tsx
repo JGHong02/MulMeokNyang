@@ -46,6 +46,8 @@ const SelectCatAlert: FC<SelectCatAlertProps> = ({
   const goAfterRoute = useCallback(() => {
     if (typeOfAction !== "수정") return;
 
+    // Alert 끄고 이동
+    setAlertInfo((prev: any) => ({ ...prev, onSelectCatAlert: false }));
     navigation.navigate(route, { catId: currentSelectedCatId });
   }, [currentSelectedCatId]);
 
@@ -55,6 +57,8 @@ const SelectCatAlert: FC<SelectCatAlertProps> = ({
     if (typeOfAction !== "삭제") return;
 
     try {
+      // Alert 끄고 삭제
+      setAlertInfo((prev: any) => ({ ...prev, onSelectCatAlert: false }));
       await deleteCatInfo(managementSpaceIdGV, currentSelectedCatId);
     } catch (error: any) {
       console.log(
@@ -100,7 +104,7 @@ const SelectCatAlert: FC<SelectCatAlertProps> = ({
           content={typeOfAction}
           canPress
           onPressHandler={typeOfAction === "수정" ? goAfterRoute : deleteInfo}
-          route={typeOfAction === "삭제" ? "Start" : ""}
+          route={typeOfAction === "삭제" ? "Main" : ""}
           isInAlert
         />
       </View>
