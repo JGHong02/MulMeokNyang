@@ -1,12 +1,21 @@
 import pandas as pd
 import shutil
 import os
+import re
 
 file_path = "./img/predict/labels/image0.txt"
 img_file_path = "./img/predict/crops/cat/image"
 
 # Read the text file into a DataFrame
 df = pd.read_csv(file_path, sep=' ', header=None, names=['class', 'x1', 'y1', 'x2', 'y2', 'id'])  # Adjust column names accordingly
+
+source_directory = "./img/"
+for filename in os.listdir(source_directory):
+    # Get the breed from the filename using regular expression
+    match = re.match("id_" + r'[0-9]+', filename)
+    
+    if match:
+        shutil.rmtree(os.path.join(source_directory, match.string))
 
 # Create folders for each 'id'
 for i in range(1, int(df['id'].max()) + 1):
@@ -54,8 +63,8 @@ df.to_csv(file_path, sep=' ', header=True, index=False)
 # DONE 1. include file seperation to id_n in the loop.
 # DONE 2. create [df_1, df_2, .. df_n] = df.copy to make dataframe for each cats. 
 # DONE 3. color analyzation. maybe make an array to an img and get the average or just get the middle point of the img and save it to corresponding df_n. Final color of each id will be majority rules.
-# 4. apply those to cat_breed classification
-# 5. add color and breed features to corresponding dataframe
+# DONE 4. apply those to cat_breed classification
+# DONE 5. add color and breed features to corresponding dataframe
 # 6. train test val split each cats.
 # 7. train each id with custom model.
 

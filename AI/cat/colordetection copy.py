@@ -1,4 +1,3 @@
-#%%
 import cv2
 from ultralytics import YOLO
 import numpy as np
@@ -82,49 +81,44 @@ def crop_cat(img_path):
     newIm.save("out.png")
 
     return True
-    
-#%%
+
 file_path = "./img/predict/labels/"
 df = pd.read_csv(file_path + "image0.txt", sep=' ', header=0, names=['class', 'x1', 'y1', 'x2', 'y2', 'id', 'file_number'])
 num_of_cats = df['id'].max()
 image_extensions = ['.jpg', '.jpeg', '.png', '.bmp']
 path = "./img/id_"
-#%%
-for i in range(num_of_cats):
-    df = pd.read_csv(file_path + f"df_{i + 1}.csv", sep=' ', header=0, names=['class', 'x1', 'y1', 'x2', 'y2', 'id', 'file_number'])
-    df.drop(columns=['x1', 'y1', 'x2', 'y2'], inplace=True)
-    img_path = path + str(i + 1)
-    imgs_list = [filename for filename in os.listdir(img_path) if os.path.splitext(filename)[-1] in image_extensions]
 
-    for j in imgs_list:
-        if (crop_cat(img_path + f"/{j}")):
-            # Load the resulting image
-            src_image = cv2.imread("out.png")
-            src_image = cv2.cvtColor(src_image, cv2.COLOR_BGR2RGB)
-            reshape_img = src_image.reshape((src_image.shape[0] * src_image.shape[1], 3))
+if __name__ == '__main__':
+    for i in range(num_of_cats):
+        df = pd.read_csv(file_path + f"df_{i + 1}.csv", sep=' ', header=0, names=['class', 'x1', 'y1', 'x2', 'y2', 'id', 'file_number'])
+        df.drop(columns=['x1', 'y1', 'x2', 'y2'], inplace=True)
+        img_path = path + str(i + 1)
+        imgs_list = [filename for filename in os.listdir(img_path) if os.path.splitext(filename)[-1] in image_extensions]
+
+        for j in imgs_list:
+            if (crop_cat(img_path + f"/{j}")):
+                # Load the resulting image
+                src_image = cv2.imread("out.png")
+                src_image = cv2.cvtColor(src_image, cv2.COLOR_BGR2RGB)
+                reshape_img = src_image.reshape((src_image.shape[0] * src_image.shape[1], 3))
+            
+                # Apply K-Means clustering to identify dominant colors
+                KM_cluster = KMeans(n_clusters=5, n_init=10).fit(reshape_img)
+                colors = return_Dominant_colors(KM_cluster, KM_cluster.cluster_centers_)
+
+                img_num = j[6:].replace('.jpg', "")
+                k = 0
+                for l in colors:
+                    values = list(l.values())
+                    df.loc[df[df["file_number"] == int(img_num)].index.tolist()[0], f"color_{k + 1}"] = values[0]
+                    k += 1
+                print(df.loc[df["file_number"] == int(img_num)])
+            else:
+                img_num = j[6:].replace('.jpg', "")
+                k = 0
+                for l in range(5):
+                    df.loc[df[df["file_number"] == int(img_num)].index.tolist()[0], f"color_{k + 1}"] = np.NaN
+                    k += 1
+                print(df.loc[df["file_number"] == int(img_num)])
         
-            # Apply K-Means clustering to identify dominant colors
-            KM_cluster = KMeans(n_clusters=5, n_init=10).fit(reshape_img)
-            colors = return_Dominant_colors(KM_cluster, KM_cluster.cluster_centers_)
-
-            img_num = j[6:].replace('.jpg', "")
-            k = 0
-            for l in colors:
-                values = list(l.values())
-                df.loc[df[df["file_number"] == int(img_num)].index.tolist()[0], f"color_{k + 1}"] = values[0]
-                k += 1
-            print(df.loc[df["file_number"] == int(img_num)])
-        else:
-            img_num = j[6:].replace('.jpg', "")
-            k = 0
-            for l in range(5):
-                df.loc[df[df["file_number"] == int(img_num)].index.tolist()[0], f"color_{k + 1}"] = np.NaN
-                k += 1
-            print(df.loc[df["file_number"] == int(img_num)])
-    
-    df.to_csv(file_path + f"df_{i + 1}_new.csv", sep=' ', header=True, index=False)
-# %%
-img_path = path + str(1)
-imgs_list = [filename for filename in os.listdir(img_path) if os.path.splitext(filename)[-1] in image_extensions][:50]
-imgs_list
-# %%
+        df.to_csv(file_path + f"df_{i + 1}_new.csv", sep=' ', header=True, index=False)

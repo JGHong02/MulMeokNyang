@@ -57,7 +57,7 @@ def return_Dominant_colors(cluster, C_centroids):
     return dict_list
 
 # Path to the input image
-img_path = "./img/id_2/image0456.jpg"
+img_path = "./img/id_1/image0174.jpg"
 
 # YOLO model for object detection and segmentation
 model = YOLO("yolov8m-seg.pt")
