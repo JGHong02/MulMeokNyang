@@ -13,7 +13,7 @@ import SubDrawerRoute from "./SubDrawerRoute";
 // API
 import { logout } from "../../api/drawer/logout";
 // Icon
-import EtIcon from "react-native-vector-icons/Entypo";
+import ETIcon from "react-native-vector-icons/Entypo";
 import ADIcon from "react-native-vector-icons/AntDesign";
 
 const { height } = Dimensions.get("window");
@@ -67,12 +67,12 @@ const Drawer: FC<DrawerProps> = ({
       onSelectCatAlert: true,
       typeOfInfo: "",
       typeOfAction: "삭제",
-      route: "Start",
+      route: "Main",
     });
   }, []);
 
-  // 5. '공동 관리자 관리' 클릭 시, 화면 이동 함수
-  const goCoManagerManagement = useGoRoute("CoManagerManagement");
+  // 5. '공동 관리자' 클릭 시, 화면 이동 함수
+  const goCoManagerManagement = useGoRoute("CoManager");
 
   // 6. '로그아웃' 클릭 시, 로그아웃 처리한 뒤 Start 화면으로 이동
   const goStart = useGoRoute("Start");
@@ -90,7 +90,7 @@ const Drawer: FC<DrawerProps> = ({
     <View style={[styles.drawerView]}>
       <View style={[styles.topBar]}>
         <TouchableOpacity onPress={() => closeDrawer(false)}>
-          <EtIcon name="chevron-thin-right" size={30} color="#343434" />
+          <ETIcon name="chevron-thin-right" size={30} color="#343434" />
         </TouchableOpacity>
       </View>
       <View style={[styles.userProfileView, styles.borderBottomLine]}>
@@ -139,10 +139,7 @@ const Drawer: FC<DrawerProps> = ({
         name="고양이 프로필 삭제"
         onPressHandler={showSelectCatAlertToDelete}
       />
-      <DrawerRoute
-        name="공동 관리자 관리"
-        onPressHandler={goCoManagerManagement}
-      />
+      <DrawerRoute name="공동 관리자" onPressHandler={goCoManagerManagement} />
       <TouchableOpacity style={[styles.logoutView]} onPress={logoutAndGoStart}>
         <Text style={[styles.routeText]}>로그아웃</Text>
         <ADIcon name="logout" size={25} />

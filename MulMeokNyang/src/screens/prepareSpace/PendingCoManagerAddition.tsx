@@ -1,19 +1,19 @@
 // Context
-import { UserContext } from "../contexts/UserContext";
+import { UserContext } from "../../contexts/UserContext";
 // Hook
 import { useContext, useState, useCallback, useEffect } from "react";
 // Custom Hook
-import { useGoRoute } from "../hooks/useGoScreen";
+import { useGoRoute } from "../../hooks/useGoScreen";
 // StyleSheet, Component
 import { StyleSheet } from "react-native";
 import { SafeAreaView, View, Text } from "react-native";
 // Custom Component
-import TopBar from "../components/TopBar";
-import Loading from "../components/Loading";
+import TopBar from "../../components/TopBar";
+import Loading from "../../components/Loading";
 // API
-import { getManagementSpaceId } from "../api/pendingCoManagerAddition/getManagementSpaceId";
+import { getManagementSpaceId } from "../../api/pendingCoManagerAddition/getManagementSpaceId";
 // styles
-import mainViewStyles from "../styles/mainViewStyles";
+import mainViewStyles from "../../styles/mainViewStyles";
 
 const PendingCoManagerAddition = () => {
   // managementSpaceId setter 함수 불러오기

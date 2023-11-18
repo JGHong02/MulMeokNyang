@@ -1,7 +1,7 @@
 // Hook
 import { useState, useEffect, useCallback } from "react";
 // Custom Hook
-import { useGoRouteWithParams } from "../hooks/useGoScreen";
+import { useGoRouteWithParams } from "../../hooks/useGoScreen";
 // StyleSheet, Component
 import { StyleSheet } from "react-native";
 import {
@@ -13,14 +13,14 @@ import {
   TouchableOpacity,
 } from "react-native";
 // Custom Component
-import TopBar from "../components/TopBar";
-import Loading from "../components/Loading";
+import TopBar from "../../components/TopBar";
+import Loading from "../../components/Loading";
 // styles
-import mainViewStyles from "../styles/mainViewStyles";
-import alertBackgroundStyles from "../styles/alertBackgroundStyles";
+import mainViewStyles from "../../styles/mainViewStyles";
+import alertBackgroundStyles from "../../styles/alertBackgroundStyles";
 
 // 디바이스 사진
-const deviceImage = require("../../assets/Device.png");
+const deviceImage = require("../../../assets/Device.png");
 
 const DeviceRegistration = () => {
   // Loading state

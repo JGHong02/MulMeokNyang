@@ -1,8 +1,9 @@
 // Context
-import { UserContext } from "../contexts/UserContext";
-import { CatContext } from "../contexts/CatContext";
+import { UserContext } from "../../contexts/UserContext";
+import { CatContext } from "../../contexts/CatContext";
 // Hook
 import { useEffect, useContext, useState } from "react";
+import { useIsFocused } from "@react-navigation/native";
 // StyleSheet, Component
 import { StyleSheet } from "react-native";
 import {
@@ -13,20 +14,23 @@ import {
   TouchableOpacity,
 } from "react-native";
 // Custom Component
-import TopBar from "../components/TopBar";
-import CatProfileList from "../components/CatProfileList";
-import ProcessButton from "../components/button/ProcessButton";
-import SelectCatAlert from "../components/alert/SelectCatAlert";
-import Drawer from "../components/drawer/Drawer";
+import TopBar from "../../components/TopBar";
+import CatProfileList from "../../components/CatProfileList";
+import ProcessButton from "../../components/button/ProcessButton";
+import SelectCatAlert from "../../components/alert/SelectCatAlert";
+import Drawer from "../../components/drawer/Drawer";
 // API
-import { getCatProfileList } from "../api/main/getCatProfileList";
-import { getCatMainInfo } from "../api/main/getCatMainInfo";
-import { getUserProfile } from "../api/userProfileSet/getUserProfile";
+import { getCatProfileList } from "../../api/main/getCatProfileList";
+import { getCatMainInfo } from "../../api/main/getCatMainInfo";
+import { getUserProfile } from "../../api/common/getUserProfile";
 // styles
-import mainViewStyles from "../styles/mainViewStyles";
-import alertBackgroundStyles from "../styles/alertBackgroundStyles";
+import mainViewStyles from "../../styles/mainViewStyles";
+import alertBackgroundStyles from "../../styles/alertBackgroundStyles";
 // Icon
 import Icon from "react-native-vector-icons/Ionicons";
+
+// 고양이 프로필 사진이 등록되지 않았을 경우, 기본 사진 사용
+const defaultPhoto = require("../../../assets/profileDefaultPhoto/CatProfileDefaultPhoto.png");
 
 const Main = () => {
   // #############################가짜 메인 데이터#############################
@@ -103,6 +107,10 @@ const Main = () => {
   // 또한, Drawer을 열었을 때 보이는 사용자 프로필 정보와
   // Drawer에서 '사용자 프로필 수정' 버튼을 눌렀을 때 기존 정보를 전달하기 위해
   // 사용자 프로필 정보도 불러오기
+
+  // goBack으로 Main 화면에 돌아올 때마다 리렌더링
+  const isFocused = useIsFocused();
+
   useEffect(() => {
     // useEffect에서는 async, await를 직접 쓸 수 없기 때문에
     // async 함수를 선언하고 호출해야 함.
@@ -149,7 +157,7 @@ const Main = () => {
       nickname: "무적코털슝슝",
       introduction: "안녕? 반갑다. 잘 지내보자.",
     });
-  }, []);
+  }, [isFocused]);
 
   // 2. currentSelectedCatIdGV 값이 바뀔 때마다,
   // currentSelectedCatPhotoUrl state 값 바꿔서 MainView에 띄울 고양이 프로필 사진 바꾸고,
@@ -188,9 +196,6 @@ const Main = () => {
     setCatWeight(fakeMainData[currentArrIdx].weight);
     setHydrationGuage(fakeMainData[currentArrIdx].hydrationGuage);
   }, [currentSelectedCatId]);
-
-  // 사진이 등록되지 않았을 경우, 기본 사진 사용
-  const defaultPhoto = require("../../assets/profileDefaultPhoto/CatProfileDefaultPhoto.png");
 
   // 3. hydrationGuage 값에 따라 guage 색상과 평가글 다르게 저장
   useEffect(() => {

@@ -49,6 +49,9 @@ export const registUserProfile = async (
 
     // 사용자 프로필 등록 성공
     const registSuccess = res.data.registSuccess;
+    if (registSuccess) {
+      console.log("성공했다!!!!!!!!!!!");
+    }
     return { registSuccess };
   } catch (error: any) {
     console.log(

@@ -14,8 +14,10 @@ type SubDrawerRouteProps = {
 const SubDrawerRoute: FC<SubDrawerRouteProps> = ({ name, onPressHandler }) => {
   return (
     <View style={[styles.view]}>
-      <Icon name="circle" size={5} style={[styles.icon]} />
-      <TouchableOpacity onPress={onPressHandler}>
+      <Icon name="circle" size={5} />
+      <TouchableOpacity
+        onPress={() => onPressHandler()}
+        style={[styles.textContainer]}>
         <Text style={[styles.text]}>{name}</Text>
       </TouchableOpacity>
     </View>
@@ -26,16 +28,19 @@ export default SubDrawerRoute;
 
 const styles = StyleSheet.create({
   view: {
+    position: "relative",
     flexDirection: "row",
     alignItems: "center",
     paddingLeft: 45,
     height: 35,
   },
-  icon: {
-    marginRight: 10,
+  textContainer: {
+    position: "absolute",
+    left: 60,
   },
   text: {
-    textDecorationLine: "underline",
     fontSize: 17,
+    lineHeight: 33,
+    textDecorationLine: "underline",
   },
 });
