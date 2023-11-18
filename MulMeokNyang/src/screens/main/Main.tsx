@@ -29,6 +29,9 @@ import alertBackgroundStyles from "../../styles/alertBackgroundStyles";
 // Icon
 import Icon from "react-native-vector-icons/Ionicons";
 
+// 고양이 프로필 사진이 등록되지 않았을 경우, 기본 사진 사용
+const defaultPhoto = require("../../../assets/profileDefaultPhoto/CatProfileDefaultPhoto.png");
+
 const Main = () => {
   // #############################가짜 메인 데이터#############################
   const fakeMainData = [
@@ -193,9 +196,6 @@ const Main = () => {
     setCatWeight(fakeMainData[currentArrIdx].weight);
     setHydrationGuage(fakeMainData[currentArrIdx].hydrationGuage);
   }, [currentSelectedCatId]);
-
-  // 사진이 등록되지 않았을 경우, 기본 사진 사용
-  const defaultPhoto = require("../../../assets/profileDefaultPhoto/CatProfileDefaultPhoto.png");
 
   // 3. hydrationGuage 값에 따라 guage 색상과 평가글 다르게 저장
   useEffect(() => {
