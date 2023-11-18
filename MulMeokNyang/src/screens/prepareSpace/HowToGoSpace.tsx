@@ -2,10 +2,10 @@
 import { StyleSheet } from "react-native";
 import { SafeAreaView, View, Text } from "react-native";
 // Custom Component
-import TopBar from "../components/TopBar";
-import ProcessButton from "../components/button/ProcessButton";
+import TopBar from "../../components/TopBar";
+import ProcessButton from "../../components/button/ProcessButton";
 // styles
-import mainViewStyles from "../styles/mainViewStyles";
+import mainViewStyles from "../../styles/mainViewStyles";
 
 const HowToGoSpace = () => {
   return (

@@ -18,9 +18,9 @@ import {
   UserProfileRegistration,
   UserProfileModification,
 } from "../screens/userProfileSet";
-import HowToGoSpace from "../screens/HowToGoSpace";
-import DeviceRegistration from "../screens/DeviceRegistration";
-import PendingCoManagerAddition from "../screens/PendingCoManagerAddition";
+import HowToGoSpace from "../screens/prepareSpace/HowToGoSpace";
+import DeviceRegistration from "../screens/prepareSpace/DeviceRegistration";
+import PendingCoManagerAddition from "../screens/prepareSpace/PendingCoManagerAddition";
 import {
   CatProfileRegistration,
   CatProfileModification,
@@ -34,8 +34,8 @@ import {
   CatHydrationRegistration,
   CatHydrationModification,
 } from "../screens/catInfoSet/catHydrationSet";
-import Main from "../screens/Main";
-import HydrationStatistics from "../screens/HydrationStatistics";
+import Main from "../screens/main/Main";
+import HydrationStatistics from "../screens/main/HydrationStatistics";
 
 const Stack = createStackNavigator();
 

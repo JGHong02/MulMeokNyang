@@ -1,6 +1,6 @@
 // Context
-import { UserContext } from "../contexts/UserContext";
-import { CatContext } from "../contexts/CatContext";
+import { UserContext } from "../../contexts/UserContext";
+import { CatContext } from "../../contexts/CatContext";
 // Hook
 import { useEffect, useContext, useState } from "react";
 // StyleSheet, Component
@@ -13,18 +13,18 @@ import {
   TouchableOpacity,
 } from "react-native";
 // Custom Component
-import TopBar from "../components/TopBar";
-import CatProfileList from "../components/CatProfileList";
-import ProcessButton from "../components/button/ProcessButton";
-import SelectCatAlert from "../components/alert/SelectCatAlert";
-import Drawer from "../components/drawer/Drawer";
+import TopBar from "../../components/TopBar";
+import CatProfileList from "../../components/CatProfileList";
+import ProcessButton from "../../components/button/ProcessButton";
+import SelectCatAlert from "../../components/alert/SelectCatAlert";
+import Drawer from "../../components/drawer/Drawer";
 // API
-import { getCatProfileList } from "../api/main/getCatProfileList";
-import { getCatMainInfo } from "../api/main/getCatMainInfo";
-import { getUserProfile } from "../api/userProfileSet/getUserProfile";
+import { getCatProfileList } from "../../api/main/getCatProfileList";
+import { getCatMainInfo } from "../../api/main/getCatMainInfo";
+import { getUserProfile } from "../../api/userProfileSet/getUserProfile";
 // styles
-import mainViewStyles from "../styles/mainViewStyles";
-import alertBackgroundStyles from "../styles/alertBackgroundStyles";
+import mainViewStyles from "../../styles/mainViewStyles";
+import alertBackgroundStyles from "../../styles/alertBackgroundStyles";
 // Icon
 import Icon from "react-native-vector-icons/Ionicons";
 
@@ -190,7 +190,7 @@ const Main = () => {
   }, [currentSelectedCatId]);
 
   // 사진이 등록되지 않았을 경우, 기본 사진 사용
-  const defaultPhoto = require("../../assets/profileDefaultPhoto/CatProfileDefaultPhoto.png");
+  const defaultPhoto = require("../../../assets/profileDefaultPhoto/CatProfileDefaultPhoto.png");
 
   // 3. hydrationGuage 값에 따라 guage 색상과 평가글 다르게 저장
   useEffect(() => {
