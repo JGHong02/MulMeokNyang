@@ -71,8 +71,8 @@ const Drawer: FC<DrawerProps> = ({
     });
   }, []);
 
-  // 5. '공동 관리자 관리' 클릭 시, 화면 이동 함수
-  const goCoManagerManagement = useGoRoute("CoManagerManagement");
+  // 5. '공동 관리자' 클릭 시, 화면 이동 함수
+  const goCoManagerManagement = useGoRoute("CoManager");
 
   // 6. '로그아웃' 클릭 시, 로그아웃 처리한 뒤 Start 화면으로 이동
   const goStart = useGoRoute("Start");
@@ -139,10 +139,7 @@ const Drawer: FC<DrawerProps> = ({
         name="고양이 프로필 삭제"
         onPressHandler={showSelectCatAlertToDelete}
       />
-      <DrawerRoute
-        name="공동 관리자 관리"
-        onPressHandler={goCoManagerManagement}
-      />
+      <DrawerRoute name="공동 관리자" onPressHandler={goCoManagerManagement} />
       <TouchableOpacity style={[styles.logoutView]} onPress={logoutAndGoStart}>
         <Text style={[styles.routeText]}>로그아웃</Text>
         <ADIcon name="logout" size={25} />
