@@ -13,7 +13,7 @@ import SubDrawerRoute from "./SubDrawerRoute";
 // API
 import { logout } from "../../api/drawer/logout";
 // Icon
-import EtIcon from "react-native-vector-icons/Entypo";
+import ETIcon from "react-native-vector-icons/Entypo";
 import ADIcon from "react-native-vector-icons/AntDesign";
 
 const { height } = Dimensions.get("window");
@@ -90,7 +90,7 @@ const Drawer: FC<DrawerProps> = ({
     <View style={[styles.drawerView]}>
       <View style={[styles.topBar]}>
         <TouchableOpacity onPress={() => closeDrawer(false)}>
-          <EtIcon name="chevron-thin-right" size={30} color="#343434" />
+          <ETIcon name="chevron-thin-right" size={30} color="#343434" />
         </TouchableOpacity>
       </View>
       <View style={[styles.userProfileView, styles.borderBottomLine]}>

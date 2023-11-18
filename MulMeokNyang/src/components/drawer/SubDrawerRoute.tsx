@@ -26,16 +26,21 @@ export default SubDrawerRoute;
 
 const styles = StyleSheet.create({
   view: {
+    position: "relative",
     flexDirection: "row",
-    alignItems: "center",
     paddingLeft: 45,
     height: 35,
   },
   icon: {
-    marginRight: 10,
+    position: "absolute",
+    left: 40,
+    lineHeight: 35,
   },
   text: {
-    textDecorationLine: "underline",
+    position: "absolute",
+    left: 15,
     fontSize: 17,
+    lineHeight: 35,
+    textDecorationLine: "underline",
   },
 });
