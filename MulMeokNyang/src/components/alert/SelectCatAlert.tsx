@@ -57,9 +57,9 @@ const SelectCatAlert: FC<SelectCatAlertProps> = ({
     if (typeOfAction !== "삭제") return;
 
     try {
-      // Alert 끄고 삭제
-      setAlertInfo((prev: any) => ({ ...prev, onSelectCatAlert: false }));
       await deleteCatInfo(managementSpaceIdGV, currentSelectedCatId);
+      // Alert 끄기
+      setAlertInfo((prev: any) => ({ ...prev, onSelectCatAlert: false }));
     } catch (error: any) {
       console.log(
         "SelectCatAlert의 deleteCatInfo 호출에서 error 발생 :",
