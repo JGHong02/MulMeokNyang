@@ -92,7 +92,8 @@ const UserProfileSet: FC<UserProfileSetType> = ({
 
     try {
       const res = await registUserProfile(
-        userEmailGV,
+        // userEmailGV,
+        "user6@example.com",
         formInfo.userProfilePhotoUrl,
         formInfo.userNickname,
         formInfo.userIntroduction
