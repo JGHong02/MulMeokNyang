@@ -104,7 +104,6 @@ const SelectCatAlert: FC<SelectCatAlertProps> = ({
           content={typeOfAction}
           canPress
           onPressHandler={typeOfAction === "수정" ? goAfterRoute : deleteInfo}
-          route={typeOfAction === "삭제" ? "Main" : ""}
           isInAlert
         />
       </View>

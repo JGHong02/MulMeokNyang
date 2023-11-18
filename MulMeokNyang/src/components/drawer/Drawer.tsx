@@ -67,7 +67,7 @@ const Drawer: FC<DrawerProps> = ({
       onSelectCatAlert: true,
       typeOfInfo: "",
       typeOfAction: "삭제",
-      route: "Start",
+      route: "Main",
     });
   }, []);
 
