@@ -45,7 +45,7 @@ interface ProviderProps {
 }
 
 export const UserContextProvider = ({ children }: ProviderProps) => {
-  const [userEmailGV, setUserEmailGV] = useState<string>("");
+  const [userEmailGV, setUserEmailGV] = useState<string>("hjk9216@naver.com");
   const [managementSpaceIdGV, setManagementSpaceIdGV] = useState<string>("");
   const [userPwGV, setUserPwGV] = useState<string>("");
   const [userNameGV, setUserNameGV] = useState<string>("");
