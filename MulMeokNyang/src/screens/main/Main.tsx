@@ -21,7 +21,7 @@ import Drawer from "../../components/drawer/Drawer";
 // API
 import { getCatProfileList } from "../../api/main/getCatProfileList";
 import { getCatMainInfo } from "../../api/main/getCatMainInfo";
-import { getUserProfile } from "../../api/userProfileSet/getUserProfile";
+import { getUserProfile } from "../../api/common/getUserProfile";
 // styles
 import mainViewStyles from "../../styles/mainViewStyles";
 import alertBackgroundStyles from "../../styles/alertBackgroundStyles";
