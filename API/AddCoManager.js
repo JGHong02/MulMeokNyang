@@ -57,7 +57,7 @@ app.post('/add-co-manager', (req, res) => {
                     return res.status(500).json({ error: 'Internal Server Error' });
                 }
 
-                res.json({ addDone: true });
+                res.json({ addSuccess: true });
             });
         });
     });
