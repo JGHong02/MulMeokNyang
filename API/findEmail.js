@@ -3,8 +3,11 @@ const app = express();
 const mysql = require('mysql2');
 const cors = require('cors');
 const serverless = require('serverless-http');
+const dotenv = require('dotenv');
 
 app.use(cors());
+
+dotenv.config();
 
 const rdsConfig = {
     host: process.env.RDS_HOST,
@@ -29,7 +32,7 @@ app.get('/getUserEmail', (req, res) => {
         } else if (results.length > 0) {
             res.status(200).json({ userEmail: results[0].user_email });
         } else {
-            res.status(404).json({
+            res.status(204).json({
                 error: "Email not found",
                 userEmail: null
             });
