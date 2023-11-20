@@ -9,10 +9,17 @@ provider:
     RDS_USER: ${.env:RDS_USER}
     RDS_DATABASE: ${.env:RDS_DATABASE}
     RDS_PASSWORD: ${.env:RDS_PASSWORD}
+    S3_BUCKET_NAME: ${.env:S3_BUCKET_NAME}
   memorySize: 2048
   timeout: 15
   stage: prod
   region: ap-northeast-2
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - s3:*
+      Resource: arn:aws:s3:::mulmeoknyang-image/*
+       
 
 functions:
   findEmail:
@@ -21,3 +28,19 @@ functions:
       - http: 
           path: /getUserEmail
           method: get
+
+  registUserProfile:
+    handler: registUserProfile.registUserProfile
+    events:
+      - http:
+          path: /registUserProfile
+          method: post
+  
+  getCatMainInfo:
+    handler: getCatMainInfo.getCatMainInfo
+    events:
+      - http:
+          path: /getCatMainInfo
+          method: get
+
+
