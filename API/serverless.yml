@@ -19,7 +19,9 @@ provider:
       Action:
         - s3:*
       Resource: arn:aws:s3:::mulmeoknyang-image/*
-       
+
+plugins:
+  - serverless-dotenv-plugin
 
 functions:
   findEmail:
@@ -41,6 +43,34 @@ functions:
     events:
       - http:
           path: /getCatMainInfo
+          method: get
+  
+  autoLogin:
+    handler: autoLogin.autoLogin
+    events:
+      - http:
+          path: /autoLogin
+          method: post
+
+  checkEmailAvailable:
+    handler: checkEmailAvailable.checkEmailAvailable
+    events:
+      - http:
+          path: /checkEmailAvailable
+          method: get
+
+  checkMessageAuthCode:
+    handler: checkMessageAuthCode.checkMessageAuthCode
+    events:
+      - http:
+          path: /checkMessageAuthCode
+          method: get
+
+  checkUserExists:
+    handler: checkUserExists.checkUserExists
+    events:
+      - http:
+          path: /checkUserExists
           method: get
 
 
