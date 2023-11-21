@@ -10,7 +10,7 @@ device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 #%%
 MODEL_SAVE_PATH = 'checkpoints/'
-model = torchvision.models.resnet50(pretrained=True).to(device)
+model = torchvision.models.resnet152(pretrained=True).to(device)
 
 #%%
 # model.load_state_dict(torch.load(os.path.join(MODEL_SAVE_PATH, 'best_checkpoint.pth')))

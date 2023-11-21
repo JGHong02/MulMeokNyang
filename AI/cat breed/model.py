@@ -95,8 +95,8 @@ class ModelHead(torch.nn.Module):
 
 MODEL_SAVE_PATH = 'checkpoints'
 
-LEARNING_RATE = 1e-3
-N_EPOCHS = 20
+LEARNING_RATE = 1e-2
+N_EPOCHS = 10
 
 def train(model, n_epochs, criterion, optimizer, train_data_loader, valid_data_loader,
           device, model_save_path, logging_interval: int = 50):
@@ -179,3 +179,43 @@ if __name__ == '__main__':
         y_pred.extend(test_pred_labels.detach().cpu().numpy())
 
     print(classification_report(y_true, y_pred))
+
+#           ############ resnet152 ##############
+#               precision    recall  f1-score   support
+# 
+#            0       0.78      0.79      0.78        80
+#            1       0.80      0.85      0.82        80
+#            2       0.68      0.68      0.68        80
+#            3       0.89      0.89      0.89        80
+#            4       0.72      0.76      0.74        80
+#            5       0.69      0.78      0.73        80
+#            6       0.82      0.75      0.78        80
+#            7       0.82      0.94      0.87        80
+#            8       0.72      0.59      0.65        80
+#            9       0.81      0.82      0.82        80
+#           10       0.87      0.76      0.81        80
+#           11       0.91      0.90      0.91        80
+# 
+#     accuracy                           0.79       960
+#    macro avg       0.79      0.79      0.79       960
+# weighted avg       0.79      0.79      0.79       960
+
+#           ############ resnet50 ##############
+#               precision    recall  f1-score   support
+# 
+#            0       0.70      0.76      0.73        80
+#            1       0.73      0.75      0.74        80
+#            2       0.65      0.79      0.71        80
+#            3       0.82      0.94      0.87        80
+#            4       0.76      0.64      0.69        80
+#            5       0.59      0.71      0.65        80
+#            6       0.80      0.69      0.74        80
+#            7       0.91      0.76      0.83        80
+#            8       0.72      0.61      0.66        80
+#            9       0.75      0.84      0.79        80
+#           10       0.83      0.71      0.77        80
+#           11       0.94      0.90      0.92        80
+# 
+#     accuracy                           0.76       960
+#    macro avg       0.77      0.76      0.76       960
+# weighted avg       0.77      0.76      0.76       960

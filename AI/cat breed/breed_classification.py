@@ -6,76 +6,15 @@ import torch
 import torchvision
 import matplotlib.pyplot as plt
 from sklearn.metrics import classification_report, f1_score
-from torchvision.models import resnet50, ResNet50_Weights
+from torchvision.models import resnet152, resnet50, ResNet152_Weights, ResNet50_Weights
 import pandas as pd
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 image_extensions = ['.jpg', '.jpeg', '.png', '.bmp']
+
 transform_rotation = torchvision.transforms.RandomApply([
     torchvision.transforms.RandomRotation(20)
 ], p=0.2)
-
-transform_train = torchvision.transforms.Compose([
-    torchvision.transforms.Resize(256),
-    torchvision.transforms.CenterCrop(224),
-    torchvision.transforms.RandomPerspective(distortion_scale=0.1, p=0.2),
-    transform_rotation,
-    torchvision.transforms.ToTensor(),
-    torchvision.transforms.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225))
-])
-
-transform_valid = torchvision.transforms.Compose([
-    torchvision.transforms.Resize(256),
-    torchvision.transforms.CenterCrop(224),
-    torchvision.transforms.ToTensor(),
-    torchvision.transforms.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225))
-])
-
-# Loade Data
-TRAIN_DATA_DIR = 'data/train'
-VALID_DATA_DIR = 'data/val'
-TEST_DATA_DIR = 'data/test'
-BATCH_SIZE = 32
-
-train_data = torchvision.datasets.ImageFolder(TRAIN_DATA_DIR,
-                                              transform=transform_train,
-                                              is_valid_file=lambda x: x.endswith('.jpg'))
-
-valid_data = torchvision.datasets.ImageFolder(VALID_DATA_DIR,
-                                              transform=transform_valid,
-                                              is_valid_file=lambda x: x.endswith('.jpg'))
-
-test_data = torchvision.datasets.ImageFolder(TEST_DATA_DIR,
-                                             transform=transform_valid,
-                                             is_valid_file=lambda x: x.endswith('.jpg'))
-
-train_loader = torch.utils.data.DataLoader(train_data, batch_size=BATCH_SIZE, num_workers=2, shuffle=True)
-val_loader = torch.utils.data.DataLoader(valid_data, batch_size=BATCH_SIZE, num_workers=2)
-
-dataloaders_dict={}
-dataloaders_dict['train']= train_loader
-dataloaders_dict['val']= val_loader
-
-train_data_loader = torch.utils.data.DataLoader(
-    train_data,
-    batch_size=BATCH_SIZE,
-    shuffle=True,
-    num_workers=0,
-)
-
-valid_data_loader = torch.utils.data.DataLoader(
-    valid_data,
-    batch_size=BATCH_SIZE,
-    shuffle=False,
-    num_workers=0,
-)
-
-test_data_loader = torch.utils.data.DataLoader(
-    test_data,
-    batch_size=BATCH_SIZE,
-    shuffle=False,
-    num_workers=0,
-)
 
 class ModelHead(torch.nn.Module):
     def __init__(self, input_dim, hidden_dim, n_classes):
@@ -96,55 +35,6 @@ class ModelHead(torch.nn.Module):
 
 MODEL_SAVE_PATH = 'checkpoints'
 
-LEARNING_RATE = 1e-3
-N_EPOCHS = 20
-
-def train(model, n_epochs, criterion, optimizer, train_data_loader, valid_data_loader,
-          device, model_save_path, logging_interval: int = 50):
-    best_valid_f1_score = 0.0
-    os.makedirs(model_save_path, exist_ok=True)
-
-    for epoch in range(n_epochs):
-        # training step
-        model.train()
-
-        for batch_idx, (batch_data, batch_labels) in enumerate(train_data_loader):
-            inputs = batch_data.to(device)
-            y_true = batch_labels.to(device)
-
-            # zero the parameter gradients
-            optimizer.zero_grad()
-
-            # forward + backward + optimizer step
-            y_pred = model(inputs)
-            loss = criterion(y_pred, y_true)
-            loss.backward()
-            optimizer.step()
-
-            if (batch_idx + 1) % logging_interval == 0:
-                print(f'Epoch: {epoch + 1}\t| Batch: {batch_idx + 1}\t| Loss: {loss}')
-
-        # validation step
-        model.eval()
-        y_true = []
-        y_pred = []
-        for valid_data, valid_labels in valid_data_loader:
-            valid_data = valid_data.to(device)
-            valid_labels = valid_labels.to(device)
-            with torch.no_grad():
-                valid_preds = model(valid_data)
-            valid_pred_labels = torch.argmax(valid_preds, dim=1)
-            y_true.extend(valid_labels.detach().cpu().numpy())
-            y_pred.extend(valid_pred_labels.detach().cpu().numpy())
-        valid_f1_score = f1_score(y_true, y_pred, average='macro')
-
-        if valid_f1_score > best_valid_f1_score:
-            best_valid_f1_score = valid_f1_score
-            torch.save(model.state_dict(),
-                       os.path.join(model_save_path, 'best_checkpoint.pth'))
-        print(f'Epoch {epoch + 1} F1-score: {valid_f1_score}\t| Best F1-score: {best_valid_f1_score}')
-        torch.save(model.state_dict(),
-                   os.path.join(model_save_path, f'epoch_{epoch + 1}_checkpoint.pth'))
 #%%
 if __name__ == '__main__':
     print(f'Using device: {device}.')
@@ -159,46 +49,68 @@ if __name__ == '__main__':
     model.load_state_dict(torch.load(os.path.join(MODEL_SAVE_PATH, 'best_checkpoint.pth')))
     model.eval()
 
-    df_path = "C:/Users/sento/Documents/Python/cat/img/"
-    df = pd.read_csv(df_path + "predict/labels/image0.txt", sep=' ', header=0, names=['class', 'x1', 'y1', 'x2', 'y2', 'id', 'file_number'])
-    num_of_cats = df['id'].max()
+    for i in range(12):
+        image_path = f'data/cat_{i+1}.jpg'
+        image = Image.open(image_path)
+        transform = torchvision.transforms.Compose([
+            torchvision.transforms.Resize(256),
+            torchvision.transforms.CenterCrop(224),
+            torchvision.transforms.ToTensor(),
+            torchvision.transforms.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225))
+        ])
+        preprocessed_image = transform(image).unsqueeze(0).to(device)
 
-    for i in range(num_of_cats):
-        img_path = df_path + f"id_{i + 1}"
-        imgs_list = [filename for filename in os.listdir(img_path) if os.path.splitext(filename)[-1] in image_extensions]
+        with torch.no_grad():
+            predictions = model(preprocessed_image)
 
-        df_id = pd.read_csv(df_path + f"predict/labels/df_{i + 1}_new.csv", sep=' ', header=0, names=['class', 'id', 'file_number', 'color1', 'color2', 'color3', 'color4', 'color5'])
-        print(df_id.head(10))
+        predicted_class = torch.argmax(predictions).item()
+        print(predicted_class + 1)
 
-        for img in imgs_list:
-            image = Image.open(os.path.join(img_path, img))
+        class_labels = ['Abyssinian', 'Bengal', 'Birman', 'Bombay', 'British Shorthair', 'Egyptian Mau', 'Maine Coon', 'Persian', 'Ragdoll', 'Russian Blue', 'Siamese', 'Sphynx'] 
+        predicted_label = class_labels[predicted_class]
+        print(f'Predicted class: {predicted_label}')
 
-            img_num = img[6:].replace('.jpg', "")
-            print(img_num)
-
-            transform = torchvision.transforms.Compose([
-                torchvision.transforms.Resize(256),
-                torchvision.transforms.CenterCrop(224),
-                torchvision.transforms.ToTensor(),
-                torchvision.transforms.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225))
-            ])
-            preprocessed_image = transform(image).unsqueeze(0).to(device)
-
-            with torch.no_grad():
-                predictions = model(preprocessed_image)
-
-            predicted_class = torch.argmax(predictions).item()
-            print(predicted_class)
-
-            class_labels = ['Abyssinian', 'Bengal', 'Birman', 'Bombay', 'British Shorthair', 'Egyptian Mau', 'Maine Coon', 'Persian', 'Ragdoll', 'Russian Blue', 'Siamese', 'Sphynx'] 
-            predicted_label = class_labels[predicted_class]
-            print(f'Predicted class: {predicted_label}')
-
-            df_id.loc[df_id[df_id["file_number"] == int(img_num)].index.tolist()[0], "breed"] = predicted_label
-            print(df_id.loc[df_id["file_number"] == int(img_num)])
-
-                  
-        df_id.to_csv(df_path + f"predict/labels/df_{i + 1}_new.csv", sep=' ', header=True, index=False)
+    # df_path = "C:/Users/sento/Documents/Python/cat/img/"
+    # df = pd.read_csv(df_path + "predict/labels/image0.txt", sep=' ', header=0, names=['class', 'x1', 'y1', 'x2', 'y2', 'id', 'file_number'])
+    # num_of_cats = df['id'].max()
+# 
+    # for i in range(num_of_cats):
+    #     img_path = df_path + f"id_{i + 1}"
+    #     imgs_list = [filename for filename in os.listdir(img_path) if os.path.splitext(filename)[-1] in image_extensions]
+# 
+    #     df_id = pd.read_csv(df_path + f"predict/labels/df_{i + 1}_new.csv", sep=' ', header=0, names=['class', 'id', 'file_number', 'color1', 'color2', 'color3', 'color4', 'color5'])
+    #     print(df_id.head(10))
+# 
+    #     for img in imgs_list:
+    #         image = Image.open(os.path.join(img_path, img))
+# 
+    #         img_num = img[6:].replace('.jpg', "")
+    #         print(img_num)
+# 
+    #         transform = torchvision.transforms.Compose([
+    #             torchvision.transforms.Resize(256),
+    #             torchvision.transforms.CenterCrop(224),
+    #             torchvision.transforms.ToTensor(),
+    #             torchvision.transforms.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225))
+    #         ])
+    #         preprocessed_image = transform(image).unsqueeze(0).to(device)
+# 
+    #         with torch.no_grad():
+    #             predictions = model(preprocessed_image)
+# 
+    #         predicted_class = torch.argmax(predictions).item()
+    #         print(predicted_class)
+# 
+    #         class_labels = ['Abyssinian', 'Bengal', 'Birman', 'Bombay', 'British Shorthair', 'Egyptian Mau', 'Maine Coon', 'Persian', 'Ragdoll', 'Russian Blue', 'Siamese', 'Sphynx'] 
+    #         predicted_label = class_labels[predicted_class]
+    #         print(f'Predicted class: {predicted_label}')
+# 
+    #         df_id.loc[df_id[df_id["file_number"] == int(img_num)].index.tolist()[0], "breed"] = predicted_label
+    #         print(df_id.loc[df_id["file_number"] == int(img_num)])
+# 
+    #               
+    #     df_id.to_csv(df_path + f"predict/labels/df_{i + 1}_new.csv", sep=' ', header=True, index=False)
 
     # 9/12
-# %%
+# resnet 152 => 6/12
+# resnet 50 => 9/12
