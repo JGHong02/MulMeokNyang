@@ -52,4 +52,25 @@ functions:
           path: /autoLogin
           method: post
 
+  checkEmailAvailable:
+    handler: checkEmailAvailable.checkEmailAvailable
+    events:
+      - http:
+          path: /checkEmailAvailable
+          method: get
+
+  checkMessageAuthCode:
+    handler: checkMessageAuthCode.checkMessageAuthCode
+    events:
+      - http:
+          path: /checkMessageAuthCode
+          method: get
+
+  checkUserExists:
+    handler: checkUserExists.checkUserExists
+    events:
+      - http:
+          path: /checkUserExists
+          method: get
+
 
