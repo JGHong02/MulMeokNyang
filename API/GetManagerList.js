@@ -37,9 +37,15 @@ app.get('/get-manager-list', (req, res) => {
         }
 
         const { main_manager_user_email, co_managers_user_email } = results[0];
-        res.json({ mainManagerUserEmail: main_manager_user_email, coManagersUserEmail: co_managers_user_email });
+
+        // 공동 관리자 목록에서 주요 관리자 이메일 제거
+        let coManagers = JSON.parse(co_managers_user_email);
+        coManagers = coManagers.filter(email => email !== main_manager_user_email);
+
+        res.json({ mainManagerUserEmail: main_manager_user_email, coManagersUserEmail: coManagers });
     });
 });
+
 
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
