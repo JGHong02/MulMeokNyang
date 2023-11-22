@@ -222,6 +222,12 @@ const Main = () => {
     setEvaluation(evaluation);
   }, [hydrationGuage]);
 
+  // 기간별 음수량 통계 이동 함수
+  const navigation = useNavigation();
+  const goHydrationStatistics = useCallback(() => {
+    navigation.navigate("HydrationStatistics", { catId: currentSelectedCatId });
+  }, [currentSelectedCatId]);
+
   return (
     <SafeAreaView>
       <View pointerEvents={onDrawer ? "none" : "auto"}>
@@ -309,7 +315,7 @@ const Main = () => {
             <ProcessButton
               content="기간별 음수량 통계 보기"
               canPress
-              route="HydrationStatistics"
+              onPressHandler={goHydrationStatistics}
             />
           </View>
         </View>
