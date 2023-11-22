@@ -44,6 +44,27 @@ functions:
       - http:
           path: /getCatMainInfo
           method: get
+
+  getCatFeedStuff:
+    handler: getCatFeedStuff.getCatFeedStuff
+    events:
+      - http:
+          path: /getCatFeedStuff
+          method: get
+  
+  getCatHydration:
+    handler: getCatHydration.getCatHydration
+    events:
+      - http:
+          path: /getCatHydration
+          method: get
+
+  getManagerList:
+    handler: getManagerList.getManagerList
+    events:
+      - http:
+          path: /getManagerList
+          method: get
   
   autoLogin:
     handler: autoLogin.autoLogin
