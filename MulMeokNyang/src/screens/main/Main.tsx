@@ -64,6 +64,7 @@ const Main = () => {
   // const [catWeight, setCatWeight] = useState<string>("");
   // const [hydrationGuage, setHydrationGuage] = useState<number>(0);
   // const [hydrationGuageColor, setHydrationGuageColor] = useState<string>("");
+  // const [evaluation, setEvaluation] = useState<string>("");
 
   // Drawer 여닫기 State
   const [onDrawer, setOnDrawer] = useState<boolean>(false);
@@ -157,6 +158,10 @@ const Main = () => {
       nickname: "무적코털슝슝",
       introduction: "안녕? 반갑다. 잘 지내보자.",
     });
+
+    // API 연동 확인용
+    // setCurrentSelectedCatId("1");
+    // console.log(currentSelectedCatId);
   }, [isFocused]);
 
   // 2. currentSelectedCatIdGV 값이 바뀔 때마다,
@@ -172,8 +177,10 @@ const Main = () => {
     const setCatMainInfo = async () => {
       try {
         const res = await getCatMainInfo(
+          // 1
           currentSelectedCatId,
-          managementSpaceIdGV
+          // managementSpaceIdGV
+          "msid1"
         );
         setCatName(res.catName);
         setCatAge(res.catAge);

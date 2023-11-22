@@ -47,16 +47,18 @@ const ImageInputContainer: FC<ImageInputContainerProps> = ({
         // 사진 업로드 전, 자르기 등의 추가 편집 여부
         allowsEditing: false,
         // 사진 압축 여부, 1로 설정하면 가장 높은 품질로 파일 업로드
-        quality: 1,
+        // quality: 0.5,
         // 사진 비율
         aspect: [1, 1],
+        // 바이너리 변환
+        base64: true,
       });
 
       // 사진 업로드 취소한 경우
       if (result.canceled) return null;
 
       // 사진 업로드 결과 및 사진 경로 업데이트
-      console.log(result);
+      // console.log(result);
       setPhotoUrl((prevForm: any) => ({
         ...prevForm,
         [prop]: result.assets[0].uri,

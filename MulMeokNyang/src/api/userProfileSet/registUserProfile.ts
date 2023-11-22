@@ -10,16 +10,20 @@ export const registUserProfile = async (
 ) => {
   try {
     // 1. 사용자로부터 받은 localUri를 formData 형식으로 변환
-    const photoFormData = localUriToFormData(profilePhotoUrl);
+    const photoFormData = await localUriToFormData(profilePhotoUrl);
 
     // 2. FormData 객체 생성
     const formData = new FormData();
+
+    console.log(profilePhotoUrl);
+    console.log(photoFormData.file, photoFormData.filename, photoFormData.type);
 
     // 3. 'userProfilePhoto'를 'multipart/form-data'로 추가
     formData.append("userProfilePhoto", {
       uri: profilePhotoUrl,
       name: photoFormData.filename,
       type: photoFormData.type,
+      // data: photoFormData.file,
     });
 
     // 4. 나머지 데이터를 JSON 형식으로 객체에 담고 FormData에 추가
@@ -38,21 +42,29 @@ export const registUserProfile = async (
         headers: {
           "Content-Type": "multipart/form-data",
         },
+        transformRequest: (data, headers) => {
+          return data;
+        },
       }
     );
 
+    console.log("-----------");
+
     // 중복되는 닉네임인 경우
-    if (res.hasOwnProperty("nicknameExists")) {
+    // if (res.data.hasOwnProperty("nicknameExists")) {
+    if (Object.prototype.hasOwnProperty.call(res.data, "nicknameExists")) {
       const nicknameExists = res.data.nicknameExists;
       return { nicknameExists };
     }
 
+    console.log("요까지 왔는가?");
+
     // 사용자 프로필 등록 성공
-    const registSuccess = res.data.registSuccess;
+    const registSuccess = res.data.registDone;
     if (registSuccess) {
       console.log("성공했다!!!!!!!!!!!");
+      return { registSuccess };
     }
-    return { registSuccess };
   } catch (error: any) {
     console.log(
       "registUserProfile API 호출 함수에서 error 발생 :",
