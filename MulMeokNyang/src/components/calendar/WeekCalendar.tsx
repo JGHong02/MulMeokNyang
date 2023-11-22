@@ -4,6 +4,8 @@ import { Calendar, LocaleConfig } from "react-native-calendars";
 import type { FC, Dispatch, SetStateAction } from "react";
 // Hook
 import { useState, useEffect } from "react";
+// utils
+import { changeDateToString } from "../../utils/changeDateToString";
 
 // 달력 한국어 설정
 LocaleConfig.locales["fr"] = {
@@ -28,19 +30,6 @@ LocaleConfig.locales["fr"] = {
 
 LocaleConfig.defaultLocale = "fr";
 
-// Calendar 컴포넌트 props 형식에 맞는 string으로 변환
-const changeTodateString = (date: Date) => {
-  const year = date.getFullYear();
-  // 월은 0부터 시작하므로 1을 더하고 2자리로 맞추기
-  const month = (date.getMonth() + 1).toString().padStart(2, "0");
-  // 2자리로 맞추기
-  const day = date.getDate().toString().padStart(2, "0");
-  // 형식에 맞게 저장
-  const dateString = `${year}-${month}-${day}`;
-
-  return dateString;
-};
-
 type WeekCalendarProps = {
   setWeekRange: Dispatch<SetStateAction<string[]>>;
   setCanPressCheck: Dispatch<SetStateAction<boolean>>;
@@ -51,7 +40,7 @@ const WeekCalendar: FC<WeekCalendarProps> = ({
   setCanPressCheck,
 }) => {
   // 오늘 날짜
-  const todayString = changeTodateString(new Date());
+  const todayString = changeDateToString(new Date(), "주");
   // 누른 날짜
   const [selectedDay, setSelectedDay] = useState<string>("");
   // 선택된 주
@@ -72,7 +61,7 @@ const WeekCalendar: FC<WeekCalendarProps> = ({
     const newSelectedPeriod: { [key: string]: any } = {};
 
     for (let i = 0; i < 7; i++) {
-      const dateString = changeTodateString(date);
+      const dateString = changeDateToString(date, "주");
       // 오늘 날짜까지만 조회 가능
       const isMaxDate = dateString === todayString;
 
