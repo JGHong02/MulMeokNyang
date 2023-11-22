@@ -73,4 +73,16 @@ functions:
           path: /checkUserExists
           method: get
 
+  deleteCatInfo:
+    handler: deleteCatInfo.deleteCatInfo
+    events:
+      - http:
+          path: /deleteCatInfo
+          method: delete
 
+  deleteCoManager:
+    handler: deleteCoManager.deleteCoManager
+    events:
+      - http:
+          path: /deleteCoManager
+          method: delete
