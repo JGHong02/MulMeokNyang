@@ -265,7 +265,13 @@ const Main = () => {
               </Text>
             </View>
             <TouchableOpacity>
-              <View style={[styles.button]}>
+              <View
+                style={[
+                  styles.button,
+                  Platform.OS === "android"
+                    ? styles.shadowAndroid
+                    : styles.shadowIOS,
+                ]}>
                 <Icon name="water" size={50} color="#004aad" />
                 <Text style={[styles.buttonText]}>물주기</Text>
               </View>
@@ -402,6 +408,15 @@ const styles = StyleSheet.create({
   buttonText: {
     color: "white",
     fontSize: 16,
+  },
+  shadowAndroid: {
+    elevation: 4,
+  },
+  shadowIOS: {
+    shadowColor: "black",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.4,
+    shadowRadius: 2,
   },
 
   // 게이지
