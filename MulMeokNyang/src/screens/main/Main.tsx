@@ -2,10 +2,11 @@
 import { UserContext } from "../../contexts/UserContext";
 import { CatContext } from "../../contexts/CatContext";
 // Hook
-import { useEffect, useContext, useState } from "react";
+import { useEffect, useContext, useState, useCallback } from "react";
+import { useNavigation } from "@react-navigation/native";
 import { useIsFocused } from "@react-navigation/native";
-// StyleSheet, Component
-import { StyleSheet } from "react-native";
+// Platform, StyleSheet, Component
+import { Platform, StyleSheet } from "react-native";
 import {
   SafeAreaView,
   View,
@@ -362,7 +363,6 @@ const styles = StyleSheet.create({
     width: 400,
     padding: 10,
     borderBottomWidth: 1,
-    borderBottomColor: "black",
   },
 
   // 기본 정보와 물 주기 버튼
