@@ -100,14 +100,14 @@ const UserProfileSet: FC<UserProfileSetType> = ({
       );
 
       // 중복되는 닉네임인 경우
-      if (res.hasOwnProperty("nicknameExists")) {
+      if (Object.prototype.hasOwnProperty.call(res, "nicknameExists")) {
         setAlertMsg("이미 존재하는\n닉네임입니다.");
         setOnNicknameAlert(true);
         setOnAlert(true);
         return;
       }
 
-      if (res.hasOwnProperty("registSuccess")) {
+      if (Object.prototype.hasOwnProperty.call(res, "registSuccess")) {
         setAlertMsg("자동 로그인을\n설정하시겠습니까?");
         setAlertRoute("HowToGoSpace");
         setOnNicknameAlert(false);
@@ -145,14 +145,14 @@ const UserProfileSet: FC<UserProfileSetType> = ({
       );
 
       // 중복되는 닉네임인 경우
-      if (res.hasOwnProperty("nicknameExists")) {
+      if (Object.prototype.hasOwnProperty.call(res, "nicknameExists")) {
         setAlertMsg("이미 존재하는\n닉네임입니다.");
         setOnNicknameAlert(true);
         setOnAlert(true);
         return;
       }
 
-      if (res.hasOwnProperty("modifySuccess")) {
+      if (Object.prototype.hasOwnProperty.call(res, "modifySuccess")) {
         goBack();
       }
     } catch (error: any) {
