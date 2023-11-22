@@ -11,6 +11,8 @@ aws_access_key_id = os.environ.get('AWS_ACCESS_KEY_ID')
 aws_secret_access_key = os.environ.get('AWS_SECRET_ACCESS_KEY')
 aws_region = 'ap-northeast-2'
 bucket_name = 'sagemaker-ap-northeast-2-246943954331'
+# this would be individual household
+prefix = 'Cat/spaceId_123194564/'
 
 session = boto3.Session(aws_access_key_id, aws_secret_access_key)
 
@@ -20,8 +22,6 @@ my_bucket = s3.Bucket(bucket_name)
 
 for my_bucket_object in my_bucket.objects.all():
     print(my_bucket_object.key)
-
-prefix = 'Cat/spaceId_123194564/'
 
 # Create an S3 client
 s3 = boto3.client('s3')
@@ -49,3 +49,4 @@ for obj in response.get('Contents', []):
         print(f"File downloaded successfully to: {local_file_path}")
     except Exception as e:
         print(f"Error downloading file {file_key}: {e}")
+        
