@@ -4,7 +4,7 @@ const mysql = require('mysql');
 const crypto = require('crypto');
 
 const app = express();
-const PORT = 3100;
+const PORT = 3000;
 
 app.use(express.json());
 app.use(cookieParser());
