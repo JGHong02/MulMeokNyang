@@ -1,2 +1,2 @@
-class id file_number color1 color2 color3 color4 color5 breed
-15 3 33 gray darkolivegreen black darkslategray dimgray "Maine Coon"
+class id file_number color1 color2 color3 color4 color5 breed catId_1 catId_2
+15 3 33 yellowgreen lightgray black darkolivegreen rosybrown "Maine Coon" 0.6597577 0.70827305

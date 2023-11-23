@@ -1,80 +1,80 @@
-class id file_number color1 color2 color3 color4 color5 breed
-15 1 1 skyblue antiquewhite darkslategray black dimgray Ragdoll
-15 1 3 silver oldlace black darkslategray dimgray Birman
-15 1 5 beige dimgray black darkslategray dimgray Birman
-15 1 7 lightsteelblue linen black darkslategray dimgray Birman
-15 1 9 skyblue beige black darkslategray dimgray Birman
-15 1 11 gainsboro dimgray black darkslategray dimgray Birman
-15 1 13 gainsboro dimgray black darkslategray dimgray Birman
-15 1 15 skyblue beige black darkslategray dimgray Ragdoll
-15 1 17 skyblue linen black darkslategray dimgray Birman
-15 1 19 skyblue beige darkslategray black dimgray Ragdoll
-15 1 21 skyblue beige darkslategray black dimgray Birman
-15 1 23 skyblue linen darkslategray black dimgray Persian
-15 1 25 beige dimgray darkslategray dimgray black Birman
-15 1 27 gainsboro dimgray darkslategray dimgray black Birman
-15 1 29 gainsboro dimgray darkslategray black dimgray Birman
-15 1 31 gainsboro darkslategray dimgray dimgray black Ragdoll
-15 1 34 gainsboro gray dimgray darkslategray black Persian
-15 1 36 gainsboro dimgray darkslategray gray black Birman
-15 1 38 beige dimgray darkslategray gray black Persian
-15 1 40 beige darkslategray dimgray black dimgray Persian
-15 1 42 gainsboro dimgray darkslategray gray black Birman
-15 1 44 gainsboro black dimgray gray darkslategray Persian
-15 1 46 skyblue linen black darkslategray dimgray Ragdoll
-15 1 48 skyblue linen black darkslategray dimgray Birman
-15 1 50 skyblue linen black darkslategray dimgray Persian
-15 1 52 skyblue beige black darkslategray dimgray Persian
-15 1 54 skyblue beige black darkslategray dimgray Persian
-15 1 56 skyblue beige black darkslategray dimgray Ragdoll
-15 1 58 gainsboro gray dimgray darkslategray black Persian
-15 1 60 skyblue linen darkslategray black dimgray Birman
-15 1 62 gainsboro dimgray black darkslategray gray Birman
-15 1 64 skyblue beige black darkslategray dimgray Persian
-15 1 66 beige darkslategray dimgray black dimgray "Maine Coon"
-15 1 68 gainsboro darkslategray dimgray dimgray black Persian
-15 1 70 skyblue beige darkslategray black dimgray Persian
-15 1 72 skyblue beige darkslategray black dimgray Persian
-15 1 74 skyblue beige darkslategray black dimgray Persian
-15 1 76 gainsboro black darkslategray dimgray dimgray Persian
-15 1 78 gainsboro black darkslategray dimgray dimgray Birman
-15 1 80 gainsboro black darkslategray dimgray dimgray Ragdoll
-15 1 82 skyblue beige black darkslategray dimgray Persian
-15 1 84 skyblue beige black darkslategray dimgray Persian
-15 1 85 lightblue beige darkslategray black dimgray Persian
-15 1 86 gainsboro gray black darkslategray dimgray Birman
-15 1 87 gainsboro black darkslategray gray dimgray Birman
-15 1 89 gainsboro black gray darkslategray dimgray Birman
-15 1 91 gainsboro gray darkslategray black dimgray Persian
-15 1 93 darkolivegreen gainsboro black darkslategray dimgray Persian
-15 1 95 gainsboro black darkslategray gray dimgray Persian
-15 1 97 olivedrab gainsboro black darkslategray gray Ragdoll
-15 1 99 olivedrab gainsboro black darkslategray gray Persian
-15 1 101 olivedrab gainsboro black darkslategray gray Persian
-15 1 103 gainsboro gray darkslategray dimgray black Persian
-15 1 105 gainsboro darkslategray black gray dimgray Ragdoll
-15 1 107 beige darkslategray gray black dimgray Ragdoll
-15 1 109 lavender gray black darkslategray dimgray Persian
-15 1 111 gainsboro darkslategray dimgray black gray Persian
-15 1 113 gainsboro darkslategray dimgray gray black Persian
-15 1 115 beige black darkslategray dimgray gray Birman
-15 1 117 beige black darkslategray gray dimgray Persian
-15 1 119 beige black darkslategray dimgray gray Birman
-15 1 121 skyblue beige black darkslategray dimgray Persian
-15 1 123 skyblue linen darkslategray black dimgray Persian
-15 1 125 skyblue linen darkslategray black dimgray Persian
-15 1 127 skyblue beige black darkslategray dimgray Persian
-15 1 129 skyblue beige black darkslategray dimgray Persian
-15 1 131 lightskyblue antiquewhite black darkslategray dimgray Birman
-15 1 133 lightskyblue beige black darkslategray dimgray Birman
-15 1 135 skyblue beige black darkslategray dimgray Persian
-15 1 137 skyblue beige black darkslategray dimgray Persian
-15 1 139 lightskyblue beige black darkslategray dimgray Persian
-15 1 141 skyblue beige black darkslategray dimgray Persian
-15 1 143 darkolivegreen gainsboro black darkslategray dimgray Persian
-15 1 145 lightskyblue beige black darkslategray dimgray Persian
-15 1 147 lightskyblue beige black darkolivegreen dimgray Persian
-15 1 149 lightskyblue beige black darkslategray dimgray Persian
-15 1 151 skyblue antiquewhite black darkslategray dimgray Persian
-15 1 153 gainsboro darkslategray black dimgray gray Persian
-15 1 155 skyblue beige black darkslategray dimgray Birman
+class id file_number color1 color2 color3 color4 color5 breed catId_1 catId_2
+15 1 1 azure gray darkolivegreen black darkgray Ragdoll 0.71817577 0.6181398
+15 1 3 honeydew darkolivegreen black gray darkgray Birman 0.6977594 0.6629091
+15 1 5 whitesmoke darkolivegreen black gray darkgray Birman 0.70035124 0.6696644
+15 1 7 lawngreen aliceblue black dimgray darkgray Ragdoll 0.7018211 0.651531
+15 1 9 lawngreen aliceblue black dimgray darkgray Ragdoll 0.69311696 0.64577466
+15 1 11 lawngreen aliceblue black dimgray darkgray Ragdoll 0.6864756 0.65460706
+15 1 13 lawngreen lavender black dimgray darkgray Birman 0.6853374 0.6291217
+15 1 15 lawngreen lavender black dimgray darkgray Ragdoll 0.7253745 0.65517896
+15 1 17 lawngreen lavender dimgray black darkgray Ragdoll 0.7251257 0.6653074
+15 1 19 lightcyan darkolivegreen gray black silver Ragdoll 0.69915783 0.653558
+15 1 21 aliceblue darkolivegreen gray black silver Ragdoll 0.6924045 0.6674909
+15 1 23 aliceblue darkolivegreen gray black silver Birman 0.7010257 0.66099954
+15 1 25 mintcream darkolivegreen gray black silver Birman 0.7037914 0.6576444
+15 1 27 mintcream darkolivegreen gray black silver Ragdoll 0.7088689 0.6699084
+15 1 29 aliceblue darkolivegreen gray black silver Ragdoll 0.70719695 0.6634137
+15 1 31 aliceblue darkolivegreen gray black silver Ragdoll 0.71293277 0.65059566
+15 1 34 lightcyan darkolivegreen gray black silver Ragdoll 0.6922566 0.6453625
+15 1 36 aliceblue darkolivegreen gray black silver Ragdoll 0.6764715 0.63324755
+15 1 38 aliceblue darkolivegreen gray black silver Birman 0.68080246 0.6504683
+15 1 40 mintcream darkolivegreen black gray silver Ragdoll 0.6858597 0.65524685
+15 1 42 aliceblue darkolivegreen gray black silver Birman 0.6858576 0.6492572
+15 1 44 lawngreen lavender darkslategray dimgray darkgray Ragdoll 0.6899849 0.66272426
+15 1 46 lawngreen lavender darkslategray dimgray darkgray Persian 0.69213146 0.66175365
+15 1 48 lawngreen lavender darkslategray dimgray darkgray Birman 0.68174183 0.66973877
+15 1 50 lawngreen lavender dimgray darkslategray darkgray Ragdoll 0.6730398 0.6581736
+15 1 52 lawngreen lavender dimgray black darkgray Persian 0.6619687 0.6469178
+15 1 54 lawngreen lavender dimgray darkgray black Ragdoll 0.6538271 0.6498753
+15 1 56 lawngreen lavender dimgray black darkgray Ragdoll 0.6649071 0.6464855
+15 1 58 lawngreen gainsboro dimgray darkgray black Ragdoll 0.6778601 0.63569474
+15 1 60 aliceblue darkolivegreen gray black silver Ragdoll 0.67693555 0.6616272
+15 1 62 lawngreen lavender dimgray black darkgray Birman 0.6840322 0.6148679
+15 1 64 aliceblue darkolivegreen black gray silver Persian 0.71346366 0.64861083
+15 1 66 aliceblue darkolivegreen gray black silver Ragdoll 0.6769506 0.61973745
+15 1 68 aliceblue darkolivegreen gray black silver Ragdoll 0.6773859 0.6381903
+15 1 70 aliceblue darkolivegreen gray black silver Persian 0.7225089 0.65911007
+15 1 72 aliceblue darkolivegreen gray black silver Persian 0.7188979 0.6502897
+15 1 74 aliceblue darkolivegreen black gray silver Persian 0.7245792 0.6491505
+15 1 76 aliceblue black gray darkolivegreen silver Persian 0.7177402 0.6428021
+15 1 78 aliceblue black gray darkolivegreen silver Persian 0.7264626 0.6486523
+15 1 80 aliceblue black darkolivegreen gray silver Persian 0.69987464 0.6333865
+15 1 82 aliceblue black darkolivegreen gray silver Ragdoll 0.68703604 0.6367056
+15 1 84 aliceblue black darkolivegreen gray silver Persian 0.69837135 0.66039574
+15 1 85 aliceblue darkolivegreen black gray silver Persian 0.71172667 0.63563085
+15 1 86 aliceblue darkolivegreen black gray silver Persian 0.71095884 0.65817964
+15 1 87 yellowgreen gainsboro darkslategray dimgray darkgray Ragdoll 0.72303176 0.65224826
+15 1 89 lawngreen gainsboro darkslategray dimgray darkgray Ragdoll 0.710549 0.6353754
+15 1 91 lawngreen gainsboro darkslategray dimgray darkgray Ragdoll 0.655642 0.6177153
+15 1 93 lawngreen gainsboro darkslategray dimgray darkgray "Maine Coon" 0.6636132 0.6537885
+15 1 95 chartreuse gainsboro darkslategray dimgray darkgray Ragdoll 0.67425585 0.66492563
+15 1 97 chartreuse gainsboro darkslategray dimgray darkgray Ragdoll 0.6950432 0.639959
+15 1 99 greenyellow gainsboro darkslategray dimgray darkgray Ragdoll 0.681139 0.6475902
+15 1 101 chartreuse gainsboro dimgray darkslategray darkgray Ragdoll 0.6850586 0.6671673
+15 1 103 chartreuse gainsboro dimgray black darkgray Ragdoll 0.6703471 0.64509714
+15 1 105 greenyellow gainsboro dimgray black darkgray Ragdoll 0.67152697 0.6399654
+15 1 107 chartreuse lavender dimgray black darkgray Ragdoll 0.64764595 0.6164707
+15 1 109 chartreuse lavender darkslategray dimgray darkgray Ragdoll 0.69113016 0.63645947
+15 1 111 lawngreen gainsboro dimgray darkgray black Birman 0.7063156 0.65000784
+15 1 113 lavender darkolivegreen gray black silver Birman 0.70596063 0.64799774
+15 1 115 aliceblue darkolivegreen black gray silver Birman 0.7089201 0.6732128
+15 1 117 aliceblue black darkolivegreen gray silver Birman 0.69947505 0.67216593
+15 1 119 aliceblue darkolivegreen black gray silver Birman 0.6585393 0.6182685
+15 1 121 mintcream darkolivegreen black gray silver Persian 0.6995839 0.6842855
+15 1 123 aliceblue darkolivegreen black gray silver Persian 0.7021997 0.6775784
+15 1 125 aliceblue darkolivegreen black gray silver Persian 0.6947632 0.682342
+15 1 127 aliceblue darkolivegreen black gray silver Persian 0.6938299 0.685622
+15 1 129 aliceblue darkolivegreen black gray silver Birman 0.69211453 0.67640024
+15 1 131 lightcyan darkolivegreen black gray silver Ragdoll 0.6995427 0.6764447
+15 1 133 lawngreen lavender darkslategray dimgray darkgray Ragdoll 0.68869936 0.65737003
+15 1 135 lawngreen lavender black dimgray darkgray Persian 0.6901329 0.6634668
+15 1 137 lawngreen lavender darkslategray dimgray darkgray "Maine Coon" 0.6940433 0.6614754
+15 1 139 lawngreen lavender dimgray black darkgray Ragdoll 0.69475317 0.637642
+15 1 141 lawngreen lavender dimgray black darkgray "Maine Coon" 0.6899702 0.65151453
+15 1 143 lawngreen gainsboro darkslategray dimgray darkgray Ragdoll 0.6737635 0.6452713
+15 1 145 lawngreen lavender dimgray darkslategray darkgray Persian 0.67168015 0.6205191
+15 1 147 lawngreen lavender darkslategray dimgray darkgray Ragdoll 0.6942985 0.6560973
+15 1 149 lawngreen lavender darkslategray dimgray darkgray Ragdoll 0.6963223 0.66137797
+15 1 151 lawngreen lavender dimgray darkslategray darkgray Persian 0.682838 0.6443397
+15 1 153 yellowgreen gainsboro dimgray black darkgray Ragdoll 0.65570307 0.62878215
+15 1 155 lavender darkolivegreen black gray silver Birman 0.64955926 0.60884404
