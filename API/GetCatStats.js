@@ -44,23 +44,39 @@ function getWeeksOfMonth(year, month) {
     return weeksOfMonth;
 }
 
+// 주어진 날짜가 몇 번째 주에 속하는지 찾는 함수
+function getIndexOfWeekInArr(weeksOfMonth, targetDay) {
+    for (let i = 0; i < weeksOfMonth.length; i++) {
+        if (weeksOfMonth[i].includes(targetDay)) {
+            return i;
+        }
+    }
+    return -1; // 주어진 날짜가 어떤 주에도 속하지 않는 경우
+}
+
 // 주차별 평균 hydration_guage 값을 계산하는 함수
 function calculateWeeklyHydrationData(data, weeksOfMonth) {
     let weeklyHydrationData = [];
+
+    const firstDataDay = data.length > 0 ? new Date(data[0].formatted_date).getDate() : null;
+    const startIndex = firstDataDay ? getIndexOfWeekInArr(weeksOfMonth, firstDataDay) : -1;
 
     weeksOfMonth.forEach((week, index) => {
         let sum = 0;
         let count = 0;
 
         data.forEach(record => {
-            if (week.includes(record.day)) {
+            let recordDay = new Date(record.formatted_date).getDate();
+            if (week.includes(recordDay)) {
                 sum += record.hydration_guage;
                 count++;
             }
         });
 
-        const average = count > 0 ? Math.round(sum / count) : 0;
-        weeklyHydrationData.push({ week: (index + 1).toString().padStart(2, '0'), hydration_guage: average });
+        if (count > 0 && index >= startIndex) {
+            const average = Math.round(sum / count);
+            weeklyHydrationData.push({ week: '0' + (index + 1), hydration_guage: average });
+        }
     });
 
     return weeklyHydrationData;
@@ -120,6 +136,13 @@ app.get('/getCatStatics', (req, res) => {
             if (err) {
                 return res.status(500).send({ error: 'Database error' });
             }
+
+            // 월별 데이터 정렬
+            results.sort((a, b) => {
+                const monthA = parseInt(a.month.slice(-2));
+                const monthB = parseInt(b.month.slice(-2));
+                return monthA - monthB;
+            });
 
             const formattedResults = results.map(record => {
                 return { month: record.month.slice(-2), hydration_guage: record.avg_hydration };
