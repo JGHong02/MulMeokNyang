@@ -1,0 +1,28 @@
+Number of matching color between df_1, catId_1: 2
+Is breed matching?: False
+
+Number of matching color between df_1, catId_2: 1
+Is breed matching?: False
+
+df_1 seems to be catId_1 with a score of: 0.69
+
+--------------------------------------------------------------
+Number of matching color between df_2, catId_1: 0
+Is breed matching?: False
+
+Number of matching color between df_2, catId_2: 1
+Is breed matching?: False
+
+df_2 seems to be catId_2 with a score of: 0.68
+
+--------------------------------------------------------------
+Number of matching color between df_3, catId_1: 1
+Is breed matching?: False
+
+Number of matching color between df_3, catId_2: 1
+Is breed matching?: False
+
+df_3 seems to be catId_2 with a score of: 0.71
+
+--------------------------------------------------------------
+This script took 450 seconds to execute

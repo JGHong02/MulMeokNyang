@@ -1,0 +1,77 @@
+class id file_number color1 color2 color3 color4 color5 breed catId_1 catId_2
+15 2 2      "Maine Coon" 0.6728566 0.67321324
+15 2 4 yellowgreen lightgray darkslategray sienna darkkhaki "Maine Coon" 0.66928804 0.65789735
+15 2 6 yellowgreen lightgray darkslategray sienna darkkhaki "Maine Coon" 0.65628076 0.64702284
+15 2 8 yellowgreen lightgray darkslategray sienna darkkhaki "Maine Coon" 0.6803007 0.6765176
+15 2 10 yellowgreen lightgray darkslategray sienna darkkhaki "Maine Coon" 0.66220045 0.65238434
+15 2 12 yellowgreen lightgray darkslategray sienna darkkhaki "Maine Coon" 0.6621916 0.68692905
+15 2 14 yellowgreen lightgray darkolivegreen sienna darkkhaki "Maine Coon" 0.6625144 0.66046774
+15 2 16      "Maine Coon" 0.6597717 0.65764666
+15 2 18 lightgray yellowgreen darkolivegreen sienna darkkhaki "Maine Coon" 0.6579331 0.66479385
+15 2 20 gainsboro lawngreen darkolivegreen sienna darkkhaki "Maine Coon" 0.6488668 0.65867627
+15 2 22      "Maine Coon" 0.66744256 0.67927206
+15 2 24      Bengal 0.67741406 0.6735394
+15 2 26 yellowgreen lightgray darkolivegreen sienna darkkhaki Bengal 0.66012853 0.67291605
+15 2 28 yellowgreen lightgray darkolivegreen sienna darkkhaki "Maine Coon" 0.66163373 0.68547475
+15 2 30 palegoldenrod yellowgreen darkolivegreen sienna darkkhaki "Maine Coon" 0.6716348 0.67443717
+15 2 32      "Maine Coon" 0.6680174 0.71153426
+15 2 35      Bengal 0.6709679 0.71584
+15 2 37 yellowgreen palegoldenrod darkolivegreen sienna darkkhaki Bengal 0.65780723 0.6859421
+15 2 39 palegoldenrod lightslategray darkolivegreen darkkhaki sienna "Maine Coon" 0.6593679 0.6846415
+15 2 41 wheat lightslategray darkolivegreen sienna darkkhaki "Maine Coon" 0.6621126 0.68475777
+15 2 43 gainsboro lightslategray darkolivegreen darkkhaki sienna Abyssinian 0.65194523 0.672035
+15 2 45 gainsboro lightslategray darkolivegreen darkkhaki sienna "Maine Coon" 0.6577998 0.69649607
+15 2 47 wheat lightslategray darkolivegreen darkkhaki sienna "Maine Coon" 0.6852082 0.672418
+15 2 49 yellowgreen silver darkolivegreen darkkhaki sienna "Maine Coon" 0.67782 0.68369436
+15 2 51 yellowgreen silver darkolivegreen darkkhaki sienna "Maine Coon" 0.6766395 0.6626431
+15 2 53 yellowgreen silver darkolivegreen darkkhaki sienna "Maine Coon" 0.6657921 0.6687213
+15 2 55 yellowgreen gainsboro darkolivegreen sienna darkkhaki "Maine Coon" 0.66409284 0.68967634
+15 2 57 gainsboro darkgray darkolivegreen sandybrown olivedrab "Maine Coon" 0.66075003 0.67738974
+15 2 59 yellowgreen silver darkolivegreen sienna darkkhaki "Maine Coon" 0.66006124 0.6816654
+15 2 61 yellowgreen silver darkolivegreen darkkhaki sienna "Maine Coon" 0.65793425 0.6560416
+15 2 63 yellowgreen gainsboro darkolivegreen sienna darkkhaki "Maine Coon" 0.65483284 0.66761863
+15 2 65      "Maine Coon" 0.66720116 0.6705415
+15 2 67 palegoldenrod lightslategray darkslategray sienna darkkhaki "Maine Coon" 0.6561583 0.6572881
+15 2 69      "Maine Coon" 0.6491958 0.6733375
+15 2 71      "Maine Coon" 0.6598551 0.6565281
+15 2 73      "Maine Coon" 0.64698803 0.65620196
+15 2 75      "Maine Coon" 0.65445167 0.6778638
+15 2 77      "Maine Coon" 0.6780089 0.7163984
+15 2 79      "Maine Coon" 0.65525305 0.6907977
+15 2 81      "Maine Coon" 0.67241025 0.6881276
+15 2 83 gainsboro lightslategray black darkkhaki sienna "Maine Coon" 0.64882684 0.6729206
+15 2 88      "Maine Coon" 0.6740394 0.66682345
+15 2 90      "Maine Coon" 0.6415138 0.6542469
+15 2 92      "Maine Coon" 0.66523695 0.6730133
+15 2 94      "Maine Coon" 0.64978904 0.67792094
+15 2 96      "Maine Coon" 0.64739716 0.658044
+15 2 98      "Maine Coon" 0.6809335 0.7226809
+15 2 100 lawngreen gainsboro darkolivegreen sienna darkkhaki "Maine Coon" 0.66608727 0.714868
+15 2 102 lawngreen silver darkolivegreen sienna sandybrown Persian 0.66130316 0.7088332
+15 2 104 gainsboro darkgray darkolivegreen sienna sandybrown Persian 0.684477 0.6970544
+15 2 106      "Maine Coon" 0.68052423 0.68825245
+15 2 108 gainsboro darkgray darkolivegreen sandybrown sienna "Maine Coon" 0.6629673 0.6866797
+15 2 110 gainsboro darkgray darkolivegreen sandybrown sienna "Maine Coon" 0.6645775 0.69381535
+15 2 112 lawngreen silver darkolivegreen sandybrown sienna "Maine Coon" 0.6554414 0.69096726
+15 2 114 yellowgreen gainsboro darkolivegreen sienna darkkhaki "Maine Coon" 0.6597478 0.6985039
+15 2 116 gainsboro lightslategray darkolivegreen darkkhaki olivedrab Bengal 0.67798245 0.67651975
+15 2 118 gainsboro lightslategray darkolivegreen darkkhaki olivedrab Bengal 0.6595031 0.6499188
+15 2 120 gainsboro lightslategray darkolivegreen darkkhaki olivedrab "British Shorthair" 0.6615703 0.68856895
+15 2 122 lightgray lightslategray darkolivegreen darkkhaki sienna "Maine Coon" 0.67135096 0.6721438
+15 2 124      "Maine Coon" 0.658718 0.658072
+15 2 126      "Maine Coon" 0.6618394 0.67117906
+15 2 128      "Maine Coon" 0.6964587 0.68276584
+15 2 130      "Maine Coon" 0.6997839 0.68493557
+15 2 132      "Maine Coon" 0.7007326 0.69112515
+15 2 134 gainsboro gray darkolivegreen darkkhaki sienna "Maine Coon" 0.69033307 0.7014966
+15 2 136 gainsboro gray darkolivegreen darkkhaki sienna "Maine Coon" 0.6968749 0.69904065
+15 2 138      "Maine Coon" 0.6813932 0.702345
+15 2 140 lightgray gray darkolivegreen olivedrab darkkhaki "Maine Coon" 0.6806598 0.66899943
+15 2 142 yellowgreen lightgray darkolivegreen sienna darkkhaki "Maine Coon" 0.69782585 0.71206564
+15 2 144 yellowgreen lightgray darkolivegreen sienna darkkhaki "Maine Coon" 0.67540896 0.69978726
+15 2 146 yellowgreen lightgray darkolivegreen sienna darkkhaki "Maine Coon" 0.67643327 0.65022445
+15 2 148 yellowgreen palegoldenrod gray darkolivegreen peru "Maine Coon" 0.64479876 0.64778906
+15 2 150 yellowgreen palegoldenrod gray darkolivegreen peru "Maine Coon" 0.63570875 0.63830805
+15 2 152 yellowgreen darkgray darkolivegreen darkkhaki sienna "Maine Coon" 0.64287853 0.644382
+15 2 154 yellowgreen palegoldenrod darkolivegreen sienna darkkhaki "Maine Coon" 0.65059185 0.64505947
+15 2 156 yellowgreen palegoldenrod darkolivegreen sienna darkkhaki "Maine Coon" 0.644233 0.64378667
