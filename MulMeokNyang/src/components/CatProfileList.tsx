@@ -4,7 +4,7 @@ import type { FC, Dispatch, SetStateAction } from "react";
 import { useCallback } from "react";
 // StyleSheet, Component
 import { StyleSheet } from "react-native";
-import { FlatList, TouchableOpacity, View, Image, Text } from "react-native";
+import { FlatList, TouchableOpacity, View, Image } from "react-native";
 
 type CatProfileListProps = {
   idArr: string[];

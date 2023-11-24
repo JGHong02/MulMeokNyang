@@ -2,10 +2,11 @@
 import { UserContext } from "../../contexts/UserContext";
 import { CatContext } from "../../contexts/CatContext";
 // Hook
-import { useEffect, useContext, useState } from "react";
+import { useEffect, useContext, useState, useCallback } from "react";
+import { useNavigation } from "@react-navigation/native";
 import { useIsFocused } from "@react-navigation/native";
-// StyleSheet, Component
-import { StyleSheet } from "react-native";
+// Platform, StyleSheet, Component
+import { Platform, StyleSheet } from "react-native";
 import {
   SafeAreaView,
   View,
@@ -64,6 +65,7 @@ const Main = () => {
   // const [catWeight, setCatWeight] = useState<string>("");
   // const [hydrationGuage, setHydrationGuage] = useState<number>(0);
   // const [hydrationGuageColor, setHydrationGuageColor] = useState<string>("");
+  // const [evaluation, setEvaluation] = useState<string>("");
 
   // Drawer 여닫기 State
   const [onDrawer, setOnDrawer] = useState<boolean>(false);
@@ -157,6 +159,10 @@ const Main = () => {
       nickname: "무적코털슝슝",
       introduction: "안녕? 반갑다. 잘 지내보자.",
     });
+
+    // API 연동 확인용
+    // setCurrentSelectedCatId("1");
+    // console.log(currentSelectedCatId);
   }, [isFocused]);
 
   // 2. currentSelectedCatIdGV 값이 바뀔 때마다,
@@ -172,8 +178,10 @@ const Main = () => {
     const setCatMainInfo = async () => {
       try {
         const res = await getCatMainInfo(
+          // 1
           currentSelectedCatId,
-          managementSpaceIdGV
+          // managementSpaceIdGV
+          "msid1"
         );
         setCatName(res.catName);
         setCatAge(res.catAge);
@@ -222,6 +230,12 @@ const Main = () => {
     setEvaluation(evaluation);
   }, [hydrationGuage]);
 
+  // 기간별 음수량 통계 이동 함수
+  const navigation = useNavigation();
+  const goHydrationStatistics = useCallback(() => {
+    navigation.navigate("HydrationStatistics", { catId: currentSelectedCatId });
+  }, [currentSelectedCatId]);
+
   return (
     <SafeAreaView>
       <View pointerEvents={onDrawer ? "none" : "auto"}>
@@ -251,7 +265,13 @@ const Main = () => {
               </Text>
             </View>
             <TouchableOpacity>
-              <View style={[styles.button]}>
+              <View
+                style={[
+                  styles.button,
+                  Platform.OS === "android"
+                    ? styles.shadowAndroid
+                    : styles.shadowIOS,
+                ]}>
                 <Icon name="water" size={50} color="#004aad" />
                 <Text style={[styles.buttonText]}>물주기</Text>
               </View>
@@ -309,7 +329,7 @@ const Main = () => {
             <ProcessButton
               content="기간별 음수량 통계 보기"
               canPress
-              route="HydrationStatistics"
+              onPressHandler={goHydrationStatistics}
             />
           </View>
         </View>
@@ -349,7 +369,6 @@ const styles = StyleSheet.create({
     width: 400,
     padding: 10,
     borderBottomWidth: 1,
-    borderBottomColor: "black",
   },
 
   // 기본 정보와 물 주기 버튼
@@ -389,6 +408,15 @@ const styles = StyleSheet.create({
   buttonText: {
     color: "white",
     fontSize: 16,
+  },
+  shadowAndroid: {
+    elevation: 4,
+  },
+  shadowIOS: {
+    shadowColor: "black",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.4,
+    shadowRadius: 2,
   },
 
   // 게이지
