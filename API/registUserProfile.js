@@ -1,85 +1,123 @@
-const express = require('express');
+const express = require("express");
 const app = express();
-const mysql = require('mysql2');
-const cors = require('cors');
-const serverless = require('serverless-http');
-const multer = require('multer');
-const { v4: uuidv4 } = require('uuid');
-const AWS = require('aws-sdk');
-const dotenv = require('dotenv');
+const mysql = require("mysql2");
+const cors = require("cors");
+const serverless = require("serverless-http");
+const multer = require("multer");
+const path = require("path");
+const AWS = require("aws-sdk");
+const bodyParser = require("body-parser");
 
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 app.use(cors());
+
+const dotenv = require("dotenv");
 
 dotenv.config();
 
-
 const rdsConfig = {
-    host: process.env.RDS_HOST,
-    user: process.env.RDS_USER,
-    database: process.env.RDS_DATABASE,
-    password: process.env.RDS_PASSWORD,
-  };
+  host: process.env.RDS_HOST,
+  user: process.env.RDS_USER,
+  database: process.env.RDS_DATABASE,
+  password: process.env.RDS_PASSWORD,
+};
 
-  const s3 = new AWS.S3();
+const connection = mysql.createConnection(rdsConfig);
 
-  // Multer configuration
-const storage = multer.memoryStorage();
-const upload = multer({ storage: storage });
-
-app.post('/registUserProfile', upload.single('userProfilePhoto'), async (req, res) => {
-    const { userNickname, userEmail, userIntroduction } = req.body;
-
-    try {
-        const nicknameExists = await checkNicknameExists(userNickname);
-
-        if (nicknameExists) {
-            res.status(200).json({ nicknameExists: true });
-        } else {
-            const imageMetadata = await saveImageToS3(req.file);
-
-            const connection = mysql.createConnection(rdsConfig);
-
-            const sql = 'INSERT INTO user (user_email, user_profile_photo, user_nickname, user_Introduction) VALUES (?, ?, ?, ?)';
-            const values = [userEmail, imageMetadata.filePath, userNickname, userIntroduction];
-            const sanitizedValues = values.map(value => (value !== undefined ? value : null));
-            await connection.execute(sql, sanitizedValues);
-
-            connection.end();
-
-            res.status(200).json({ registDone: true });
-        }
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Internal Server Error' });
-    }
+// 데이터베이스 연결
+connection.connect((err) => {
+  if (err) {
+    console.error("Error connecting to the database: ", err);
+    return;
+  }
+  console.log("Database connection established");
 });
 
+const s3 = new AWS.S3();
 
-async function saveImageToS3(file) {
-    const fileExtension = file.mimetype.split('/')[1]; 
+// Multer 설정
+const storage = multer.memoryStorage(); // Use memory storage for uploading to S3 directly
+const upload = multer({ storage: storage });
 
-    const filePath = `images/${uuidv4()}.${fileExtension}`;
-    
-    const params = {
-        Bucket: process.env.S3_BUCKET_NAME,
-        Key: filePath,
-        Body: file.buffer,
-        ContentType: file.mimetype,
-        ACL: 'public-read', 
-    };
+// RegistUserProfile API
+app.post(
+  "/registUserProfile",
+  upload.single("userProfilePhoto"),
+  (req, res) => {
+    const { userEmail, userNickname, userIntroduction } = req.body;
+    const userProfilePhoto = req.file;
 
-    await s3.upload(params).promise();
+    if (!userEmail) {
+      return res.status(400).json({ message: "이메일은 필수 항목입니다." });
+    }
 
-    return { filePath };
-};
+    // 닉네임 중복 검사
+    connection.query(
+      "SELECT user_nickname FROM user WHERE user_nickname = ?",
+      [userNickname],
+      (err, results) => {
+        if (err) {
+          return res
+            .status(500)
+            .json({ message: "데이터베이스 오류", error: err });
+        }
 
-async function checkNicknameExists(userNickname) {
-    const connection = await mysql.createConnection(rdsConfig);
-    const rows = await connection.execute('SELECT * FROM user WHERE user_nickname = ?', [userNickname || null]);
-    connection.end();
-    return rows.length > 0;
-};
+        if (results.length > 0) {
+          // 닉네임이 이미 존재하면 함수 종료
+          return res.json({ nicknameExists: true });
+        } else {
+          if (userEmail.trim() !== "") {
+            // userEmail이 비어 있지 않은 경우에만 처리
+            // 닉네임이 존재하지 않으면 S3에 이미지 업로드 시도
+            // S3에 이미지 업로드
+            const params = {
+              Bucket: process.env.S3_BUCKET_NAME,
+              Key: `images/${Date.now()}${path.extname(
+                userProfilePhoto.originalname
+              )}`,
+              Body: userProfilePhoto.buffer,
+              ContentType: userProfilePhoto.mimetype,
+              ACL: "public-read", // 객체를 공개적으로 접근 가능하게 함
+            };
+
+            s3.upload(params, (s3Err, data) => {
+              if (s3Err) {
+                console.error("S3에 업로드 중 에러:", s3Err);
+                return res
+                  .status(500)
+                  .json({ message: "S3 업로드 중 에러", error: s3Err });
+              }
+
+              // S3 객체 URL을 사용자 프로필 정보에 업데이트
+              const userImageUrl = data.Location;
+
+              connection.query(
+                "UPDATE user SET user_profile_photo = ?, user_nickname = ?, user_Introduction = ? WHERE user_email = ?",
+                [userImageUrl, userNickname, userIntroduction, userEmail],
+                (dbErr, result) => {
+                  if (dbErr) {
+                    return res
+                      .status(500)
+                      .json({ message: "데이터베이스 오류", error: dbErr });
+                  }
+
+                  // 응답에 S3 URL 포함
+                  res.json({ registSuccess: true, userImageUrl });
+                }
+              );
+            });
+          } else {
+            return res
+              .status(400)
+              .json({ message: "이메일은 비어 있을 수 없습니다." });
+          }
+        }
+      }
+    );
+  }
+);
 
 module.exports = {
-    registUserProfile: serverless(app),
+  registUserProfile: serverless(app),
 };

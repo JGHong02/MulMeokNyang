@@ -27,7 +27,7 @@ functions:
   findEmail:
     handler: findEmail.findEmail
     events:
-      - http: 
+      - http:
           path: /getUserEmail
           method: get
 
@@ -37,7 +37,7 @@ functions:
       - http:
           path: /registUserProfile
           method: post
-  
+
   getCatMainInfo:
     handler: getCatMainInfo.getCatMainInfo
     events:
@@ -51,7 +51,7 @@ functions:
       - http:
           path: /getCatFeedStuff
           method: get
-  
+
   getCatHydration:
     handler: getCatHydration.getCatHydration
     events:
@@ -65,7 +65,7 @@ functions:
       - http:
           path: /getManagerList
           method: get
-  
+
   autoLogin:
     handler: autoLogin.autoLogin
     events:
