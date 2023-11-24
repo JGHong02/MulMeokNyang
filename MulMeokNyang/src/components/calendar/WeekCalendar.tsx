@@ -85,10 +85,7 @@ const WeekCalendar: FC<WeekCalendarProps> = ({
     }
 
     setSelectedWeek(newSelectedPeriod);
-    setWeekRange([
-      Object.keys(newSelectedPeriod)[0],
-      Object.keys(newSelectedPeriod)[Object.keys(newSelectedPeriod).length - 1],
-    ]);
+    setWeekRange(Object.keys(newSelectedPeriod));
   }, [selectedDay]);
 
   return (

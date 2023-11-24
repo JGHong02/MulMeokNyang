@@ -21,6 +21,7 @@ import {
   MonthCalendar,
   YearCalendar,
 } from "../../components/calendar";
+import HydrationGraph from "../../components/graph/HydrationGraph";
 // API
 import {
   getCatWeekStatistics,
@@ -37,11 +38,11 @@ import mainViewStyles from "../../styles/mainViewStyles";
 
 const { width, height } = Dimensions.get("window");
 
-type HydrationStatistics = {
+type HydrationStatisticsProps = {
   route: any;
 };
 
-const HydrationStatistics: FC<HydrationStatistics> = ({ route }) => {
+const HydrationStatistics: FC<HydrationStatisticsProps> = ({ route }) => {
   // 1) state, context, 변수 관련 ----------------------------------------------------------
   // 1. currentSelectedCatId state
   // params로 전달된 catId를 초깃값으로 설정
@@ -60,25 +61,25 @@ const HydrationStatistics: FC<HydrationStatistics> = ({ route }) => {
   // 통계 기간 단위 state : '주', '달', '년'
   const [range, setRange] = useState<string>("주");
 
+  // 4-1. "주"일 때 범위 state
+  // 초깃값 : 이번 주 월요일 날짜 string ~ 오늘 날짜 string 배열
+  let thisWeekDateString: string[] = [];
   // 오늘 날짜
   const todayDate = new Date();
+  // 0(일) ~ 6(토)
+  const dayOfWeek = todayDate.getDay();
+  // 월요일(1)까지 거리, 일요일의 경우 음수가 되기 때문에 6으로 처리
+  const distanceFromMon = dayOfWeek !== 0 ? dayOfWeek - 1 : 6;
 
-  // 4-1. "주"일 때 범위 state
-  // 초깃값 : 이번 주 월요일 날짜 string, 오늘 날짜 string
-  // 오늘 날짜 string
-  const todayDateString = changeDateToString(todayDate, "주");
-  // 이번 주 월요일 날짜 string
-  const dayOfWeek = todayDate.getDay(); // 0(일) ~ 6(토)
-  const distanceFromMon = dayOfWeek !== 0 ? dayOfWeek - 1 : 6; // 월요일(1)까지 거리, 일요일의 경우 음수가 되기 때문에 6으로 처리
-  const thismondayDate = new Date(
-    todayDate.getTime() - distanceFromMon * 24 * 60 * 60 * 1000
-  );
-  const thismondayDateString = changeDateToString(thismondayDate, "주");
+  for (let i = distanceFromMon; i >= 0; i--) {
+    // 월요일부터 오늘 날짜까지 저장됨
+    const date = new Date(todayDate.getTime() - i * 24 * 60 * 60 * 1000);
+
+    thisWeekDateString.push(changeDateToString(date, "주"));
+  }
+
   // weekRange state 생성, 초깃값 대입
-  const [weekRange, setWeekRange] = useState<string[]>([
-    thismondayDateString,
-    todayDateString,
-  ]);
+  const [weekRange, setWeekRange] = useState<string[]>(thisWeekDateString);
 
   // 4-2. "달"일 때 범위 state
   // 초깃값 : 이번 달 string
@@ -93,12 +94,14 @@ const HydrationStatistics: FC<HydrationStatistics> = ({ route }) => {
   const [yearRange, setYearRange] = useState<string>(thisYearString);
 
   // 5. 통계 데이터 state
-  // 통계 그래프 state
-  const [statisticsData, setStatisticsData] = useState<any[]>([]);
+  // 통계 보여주기 state
+  const [onStatistics, setOnStatistics] = useState<boolean>(false);
   // 캘린더 '체크' 눌렀을 때만 반영되어 출력될 통계 기간 state
   const [statisticsRangeText, setStatisticsRangeText] = useState<
     string[] | string
-  >([thismondayDateString, todayDateString]);
+  >([thisWeekDateString[0], thisWeekDateString[thisWeekDateString.length - 1]]);
+  // 통계 그래프 데이터 state
+  const [hydrationGuageArr, setHydrationGuageArr] = useState<any[]>([]);
 
   // 2) 통계 보여주기 함수 관련 ---------------------------------------------------------------------
   // 1. "주" 통계 보여주는 함수
@@ -108,10 +111,10 @@ const HydrationStatistics: FC<HydrationStatistics> = ({ route }) => {
         currentSelectedCatId,
         "week",
         weekRange[0],
-        weekRange[1]
+        weekRange[weekRange.length - 1]
       );
 
-      setStatisticsData(weekHydrationGuageArr);
+      setHydrationGuageArr(weekHydrationGuageArr);
     } catch (error: any) {
       console.log(
         "HydrationStatistics 화면 getCatWeekStatistics 호출에서 error 발생 :",
@@ -130,7 +133,7 @@ const HydrationStatistics: FC<HydrationStatistics> = ({ route }) => {
         monthRange
       );
 
-      setStatisticsData(monthHydrationGuageArr);
+      setHydrationGuageArr(monthHydrationGuageArr);
     } catch (error: any) {
       console.log(
         "HydrationStatistics 화면 getCatMonthStatistics 호출에서 error 발생 :",
@@ -149,7 +152,7 @@ const HydrationStatistics: FC<HydrationStatistics> = ({ route }) => {
         yearRange
       );
 
-      setStatisticsData(yearHydrationGuageArr);
+      setHydrationGuageArr(yearHydrationGuageArr);
     } catch (error: any) {
       console.log(
         "HydrationStatistics 화면 getCatYearStatistics 호출에서 error 발생 :",
@@ -161,22 +164,29 @@ const HydrationStatistics: FC<HydrationStatistics> = ({ route }) => {
 
   // 4. 기간 단위에 따른 통계 보여주는 함수
   const showStatistics = useCallback(() => {
+    // range 값이 "" 빈 값인 경우 return
+    // 이는 아래 3)-3에 해당되는 경우
+    if (range === "") return;
+
     if (range === "주") {
-      setStatisticsRangeText(weekRange);
+      setStatisticsRangeText([weekRange[0], weekRange[weekRange.length - 1]]);
       showWeekStatistics();
     } else if (range === "달") {
       setStatisticsRangeText(monthRange);
-
       showMonthStatistics();
     } else if (range === "년") {
       setStatisticsRangeText(yearRange);
       showYearStatistics();
-    } else {
-      // range 값이 "" 빈 값인 경우 return
-      // 이는 아래 3)-3에 해당되는 경우
-      return;
     }
-  }, [currentSelectedCatId, range, weekRange, monthRange, yearRange]);
+    setOnStatistics(true);
+  }, [
+    currentSelectedCatId,
+    range,
+    weekRange,
+    monthRange,
+    yearRange,
+    // hydrationGuageArr,
+  ]);
 
   // 3) useEffect 관련 ---------------------------------------------------------------------------
   // 마운트될 때 showStatistics 함수를 호출할 필요 없음
@@ -188,6 +198,9 @@ const HydrationStatistics: FC<HydrationStatistics> = ({ route }) => {
     // range를 의존성 배열에 넣음으로써 range가 바뀔 때마다 이 콜백 함수가 실행되고,
     // showStatistics 함수 또한 의존성 배열에 range가 있기 때문에,
     // 최신 range 값을 사용하여 적절한 통계 함수를 호출함
+
+    // showStatistics로 hydrationGuageArr가 새로 저장되었을 때 onStatistics를 true로 바꿈
+    setOnStatistics(false);
     showStatistics();
   }, [range]);
 
@@ -196,12 +209,12 @@ const HydrationStatistics: FC<HydrationStatistics> = ({ route }) => {
     // 다른 고양이 프로필을 누르면, 이전 고양이의 범위가 적용되지 않도록
     // weekRange, monthRange, yearRange 값 초기화하고,
     // range를 "주"로 다시 바꿔서, 바뀐 고양이의 이번 주 통계를 불러옴
-    setWeekRange([thismondayDateString, todayDateString]);
+    setWeekRange(thisWeekDateString);
     setMonthRange(thisMonthString);
     setYearRange(thisYearString);
 
     // range가 바뀌면 1번 useEffect가 실행되어 자동으로 showStatistics 함수가 호출됨
-    // 그런데, 이미 "주" 였을 때는 setRange("주")만 하면 2번 useEffect가 실행되지 않기 때문에,
+    // 그런데, 이미 "주" 였을 때는 setRange("주")만 하면 1번 useEffect가 실행되지 않기 때문에,
     // 먼저 ""로 바꾼 뒤 "주"로 바꾸기.
     // 다만, setter 함수는 비동기적으로 처리되기 때문에 range가 2번 바뀐 것을 인지하게 하기 위해 setTimeout을 사용
     setRange("");
@@ -246,39 +259,45 @@ const HydrationStatistics: FC<HydrationStatistics> = ({ route }) => {
               <ETIcon name="calendar" size={25} color="#343434" />
             </TouchableOpacity>
           </View>
-          <View>
-            <Text>현재 고양이 : {currentSelectedCatId}</Text>
-            <Text>현재 기간 단위 : {range}</Text>
-            <Text>
-              현재 범위 :
+          <View style={[styles.statisticsRangeTextView]}>
+            <Text style={[styles.statisticsRangeText]}>
               {range === "주"
-                ? `${statisticsRangeText[0]}, ${statisticsRangeText[1]}`
-                : `${statisticsRangeText}`}
+                ? `${statisticsRangeText[0].split("-")[1]}월 ${
+                    statisticsRangeText[0].split("-")[2]
+                  }일 ~ ${statisticsRangeText[1].split("-")[1]}월 ${
+                    statisticsRangeText[1].split("-")[2]
+                  }일`
+                : range === "달"
+                ? `${String(statisticsRangeText).split("-")[0]}년 ${
+                    String(statisticsRangeText).split("-")[1]
+                  }월 `
+                : `${statisticsRangeText}년`}
             </Text>
-            <Text>##############################</Text>
-            <FlatList
-              data={statisticsData}
-              renderItem={({ item }) => (
-                <>
-                  <Text style={{ fontSize: 8 }}>
-                    날짜 :
-                    {range === "주"
-                      ? item.day
-                      : range === "달"
-                      ? item.week
-                      : item.month}
-                  </Text>
-                  <Text style={{ fontSize: 8 }}>
-                    게이지 : {item.hydration_guage.toString()}
-                  </Text>
-                  <Text style={{ fontSize: 8 }}>
-                    ------------------------------------------------------------------------
-                  </Text>
-                </>
-              )}
-              keyExtractor={(_, index) => index.toString()}
-            />
           </View>
+          {onStatistics && (
+            <>
+              {range === "주" && (
+                <HydrationGraph
+                  range="주"
+                  weekRange={weekRange}
+                  hydrationGuageArr={hydrationGuageArr}
+                />
+              )}
+              {range === "달" && (
+                <HydrationGraph
+                  range="달"
+                  monthRange={monthRange}
+                  hydrationGuageArr={hydrationGuageArr}
+                />
+              )}
+              {range === "년" && (
+                <HydrationGraph
+                  range="년"
+                  hydrationGuageArr={hydrationGuageArr}
+                />
+              )}
+            </>
+          )}
         </View>
       </View>
       {onCalendar && (
@@ -374,6 +393,13 @@ const styles = StyleSheet.create({
   },
   selectedRangeText: {
     color: "white",
+  },
+  statisticsRangeTextView: {
+    marginTop: 20,
+  },
+  statisticsRangeText: {
+    fontSize: 16,
+    lineHeight: 30,
   },
 
   // 캘린더

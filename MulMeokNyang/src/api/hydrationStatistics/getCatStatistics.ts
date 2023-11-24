@@ -35,24 +35,14 @@ export const getCatWeekStatistics = async (
     // throw error;
 
     // ##############가짜 데이터################
-    const randomIndex = Math.floor(Math.random() * 2);
-    const randomArr = [
-      [
-        { day: "07", hydration_guage: 55 },
-        { day: "08", hydration_guage: 76 },
-        { day: "09", hydration_guage: 130 },
-        { day: "10", hydration_guage: 27 },
-        { day: "11", hydration_guage: 198 },
-        { day: "12", hydration_guage: 12 },
-        { day: "13", hydration_guage: 100 },
-      ],
-      [
-        { day: "28", hydration_guage: 50 },
-        { day: "29", hydration_guage: 70 },
-      ],
+    return [
+      { day: "20", hydration_guage: 180 },
+      { day: "21", hydration_guage: 19 },
+      { day: "22", hydration_guage: 112 },
+      { day: "23", hydration_guage: 46 },
+      { day: "24", hydration_guage: 180 },
     ];
-
-    return randomArr[randomIndex];
+    // return [];
   }
 };
 
@@ -89,42 +79,40 @@ export const getCatMonthStatistics = async (
     // throw error;
 
     // ##############가짜 데이터################
-    const randomIndex = Math.floor(Math.random() * 6);
-    const randomArr = [
+    // [
+    //   { week: "02", hydration_guage: 44 },
+    //   { week: "03", hydration_guage: 150 },
+    //   { week: "04", hydration_guage: 200 },
+    // ],
+    // [
+    //   { week: "01", hydration_guage: 44 },
+    //   { week: "02", hydration_guage: 88 },
+    //   { week: "03", hydration_guage: 166 },
+    // ],
+    // [
+    //   { week: "01", hydration_guage: 44 },
+    //   { week: "02", hydration_guage: 148 },
+    //   { week: "03", hydration_guage: 90 },
+    //   { week: "04", hydration_guage: 10 },
+    //   { week: "05", hydration_guage: 22 },
+    // ],
+    // [
+    //   { week: "02", hydration_guage: 44 },
+    //   { week: "03", hydration_guage: 66 },
+    //   { week: "04", hydration_guage: 90 },
+    //   { week: "05", hydration_guage: 10 },
+    //   { week: "06", hydration_guage: 22 },
+    // ],
+    const randomIdx = Math.floor(Math.random() * 1);
+    const randomData = [
       [
-        { week: "01", hydration_guage: 64 },
-        { week: "02", hydration_guage: 3 },
-      ],
-      [
-        { week: "01", hydration_guage: 99 },
-        { week: "02", hydration_guage: 44 },
-        { week: "03", hydration_guage: 150 },
-        { week: "04", hydration_guage: 200 },
-        { week: "05", hydration_guage: 111 },
-      ],
-      [
-        { week: "01", hydration_guage: 55 },
-        { week: "02", hydration_guage: 76 },
-        { week: "03", hydration_guage: 130 },
-        { week: "04", hydration_guage: 27 },
-        { week: "05", hydration_guage: 198 },
-        { week: "06", hydration_guage: 12 },
-      ],
-      [
-        { week: "02", hydration_guage: 13 },
-        { week: "03", hydration_guage: 165 },
-        { week: "04", hydration_guage: 65 },
-      ],
-      [{ week: "06", hydration_guage: 50 }],
-      [
-        { week: "02", hydration_guage: 67 },
-        { week: "03", hydration_guage: 30 },
-        { week: "04", hydration_guage: 72 },
-        { week: "05", hydration_guage: 89 },
+        { week: "02", hydration_guage: 48 },
+        { week: "03", hydration_guage: 9 },
+        { week: "04", hydration_guage: 100 },
+        { week: "05", hydration_guage: 137 },
       ],
     ];
-
-    return randomArr[randomIndex];
+    return randomData[randomIdx];
   }
 };
 
@@ -161,39 +149,27 @@ export const getCatYearStatistics = async (
     // throw error;
 
     // ##############가짜 데이터################
-    const randomIndex = Math.floor(Math.random() * 6);
-    const randomArr = [
+    const randomIdx = Math.floor(Math.random() * 2);
+    const randomData = [
       [
-        { month: "01", hydration_guage: 10 },
-        { month: "02", hydration_guage: 20 },
         { month: "03", hydration_guage: 30 },
         { month: "04", hydration_guage: 40 },
         { month: "05", hydration_guage: 50 },
         { month: "06", hydration_guage: 60 },
         { month: "07", hydration_guage: 70 },
-        { month: "08", hydration_guage: 80 },
+        { month: "08", hydration_guage: 100 },
         { month: "09", hydration_guage: 90 },
-        { month: "10", hydration_guage: 100 },
-        { month: "11", hydration_guage: 120 },
-        { month: "12", hydration_guage: 140 },
+        { month: "10", hydration_guage: 180 },
+        { month: "11", hydration_guage: 180 },
+        { month: "12", hydration_guage: 180 },
       ],
       [
-        { month: "02", hydration_guage: 44 },
-        { month: "03", hydration_guage: 150 },
-        { month: "04", hydration_guage: 200 },
-        { month: "05", hydration_guage: 111 },
+        { month: "04", hydration_guage: 40 },
+        { month: "05", hydration_guage: 50 },
+        { month: "06", hydration_guage: 60 },
+        { month: "07", hydration_guage: 70 },
       ],
-      [
-        { month: "05", hydration_guage: 198 },
-        { month: "06", hydration_guage: 12 },
-        { month: "07", hydration_guage: 7 },
-        { month: "08", hydration_guage: 62 },
-        { month: "09", hydration_guage: 166 },
-        { month: "10", hydration_guage: 24 },
-      ],
-      [{ month: "11", hydration_guage: 50 }],
     ];
-
-    return randomArr[randomIndex];
+    return randomData[randomIdx];
   }
 };
