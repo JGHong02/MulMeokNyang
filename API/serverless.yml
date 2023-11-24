@@ -24,11 +24,53 @@ plugins:
   - serverless-dotenv-plugin
 
 functions:
+  autoLogin:
+    handler: autoLogin.autoLogin
+    events:
+      - http:
+          path: /autoLogin
+          method: post
+
+  checkEmailAvailable:
+    handler: checkEmailAvailable.checkEmailAvailable
+    events:
+      - http:
+          path: /checkEmailAvailable
+          method: get
+
+  messageAuth:
+    handler: messageAuth.messageAuth
+    events:
+      - http:
+          path: /messageAuth
+          method: post
+
+  checkMessageAuthCode:
+    handler: checkMessageAuthCode.checkMessageAuthCode
+    events:
+      - http:
+          path: /checkMessageAuthCode
+          method: get
+
   findEmail:
     handler: findEmail.findEmail
     events:
       - http:
           path: /getUserEmail
+          method: get
+
+  checkUserExists:
+    handler: checkUserExists.checkUserExists
+    events:
+      - http:
+          path: /checkUserExists
+          method: get
+
+  sendPw:
+    handler: sendPw.sendPw
+    events:
+      - http:
+          path: /sendPw
           method: get
 
   registUserProfile:
@@ -44,6 +86,13 @@ functions:
       - http:
           path: /getCatMainInfo
           method: get
+
+  deleteCatInfo:
+    handler: deleteCatInfo.deleteCatInfo
+    events:
+      - http:
+          path: /deleteCatInfo
+          method: delete
 
   getCatFeedStuff:
     handler: getCatFeedStuff.getCatFeedStuff
@@ -65,41 +114,6 @@ functions:
       - http:
           path: /getManagerList
           method: get
-
-  autoLogin:
-    handler: autoLogin.autoLogin
-    events:
-      - http:
-          path: /autoLogin
-          method: post
-
-  checkEmailAvailable:
-    handler: checkEmailAvailable.checkEmailAvailable
-    events:
-      - http:
-          path: /checkEmailAvailable
-          method: get
-
-  checkMessageAuthCode:
-    handler: checkMessageAuthCode.checkMessageAuthCode
-    events:
-      - http:
-          path: /checkMessageAuthCode
-          method: get
-
-  checkUserExists:
-    handler: checkUserExists.checkUserExists
-    events:
-      - http:
-          path: /checkUserExists
-          method: get
-
-  deleteCatInfo:
-    handler: deleteCatInfo.deleteCatInfo
-    events:
-      - http:
-          path: /deleteCatInfo
-          method: delete
 
   deleteCoManager:
     handler: deleteCoManager.deleteCoManager
