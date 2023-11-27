@@ -29,24 +29,24 @@ function generateSessionId() {
 }
 
 app.post('/autologin', (req, res) => {
-    const userEmail = req.body.userEmail;
+    const user_email = req.body.userEmail;
     const providedSessionId = req.body.sessionID;
 
-    if (userEmail) {  // Case 1: 자동 로그인이 설정되지 않은 사용자
+    if (user_email) {
         const sessionId = generateSessionId();
 
-        const query = 'INSERT INTO session (sessionID, userEmail) VALUES (?, ?)';
-        db.query(query, [sessionId, userEmail], (err) => {
+        const query = 'INSERT INTO session (session_id, user_email) VALUES (?, ?)';
+        db.query(query, [sessionId, user_email], (err) => {
             if (err) {
                 console.error(err);
                 return res.status(500).json({ error: 'Internal Server Error' });
             }
 
-            sendResponse(userEmail, sessionId, res);
+            sendResponse(user_email, sessionId, res);
         });
 
-    } else if (providedSessionId) {  // Case 2: 자동 로그인이 설정된 사용자
-        const query = 'SELECT userEmail FROM session WHERE sessionID = ?';
+    } else if (providedSessionId) {
+        const query = 'SELECT user_email FROM session WHERE session_id = ?';
         db.query(query, [providedSessionId], (err, results) => {
             if (err) {
                 console.error(err);
@@ -57,7 +57,7 @@ app.post('/autologin', (req, res) => {
                 return res.status(404).json({ error: 'Session not found' });
             }
 
-            const userEmailFromSession = results[0].userEmail;
+            const userEmailFromSession = results[0].user_email;
             sendResponse(userEmailFromSession, null, res);
         });
     } else {
@@ -65,9 +65,9 @@ app.post('/autologin', (req, res) => {
     }
 });
 
-function sendResponse(userEmail, sessionId, res) {
-    const query = 'SELECT management_space_id FROM user WHERE userEmail = ?';
-    db.query(query, [userEmail], (err, results) => {
+function sendResponse(user_email, sessionId, res) {
+    const query = 'SELECT management_space_id FROM user WHERE user_email = ?';
+    db.query(query, [user_email], (err, results) => {
         if (err) {
             console.error(err);
             return res.status(500).json({ error: 'Internal Server Error' });
@@ -75,7 +75,7 @@ function sendResponse(userEmail, sessionId, res) {
 
         const managementSpaceId = results.length > 0 ? results[0].management_space_id : null;
         const responseObj = {
-            userEmail: userEmail,
+            userEmail: user_email,
             managementSpaceId: managementSpaceId || null,
         };
 
