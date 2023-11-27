@@ -30,63 +30,39 @@ function generateSessionId() {
 
 app.post('/autologin', (req, res) => {
     const user_email = req.body.userEmail;
-    const providedSessionId = req.body.sessionID;
 
     if (user_email) {
         const sessionId = generateSessionId();
 
-        const query = 'INSERT INTO session (session_id, user_email) VALUES (?, ?)';
+        // 세션 ID 업데이트 또는 새로운 세션 생성
+        const query = `
+            INSERT INTO session (session_id, user_email) 
+            VALUES (?, ?) 
+            ON DUPLICATE KEY 
+            UPDATE session_id = VALUES(session_id);`;
+
         db.query(query, [sessionId, user_email], (err) => {
             if (err) {
                 console.error(err);
                 return res.status(500).json({ error: 'Internal Server Error' });
             }
-
-            sendResponse(user_email, sessionId, res);
-        });
-
-    } else if (providedSessionId) {
-        const query = 'SELECT user_email FROM session WHERE session_id = ?';
-        db.query(query, [providedSessionId], (err, results) => {
-            if (err) {
-                console.error(err);
-                return res.status(500).json({ error: 'Internal Server Error' });
-            }
-
-            if (results.length === 0) {
-                return res.status(404).json({ error: 'Session not found' });
-            }
-
-            const userEmailFromSession = results[0].user_email;
-            sendResponse(userEmailFromSession, null, res);
+            // 관리 공간 ID 조회
+            const spaceQuery = 'SELECT management_space_id FROM user WHERE user_email = ?';
+            db.query(spaceQuery, [user_email], (err, results) => {
+                if (err) {
+                    console.error(err);
+                    return res.status(500).json({ error: 'Internal Server Error' });
+                }
+                const managementSpaceId = results.length > 0 ? results[0].management_space_id : null;
+                // 세션 ID와 관리 공간 ID만 반환
+                res.json({ managementSpaceId, sessionID: sessionId });
+            });
         });
     } else {
         res.status(400).json({ error: 'Invalid request' });
     }
 });
 
-function sendResponse(user_email, sessionId, res) {
-    const query = 'SELECT management_space_id FROM user WHERE user_email = ?';
-    db.query(query, [user_email], (err, results) => {
-        if (err) {
-            console.error(err);
-            return res.status(500).json({ error: 'Internal Server Error' });
-        }
-
-        const managementSpaceId = results.length > 0 ? results[0].management_space_id : null;
-        const responseObj = {
-            userEmail: user_email,
-            managementSpaceId: managementSpaceId || null,
-        };
-
-        if (sessionId) {
-            responseObj.sessionID = sessionId;
-        }
-
-        res.json(responseObj);
-    });
-}
-
 app.listen(PORT, () => {
-    console.log(`AutoLogin server is running on http://localhost:${PORT}`);
+    console.log(`Server running on http://localhost:${PORT}`);
 });
