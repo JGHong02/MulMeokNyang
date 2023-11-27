@@ -31,6 +31,13 @@ functions:
           path: /autoLogin
           method: post
 
+  login:
+    handler: login.login
+    events:
+      - http:
+          path: /login
+          method: post
+
   checkEmailAvailable:
     handler: checkEmailAvailable.checkEmailAvailable
     events:
@@ -52,11 +59,18 @@ functions:
           path: /checkMessageAuthCode
           method: get
 
-  findEmail:
-    handler: findEmail.findEmail
+  localSignUp:
+    handler: localSignUp.localSignUp
     events:
       - http:
-          path: /getUserEmail
+          path: /localSignUp
+          method: post
+
+  getFindEmail:
+    handler: getFindEmail.getFindEmail
+    events:
+      - http:
+          path: /getFindEmail
           method: get
 
   checkUserExists:
@@ -80,11 +94,39 @@ functions:
           path: /registUserProfile
           method: post
 
+  getManagementSpaceId:
+    handler: getManagementSpaceId.getManagementSpaceId
+    events:
+      - http:
+          path: /getManagementSpaceId
+          method: get
+
+  registCatInfo:
+    handler: registCatInfo.registCatInfo
+    events:
+      - http:
+          path: /registCatInfo
+          method: post
+
+  getCatProfileList:
+    handler: getCatProfileList.getCatProfileList
+    events:
+      - http:
+          path: /getCatProfileList
+          method: get
+
   getCatMainInfo:
     handler: getCatMainInfo.getCatMainInfo
     events:
       - http:
           path: /getCatMainInfo
+          method: get
+
+  getCatStatistics:
+    handler: getCatStatistics.getCatStatistics
+    events:
+      - http:
+          path: /getCatStatistics
           method: get
 
   deleteCatInfo:
@@ -94,12 +136,54 @@ functions:
           path: /deleteCatInfo
           method: delete
 
+  logout:
+    handler: logout.logout
+    events:
+      - http:
+          path: /logout
+          method: delete
+
+  getUserProfile:
+    handler: getUserProfile.getUserProfile
+    events:
+      - http:
+          path: /getUserProfile
+          method: get
+
+  modifyUserProfile:
+    handler: modifyUserProfile.modifyUserProfile
+    events:
+      - http:
+          path: /modifyUserProfile
+          method: put
+
+  getCatProfile:
+    handler: getCatProfile.getCatProfile
+    events:
+      - http:
+          path: /getCatProfile
+          method: get
+
+  modifyCatProfile:
+    handler: modifyCatProfile.modifyCatProfile
+    events:
+      - http:
+          path: /modifyCatProfile
+          method: put
+
   getCatFeedStuff:
     handler: getCatFeedStuff.getCatFeedStuff
     events:
       - http:
           path: /getCatFeedStuff
           method: get
+
+  modifyCatFeedStuff:
+    handler: modifyCatFeedStuff.modifyCatFeedStuff
+    events:
+      - http:
+          path: /modifyCatFeedStuff
+          method: put
 
   getCatHydration:
     handler: getCatHydration.getCatHydration
@@ -108,12 +192,33 @@ functions:
           path: /getCatHydration
           method: get
 
+  modifyCatHydration:
+    handler: modifyCatHydration.modifyCatHydration
+    events:
+      - http:
+          path: /modifyCatHydration
+          method: put
+
   getManagerList:
     handler: getManagerList.getManagerList
     events:
       - http:
           path: /getManagerList
           method: get
+
+  userSearch:
+    handler: userSearch.userSearch
+    events:
+      - http:
+          path: /userSearch
+          method: get
+
+  addCoManager:
+    handler: addCoManager.addCoManager
+    events:
+      - http:
+          path: /addCoManager
+          method: post
 
   deleteCoManager:
     handler: deleteCoManager.deleteCoManager

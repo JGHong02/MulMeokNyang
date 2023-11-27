@@ -3,10 +3,10 @@ const mysql = require("mysql2");
 const app = express();
 const serverless = require("serverless-http");
 const cors = require("cors");
-const dotenv = require("dotenv");
 
 app.use(cors());
 
+const dotenv = require("dotenv");
 dotenv.config();
 
 const rdsConfig = {
@@ -26,32 +26,31 @@ connection.connect((err) => {
   console.log("Database connection established");
 });
 
-// GetManagerList API
-app.get("/getManagerList", (req, res) => {
-  const spaceId = req.query.managementSpaceId;
+// UserSearch API
+app.get("/userSearch", (req, res) => {
+  const userNickname = req.query.userNickname;
 
-  const query = `SELECT main_manager_user_email, co_managers_user_email FROM management_space WHERE management_space_id = ? `;
-  connection.query(query, [spaceId], (err, results) => {
+  const query =
+    'SELECT user_email, user_profile_photo, user_introduction FROM user WHERE user_nickname = ? AND management_space_id = ""';
+  connection.query(query, [userNickname], (err, results) => {
     if (err) {
-      console.error("Error querying the database:", err);
+      console.error(err);
       return res.status(500).json({ error: "Internal Server Error" });
     }
 
     if (results.length === 0) {
-      return res.status(204).json({ message: "Management space not found" });
+      return res.json({ searchResultExists: false });
     }
 
-    const { main_manager_user_email, co_managers_user_email } = results[0];
-
+    const { user_email, user_profile_photo, user_introduction } = results[0];
     res.json({
-      mainManagerUserEmail: main_manager_user_email,
-      coManagersUserEmail: co_managers_user_email
-        ? JSON.parse(co_managers_user_email)
-        : [],
+      userEmail: user_email,
+      userProfilePhoto: user_profile_photo,
+      userIntroduction: user_introduction,
     });
   });
 });
 
 module.exports = {
-  getManagerList: serverless(app),
+  userSearch: serverless(app),
 };

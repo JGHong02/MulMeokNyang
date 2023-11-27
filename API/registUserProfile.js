@@ -25,7 +25,6 @@ const rdsConfig = {
 
 const connection = mysql.createConnection(rdsConfig);
 
-// 데이터베이스 연결
 connection.connect((err) => {
   if (err) {
     console.error("Error connecting to the database: ", err);
@@ -49,7 +48,7 @@ app.post(
     const userProfilePhoto = req.file;
 
     if (!userEmail) {
-      return res.status(400).json({ message: "이메일은 필수 항목입니다." });
+      return res.status(400).json({ message: "Email Value is Empty" });
     }
 
     // 닉네임 중복 검사
@@ -60,7 +59,7 @@ app.post(
         if (err) {
           return res
             .status(500)
-            .json({ message: "데이터베이스 오류", error: err });
+            .json({ message: "Database Error: ", error: err });
         }
 
         if (results.length > 0) {
@@ -83,10 +82,10 @@ app.post(
 
             s3.upload(params, (s3Err, data) => {
               if (s3Err) {
-                console.error("S3에 업로드 중 에러:", s3Err);
+                console.error("S3 upload Error:", s3Err);
                 return res
                   .status(500)
-                  .json({ message: "S3 업로드 중 에러", error: s3Err });
+                  .json({ message: "S3 upload Error ", error: s3Err });
               }
 
               // S3 객체 URL을 사용자 프로필 정보에 업데이트
@@ -99,7 +98,7 @@ app.post(
                   if (dbErr) {
                     return res
                       .status(500)
-                      .json({ message: "데이터베이스 오류", error: dbErr });
+                      .json({ message: "Database Error: ", error: dbErr });
                   }
 
                   // 응답에 S3 URL 포함
@@ -108,9 +107,7 @@ app.post(
               );
             });
           } else {
-            return res
-              .status(400)
-              .json({ message: "이메일은 비어 있을 수 없습니다." });
+            return res.status(400).json({ message: "Email Value is Empty" });
           }
         }
       }

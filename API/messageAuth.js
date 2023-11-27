@@ -53,7 +53,7 @@ app.post("/messageAuth", async (req, res) => {
         from: process.env.TWILIO_NUMBER,
       });
 
-      // Twilio가 전송한 메시지의 SID를 확인할 수 있습니다.
+      // Twilio가 전송한 메시지의 SID
       console.log("Twilio Message SID:", message.sid);
 
       sendSuccess = true;
@@ -62,7 +62,7 @@ app.post("/messageAuth", async (req, res) => {
     }
 
     if (sendSuccess) {
-      // SMS 전송 성공 시 MySQL 데이터베이스에 추가
+      // SMS 전송 성공 시 데이터베이스에 추가
       connection.query(
         "INSERT INTO message_auth (userPhoneNum, authCode) VALUES (?, ?) ON DUPLICATE KEY UPDATE authCode = ?",
         [userPhoneNum, authCode, authCode],

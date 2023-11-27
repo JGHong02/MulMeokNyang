@@ -32,8 +32,8 @@ connection.connect((err) => {
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
-    user: process.env.NODE_MAIL_ACCOUNT, // Gmail 계정
-    pass: process.env.NODE_MAIL_PW, // Gmail 앱 비밀번호
+    user: process.env.NODE_MAIL_ACCOUNT,
+    pass: process.env.NODE_MAIL_PW,
   },
 });
 
