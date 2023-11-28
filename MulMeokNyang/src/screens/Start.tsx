@@ -111,7 +111,8 @@ const Start = () => {
       <View style={[styles.mainView]}>
         <Image source={logo} style={[styles.logoImage]} />
         <View style={[styles.buttonListView]}>
-          <SignUpButton
+          {/* Quick Sign Up 기능 뺌 */}
+          {/* <SignUpButton
             method="Naver"
             bgColor="#1DC800"
             setAlertRoute={setAlertRoute}
@@ -128,7 +129,7 @@ const Start = () => {
             bgColor="#ECECEC"
             setAlertRoute={setAlertRoute}
             setOnAlert={setOnAlert}
-          />
+          /> */}
           <SignUpButton method="Local" bgColor="white" />
         </View>
         <View style={[styles.textButtonView]}>
@@ -136,7 +137,8 @@ const Start = () => {
           <UnderlineTextButton text="로그인" route="Login" />
         </View>
       </View>
-      {onAlert && (
+      {/* Quick Sign Up 기능 빼서 자동 로그인 Alert도 필요 없음 */}
+      {/* {onAlert && (
         <View style={[alertBackgroundStyles.alertBackgroundView]}>
           <Alert
             msg={alertMsg}
@@ -147,7 +149,7 @@ const Start = () => {
             buttonPressHandler={alertButtonPressHandler}
           />
         </View>
-      )}
+      )} */}
     </SafeAreaView>
   );
 };
@@ -155,14 +157,21 @@ const Start = () => {
 export default Start;
 
 const styles = StyleSheet.create({
-  safeAreaView: { position: "relative", flex: 1, alignItems: "center" },
-  logoImage: { flex: 4, width: desiredLogoWidth, resizeMode: "contain" },
+  safeAreaView: {
+    position: "relative",
+    alignItems: "center",
+  },
+  logoImage: {
+    width: desiredLogoWidth,
+    height: 250,
+    resizeMode: "contain",
+    marginTop: 170,
+  },
   mainView: {
     alignItems: "center",
   },
-  buttonListView: { flex: 3, justifyContent: "space-around" },
+  buttonListView: { justifyContent: "space-around", margin: 30 },
   textButtonView: {
-    flex: 1,
     flexDirection: "row",
     alignItems: "center",
   },
