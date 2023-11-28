@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const mysql = require("mysql2");
 const bodyParser = require("body-parser");
-const twilio = require("twilio");
+const coolsms = require("coolsms-node-sdk").default;
 const serverless = require("serverless-http");
 const cors = require("cors");
 
@@ -13,11 +13,6 @@ app.use(bodyParser.json());
 const dotenv = require("dotenv");
 dotenv.config();
 
-// Twilio ACCOUNT
-const accountSid = process.env.TWILIO_ACCOUNT_SID;
-const authToken = process.env.TWILIO_ACCOUNT_AUTH;
-const twilioClient = new twilio(accountSid, authToken);
-
 const rdsConfig = {
   host: process.env.RDS_HOST,
   user: process.env.RDS_USER,
@@ -25,38 +20,36 @@ const rdsConfig = {
   password: process.env.RDS_PASSWORD,
 };
 
-const connection = mysql.createConnection(rdsConfig);
+const connection = mysql.createPool(rdsConfig);
 
-connection.connect((err) => {
-  if (err) {
-    console.error("Error connecting to the database: ", err);
-    return;
-  }
-  console.log("Database connection established");
-});
+// COOLSMS
+const accountKey = process.env.COOLSMS_ACCOUNT_KEY;
+const accountSecret = process.env.COOLSMS_ACCOUNT_SECRET;
+const messageService = new coolsms(accountKey, accountSecret);
 
 app.post("/messageAuth", async (req, res) => {
   try {
     const { userPhoneNum } = req.body;
-
-    const formattedPhoneNum = formatPhoneNumber(userPhoneNum);
 
     const authCode = Math.floor(100000 + Math.random() * 900000).toString();
 
     let sendSuccess = false;
 
     try {
-      // Twilio를 사용하여 SMS로 전송
-      const message = await twilioClient.messages.create({
-        body: `Your verification code is: ${authCode}`,
-        to: formattedPhoneNum,
-        from: process.env.TWILIO_NUMBER,
-      });
-
-      // Twilio가 전송한 메시지의 SID
-      console.log("Twilio Message SID:", message.sid);
-
-      sendSuccess = true;
+      // COOLSMS를 사용하여 SMS로 전송
+      await messageService
+        .sendOne({
+          to: userPhoneNum,
+          from: process.env.COOLSMS_NUMBER,
+          text: `[인증번호: ${authCode}]`,
+        })
+        .then((response) => {
+          console.log(response);
+          sendSuccess = true;
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     } catch (error) {
       console.error("SMS sending failed:", error);
     }
@@ -85,18 +78,10 @@ app.post("/messageAuth", async (req, res) => {
   }
 });
 
-const formatPhoneNumber = (userPhoneNum) => {
-  const [firstPart, secondPart, thirdPart] = userPhoneNum.split("-");
-
-  const getNumericString = (str) => (str ? str.replace(/\D/g, "") : "");
-
-  const formattedPhoneNum = `+82${getNumericString(
-    firstPart
-  )}${getNumericString(secondPart)}${getNumericString(thirdPart)}`;
-
-  return formattedPhoneNum;
-};
-
 module.exports = {
   messageAuth: serverless(app),
 };
+
+app.listen(3000, () => {
+  console.log(`Server running on http://localhost:3000`);
+});
