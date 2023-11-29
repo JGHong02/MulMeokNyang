@@ -71,17 +71,11 @@ app.post("/addCoManager", (req, res) => {
           spaces[0].co_managers_user_email
         );
 
-        let coManagersUserEmail = JSON.parse(spaces[0].co_managers_user_email);
+        let coManagersUserEmail = spaces[0].co_managers_user_email;
 
-        // co_managers_user_email 값이 존재하고 유효한 JSON 문자열이면 파싱
-        if (coManagersUserEmail && typeof coManagersUserEmail === "string") {
-          coManagersUserEmail = JSON.parse(coManagersUserEmail);
-        } else {
+        if (!coManagersUserEmail) {
           coManagersUserEmail = [];
         }
-
-        // 로그 추가
-        console.log("emails:", coManagersUserEmail);
 
         coManagersUserEmail.push(userEmail);
 
@@ -100,7 +94,22 @@ app.post("/addCoManager", (req, res) => {
               return res.status(500).json({ error: "Internal Server Error" });
             }
 
-            res.json({ addSuccess: true });
+            //user 테이블에서 user_nickname로 조회해서 management_space_id 컬럼에 managementSpaceId를 추가
+            const updateUserQuery =
+              "UPDATE user SET management_space_id = ? WHERE user_nickname = ?";
+            connection.query(
+              updateUserQuery,
+              [managementSpaceId, userNickname],
+              (err) => {
+                if (err) {
+                  return res
+                    .status(500)
+                    .json({ error: "Internal Server Error" });
+                }
+
+                res.json({ addSuccess: true });
+              }
+            );
           }
         );
       }
@@ -111,7 +120,3 @@ app.post("/addCoManager", (req, res) => {
 module.exports = {
   addCoManager: serverless(app),
 };
-
-app.listen(3000, () => {
-  console.log(`Server running on http://localhost:3000`);
-});

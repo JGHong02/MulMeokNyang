@@ -1,13 +1,12 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const app = express();
 const mysql = require("mysql2");
 const cors = require("cors");
 const serverless = require("serverless-http");
 const dotenv = require("dotenv");
 
+const app = express();
 app.use(cors());
-app.use(bodyParser.json());
 
 dotenv.config();
 
@@ -31,17 +30,24 @@ connection.connect((err) => {
 app.get("/checkMessageAuthCode", (req, res) => {
   const { userPhoneNum, authCode } = req.query;
 
-  // 데이터베이스에서 인증 코드 확인
-  const query =
-    "SELECT COUNT(*) AS userCount FROM user WHERE user_email = ? AND user_phonenum = ?";
-  connection.query(query, [userPhoneNum, authCode], (err, results) => {
+  const query = "SELECT * FROM message_auth WHERE userPhoneNum = ? LIMIT 1";
+  connection.query(query, [userPhoneNum], (err, results) => {
     if (err) {
       console.error("Database query error: ", err);
       return res.status(500).json({ error: "Internal Server Error" });
     }
 
-    const authSuccess = results.length > 0;
-    res.json({ authSuccess });
+    if (results.length === 0) {
+      return res.json({ authSuccess: false });
+    }
+
+    const storedAuthCode = results[0].authCode;
+
+    if (storedAuthCode === authCode) {
+      res.json({ authSuccess: true });
+    } else {
+      res.json({ authSuccess: false });
+    }
   });
 });
 

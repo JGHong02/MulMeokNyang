@@ -81,7 +81,3 @@ app.post("/messageAuth", async (req, res) => {
 module.exports = {
   messageAuth: serverless(app),
 };
-
-app.listen(3000, () => {
-  console.log(`Server running on http://localhost:3000`);
-});
