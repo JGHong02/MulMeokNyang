@@ -39,9 +39,6 @@ app.put("/modifyCatFeedStuff", (req, res) => {
     catFeedStuffMoistureContent,
   } = req.body;
 
-  // cat_in_management_space_${managementSpaceId} 테이블에서 해당 catId의 레코드 수정
-  const isEatingFeedstuffValue = isEatingFeedStuff ? 1 : 0;
-
   const updateCatQuery = `
     UPDATE cat_in_management_space_${managementSpaceId}
     SET is_eating_feedstuff = ?, cat_feedstuff_daily_consumption = ?, cat_feedstuff_moisture_content = ?
@@ -50,7 +47,7 @@ app.put("/modifyCatFeedStuff", (req, res) => {
   connection.query(
     updateCatQuery,
     [
-      isEatingFeedstuffValue,
+      isEatingFeedStuff,
       catFeedStuffDailyConsumption,
       catFeedStuffMoistureContent,
       catId,
@@ -88,7 +85,7 @@ app.put("/modifyCatFeedStuff", (req, res) => {
               }
 
               // cat_hydration_statistics_${catId} 테이블에서 가장 최신의 record를 조회해, goal_hydration 값을 newGoalHydration로 수정
-              const updateHydrationStatisticsQuery = `UPDATE cat_hydration_statistics_${spaceId}_${catId} SET goal_hydration = ? ORDER BY date DESC LIMIT 1`;
+              const updateHydrationStatisticsQuery = `UPDATE cat_hydration_statistics_${managementSpaceId}_${catId} SET goal_hydration = ? ORDER BY date DESC LIMIT 1`;
               connection.query(
                 updateHydrationStatisticsQuery,
                 [newGoalHydration],

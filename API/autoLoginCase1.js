@@ -33,19 +33,12 @@ connection.connect((err) => {
   console.log("Database connection established");
 });
 
-connection.connect((err) => {
-  if (err) {
-    console.error("Error connecting to database: " + err.stack);
-    return;
-  }
-  console.log("Connected to database");
-});
-
 function generateSessionId() {
   return crypto.randomBytes(16).toString("hex");
 }
 
-app.post("/autologin", (req, res) => {
+//case1 자동 로그인이 설정되지 않은 사용자
+app.post("/autoLoginCase1", (req, res) => {
   const user_email = req.body.userEmail;
 
   if (user_email) {
@@ -83,5 +76,5 @@ app.post("/autologin", (req, res) => {
 });
 
 module.exports = {
-  autoLogin: serverless(app),
+  autoLoginCase1: serverless(app),
 };

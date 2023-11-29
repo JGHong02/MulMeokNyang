@@ -43,26 +43,40 @@ app.post("/login", async (req, res) => {
 
     if (results.length > 0) {
       const userExists = true;
-      const { user_nickname, management_space_id } = results[0];
+      const userNickname = results[0].user_nickname || null;
+      const managementSpaceId = results[0].management_space_id || null;
 
-      if (autoLogin && user_nickname) {
-        // Auto Login
-        const autoLoginResponse = await callAutoLoginAPI(userEmail);
+      console.log("autoLogin: ", autoLogin);
+      console.log("AutoLogin: ", typeof autoLogin);
 
-        const { sessionID } = autoLoginResponse;
-        const responseData = {
-          userEmail,
-          userNickname: user_nickname,
-          managementSpaceId: management_space_id,
-          sessionID: sessionID,
-        };
-        return res.json(responseData);
+      if (autoLogin == true) {
+        // 자동로그인 체크
+        if (userNickname != null) {
+          //user_nickname 값 있으면 session 생성
+          const autoLoginResponse = await callAutoLoginAPI(userEmail);
+          const { sessionID } = autoLoginResponse;
+
+          return res.json({
+            userEmail,
+            userNickname,
+            managementSpaceId,
+            sessionID: sessionID,
+          });
+        } else {
+          sessionID = null;
+
+          return res.json({
+            userEmail,
+            userNickname,
+            managementSpaceId,
+            sessionID,
+          });
+        }
       } else {
         res.json({
           userEmail,
           userNickname,
           managementSpaceId,
-          sessionId: null,
         });
       }
     } else {
@@ -99,3 +113,7 @@ async function callAutoLoginAPI(userEmail) {
 module.exports = {
   login: serverless(app),
 };
+
+app.listen(3000, () => {
+  console.log(`Server running on http://localhost:3000`);
+});
