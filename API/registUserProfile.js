@@ -13,7 +13,6 @@ app.use(bodyParser.json());
 app.use(cors());
 
 const dotenv = require("dotenv");
-
 dotenv.config();
 
 const rdsConfig = {
@@ -36,7 +35,7 @@ connection.connect((err) => {
 const s3 = new AWS.S3();
 
 // Multer 설정
-const storage = multer.memoryStorage(); // Use memory storage for uploading to S3 directly
+const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
 // RegistUserProfile API
@@ -63,13 +62,10 @@ app.post(
         }
 
         if (results.length > 0) {
-          // 닉네임이 이미 존재하면 함수 종료
           return res.json({ nicknameExists: true });
         } else {
-          if (userEmail.trim() !== "") {
-            // userEmail이 비어 있지 않은 경우에만 처리
-            // 닉네임이 존재하지 않으면 S3에 이미지 업로드 시도
-            // S3에 이미지 업로드
+          // 프로필 사진이 있는 경우에만 S3에 업로드
+          if (userProfilePhoto) {
             const params = {
               Bucket: process.env.S3_BUCKET_NAME,
               Key: `images/${Date.now()}${path.extname(
@@ -77,8 +73,18 @@ app.post(
               )}`,
               Body: userProfilePhoto.buffer,
               ContentType: userProfilePhoto.mimetype,
-              ACL: "public-read", // 객체를 공개적으로 접근 가능하게 함
+              ACL: "public-read",
             };
+            console.log("req file: ", userProfilePhoto);
+            console.log(
+              "userProfilePhoto.originalName: ",
+              userProfilePhoto.originalname
+            );
+            console.log("userProfilePhoto.buffer: ", userProfilePhoto.buffer);
+            console.log(
+              "userProfilePhoto.mimetype: ",
+              userProfilePhoto.mimetype
+            );
 
             s3.upload(params, (s3Err, data) => {
               if (s3Err) {
@@ -88,7 +94,6 @@ app.post(
                   .json({ message: "S3 upload Error ", error: s3Err });
               }
 
-              // S3 객체 URL을 사용자 프로필 정보에 업데이트
               const userImageUrl = data.Location;
 
               connection.query(
@@ -100,14 +105,24 @@ app.post(
                       .status(500)
                       .json({ message: "Database Error: ", error: dbErr });
                   }
-
-                  // 응답에 S3 URL 포함
-                  res.json({ registSuccess: true, userImageUrl });
+                  res.json({ registSuccess: true });
                 }
               );
             });
           } else {
-            return res.status(400).json({ message: "Email Value is Empty" });
+            // 프로필 사진이 없는 경우 DB 업데이트
+            connection.query(
+              "UPDATE user SET user_profile_photo = NULL, user_nickname = ?, user_Introduction = ? WHERE user_email = ?",
+              [userNickname, userIntroduction, userEmail],
+              (dbErr, result) => {
+                if (dbErr) {
+                  return res
+                    .status(500)
+                    .json({ message: "Database Error: ", error: dbErr });
+                }
+                res.json({ registSuccess: true });
+              }
+            );
           }
         }
       }

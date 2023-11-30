@@ -29,7 +29,7 @@ app.get("/getCatMainInfo", (req, res) => {
     }
 
     // 고양이 수분 섭취 기록 조회
-    const hydrationQuery = `SELECT hydration_guage FROM cat_hydration_statistics_${spaceId}_${catId} ORDER BY date DESC LIMIT 1`;
+    const hydrationQuery = `SELECT hydration_guage FROM cat_hydration_statistics_${managementSpaceId}_${catId} ORDER BY date DESC LIMIT 1`;
     connection.query(hydrationQuery, (err, hydrationResults) => {
       if (err) {
         console.error(err);

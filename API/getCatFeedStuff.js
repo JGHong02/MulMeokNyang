@@ -34,7 +34,7 @@ app.get("/getCatFeedStuff", (req, res) => {
   const catId = req.query.catId;
 
   const tableName = `cat_in_management_space_${spaceId}`;
-  const query = `SELECT cat_feedstuff_daily_consumption, cat_feedstuff_moisture_content FROM ${tableName} WHERE cat_id = ?`;
+  const query = `SELECT cat_feedstuff_daily_consumption, cat_feedstuff_moisture_content, is_eating_feedstuff FROM ${tableName} WHERE cat_id = ?`;
 
   connection.query(query, [catId], (err, results) => {
     if (err) {
@@ -48,9 +48,13 @@ app.get("/getCatFeedStuff", (req, res) => {
     }
 
     const data = results[0];
+    const isEatingFeedStuff = Boolean(data.is_eating_feedstuff);
+    console.log("isEatingFeedStuff: ", isEatingFeedStuff);
+    console.log("isEatingFeedStuff: ", typeof isEatingFeedStuff);
     res.send({
       catFeedStuffDailyConsumption: data.cat_feedstuff_daily_consumption,
       catFeedStuffMoistureContent: data.cat_feedstuff_moisture_content,
+      isEatingFeedStuff: isEatingFeedStuff,
     });
   });
 });

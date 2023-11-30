@@ -113,7 +113,3 @@ async function callAutoLoginAPI(userEmail) {
 module.exports = {
   login: serverless(app),
 };
-
-app.listen(3000, () => {
-  console.log(`Server running on http://localhost:3000`);
-});

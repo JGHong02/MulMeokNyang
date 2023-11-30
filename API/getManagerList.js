@@ -41,13 +41,17 @@ app.get("/getManagerList", (req, res) => {
       return res.status(204).json({ message: "Management space not found" });
     }
 
-    const { main_manager_user_email, co_managers_user_email } = results[0];
+    const emails = results[0];
+
+    let coManagersUserEmailArray = emails.co_managers_user_email;
+
+    if (!coManagersUserEmailArray) {
+      coManagersUserEmailArray = [];
+    }
 
     res.json({
-      mainManagerUserEmail: main_manager_user_email,
-      coManagersUserEmail: co_managers_user_email
-        ? JSON.parse(co_managers_user_email)
-        : [],
+      mainManagerUserEmail: emails.main_manager_user_email,
+      coManagersUserEmail: coManagersUserEmailArray,
     });
   });
 });
