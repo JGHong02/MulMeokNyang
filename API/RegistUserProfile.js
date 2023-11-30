@@ -1,67 +1,111 @@
-const express = require('express');
-const mysql = require('mysql');
-const multer = require('multer');
-const path = require('path');
+const express = require("express");
 const app = express();
-const PORT = process.env.PORT ? process.env.PORT : 3000;
+const mysql = require("mysql2");
+const cors = require("cors");
+const serverless = require("serverless-http");
+const multer = require("multer");
+const path = require("path");
+const AWS = require("aws-sdk");
+const bodyParser = require("body-parser");
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(cors());
+
+const dotenv = require("dotenv");
+dotenv.config();
+
+const rdsConfig = {
+  host: process.env.RDS_HOST,
+  user: process.env.RDS_USER,
+  database: process.env.RDS_DATABASE,
+  password: process.env.RDS_PASSWORD,
+};
+
+const connection = mysql.createConnection(rdsConfig);
+
+connection.connect((err) => {
+  if (err) {
+    console.error("Error connecting to the database: ", err);
+    return;
+  }
+  console.log("Database connection established");
+});
+
+const s3 = new AWS.S3();
 
 // Multer 설정
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, 'uploads/');
-    },
-    filename: (req, file, cb) => {
-        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
-    }
-});
-
+const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
-// 데이터베이스 연결 설정
-const db = mysql.createConnection({
-    host: 'mydb-instance.c3emgnv7ms58.eu-north-1.rds.amazonaws.com',
-    user: 'hyoju8618',
-    password: 'ahj6381hyn!',
-    database: 'mydatabase'
-});
-
-// 데이터베이스 연결
-db.connect((err) => {
-    if (err) {
-        console.error('Error connecting to the database: ', err);
-        return;
-    }
-    console.log('Database connected successfully');
-});
-
-// RegisterUserProfile API
-app.post('/registerUserProfile', upload.single('userProfilePhoto'), (req, res) => {
+// RegistUserProfile API
+app.post("/registUserProfile", upload.single("userProfilePhoto"), (req, res) => {
     const { userEmail, userNickname, userIntroduction } = req.body;
-    const userProfilePhoto = req.file ? req.file.path : null;
+    const userProfilePhoto = req.file;
+
+    if (!userEmail) {
+      return res.status(400).json({ message: "Email Value is Empty" });
+    }
 
     // 닉네임 중복 검사
-    db.query('SELECT user_nickname FROM user WHERE user_nickname = ?', [userNickname], (err, results) => {
+    connection.query(
+      "SELECT user_nickname FROM user WHERE user_nickname = ?",
+      [userNickname],
+      (err, results) => {
         if (err) {
-            return res.status(500).json({ message: 'Database error', error: err });
+          return res.status(500).json({ message: "Database Error: ", error: err });
         }
 
         if (results.length > 0) {
-            return res.json({ nicknameExists: true });
+          return res.json({ nicknameExists: true });
+        } else {
+          // 프로필 사진이 있는 경우에만 S3에 업로드
+          if (userProfilePhoto) {
+            const params = {
+              Bucket: process.env.S3_BUCKET_NAME,
+              Key: `images/${Date.now()}${path.extname(userProfilePhoto.originalname)}`,
+              Body: userProfilePhoto.buffer,
+              ContentType: userProfilePhoto.mimetype,
+              ACL: "public-read",
+            };
+
+            s3.upload(params, (s3Err, data) => {
+              if (s3Err) {
+                console.error("S3 upload Error:", s3Err);
+                return res.status(500).json({ message: "S3 upload Error ", error: s3Err });
+              }
+
+              const userImageUrl = data.Location;
+
+              connection.query(
+                "UPDATE user SET user_profile_photo = ?, user_nickname = ?, user_Introduction = ? WHERE user_email = ?",
+                [userImageUrl, userNickname, userIntroduction, userEmail],
+                (dbErr, result) => {
+                  if (dbErr) {
+                    return res.status(500).json({ message: "Database Error: ", error: dbErr });
+                  }
+                  res.json({ registSuccess: true, userImageUrl });
+                }
+              );
+            });
+          } else {
+            // 프로필 사진이 없는 경우 DB 업데이트
+            connection.query(
+              "UPDATE user SET user_profile_photo = NULL, user_nickname = ?, user_Introduction = ? WHERE user_email = ?",
+              [userNickname, userIntroduction, userEmail],
+              (dbErr, result) => {
+                if (dbErr) {
+                  return res.status(500).json({ message: "Database Error: ", error: dbErr });
+                }
+                res.json({ registSuccess: true });
+              }
+            );
+          }
         }
-
-        // 사용자 프로필 정보 업데이트
-        db.query('UPDATE user SET user_profile_photo = ?, user_nickname = ?, user_introduction = ? WHERE user_email = ?', [userProfilePhoto, userNickname, userIntroduction, userEmail], (err, result) => {
-            if (err) {
-                return res.status(500).json({ message: 'Database error', error: err });
-            }
-            res.json({ registDone: true });
-        });
-    });
+      }
+    );
 });
 
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-});
+module.exports = {
+  registUserProfile: serverless(app),
+};
