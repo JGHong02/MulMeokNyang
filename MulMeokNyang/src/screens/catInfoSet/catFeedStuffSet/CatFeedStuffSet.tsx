@@ -5,9 +5,12 @@ import { CatInfoContext } from "../../../contexts/CatInfoContext";
 import type { FC } from "react";
 // Hook
 import { useState, useContext, useCallback, useEffect } from "react";
+import { useIsFocused } from "@react-navigation/native";
+// Custom Hook
+import useLoading from "../../../hooks/useLoading";
 // StyleSheet, Component
 import { StyleSheet } from "react-native";
-import { SafeAreaView, View, Text } from "react-native";
+import { SafeAreaView, View, Text, ActivityIndicator } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 // Custom Component
 import TopBar from "../../../components/TopBar";
@@ -46,8 +49,12 @@ const CatFeedStuffSet: FC<CatFeedStuffSetType> = ({
     initialCatFeedStuffSetForm
   );
 
-  // API 호출 시 전달할 managementSpaceId 전역변수 불러오기
-  const { managementSpaceIdGV } = useContext(UserContext);
+  // 로딩
+  const { isLoading, handleLoading } = useLoading();
+
+  // Main에 변경을 알릴 함수와 API 호출 시 전달할 managementSpaceId 전역변수 불러오기
+  const { indicateMainDataChanged, managementSpaceIdGV } =
+    useContext(UserContext);
 
   // '수정'의 경우, formInfo의 값을 getCatFeedStuff API를 호출하여 새로 할당해야 함
   useEffect(() => {
@@ -55,9 +62,11 @@ const CatFeedStuffSet: FC<CatFeedStuffSetType> = ({
 
     // useEffect에서는 async, await를 직접 쓸 수 없기 때문에
     // async 함수를 선언하고 호출해야 함.
-    const setPrevFormInfo = async () => {
-      const res = await getCatFeedStuff(managementSpaceIdGV, catId);
+    const savePrevFormInfo = async () => {
       try {
+        handleLoading(true);
+
+        const res = await getCatFeedStuff(managementSpaceIdGV, catId);
         setFormInfo({
           isEatingFeedStuff: res.isEatingFeedStuff,
           catFeedStuffDailyConsumption: res.catFeedStuffDailyConsumption,
@@ -69,6 +78,8 @@ const CatFeedStuffSet: FC<CatFeedStuffSetType> = ({
             catFeedStuffMoistureContent: true,
           },
         });
+
+        handleLoading(false);
       } catch (error: any) {
         console.log(
           "CatFeedStuffSet 화면 getCatFeedStuff 호출에서 error 발생 :",
@@ -77,7 +88,8 @@ const CatFeedStuffSet: FC<CatFeedStuffSetType> = ({
         throw error;
       }
     };
-    setPrevFormInfo();
+
+    savePrevFormInfo();
   }, []);
 
   // formInfo의 isEatingFeedStuff 값이 바뀔 때마다 실행될 함수
@@ -98,16 +110,6 @@ const CatFeedStuffSet: FC<CatFeedStuffSetType> = ({
   // ProcessButton의 onPress 이벤트 핸들러 함수
   // '등록' or '수정' 이벤트 핸들러 함수 공통되는 로직 함수
 
-  // const setDefaultMoistureContent = useCallback(() => {
-  //   // 만약 습식 사료 수분 함량을 입력하지 않았다면 70으로 설정
-  //   if (formInfo.isEatingFeedStuff && !formInfo.catFeedStuffMoistureContent) {
-  //     setFormInfo((prevFormInfo) => ({
-  //       ...prevFormInfo,
-  //       catFeedStuffMoistureContent: "70",
-  //     }));
-  //   }
-  // }, [formInfo, setFormInfo]);
-
   // 1. '등록'
   // DB에 저장하기 전까지 전역 변수 저장
   const {
@@ -119,7 +121,6 @@ const CatFeedStuffSet: FC<CatFeedStuffSetType> = ({
   const nextButtonPressHandler = useCallback(() => {
     if (method === "수정") return;
 
-    // setDefaultMoistureContent();
     setIsEatingFeedStuffGV(formInfo.isEatingFeedStuff);
     setCatFeedStuffDailyConsumptionGV(formInfo.catFeedStuffDailyConsumption);
     setCatFeedStuffMoistureContentGV(formInfo.catFeedStuffMoistureContent);
@@ -133,9 +134,9 @@ const CatFeedStuffSet: FC<CatFeedStuffSetType> = ({
   const modifyButtonPressHandler = useCallback(async () => {
     if (method !== "수정") return;
 
-    // setDefaultMoistureContent();
-
     try {
+      handleLoading(true);
+
       const modifySuccess = await modifyCatFeedStuff(
         managementSpaceIdGV,
         catId,
@@ -143,7 +144,11 @@ const CatFeedStuffSet: FC<CatFeedStuffSetType> = ({
         formInfo.catFeedStuffDailyConsumption,
         formInfo.catFeedStuffMoistureContent
       );
-      if (modifySuccess) goAfterRoute();
+
+      if (modifySuccess) {
+        handleLoading(false);
+        goAfterRoute();
+      }
     } catch (error: any) {
       console.log(
         "CatFeedStuffSet 화면 modifyButtonPressHandler 이벤트 핸들러 함수의 modifyCatFeedStuff 호출에서 error 발생 :",
@@ -153,74 +158,79 @@ const CatFeedStuffSet: FC<CatFeedStuffSetType> = ({
     }
   }, [formInfo]);
 
-  // ############################################################################################
-  // ####################formInfo 확인용####################
+  // 다시 돌아올 때마다 formInfo 초기화
+  const isFocused = useIsFocused();
   useEffect(() => {
-    console.log(
-      "------------------------------------------------------------------------------------------------------------"
-    );
-    console.log("CatFeedStuffSet 화면의 formInfo를 출력");
-    console.log(formInfo);
-  }, [formInfo]);
+    setFormInfo(initialCatFeedStuffSetForm);
+  }, [isFocused]);
 
   return (
     <SafeAreaView>
       <TopBar
         title={method === "수정" ? "고양이 프로필 수정" : "고양이 프로필 등록"}
       />
-      <KeyboardAwareScrollView contentContainerStyle={mainViewStyles.mainView}>
-        <View style={[styles.textView]}>
-          <Text
-            style={[
-              styles.text,
-            ]}>{`습식 사료를 주기적으로\n섭취중인가요?`}</Text>
+      {isLoading ? (
+        <View style={[styles.loadingView]}>
+          <ActivityIndicator size="large" color="#59a0ff" />
         </View>
-        <SelectButton
-          content1="예"
-          content2="아니오"
-          value={formInfo.isEatingFeedStuff}
-          setValue={setFormInfo}
-          prop="isEatingFeedStuff"
-        />
-        {formInfo.isEatingFeedStuff && (
-          <>
-            <InputContainer
-              value={formInfo.catFeedStuffDailyConsumption}
-              setValue={setFormInfo}
-              prop="catFeedStuffDailyConsumption"
-              title="일일 섭취량 (g)"
-              checkValue={checkEmpty}
-              noResultMsg
-            />
-            <InputContainer
-              value={formInfo.catFeedStuffMoistureContent}
-              setValue={setFormInfo}
-              prop="catFeedStuffMoistureContent"
-              title="수분 함량 (%)"
-              checkValue={checkEmpty}
-              noResultMsg
-            />
-            <View style={[styles.moistureContentTextView]}>
-              <Text style={[styles.moistureContentText]}>
-                기본 70%로 적용되나, 수정 가능합니다.
-              </Text>
-            </View>
-          </>
-        )}
-        <View style={[styles.buttonView]}>
-          <ProcessButton
-            content={method === "수정" ? method : "다음"}
-            canPress={
-              formInfo.isEatingFeedStuff ? checkCanPress(formInfo.valid) : true
-            }
-            onPressHandler={
-              method !== "수정"
-                ? nextButtonPressHandler
-                : modifyButtonPressHandler
-            }
+      ) : (
+        <KeyboardAwareScrollView
+          contentContainerStyle={mainViewStyles.mainView}>
+          <View style={[styles.textView]}>
+            <Text
+              style={[
+                styles.text,
+              ]}>{`습식 사료를 주기적으로\n섭취중인가요?`}</Text>
+          </View>
+          <SelectButton
+            content1="예"
+            content2="아니오"
+            value={formInfo.isEatingFeedStuff}
+            setValue={setFormInfo}
+            prop="isEatingFeedStuff"
           />
-        </View>
-      </KeyboardAwareScrollView>
+          {formInfo.isEatingFeedStuff && (
+            <>
+              <InputContainer
+                value={formInfo.catFeedStuffDailyConsumption}
+                setValue={setFormInfo}
+                prop="catFeedStuffDailyConsumption"
+                title="일일 섭취량 (g)"
+                checkValue={checkEmpty}
+                noResultMsg
+              />
+              <InputContainer
+                value={formInfo.catFeedStuffMoistureContent}
+                setValue={setFormInfo}
+                prop="catFeedStuffMoistureContent"
+                title="수분 함량 (%)"
+                checkValue={checkEmpty}
+                noResultMsg
+              />
+              <View style={[styles.moistureContentTextView]}>
+                <Text style={[styles.moistureContentText]}>
+                  기본 70%로 적용되나, 수정 가능합니다.
+                </Text>
+              </View>
+            </>
+          )}
+          <View style={[styles.buttonView]}>
+            <ProcessButton
+              content={method === "수정" ? method : "다음"}
+              canPress={
+                formInfo.isEatingFeedStuff
+                  ? checkCanPress(formInfo.valid)
+                  : true
+              }
+              onPressHandler={
+                method !== "수정"
+                  ? nextButtonPressHandler
+                  : modifyButtonPressHandler
+              }
+            />
+          </View>
+        </KeyboardAwareScrollView>
+      )}
     </SafeAreaView>
   );
 };
@@ -246,5 +256,11 @@ const styles = StyleSheet.create({
   buttonView: {
     position: "absolute",
     bottom: 170,
+  },
+
+  // 로딩
+  loadingView: {
+    marginTop: 30,
+    alignItems: "center",
   },
 });

@@ -2,9 +2,13 @@
 import type { FC, Dispatch, SetStateAction } from "react";
 // Hook
 import { useState, useCallback, useEffect } from "react";
+// Custom Hook
+import useLoading from "../../hooks/useLoading";
 // StyleSheet, Component
 import { StyleSheet } from "react-native";
-import { View, Text, TextInput } from "react-native";
+import { View, Text, TextInput, ActivityIndicator } from "react-native";
+// API
+import { checkEmailAvailable } from "../../api/localSignUp/checkEmailAvailable";
 
 type InputContainerProps = {
   value: string;
@@ -17,6 +21,7 @@ type InputContainerProps = {
   readonly?: boolean;
   compareValue?: string;
   checkValue?: (arg1: string, arg2?: any) => any;
+  needToCheckEmailAvailable?: boolean;
   noResultMsg?: boolean;
 };
 
@@ -31,6 +36,7 @@ const InputContainer: FC<InputContainerProps> = ({
   readonly = false,
   compareValue = "",
   checkValue = () => {},
+  needToCheckEmailAvailable = false,
   noResultMsg = false,
 }) => {
   const [resultMsgInfo, setResultMsgInfo] = useState<{
@@ -65,6 +71,54 @@ const InputContainer: FC<InputContainerProps> = ({
     checkValid();
   }, [value, compareValue]);
 
+  // 이메일 중복 검사 함수
+  const checkDuplication = useCallback(async (email: string) => {
+    try {
+      const available = await checkEmailAvailable(email);
+      return available;
+    } catch (error: any) {
+      console.log("checkEmailAvailable 호출에서 error 발생 :", error.message);
+    }
+  }, []);
+
+  // 데이터 바인딩 전까지 로딩 표시
+  const { isLoading, handleLoading } = useLoading();
+
+  useEffect(() => {
+    const checkEmailDuplication = async () => {
+      if (
+        !needToCheckEmailAvailable ||
+        resultMsgInfo.msg !== "유효한 이메일입니다."
+      )
+        return;
+
+      setResultMsgInfo({ msg: "", color: "" });
+      handleLoading(true);
+
+      const emailAvailable = await checkDuplication(value);
+      if (emailAvailable) {
+        // 이메일 사용 가능한 경우 처리
+        setResultMsgInfo({
+          msg: "사용 가능한 이메일입니다.",
+          color: "#00cb51",
+        });
+      } else {
+        setResultMsgInfo({ msg: "이미 가입된 이메일입니다.", color: "red" });
+        setValue((prevFormInfo: any) => ({
+          ...prevFormInfo,
+          valid: {
+            ...prevFormInfo.valid,
+            userEmail: false,
+          },
+        }));
+      }
+
+      handleLoading(false);
+    };
+
+    checkEmailDuplication();
+  }, [value, resultMsgInfo.msg]);
+
   return (
     <View style={[styles.inputContainerView]}>
       <Text style={[styles.title]}>{title}</Text>
@@ -76,10 +130,15 @@ const InputContainer: FC<InputContainerProps> = ({
         secureTextEntry={isSecret}
         editable={!readonly}
       />
-      {!noResultMsg && resultMsgInfo.msg && (
+      {!noResultMsg && resultMsgInfo.msg && !isLoading && (
         <Text style={[styles.msg, { color: resultMsgInfo.color }]}>
           {resultMsgInfo.msg}
         </Text>
+      )}
+      {isLoading && (
+        <View style={[styles.loadingView]}>
+          <ActivityIndicator size="small" color="#59a0ff" />
+        </View>
       )}
     </View>
   );
@@ -101,6 +160,11 @@ const styles = StyleSheet.create({
     padding: 10,
     fontSize: 18,
     color: "rgba(0, 0, 0, 0.7)",
+  },
+  loadingView: {
+    marginTop: 5,
+    marginLeft: 5,
+    width: 15,
   },
   msg: {
     marginTop: 5,

@@ -6,9 +6,10 @@ import type { FC } from "react";
 import { useState, useEffect, useContext, useCallback } from "react";
 // Custom Hook
 import { useGoBack } from "../../hooks/useGoScreen";
+import useLoading from "../../hooks/useLoading";
 // StyleSheet, Component
 import { StyleSheet } from "react-native";
-import { SafeAreaView, View } from "react-native";
+import { SafeAreaView, View, ActivityIndicator } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 // Custom Component
 import TopBar from "../../components/TopBar";
@@ -58,10 +59,13 @@ const UserProfileSet: FC<UserProfileSetType> = ({
     initialUserProfileForm
   );
 
-  // API 호출 시 전달할 userEmail 전역변수 불러오기
-  const { userEmailGV } = useContext(UserContext);
+  // 로딩
+  const { isLoading, handleLoading } = useLoading();
 
-  // '수정'의 경우, formInfo의 값을 getUserProfile API를 호출하여 새로 할당해야 함.
+  // Main에 변경을 알릴 함수와 API 호출 시 전달할 userEmail 전역변수 불러오기
+  const { indicateMainDataChanged, userEmailGV } = useContext(UserContext);
+
+  // '수정'의 경우, formInfo의 값을 기존 값으로 먼저 할당해야 함.
   useEffect(() => {
     if (method === "등록") return;
 
@@ -81,6 +85,7 @@ const UserProfileSet: FC<UserProfileSetType> = ({
   const [onAlert, setOnAlert] = useState<boolean>(false);
   const [onNicknameAlert, setOnNicknameAlert] = useState<boolean>(false);
   const [onAutoLoginAlert, setOnAutoLoginAlert] = useState<boolean>(false);
+
   // Alert Msg, Route 관련 property state
   const [alertMsg, setAlertMsg] = useState<string>("");
   const [alertRoute, setAlertRoute] = useState<string>("");
@@ -89,25 +94,25 @@ const UserProfileSet: FC<UserProfileSetType> = ({
   // 1. '등록'
   const registButtonPressHandler = useCallback(async () => {
     if (method !== "등록") return;
+    handleLoading(true);
 
     try {
       const res = await registUserProfile(
-        // userEmailGV,
-        "user7@example.com",
+        userEmailGV,
         formInfo.userProfilePhotoUrl,
         formInfo.userNickname,
         formInfo.userIntroduction
       );
 
       // 중복되는 닉네임인 경우
-      if (Object.prototype.hasOwnProperty.call(res, "nicknameExists")) {
+      if (res?.hasOwnProperty("nicknameExists")) {
         setAlertMsg("이미 존재하는\n닉네임입니다.");
         setOnNicknameAlert(true);
         setOnAlert(true);
         return;
       }
 
-      if (Object.prototype.hasOwnProperty.call(res, "registSuccess")) {
+      if (res?.hasOwnProperty("registSuccess")) {
         setAlertMsg("자동 로그인을\n설정하시겠습니까?");
         setAlertRoute("HowToGoSpace");
         setOnNicknameAlert(false);
@@ -120,14 +125,10 @@ const UserProfileSet: FC<UserProfileSetType> = ({
         error.message
       );
       throw error;
+    } finally {
+      handleLoading(false);
     }
-  }, [
-    formInfo,
-    setOnAlert,
-    setAlertMsg,
-    setOnNicknameAlert,
-    setOnAutoLoginAlert,
-  ]);
+  }, [formInfo]);
 
   // 2. '수정'
   // '수정' 후 화면 이동할 함수 선언
@@ -135,6 +136,7 @@ const UserProfileSet: FC<UserProfileSetType> = ({
   // 이벤트 핸들러 함수
   const modifyButtonPressHandler = useCallback(async () => {
     if (method !== "수정") return;
+    handleLoading(true);
 
     try {
       const res = await modifyUserProfile(
@@ -145,14 +147,15 @@ const UserProfileSet: FC<UserProfileSetType> = ({
       );
 
       // 중복되는 닉네임인 경우
-      if (Object.prototype.hasOwnProperty.call(res, "nicknameExists")) {
+      if (res.hasOwnProperty("nicknameExists")) {
         setAlertMsg("이미 존재하는\n닉네임입니다.");
         setOnNicknameAlert(true);
         setOnAlert(true);
         return;
       }
 
-      if (Object.prototype.hasOwnProperty.call(res, "modifySuccess")) {
+      if (res.hasOwnProperty("modifySuccess")) {
+        indicateMainDataChanged();
         goBack();
       }
     } catch (error: any) {
@@ -161,23 +164,9 @@ const UserProfileSet: FC<UserProfileSetType> = ({
         error.message
       );
       throw error;
+    } finally {
+      handleLoading(false);
     }
-  }, [
-    formInfo,
-    setOnAlert,
-    setAlertMsg,
-    setOnNicknameAlert,
-    setOnAutoLoginAlert,
-  ]);
-
-  // #######################################################
-  // ####################formInfo 확인용####################
-  useEffect(() => {
-    console.log(
-      "------------------------------------------------------------------------------------------------------------"
-    );
-    console.log("UserProfileSet 화면의 formInfo를 출력");
-    console.log(formInfo);
   }, [formInfo]);
 
   return (
@@ -186,42 +175,49 @@ const UserProfileSet: FC<UserProfileSetType> = ({
         back={method === "등록" ? false : true}
         title={`프로필 ${method}`}
       />
-      <KeyboardAwareScrollView contentContainerStyle={mainViewStyles.mainView}>
-        <ImageInputContainer
-          method="사람"
-          photoUrl={formInfo.userProfilePhotoUrl}
-          setPhotoUrl={setFormInfo}
-          prop="userProfilePhotoUrl"
-        />
-        <InputContainer
-          value={formInfo.userNickname}
-          setValue={setFormInfo}
-          prop="userNickname"
-          title="닉네임"
-          checkValue={checkEmpty}
-          noResultMsg
-        />
-        <InputContainer
-          value={formInfo.userIntroduction}
-          setValue={setFormInfo}
-          prop="userIntroduction"
-          title="자기소개 (선택)"
-          optional
-          checkValue={checkEmpty}
-          noResultMsg
-        />
-        <View style={[styles.buttonView]}>
-          <ProcessButton
-            content={method}
-            canPress={checkCanPress(formInfo.valid)}
-            onPressHandler={
-              method === "등록"
-                ? registButtonPressHandler
-                : modifyButtonPressHandler
-            }
-          />
+      {isLoading ? (
+        <View style={[styles.loadingView]}>
+          <ActivityIndicator size="large" color="#59a0ff" />
         </View>
-      </KeyboardAwareScrollView>
+      ) : (
+        <KeyboardAwareScrollView
+          contentContainerStyle={mainViewStyles.mainView}>
+          <ImageInputContainer
+            method="사람"
+            photoUrl={formInfo.userProfilePhotoUrl}
+            setPhotoUrl={setFormInfo}
+            prop="userProfilePhotoUrl"
+          />
+          <InputContainer
+            value={formInfo.userNickname}
+            setValue={setFormInfo}
+            prop="userNickname"
+            title="닉네임"
+            checkValue={checkEmpty}
+            noResultMsg
+          />
+          <InputContainer
+            value={formInfo.userIntroduction}
+            setValue={setFormInfo}
+            prop="userIntroduction"
+            title="자기소개 (선택)"
+            optional
+            checkValue={checkEmpty}
+            noResultMsg
+          />
+          <View style={[styles.buttonView]}>
+            <ProcessButton
+              content={method}
+              canPress={checkCanPress(formInfo.valid)}
+              onPressHandler={
+                method === "등록"
+                  ? registButtonPressHandler
+                  : modifyButtonPressHandler
+              }
+            />
+          </View>
+        </KeyboardAwareScrollView>
+      )}
       {onAlert && (
         <View style={[alertBackgroundStyles.alertBackgroundView]}>
           {onNicknameAlert && <Alert msg={alertMsg} setOnAlert={setOnAlert} />}
@@ -247,5 +243,11 @@ const styles = StyleSheet.create({
   buttonView: {
     position: "absolute",
     bottom: 170,
+  },
+
+  // 로딩
+  loadingView: {
+    marginTop: 30,
+    alignItems: "center",
   },
 });

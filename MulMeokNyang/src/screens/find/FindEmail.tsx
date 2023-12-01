@@ -4,8 +4,9 @@ import { UserContext } from "../../contexts/UserContext";
 import { useCallback, useContext, useState } from "react";
 // Custom Hook
 import { useGoRoute } from "../../hooks/useGoScreen";
+import useLoading from "../../hooks/useLoading";
 // Component
-import { SafeAreaView, View } from "react-native";
+import { SafeAreaView, View, ActivityIndicator } from "react-native";
 // Custom Component
 import TopBar from "../../components/TopBar";
 import InputContainer from "../../components/inputContainer/InputContainer";
@@ -41,7 +42,12 @@ const FindEmail = () => {
   const [alertMsg, setAlertMsg] =
     useState<string>("해당되는 사용자가\n없습니다.");
 
+  // 데이터 바인딩 전까지 로딩 표시
+  const { isLoading, handleLoading } = useLoading();
+
   const findEmailButtonPressHandler = useCallback(async () => {
+    handleLoading(true);
+
     try {
       // ------------------getFindEmail API 호출------------------------
       const userEmail = await getFindEmail(
@@ -66,6 +72,8 @@ const FindEmail = () => {
         error.message
       );
       throw error;
+    } finally {
+      handleLoading(false);
     }
   }, [formInfo, setOnAlert]);
 
@@ -74,26 +82,32 @@ const FindEmail = () => {
       <View>
         <TopBar title="이메일 찾기" />
         <View style={[mainViewStyles.mainView]}>
-          <InputContainer
-            value={formInfo.userName}
-            setValue={setFormInfo}
-            prop="userName"
-            title="이름"
-            checkValue={checkEmpty}
-          />
-          <InputContainer
-            value={formInfo.userPhoneNum}
-            setValue={setFormInfo}
-            prop="userPhoneNum"
-            title="전화번호"
-            placeholder="010-XXXX-XXXX"
-            checkValue={checkPhoneNum}
-          />
-          <ProcessButton
-            content="이메일 찾기"
-            canPress={checkCanPress(formInfo.valid)}
-            onPressHandler={findEmailButtonPressHandler}
-          />
+          {isLoading ? (
+            <ActivityIndicator size="large" color="#59a0ff" />
+          ) : (
+            <>
+              <InputContainer
+                value={formInfo.userName}
+                setValue={setFormInfo}
+                prop="userName"
+                title="이름"
+                checkValue={checkEmpty}
+              />
+              <InputContainer
+                value={formInfo.userPhoneNum}
+                setValue={setFormInfo}
+                prop="userPhoneNum"
+                title="전화번호"
+                placeholder="010-XXXX-XXXX"
+                checkValue={checkPhoneNum}
+              />
+              <ProcessButton
+                content="이메일 찾기"
+                canPress={checkCanPress(formInfo.valid)}
+                onPressHandler={findEmailButtonPressHandler}
+              />
+            </>
+          )}
         </View>
       </View>
       {onAlert && (

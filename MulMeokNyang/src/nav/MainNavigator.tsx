@@ -44,7 +44,7 @@ const MainNavigator = () => {
   return (
     <Stack.Navigator
       screenOptions={{ headerShown: false }}
-      initialRouteName="Main">
+      initialRouteName="Start">
       <Stack.Screen name="Start" component={Start} />
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="BasicForm" component={BasicForm} />

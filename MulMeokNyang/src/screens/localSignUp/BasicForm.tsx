@@ -15,12 +15,7 @@ import {
   initialLocalSignUpForm,
 } from "../../data/localSignUp/localSignUpFormType";
 // utils
-import {
-  // checkEmailAvailable,
-  checkEmail,
-  checkPw,
-  checkPwConfirm,
-} from "../../utils/checkValid";
+import { checkEmail, checkPw, checkPwConfirm } from "../../utils/checkValid";
 import { checkCanPress } from "../../utils/checkCanPress";
 // styles
 import mainViewStyles from "../../styles/mainViewStyles";
@@ -50,8 +45,8 @@ const BasicForm = () => {
           setValue={setFormInfo}
           prop="userEmail"
           title="이메일"
-          // checkValue={checkEmailAvailable}
           checkValue={checkEmail}
+          needToCheckEmailAvailable={true}
         />
         <InputContainer
           value={formInfo.userPw}

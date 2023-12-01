@@ -11,7 +11,7 @@ const UserProfileModification: FC<UserProfileModificationType> = ({
   route,
 }) => {
   const { prevUserProfile } = route.params;
-  console.log(prevUserProfile);
+  console.log("prevUserProfile :", prevUserProfile);
 
   return (
     <>

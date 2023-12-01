@@ -4,7 +4,7 @@ import type { FC } from "react";
 import { useState, useEffect } from "react";
 // StyleSheet, Component
 import { StyleSheet } from "react-native";
-import { View, Text, FlatList } from "react-native";
+import { View, Text } from "react-native";
 // Custom Component
 import XAndBar from "./XAndBar";
 
@@ -43,10 +43,7 @@ const HydrationGraph: FC<HydrationGraphProps> = ({
       const xArr = weekRange.map((value) => {
         return value.split("-")[2];
       });
-      console.log("xArr: ", xArr);
       setXArr(xArr);
-      setStartIndex(xArr.indexOf(hydrationGuageArr[0].day));
-
       setXAndBarInfo({
         // Bar 사이 간격
         barInterval: 150 / 11,
@@ -78,7 +75,6 @@ const HydrationGraph: FC<HydrationGraphProps> = ({
         setXArr(["01", "02", "03", "04", "05"]);
       }
 
-      setStartIndex(xArr.indexOf(hydrationGuageArr[0].week));
       setXAndBarInfo({
         barInterval: numOfWeek === 6 ? 300 / 19 : 100 / 7,
         barWidth: numOfWeek === 6 ? 600 / 19 : 300 / 7,
@@ -87,7 +83,6 @@ const HydrationGraph: FC<HydrationGraphProps> = ({
       // 3. 년
       // prettier-ignore
       setXArr(["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"]);
-      setStartIndex(xArr.indexOf(hydrationGuageArr[0].month));
       setXAndBarInfo({
         barInterval: 300 / 37,
         barWidth: 600 / 37,
@@ -101,6 +96,17 @@ const HydrationGraph: FC<HydrationGraphProps> = ({
     });
     setAvg(sumOfHydrationGuage / hydrationGuageArr.length);
   }, [hydrationGuageArr]);
+
+  // xArr state가 바뀐 뒤에 startIndex가 설정되어야 함
+  useEffect(() => {
+    if (range === "주") {
+      setStartIndex(xArr.indexOf(hydrationGuageArr[0].day));
+    } else if (range === "달") {
+      setStartIndex(xArr.indexOf(hydrationGuageArr[0].week));
+    } else if (range === "년") {
+      setStartIndex(xArr.indexOf(hydrationGuageArr[0].month));
+    }
+  }, [xArr]);
 
   return (
     <>

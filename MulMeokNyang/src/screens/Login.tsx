@@ -6,9 +6,10 @@ import { UserContext } from "../contexts/UserContext";
 import { useCallback, useContext, useState } from "react";
 // Custom Hook
 import { useGoRoute } from "../hooks/useGoScreen";
+import useLoading from "../hooks/useLoading";
 // StyleSheet, Component
 import { StyleSheet } from "react-native";
-import { SafeAreaView, View } from "react-native";
+import { SafeAreaView, View, ActivityIndicator } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 // Custom Component
 import TopBar from "../components/TopBar";
@@ -47,8 +48,13 @@ const Login = () => {
   const [alertMsg, setAlertMsg] = useState<string>("");
   const [alertCloseRoute, setAlertCloseRoute] = useState<string>("");
 
+  // 로딩
+  const { isLoading, handleLoading } = useLoading();
+
   // '로그인' ProcessButton의 onPress 이벤트 핸들러 함수
   const loginButtonPressHandler = useCallback(async () => {
+    handleLoading(true);
+
     try {
       // ----------------------login API 호출---------------------
       const res = await login(formInfo.userEmail, formInfo.userPw, check);
@@ -62,10 +68,10 @@ const Login = () => {
       setUserEmailGV(res.userEmail);
 
       // userNickname 값이 없는 사용자는 사용자 프로필 등록을 아직 하지 않은 사용자
-      if (!res.userNickname) {
+      if (res.userNickname === null) {
         setAlertMsg("자동 로그인은\n프로필 등록을 마친 다음\n설정 가능합니다.");
-        setOnAlert(true);
         setAlertCloseRoute("UserProfileRegistration");
+        setOnAlert(true);
         return;
       }
 
@@ -75,7 +81,7 @@ const Login = () => {
         await AsyncStorage.setItem("sessionID", res.sessionID);
         // ################sessionID 저장됐나 확인용####################
         const savedSessionID = await AsyncStorage.getItem("sessionID");
-        console.log(savedSessionID);
+        console.log("세션 스토리지에 저장된 savedSessionID :", savedSessionID);
       }
 
       // managementSpaceId 값이 있는 사용자는 이미 관리 스페이스가 있는 사용자
@@ -94,46 +100,54 @@ const Login = () => {
         error.message
       );
       throw error;
+    } finally {
+      handleLoading(false);
     }
-  }, [formInfo, setOnAlert, setAlertMsg, setAlertCloseRoute]);
+  }, [formInfo, check]);
 
   return (
     <SafeAreaView>
       <View>
-        <TopBar title="로그인" />
-        <KeyboardAwareScrollView
-          contentContainerStyle={mainViewStyles.mainView}>
-          <InputContainer
-            value={formInfo.userEmail}
-            setValue={setFormInfo}
-            prop="userEmail"
-            title="이메일"
-            checkValue={checkEmpty}
-            noResultMsg
-          />
-          <InputContainer
-            value={formInfo.userPw}
-            setValue={setFormInfo}
-            prop="userPw"
-            title="비밀번호"
-            isSecret
-            checkValue={checkEmpty}
-            noResultMsg
-          />
-          <AutoLoginCheckBox isChecked={check} setCheck={setCheck} />
-          <ProcessButton
-            content="로그인"
-            canPress={checkCanPress(formInfo.valid)}
-            onPressHandler={loginButtonPressHandler}
-          />
-          <View style={[styles.underlineTextButtonView]}>
-            <UnderlineTextButton text="이메일 찾기" route="FindEmail" />
-            <View style={[styles.line]} />
-            <UnderlineTextButton text="비밀번호 찾기" route="FindPw" />
-            <View style={[styles.line]} />
-            <UnderlineTextButton text="회원가입" route="BasicForm" />
+        <TopBar backRoute="Start" title="로그인" />
+        {isLoading ? (
+          <View style={[styles.loadingView]}>
+            <ActivityIndicator size="large" color="#59a0ff" />
           </View>
-        </KeyboardAwareScrollView>
+        ) : (
+          <KeyboardAwareScrollView
+            contentContainerStyle={mainViewStyles.mainView}>
+            <InputContainer
+              value={formInfo.userEmail}
+              setValue={setFormInfo}
+              prop="userEmail"
+              title="이메일"
+              checkValue={checkEmpty}
+              noResultMsg
+            />
+            <InputContainer
+              value={formInfo.userPw}
+              setValue={setFormInfo}
+              prop="userPw"
+              title="비밀번호"
+              isSecret
+              checkValue={checkEmpty}
+              noResultMsg
+            />
+            <AutoLoginCheckBox isChecked={check} setCheck={setCheck} />
+            <ProcessButton
+              content="로그인"
+              canPress={checkCanPress(formInfo.valid)}
+              onPressHandler={loginButtonPressHandler}
+            />
+            <View style={[styles.underlineTextButtonView]}>
+              <UnderlineTextButton text="이메일 찾기" route="FindEmail" />
+              <View style={[styles.line]} />
+              <UnderlineTextButton text="비밀번호 찾기" route="FindPw" />
+              <View style={[styles.line]} />
+              <UnderlineTextButton text="회원가입" route="BasicForm" />
+            </View>
+          </KeyboardAwareScrollView>
+        )}
       </View>
       {onAlert && (
         <View style={[alertBackgroundStyles.alertBackgroundView]}>
@@ -162,5 +176,11 @@ const styles = StyleSheet.create({
     height: 15,
     backgroundColor: "black",
     marginHorizontal: 15,
+  },
+
+  // 로딩
+  loadingView: {
+    marginTop: 30,
+    alignItems: "center",
   },
 });

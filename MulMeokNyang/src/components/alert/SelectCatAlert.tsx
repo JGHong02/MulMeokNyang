@@ -5,9 +5,11 @@ import type { FC, Dispatch, SetStateAction } from "react";
 // Hook
 import { useState, useCallback, useContext } from "react";
 import { useNavigation } from "@react-navigation/native";
+// Custom Hook
+import useLoading from "../../hooks/useLoading";
 // StyleSheet, Component
 import { StyleSheet } from "react-native";
-import { View, TouchableOpacity, Text } from "react-native";
+import { View, TouchableOpacity, Text, ActivityIndicator } from "react-native";
 // Custom Component
 import CatProfileList from "../CatProfileList";
 import ProcessButton from "../button/ProcessButton";
@@ -38,6 +40,9 @@ const SelectCatAlert: FC<SelectCatAlertProps> = ({
     idArr[0]
   );
 
+  // 로딩
+  const { isLoading, handleLoading } = useLoading();
+
   // 1. '수정'
   // 버튼 누르면 params로 catId 같이 전달하며 화면 이동
   // currentSelectedCatId 값 바뀔 때마다 전달할 params 값이 달라지기 때문에
@@ -52,12 +57,19 @@ const SelectCatAlert: FC<SelectCatAlertProps> = ({
   }, [currentSelectedCatId]);
 
   // 2. '삭제'
-  const { managementSpaceIdGV } = useContext(UserContext);
+  const { indicateMainDataChanged, managementSpaceIdGV } =
+    useContext(UserContext);
   const deleteInfo = useCallback(async () => {
     if (typeOfAction !== "삭제") return;
 
     try {
+      handleLoading(true);
+
       await deleteCatInfo(managementSpaceIdGV, currentSelectedCatId);
+
+      handleLoading(false);
+      indicateMainDataChanged();
+
       // Alert 끄기
       setAlertInfo((prev: any) => ({ ...prev, onSelectCatAlert: false }));
     } catch (error: any) {
@@ -99,14 +111,20 @@ const SelectCatAlert: FC<SelectCatAlertProps> = ({
           setCurrentSelectedCatId={setCurrentSelectedCatId}
         />
       </View>
-      <View style={[styles.buttonView]}>
-        <ProcessButton
-          content={typeOfAction}
-          canPress
-          onPressHandler={typeOfAction === "수정" ? goAfterRoute : deleteInfo}
-          isInAlert
-        />
-      </View>
+      {isLoading ? (
+        <View style={[styles.loadingView]}>
+          <ActivityIndicator size="large" color="#59a0ff" />
+        </View>
+      ) : (
+        <View style={[styles.buttonView]}>
+          <ProcessButton
+            content={typeOfAction}
+            canPress
+            onPressHandler={typeOfAction === "수정" ? goAfterRoute : deleteInfo}
+            isInAlert
+          />
+        </View>
+      )}
     </View>
   );
 };
@@ -153,5 +171,11 @@ const styles = StyleSheet.create({
   buttonView: {
     position: "absolute",
     bottom: 0,
+  },
+
+  // 로딩
+  loadingView: {
+    marginTop: 295,
+    alignItems: "center",
   },
 });
