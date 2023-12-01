@@ -99,6 +99,8 @@ const HydrationGraph: FC<HydrationGraphProps> = ({
 
   // xArr state가 바뀐 뒤에 startIndex가 설정되어야 함
   useEffect(() => {
+    if (hydrationGuageArr.length === 0) return;
+
     if (range === "주") {
       setStartIndex(xArr.indexOf(hydrationGuageArr[0].day));
     } else if (range === "달") {
