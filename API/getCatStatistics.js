@@ -95,12 +95,12 @@ function calculateWeeklyHydrationData(data, weeksOfMonth) {
 
 // GetCatStatics API
 app.get("/getCatStatistics", (req, res) => {
-  const { currentSelectedCatId, range } = req.query;
+  const { currentSelectedCatId, range, managementSpaceId } = req.query;
 
   // 'week' 범위 처리
   if (range === "week") {
     const { startDate, endDate } = req.query;
-    const query = `SELECT DATE_FORMAT(date, '%Y-%m-%d') AS formatted_date, hydration_guage FROM cat_hydration_statistics_${spaceId}_${currentSelectedCatId} WHERE date BETWEEN ? AND ?`;
+    const query = `SELECT DATE_FORMAT(date, '%Y-%m-%d') AS formatted_date, hydration_guage FROM cat_hydration_statistics_${managementSpaceId}_${currentSelectedCatId} WHERE date BETWEEN ? AND ?`;
     connection.query(query, [startDate, endDate], (err, results) => {
       if (err) {
         return res.status(500).send({ error: "Database error" });
@@ -130,7 +130,7 @@ app.get("/getCatStatistics", (req, res) => {
 
     const query = `
             SELECT DATE_FORMAT(date, '%Y-%m-%d') AS formatted_date, DAY(date) AS day, hydration_guage 
-            FROM cat_hydration_statistics_${spaceId}_${currentSelectedCatId} 
+            FROM cat_hydration_statistics_${managementSpaceId}_${currentSelectedCatId} 
             WHERE DATE_FORMAT(date, '%Y-%m') = ?`;
     connection.query(query, [month], (err, results) => {
       if (err) {
@@ -148,7 +148,7 @@ app.get("/getCatStatistics", (req, res) => {
   // 'year' 범위 처리
   else if (range === "year") {
     const { year } = req.query;
-    const query = `SELECT DATE_FORMAT(date, '%Y-%m') AS month, AVG(hydration_guage) AS avg_hydration FROM cat_hydration_statistics_${spaceId}_${currentSelectedCatId} WHERE YEAR(date) = ? GROUP BY month`;
+    const query = `SELECT DATE_FORMAT(date, '%Y-%m') AS month, AVG(hydration_guage) AS avg_hydration FROM cat_hydration_statistics_${managementSpaceId}_${currentSelectedCatId} WHERE YEAR(date) = ? GROUP BY month`;
     connection.query(query, [year], (err, results) => {
       if (err) {
         return res.status(500).send({ error: "Database error" });
