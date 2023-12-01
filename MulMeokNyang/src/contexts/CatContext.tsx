@@ -31,29 +31,10 @@ interface ProviderProps {
 }
 
 export const CatContextProvider = ({ children }: ProviderProps) => {
-  // 임시 데이터
-  const [catIdArrGV, setCatIdArrGV] = useState<string[]>([
-    "kage",
-    "hina",
-    "tuki",
-    "yama",
-    "suga",
-    "asa",
-    "nishi",
-    "tana",
-  ]);
+  const [catIdArrGV, setCatIdArrGV] = useState<string[]>([]);
   const [catProfilePhotoUrlArrGV, setCatProfilePhotoUrlArrGV] = useState<
     string[]
-  >([
-    "file:///data/user/0/host.exp.exponent/cache/ExperienceData/%2540chansolchoi%252Fmulmeoknyang/ImagePicker/00a0b1b7-67e4-49a5-9846-c71ccc0d58bf.jpeg",
-    "",
-    "",
-    "file:///data/user/0/host.exp.exponent/cache/ExperienceData/%2540chansolchoi%252Fmulmeoknyang/ImagePicker/2f54f402-96b1-41d8-8f93-9eb9bbf5ea6f.jpeg",
-    "",
-    "",
-    "",
-    "",
-  ]);
+  >([]);
 
   return (
     <CatContext.Provider

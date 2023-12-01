@@ -2,9 +2,17 @@
 import { UserContext } from "../../contexts/UserContext";
 // Hook
 import { useContext, useState, useEffect, useCallback } from "react";
+// Custom Hook
+import useLoading from "../../hooks/useLoading";
 // StyleSheet, Component
 import { StyleSheet } from "react-native";
-import { SafeAreaView, View, Image, Text, FlatList } from "react-native";
+import {
+  SafeAreaView,
+  View,
+  Text,
+  FlatList,
+  ActivityIndicator,
+} from "react-native";
 // Custom Component
 import TopBar from "../../components/TopBar";
 import ManagerCard from "../../components/ManagerCard";
@@ -23,48 +31,20 @@ const CoManager = () => {
   const { userEmailGV, managementSpaceIdGV } = useContext(UserContext);
 
   // ManagerCard 컴포넌트에 바인딩할 state
-  // #####################API 연동 전까지 가짜 데이터로 초기화###########################
-  // ###################연동하면 type이랑 initialState 값 선언해놔야 함##################
   const [mainManagerInfo, setMainManagerInfo] = useState({
-    profilePhotoUrl:
-      "file:///data/user/0/host.exp.exponent/cache/ExperienceData/%2540chansolchoi%252Fmulmeoknyang/ImagePicker/2f54f402-96b1-41d8-8f93-9eb9bbf5ea6f.jpeg",
-    nickname: "무적코털슝슝",
-    email: "hjk9216@naver.com",
-    introduction: "What's your ETA?",
+    profilePhotoUrl: "",
+    nickname: "",
+    email: "",
+    introduction: "",
   });
-  const [coManagersInfo, setCoManagersInfo] = useState([
+  const [coManagersInfo, setCoManagersInfo] = useState<
     {
-      profilePhotoUrl: "",
-      nickname: "카리나",
-      email: "karina1@naver.com",
-      introduction: "난 에스파 카리나다.",
-    },
-    {
-      profilePhotoUrl: "",
-      nickname: "윈터",
-      email: "winter2@naver.com",
-      introduction: "난 에스파 윈터다.",
-    },
-    {
-      profilePhotoUrl: "",
-      nickname: "지젤",
-      email: "zizel3@naver.com",
-      introduction: "난 에스파 지젤이다.",
-    },
-    {
-      profilePhotoUrl: "",
-      nickname: "닝닝",
-      email: "ningning4@naver.com",
-      introduction: "난에스파닝닝이다다다다다다다다다다.",
-    },
-    {
-      profilePhotoUrl:
-        "file:///data/user/0/host.exp.exponent/cache/ExperienceData/%2540chansolchoi%252Fmulmeoknyang/ImagePicker/2f54f402-96b1-41d8-8f93-9eb9bbf5ea6f.jpeg",
-      nickname: "무적코털슝슝",
-      email: "hjk9216@naver.com",
-      introduction: "What's your ETA?",
-    },
-  ]);
+      profilePhotoUrl: string;
+      nickname: string;
+      email: string;
+      introduction: string;
+    }[]
+  >([]);
 
   // 공동 관리자 삭제 Alert 관련 state
   const [onDeleteAlert, setOnDeleteAlert] = useState<boolean>(false);
@@ -75,6 +55,9 @@ const CoManager = () => {
   // 공동 관리자 추가 ALert 관련 state
   const [onSearchUserAlert, setOnSearchUserAlert] = useState<boolean>(false);
   const [onAddAlert, setOnAddAlert] = useState<boolean>(false);
+
+  // 로딩
+  const { isLoading, handleLoading } = useLoading();
 
   useEffect(() => {
     // 관리자 추가 후 리랜더링 해야 되는데................
@@ -92,6 +75,8 @@ const CoManager = () => {
       let coManagersInfo = [];
 
       try {
+        handleLoading(true);
+
         const getManagerListRes = await getManagerList(managementSpaceIdGV);
 
         mainManagerInfo.email = getManagerListRes.mainManagerUserEmail;
@@ -102,7 +87,7 @@ const CoManager = () => {
           mainManagerInfo.email
         );
         mainManagerInfo.profilePhotoUrl =
-          getMainManagerInfoRes.userProfilePhotoUrl;
+          getMainManagerInfoRes.userProfilePhoto;
         mainManagerInfo.nickname = getMainManagerInfoRes.userNickname;
         mainManagerInfo.introduction = getMainManagerInfoRes.userIntroduction;
 
@@ -112,7 +97,7 @@ const CoManager = () => {
             coManagersUserEmailArr[i]
           );
           const coManagerInfo = {
-            profilePhotoUrl: getCoManagerInfoRes.userProfilePhotoUrl,
+            profilePhotoUrl: getCoManagerInfoRes.userProfilePhoto,
             nickname: getCoManagerInfoRes.userNickname,
             email: coManagersUserEmailArr[i],
             introduction: getCoManagerInfoRes.userIntroduction,
@@ -123,6 +108,7 @@ const CoManager = () => {
         // state 값을 바꿔 리렌더링
         setMainManagerInfo(mainManagerInfo);
         setCoManagersInfo(coManagersInfo);
+        handleLoading(false);
       } catch (error: any) {
         console.log(
           "CoManager 화면 getManagerList 호출에서 error 발생 :",
@@ -131,7 +117,8 @@ const CoManager = () => {
         throw error;
       }
     };
-    // saveCoManagersInfo();
+
+    saveCoManagersInfo();
   }, []);
 
   // 공동 관리자 삭제 Alert에서 "예" 버튼 눌렀을 때 실행될 함수
@@ -159,59 +146,67 @@ const CoManager = () => {
     <SafeAreaView>
       <TopBar title="공동 관리자" />
       <View style={[styles.mainView]}>
-        <View style={[styles.managerListView]}>
-          <Text style={[styles.text]}>대표 관리자</Text>
-          <ManagerCard
-            isMainManager
-            profilePhotoUrl={mainManagerInfo.profilePhotoUrl}
-            nickname={mainManagerInfo.nickname}
-            email={mainManagerInfo.email}
-            introduction={mainManagerInfo.introduction}
-            onDeleteButton={false}
-          />
-          <View
-            style={[
-              styles.coManagerListView,
-              // MainManager가 아니면 processButton 필요 없으니까 coManagerListView height를 더 길게
-              mainManagerInfo.email !== userEmailGV && { height: 450 },
-            ]}>
-            <Text style={[styles.text]}>공동 관리자</Text>
-            <FlatList
-              data={coManagersInfo}
-              renderItem={({ item }) => (
-                <ManagerCard
-                  profilePhotoUrl={item.profilePhotoUrl}
-                  nickname={item.nickname}
-                  email={item.email}
-                  introduction={item.introduction}
-                  onDeleteButton={
-                    mainManagerInfo.email === userEmailGV ? true : false
-                  }
-                  setOnDeleteAlert={
-                    mainManagerInfo.email === userEmailGV
-                      ? setOnDeleteAlert
-                      : () => {}
-                  }
-                  setEmailToDelete={
-                    mainManagerInfo.email === userEmailGV
-                      ? setEmailToDelete
-                      : () => {}
-                  }
-                />
-              )}
-              keyExtractor={(_, index) => index.toString()}
-              ItemSeparatorComponent={() => (
-                <View style={[styles.itemSeparator]} />
-              )}
-            />
+        {isLoading ? (
+          <View style={[styles.loadingView]}>
+            <ActivityIndicator size="large" color="#59a0ff" />
           </View>
-        </View>
-        {mainManagerInfo.email === userEmailGV && (
-          <ProcessButton
-            content="공동 관리자 추가"
-            canPress
-            onPressHandler={() => setOnSearchUserAlert(true)}
-          />
+        ) : (
+          <>
+            <View style={[styles.managerListView]}>
+              <Text style={[styles.text]}>대표 관리자</Text>
+              <ManagerCard
+                isMainManager
+                profilePhotoUrl={mainManagerInfo.profilePhotoUrl}
+                nickname={mainManagerInfo.nickname}
+                email={mainManagerInfo.email}
+                introduction={mainManagerInfo.introduction}
+                onDeleteButton={false}
+              />
+              <View
+                style={[
+                  styles.coManagerListView,
+                  // MainManager가 아니면 processButton 필요 없으니까 coManagerListView height를 더 길게
+                  mainManagerInfo.email !== userEmailGV && { height: 450 },
+                ]}>
+                <Text style={[styles.text]}>공동 관리자</Text>
+                <FlatList
+                  data={coManagersInfo}
+                  renderItem={({ item }) => (
+                    <ManagerCard
+                      profilePhotoUrl={item.profilePhotoUrl}
+                      nickname={item.nickname}
+                      email={item.email}
+                      introduction={item.introduction}
+                      onDeleteButton={
+                        mainManagerInfo.email === userEmailGV ? true : false
+                      }
+                      setOnDeleteAlert={
+                        mainManagerInfo.email === userEmailGV
+                          ? setOnDeleteAlert
+                          : () => {}
+                      }
+                      setEmailToDelete={
+                        mainManagerInfo.email === userEmailGV
+                          ? setEmailToDelete
+                          : () => {}
+                      }
+                    />
+                  )}
+                  keyExtractor={(_, index) => index.toString()}
+                  ItemSeparatorComponent={() => (
+                    <View style={[styles.itemSeparator]} />
+                  )}
+                />
+              </View>
+            </View>
+            {mainManagerInfo.email === userEmailGV && (
+              <ProcessButton
+                content="공동 관리자 추가"
+                canPress
+                onPressHandler={() => setOnSearchUserAlert(true)}
+              />
+            )}
+          </>
         )}
       </View>
       <View
@@ -265,5 +260,11 @@ const styles = StyleSheet.create({
   },
   itemSeparator: {
     height: 10,
+  },
+
+  // 로딩
+  loadingView: {
+    marginTop: 30,
+    alignItems: "center",
   },
 });

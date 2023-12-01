@@ -3,12 +3,15 @@ import { useState, createContext, ReactNode } from "react";
 // Context Type
 type UserContextType = {
   // GV : Global Variable
+  isMainDataChanged: number; // Main화면으로 돌아왔을 때 Main에 필요한 데이터가 바뀐 경우에만 리렌더링, 바뀔 때마다 증가됨
   userEmailGV: string;
   managementSpaceIdGV: string;
   // 아래 세 변수는 회원가입, 이메일 찾기, 비밀번호 찾기 때만 사용됨
   userPwGV: string;
   userNameGV: string;
   userPhoneNumGV: string;
+  // 증가 함수
+  indicateMainDataChanged: () => void;
   // setter 함수
   setUserEmailGV: (email: string) => void;
   setManagementSpaceIdGV: (id: string) => void;
@@ -20,11 +23,14 @@ type UserContextType = {
 // Default Context
 const defaultUserContext = {
   // GV
+  isMainDataChanged: 0,
   userEmailGV: "",
   managementSpaceIdGV: "",
   userPwGV: "",
   userNameGV: "",
   userPhoneNumGV: "",
+  // 증가 함수
+  indicateMainDataChanged: () => {},
   // setter 함수
   // default는 보통 () => {}로 함
   setUserEmailGV: () => {},
@@ -45,15 +51,22 @@ interface ProviderProps {
 }
 
 export const UserContextProvider = ({ children }: ProviderProps) => {
-  const [userEmailGV, setUserEmailGV] = useState<string>("hjk9216@naver.com");
+  const [isMainDataChanged, setIsMainDataChanged] = useState<number>(0);
+  const [userEmailGV, setUserEmailGV] = useState<string>("");
   const [managementSpaceIdGV, setManagementSpaceIdGV] = useState<string>("");
   const [userPwGV, setUserPwGV] = useState<string>("");
   const [userNameGV, setUserNameGV] = useState<string>("");
   const [userPhoneNumGV, setUserPhoneNumGV] = useState<string>("");
 
+  const indicateMainDataChanged = () => {
+    setIsMainDataChanged((prev) => prev + 1);
+  };
+
   return (
     <UserContext.Provider
       value={{
+        isMainDataChanged,
+        indicateMainDataChanged,
         userEmailGV,
         setUserEmailGV,
         managementSpaceIdGV,

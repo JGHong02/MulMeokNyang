@@ -96,16 +96,15 @@ const Drawer: FC<DrawerProps> = ({
       <View style={[styles.userProfileView, styles.borderBottomLine]}>
         <Image
           source={
-            userProfile.profilePhoroUrl
-              ? { uri: userProfile.profilePhoroUrl }
+            userProfile.profilePhotoUrl
+              ? { uri: userProfile.profilePhotoUrl }
               : defaultPhoto
           }
           style={[styles.image]}
         />
         <View style={[styles.userProfileTextView]}>
           <Text style={[styles.nicknameText]}>{userProfile.nickname}</Text>
-          {/* <Text style={[styles.elseText]}>{userEmail}</Text> */}
-          <Text style={[styles.elseText]}>hjk9216@naver.com</Text>
+          <Text style={[styles.elseText]}>{userEmail}</Text>
           <Text style={[styles.elseText]}>{userProfile.introduction}</Text>
         </View>
       </View>

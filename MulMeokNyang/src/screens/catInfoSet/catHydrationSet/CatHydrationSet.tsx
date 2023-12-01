@@ -5,9 +5,11 @@ import { CatInfoContext } from "../../../contexts/CatInfoContext";
 import type { FC } from "react";
 // Hook
 import { useState, useContext, useCallback, useEffect } from "react";
+// Custom Hook
+import useLoading from "../../../hooks/useLoading";
 // StyleSheet, Component
 import { StyleSheet } from "react-native";
-import { SafeAreaView, View, Text } from "react-native";
+import { SafeAreaView, View, Text, ActivityIndicator } from "react-native";
 // Custom Component
 import TopBar from "../../../components/TopBar";
 import SelectButton from "../../../components/button/SelectButton";
@@ -48,7 +50,7 @@ const CatHydrationSet: FC<CatHydrationSetType> = ({
   goFinishRegistRoute = () => {},
   goAfterModifyRoute = () => {},
 }) => {
-  // 권장 음수량 변수
+  // 권장 음수량 state
   let recommendedHydration: string = "";
 
   // '등록' 시 registCatInfo API 호출 또는 권장 음수량 값 계산할 때 사용할 CatInfo 전역변수 불러오고,
@@ -74,9 +76,6 @@ const CatHydrationSet: FC<CatHydrationSetType> = ({
 
   // '등록' 시 권장 음수량 값 계산
   if (method !== "등록") {
-    console.log("무게 :", catWeightGV);
-    console.log("섭취량 :", catFeedStuffDailyConsumptionGV);
-    console.log("수분 함량 :", catFeedStuffMoistureContentGV);
     recommendedHydration = Math.round(
       parseFloat(catWeightGV) * 50 -
         (parseFloat(catFeedStuffDailyConsumptionGV) *
@@ -90,10 +89,17 @@ const CatHydrationSet: FC<CatHydrationSetType> = ({
     initialCatHydrationSetForm
   );
 
-  // API 호출 시 전달할 User 전역변수 불러오기
+  // 로딩
+  const { isLoading, handleLoading } = useLoading();
+
+  // Main에 변경을 알릴 함수와 API 호출 시 전달할 User 전역변수 불러오기
   // 처음 고양이 프로필을 등록하여 관리 스페이스를 생성하는 사용자의 경우 setter도 필요
-  const { userEmailGV, managementSpaceIdGV, setManagementSpaceIdGV } =
-    useContext(UserContext);
+  const {
+    indicateMainDataChanged,
+    userEmailGV,
+    managementSpaceIdGV,
+    setManagementSpaceIdGV,
+  } = useContext(UserContext);
 
   // '수정'의 경우, formInfo의 값을 getCatHydration API를 호출하여 새로 할당해야 함
   useEffect(() => {
@@ -101,8 +107,10 @@ const CatHydrationSet: FC<CatHydrationSetType> = ({
 
     // useEffect에서는 async, await를 직접 쓸 수 없기 때문에
     // async 함수를 선언하고 호출해야 함.
-    const setPrevFormInfo = async () => {
+    const savePrevFormInfo = async () => {
       try {
+        handleLoading(true);
+
         const res = await getCatHydration(managementSpaceIdGV, catId);
         setFormInfo({
           isHydrationAuto: res.isHydrationAuto,
@@ -115,7 +123,10 @@ const CatHydrationSet: FC<CatHydrationSetType> = ({
         });
 
         // 권장 음수량 값 기억해두기
-        recommendedHydration = res.catGoalHydration;
+        recommendedHydration = res.recommendedHydration;
+        console.log("recommendedHydration :", recommendedHydration);
+
+        handleLoading(false);
       } catch (error: any) {
         console.log(
           "CatHydrationSet 화면 getCatHydration 호출에서 error 발생 :",
@@ -124,12 +135,14 @@ const CatHydrationSet: FC<CatHydrationSetType> = ({
         throw error;
       }
     };
-    setPrevFormInfo();
+
+    savePrevFormInfo();
   }, []);
 
   // formInfo의 isHydrationAuto 값이 바뀔 때마다 실행될 함수
   useEffect(() => {
     // formInfo의 값 초기화
+    console.log("recoHyd :", recommendedHydration);
     setFormInfo((prevFormInfo: CatHydrationSetFormType) => ({
       ...prevFormInfo,
       catGoalHydration: formInfo.isHydrationAuto ? recommendedHydration : "",
@@ -145,6 +158,8 @@ const CatHydrationSet: FC<CatHydrationSetType> = ({
   const regist = useCallback(
     async (goAfterRoute: () => void) => {
       if (method === "수정") return;
+
+      handleLoading(true);
 
       try {
         const res = await registCatInfo(
@@ -181,16 +196,21 @@ const CatHydrationSet: FC<CatHydrationSetType> = ({
 
         // 고양이 프로필을 추가 등록하는 중이었던 사용자 (= 관리 스페이스가 이미 있는 사용자)
         const addSuccess = res;
-        if (addSuccess) goAfterRoute();
+        if (addSuccess) {
+          indicateMainDataChanged();
+          goAfterRoute();
+        }
       } catch (error: any) {
         console.log(
           "CatHydrationSet 화면 regist 함수 registCatInfo 호출에서 error 발생 :",
           error.message
         );
         throw error;
+      } finally {
+        handleLoading(false);
       }
     },
-    [formInfo, setFormInfo]
+    [formInfo]
   );
 
   // 1. '추가 등록'
@@ -210,6 +230,8 @@ const CatHydrationSet: FC<CatHydrationSetType> = ({
     if (method !== "수정") return;
 
     try {
+      handleLoading(true);
+
       const modifySuccess = await modifyCatHydration(
         managementSpaceIdGV,
         catId,
@@ -217,7 +239,11 @@ const CatHydrationSet: FC<CatHydrationSetType> = ({
         formInfo.catGoalHydration
       );
 
-      if (modifySuccess) goAfterModifyRoute();
+      if (modifySuccess) {
+        handleLoading(false);
+        indicateMainDataChanged();
+        goAfterModifyRoute();
+      }
     } catch (error: any) {
       console.log(
         "CatHydrationSet 화면 modifyButtonPressHandler 이벤트 핸들러 함수의 modifyCatHydration 호출에서 error 발생 :",
@@ -233,7 +259,7 @@ const CatHydrationSet: FC<CatHydrationSetType> = ({
     console.log(
       "------------------------------------------------------------------------------------------------------------"
     );
-    console.log("CatHydrationSet 화면의 formInfo를 출력");
+    console.log("CatProfileSet 화면의 formInfo를 출력");
     console.log(formInfo);
   }, [formInfo]);
 
@@ -243,64 +269,71 @@ const CatHydrationSet: FC<CatHydrationSetType> = ({
         title={method === "수정" ? "고양이 프로필 수정" : "고양이 프로필 등록"}
       />
       <View style={[mainViewStyles.mainView]}>
-        <View style={[styles.textView]}>
-          <Text style={[styles.title]}>음수량 설정</Text>
-          <Text style={[styles.explanation]}>
-            자동으로 설정 시 권장 음수량으로 적용돼요.
-          </Text>
-        </View>
-        <SelectButton
-          content1="자동"
-          content2="수동"
-          value={formInfo.isHydrationAuto}
-          setValue={setFormInfo}
-          prop="isHydrationAuto"
-        />
-        {/* '자동'일 때 InputContainer readOnly로 바꿔야 됨 */}
-        <InputContainer
-          value={formInfo.catGoalHydration}
-          setValue={setFormInfo}
-          prop="catGoalHydration"
-          title="일일 목표 음수량 (ml)"
-          checkValue={checkEmpty}
-          noResultMsg
-          readonly={formInfo.isHydrationAuto ? true : false}
-        />
-        <View style={[styles.buttonView]}>
-          {method !== "수정" ? (
-            <View style={[styles.registButtonView]}>
-              <ProcessButton
-                content="추가 등록"
-                canPress={
-                  formInfo.isHydrationAuto
-                    ? true
-                    : checkCanPress(formInfo.valid)
-                }
-                onPressHandler={additionalRegistButtonPressHandler}
-                halfSize
-              />
-              <View style={[styles.emptyView]} />
-              <ProcessButton
-                content="등록 완료"
-                canPress={
-                  formInfo.isHydrationAuto
-                    ? true
-                    : checkCanPress(formInfo.valid)
-                }
-                onPressHandler={finishRegistButtonPressHandler}
-                halfSize
-              />
+        {isLoading ? (
+          <ActivityIndicator size="large" color="#59a0ff" />
+        ) : (
+          <>
+            <View style={[styles.textView]}>
+              <Text style={[styles.title]}>음수량 설정</Text>
+              <Text style={[styles.explanation]}>
+                자동으로 설정 시 권장 음수량으로 적용돼요.
+              </Text>
             </View>
-          ) : (
-            <ProcessButton
-              content="수정"
-              canPress={
-                formInfo.isHydrationAuto ? true : checkCanPress(formInfo.valid)
-              }
-              onPressHandler={modifyButtonPressHandler}
+            <SelectButton
+              content1="자동"
+              content2="수동"
+              value={formInfo.isHydrationAuto}
+              setValue={setFormInfo}
+              prop="isHydrationAuto"
             />
-          )}
-        </View>
+            <InputContainer
+              value={formInfo.catGoalHydration}
+              setValue={setFormInfo}
+              prop="catGoalHydration"
+              title="일일 목표 음수량 (ml)"
+              checkValue={checkEmpty}
+              noResultMsg
+              readonly={formInfo.isHydrationAuto ? true : false}
+            />
+            <View style={[styles.buttonView]}>
+              {method !== "수정" ? (
+                <View style={[styles.registButtonView]}>
+                  <ProcessButton
+                    content="추가 등록"
+                    canPress={
+                      formInfo.isHydrationAuto
+                        ? true
+                        : checkCanPress(formInfo.valid)
+                    }
+                    onPressHandler={additionalRegistButtonPressHandler}
+                    halfSize
+                  />
+                  <View style={[styles.emptyView]} />
+                  <ProcessButton
+                    content="등록 완료"
+                    canPress={
+                      formInfo.isHydrationAuto
+                        ? true
+                        : checkCanPress(formInfo.valid)
+                    }
+                    onPressHandler={finishRegistButtonPressHandler}
+                    halfSize
+                  />
+                </View>
+              ) : (
+                <ProcessButton
+                  content="수정"
+                  canPress={
+                    formInfo.isHydrationAuto
+                      ? true
+                      : checkCanPress(formInfo.valid)
+                  }
+                  onPressHandler={modifyButtonPressHandler}
+                />
+              )}
+            </View>
+          </>
+        )}
       </View>
     </SafeAreaView>
   );

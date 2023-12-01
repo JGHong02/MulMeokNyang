@@ -8,37 +8,54 @@ export const modifyUserProfile = async (
   nickname: string,
   introduction: string
 ) => {
-  try {
-    // 1. 사용자로부터 받은 localUri를 formData 형식으로 변환
-    const photoFormData = localUriToFormData(profilePhotoUrl);
+  console.log("-----modifyUserProfile API 호출 중-----");
+  console.log("email :", email);
+  console.log("profilePhotoUrl :", profilePhotoUrl);
+  console.log("nickname :", nickname);
+  console.log("introduction :", introduction);
 
-    // 2. FormData 객체 생성
+  try {
+    // 1. FormData 객체 생성
     const formData = new FormData();
 
-    // 3. 'userProfilePhoto'를 'multipart/form-data'로 추가
-    formData.append("userProfilePhoto", {
-      uri: profilePhotoUrl,
-      name: photoFormData.filename,
-      type: photoFormData.type,
-    });
+    // 2-1. 프로필 사진을 올린 경우
+    if (profilePhotoUrl) {
+      // 사용자로부터 받은 localUri를 formData 형식으로 변환
+      const photoFormData = await localUriToFormData(profilePhotoUrl);
+      console.log("photoFormData :", photoFormData);
 
-    // 4. 나머지 데이터를 JSON 형식으로 객체에 담고 FormData에 추가
-    const jsonData = {
-      userEmail: email,
-      userNickname: nickname,
-      userIntroduction: introduction,
-    };
-    formData.append("jsonData", JSON.stringify(jsonData));
+      // 3. 'userProfilePhoto'를 'multipart/form-data'로 추가
+      formData.append("userProfilePhoto", {
+        uri: profilePhotoUrl,
+        name: photoFormData.filename,
+        type: photoFormData.type,
+      });
+    } else {
+      // 2-2. 프로필 사진을 올리지 않은 경우
+      formData.append("userProfilePhoto", "");
+    }
+
+    // 4. 나머지 데이터 FormData에 추가
+    formData.append("userEmail", email);
+    formData.append("userNickname", nickname);
+    formData.append("userIntroduction", introduction);
 
     // 5. Axios를 사용하여 수정할 FormData를 PUT 요청으로 보냄
-    const res = await axios.put("/modifyUserProfile", formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    });
+    const res = await axios.put(
+      "https://grhu55elr7.execute-api.ap-northeast-2.amazonaws.com/prod/modifyUserProfile",
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+        transformRequest: (data, headers) => {
+          return data;
+        },
+      }
+    );
 
     // 중복되는 닉네임인 경우
-    if (res.hasOwnProperty("nicknameExists")) {
+    if (res.data.hasOwnProperty("nicknameExists")) {
       const nicknameExists = res.data.nicknameExists;
       return { nicknameExists };
     }

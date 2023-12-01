@@ -4,7 +4,8 @@ import { CatContext } from "../../contexts/CatContext";
 // Hook
 import { useEffect, useContext, useState, useCallback } from "react";
 import { useNavigation } from "@react-navigation/native";
-import { useIsFocused } from "@react-navigation/native";
+// Custom Hook
+import useLoading from "../../hooks/useLoading";
 // Platform, StyleSheet, Component
 import { Platform, StyleSheet } from "react-native";
 import {
@@ -13,6 +14,7 @@ import {
   Image,
   Text,
   TouchableOpacity,
+  ActivityIndicator,
 } from "react-native";
 // Custom Component
 import TopBar from "../../components/TopBar";
@@ -34,20 +36,9 @@ import Icon from "react-native-vector-icons/Ionicons";
 const defaultPhoto = require("../../../assets/profileDefaultPhoto/CatProfileDefaultPhoto.png");
 
 const Main = () => {
-  // #############################가짜 메인 데이터#############################
-  const fakeMainData = [
-    { name: "카게야마", age: "17", weight: "70", hydrationGuage: 47 },
-    { name: "히나타", age: "17", weight: "50", hydrationGuage: 29 },
-    { name: "츠키시마", age: "17", weight: "75", hydrationGuage: 98 },
-    { name: "야마구치", age: "17", weight: "70", hydrationGuage: 90 },
-    { name: "스가", age: "19", weight: "65", hydrationGuage: 76 },
-    { name: "아사히", age: "19", weight: "80", hydrationGuage: 110 },
-    { name: "니시노야", age: "18", weight: "50", hydrationGuage: 130 },
-    { name: "타나카", age: "18", weight: "70", hydrationGuage: 180 },
-  ];
-
   // 관리 스페이스의 메인 데이터를 불러오고 저장하기 위한 전역변수, setter 함수 불러오기
-  const { userEmailGV, managementSpaceIdGV } = useContext(UserContext);
+  const { isMainDataChanged, userEmailGV, managementSpaceIdGV } =
+    useContext(UserContext);
   const {
     catIdArrGV,
     setCatIdArrGV,
@@ -56,16 +47,15 @@ const Main = () => {
   } = useContext(CatContext);
 
   // 현재 선택된 고양이의 메인 정보 state
-  const [currentSelectedCatId, setCurrentSelectedCatId] =
-    useState<string>("kage");
-  // const [currentSelectedCatPhotoUrl, setCurrentSelectedCatPhotoUrl] =
-  //   useState<string>("");
-  // const [catName, setCatName] = useState<string>("");
-  // const [catAge, setCatAge] = useState<string>("");
-  // const [catWeight, setCatWeight] = useState<string>("");
-  // const [hydrationGuage, setHydrationGuage] = useState<number>(0);
-  // const [hydrationGuageColor, setHydrationGuageColor] = useState<string>("");
-  // const [evaluation, setEvaluation] = useState<string>("");
+  const [currentSelectedCatId, setCurrentSelectedCatId] = useState<string>("");
+  const [currentSelectedCatPhotoUrl, setCurrentSelectedCatPhotoUrl] =
+    useState<string>("");
+  const [catName, setCatName] = useState<string>("");
+  const [catAge, setCatAge] = useState<string>("");
+  const [catWeight, setCatWeight] = useState<string>("");
+  const [hydrationGuage, setHydrationGuage] = useState<number>(0);
+  const [hydrationGuageColor, setHydrationGuageColor] = useState<string>("");
+  const [evaluation, setEvaluation] = useState<string>("");
 
   // Drawer 여닫기 State
   const [onDrawer, setOnDrawer] = useState<boolean>(false);
@@ -83,47 +73,26 @@ const Main = () => {
     route: "",
   });
 
-  // #################################API 연동되면 지워#################################
-  const [currentSelectedCatPhotoUrl, setCurrentSelectedCatPhotoUrl] =
-    useState<string>(
-      catProfilePhotoUrlArrGV[catIdArrGV.indexOf(currentSelectedCatId)]
-    );
-  // 현재 선택된 고양이의 메인 정보 state
-  const [catName, setCatName] = useState<string>(
-    fakeMainData[catIdArrGV.indexOf(currentSelectedCatId)].name
-  );
-  const [catAge, setCatAge] = useState<string>(
-    fakeMainData[catIdArrGV.indexOf(currentSelectedCatId)].age
-  );
-  const [catWeight, setCatWeight] = useState<string>(
-    fakeMainData[catIdArrGV.indexOf(currentSelectedCatId)].weight
-  );
-  const [hydrationGuage, setHydrationGuage] = useState<number>(
-    fakeMainData[catIdArrGV.indexOf(currentSelectedCatId)].hydrationGuage
-  );
-  const [hydrationGuageColor, setHydrationGuageColor] = useState<string>("");
-  const [evaluation, setEvaluation] = useState<string>("");
-  // #############################여기까지 지울 코드####################################
+  // 로딩
+  const { isLoading, handleLoading } = useLoading();
 
   // 1. 마운트 시, 해당 관리 스페이스에서 관리하는 고양이의 Id와 프로필 사진 리스트 불러오기
   // 또한, Drawer을 열었을 때 보이는 사용자 프로필 정보와
   // Drawer에서 '사용자 프로필 수정' 버튼을 눌렀을 때 기존 정보를 전달하기 위해
   // 사용자 프로필 정보도 불러오기
 
-  // goBack으로 Main 화면에 돌아올 때마다 리렌더링
-  const isFocused = useIsFocused();
-
   useEffect(() => {
     // useEffect에서는 async, await를 직접 쓸 수 없기 때문에
     // async 함수를 선언하고 호출해야 함.
 
     // 고양이의 Id와 프로필 사진 리스트 불러올 함수
-    const setCatProfileListInfo = async () => {
+    const saveCatProfileListInfo = async () => {
       try {
         const res = await getCatProfileList(managementSpaceIdGV);
         // 다른 화면에서도 사용하기 위해 전역 변수로 관리
         setCatIdArrGV(res.catIdArr);
-        setCatProfilePhotoUrlArrGV(res.catProfilePhotoUrlArr);
+        setCatProfilePhotoUrlArrGV(res.catProfilePhotoArr);
+        console.log("res.catIdArr[0] :", res.catIdArr[0]);
         setCurrentSelectedCatId(res.catIdArr[0]);
       } catch (error: any) {
         console.log(
@@ -133,12 +102,13 @@ const Main = () => {
         throw error;
       }
     };
+
     // 사용자 프로필 정보 불러올 함수
-    const setUserProfileInfo = async () => {
+    const saveUserProfileInfo = async () => {
       try {
         const res = await getUserProfile(userEmailGV);
         setUserProfile({
-          profilePhotoUrl: res.userProfilePhotoUrl,
+          profilePhotoUrl: res.userProfilePhoto,
           nickname: res.userNickname,
           introduction: res.userIntroduction,
         });
@@ -150,43 +120,37 @@ const Main = () => {
         throw error;
       }
     };
-    // setCatProfileListInfo();
-    // setUserProfileInfo();
 
-    // ######################가짜 데이터#########################
-    setUserProfile({
-      profilePhotoUrl: "",
-      nickname: "무적코털슝슝",
-      introduction: "안녕? 반갑다. 잘 지내보자.",
-    });
-
-    // API 연동 확인용
-    // setCurrentSelectedCatId("1");
-    // console.log(currentSelectedCatId);
-  }, [isFocused]);
+    saveCatProfileListInfo();
+    saveUserProfileInfo();
+  }, [isMainDataChanged]);
 
   // 2. currentSelectedCatIdGV 값이 바뀔 때마다,
   // currentSelectedCatPhotoUrl state 값 바꿔서 MainView에 띄울 고양이 프로필 사진 바꾸고,
   // 해당 고양이의 mainInfo 불러와 데이터 바인딩
   useEffect(() => {
+    handleLoading(true);
+    if (!currentSelectedCatId) return;
+
     // currentSelectedCatId가 catIdArrGV에서 몇 번째 index에 위치해 있는 지를 저장할 변수
     const currentArrIdx = catIdArrGV.indexOf(currentSelectedCatId);
+
     // currentSelectedCatPhotoUrl 바꾸기
     setCurrentSelectedCatPhotoUrl(catProfilePhotoUrlArrGV[currentArrIdx]);
 
-    // ##################################여기부터 진짜 코드#####################################
-    const setCatMainInfo = async () => {
+    const saveCatMainInfo = async () => {
       try {
         const res = await getCatMainInfo(
-          // 1
           currentSelectedCatId,
-          // managementSpaceIdGV
-          "msid1"
+          managementSpaceIdGV
         );
+
         setCatName(res.catName);
         setCatAge(res.catAge);
         setCatWeight(res.catWeight);
         setHydrationGuage(res.hydrationGuage);
+
+        handleLoading(false);
       } catch (error: any) {
         console.log(
           "Main 화면 getCatMainInfo 호출에서 error 발생 :",
@@ -195,15 +159,9 @@ const Main = () => {
         throw error;
       }
     };
-    // setCatMainInfo();
-    // ################################여기까지 진짜 코드#######################################
 
-    // ################################API 연결 후 아래 코드 삭제################################
-    setCatName(fakeMainData[currentArrIdx].name);
-    setCatAge(fakeMainData[currentArrIdx].age);
-    setCatWeight(fakeMainData[currentArrIdx].weight);
-    setHydrationGuage(fakeMainData[currentArrIdx].hydrationGuage);
-  }, [currentSelectedCatId]);
+    saveCatMainInfo();
+  }, [catIdArrGV, catProfilePhotoUrlArrGV, currentSelectedCatId]);
 
   // 3. hydrationGuage 값에 따라 guage 색상과 평가글 다르게 저장
   useEffect(() => {
@@ -240,99 +198,107 @@ const Main = () => {
     <SafeAreaView>
       <View pointerEvents={onDrawer ? "none" : "auto"}>
         <TopBar back={false} title="물먹냥" drawer openDrawer={setOnDrawer} />
-        <View style={[styles.catProfileListView]}>
-          <CatProfileList
-            idArr={catIdArrGV}
-            photoUrlArr={catProfilePhotoUrlArrGV}
-            currentSelectedCatId={currentSelectedCatId}
-            setCurrentSelectedCatId={setCurrentSelectedCatId}
-          />
-        </View>
-        <View style={[mainViewStyles.mainView]}>
-          <View style={[styles.basicInfoAndButtonView]}>
-            <Image
-              source={
-                currentSelectedCatPhotoUrl
-                  ? { uri: currentSelectedCatPhotoUrl }
-                  : defaultPhoto
-              }
-              style={[styles.image]}
-            />
-            <View style={[styles.basicInfoTextView]}>
-              <Text style={[styles.nameText]}>{catName}</Text>
-              <Text style={[styles.ageAndWeightText]}>
-                {catAge}살 / {catWeight}kg
-              </Text>
+        {isLoading ? (
+          <View style={[styles.loadingView]}>
+            <ActivityIndicator size="large" color="#59a0ff" />
+          </View>
+        ) : (
+          <>
+            <View style={[styles.catProfileListView]}>
+              <CatProfileList
+                idArr={catIdArrGV}
+                photoUrlArr={catProfilePhotoUrlArrGV}
+                currentSelectedCatId={currentSelectedCatId}
+                setCurrentSelectedCatId={setCurrentSelectedCatId}
+              />
             </View>
-            <TouchableOpacity>
-              <View
-                style={[
-                  styles.button,
-                  Platform.OS === "android"
-                    ? styles.shadowAndroid
-                    : styles.shadowIOS,
-                ]}>
-                <Icon name="water" size={50} color="#004aad" />
-                <Text style={[styles.buttonText]}>물주기</Text>
+            <View style={[mainViewStyles.mainView]}>
+              <View style={[styles.basicInfoAndButtonView]}>
+                <Image
+                  source={
+                    currentSelectedCatPhotoUrl
+                      ? { uri: currentSelectedCatPhotoUrl }
+                      : defaultPhoto
+                  }
+                  style={[styles.image]}
+                />
+                <View style={[styles.basicInfoTextView]}>
+                  <Text style={[styles.nameText]}>{catName}</Text>
+                  <Text style={[styles.ageAndWeightText]}>
+                    {catAge}살 / {catWeight}kg
+                  </Text>
+                </View>
+                <TouchableOpacity>
+                  <View
+                    style={[
+                      styles.button,
+                      Platform.OS === "android"
+                        ? styles.shadowAndroid
+                        : styles.shadowIOS,
+                    ]}>
+                    <Icon name="water" size={50} color="#004aad" />
+                    <Text style={[styles.buttonText]}>물주기</Text>
+                  </View>
+                </TouchableOpacity>
               </View>
-            </TouchableOpacity>
-          </View>
-          <View style={[styles.guageView]}>
-            <View style={[styles.leftGuageBar]}>
-              {[0, 30, 60, 90, 100].map((value, index) => (
-                <View
-                  style={[
-                    styles.guageTextView,
-                    { left: value * 2 - 15 },
-                    value === 100 ? { top: -20 } : { bottom: -20 },
-                  ]}
-                  key={index}>
-                  <Text style={[styles.guageText]}>{value}%</Text>
+              <View style={[styles.guageView]}>
+                <View style={[styles.leftGuageBar]}>
+                  {[0, 30, 60, 90, 100].map((value, index) => (
+                    <View
+                      style={[
+                        styles.guageTextView,
+                        { left: value * 2 - 15 },
+                        value === 100 ? { top: -20 } : { bottom: -20 },
+                      ]}
+                      key={index}>
+                      <Text style={[styles.guageText]}>{value}%</Text>
+                    </View>
+                  ))}
+                  <View
+                    style={[
+                      styles.hydrationGuage,
+                      hydrationGuage <= 100
+                        ? { width: hydrationGuage * 2 }
+                        : { width: 200 },
+                      { backgroundColor: hydrationGuageColor },
+                    ]}
+                  />
                 </View>
-              ))}
-              <View
-                style={[
-                  styles.hydrationGuage,
-                  hydrationGuage <= 100
-                    ? { width: hydrationGuage * 2 }
-                    : { width: 200 },
-                  { backgroundColor: hydrationGuageColor },
-                ]}
-              />
-            </View>
-            <View style={[styles.rightGuageBar]}>
-              {[150, 200].map((value, index) => (
-                <View
-                  style={[
-                    styles.guageTextView,
-                    { left: (value - 100) * 1.4 - 15, bottom: -20 },
-                  ]}
-                  key={index}>
-                  <Text style={[styles.guageText]}>{value}%</Text>
+                <View style={[styles.rightGuageBar]}>
+                  {[150, 200].map((value, index) => (
+                    <View
+                      style={[
+                        styles.guageTextView,
+                        { left: (value - 100) * 1.4 - 15, bottom: -20 },
+                      ]}
+                      key={index}>
+                      <Text style={[styles.guageText]}>{value}%</Text>
+                    </View>
+                  ))}
+                  <View
+                    style={[
+                      styles.hydrationGuage,
+                      hydrationGuage > 100 && {
+                        width: (hydrationGuage - 100) * 1.4,
+                      },
+                      { backgroundColor: hydrationGuageColor },
+                    ]}
+                  />
                 </View>
-              ))}
-              <View
-                style={[
-                  styles.hydrationGuage,
-                  hydrationGuage > 100 && {
-                    width: (hydrationGuage - 100) * 1.4,
-                  },
-                  { backgroundColor: hydrationGuageColor },
-                ]}
-              />
+              </View>
+              <View style={[styles.evaluationView]}>
+                <Text style={[styles.evaluationText]}>{evaluation}</Text>
+              </View>
+              <View style={[styles.buttonView]}>
+                <ProcessButton
+                  content="기간별 음수량 통계 보기"
+                  canPress
+                  onPressHandler={goHydrationStatistics}
+                />
+              </View>
             </View>
-          </View>
-          <View style={[styles.evaluationView]}>
-            <Text style={[styles.evaluationText]}>{evaluation}</Text>
-          </View>
-          <View style={[styles.buttonView]}>
-            <ProcessButton
-              content="기간별 음수량 통계 보기"
-              canPress
-              onPressHandler={goHydrationStatistics}
-            />
-          </View>
-        </View>
+          </>
+        )}
       </View>
       {onDrawer && (
         <View style={[styles.drawerView]}>
@@ -475,5 +441,11 @@ const styles = StyleSheet.create({
   drawerView: {
     position: "absolute",
     right: 0,
+  },
+
+  // 로딩
+  loadingView: {
+    marginTop: 30,
+    alignItems: "center",
   },
 });

@@ -5,8 +5,12 @@ import { CatInfoContext } from "../../../contexts/CatInfoContext";
 import type { FC } from "react";
 // Hook
 import { useState, useContext, useEffect, useCallback } from "react";
-// Component
-import { SafeAreaView } from "react-native";
+import { useIsFocused } from "@react-navigation/native";
+// Custom Hook
+import useLoading from "../../../hooks/useLoading";
+// StyleSheet, Component
+import { StyleSheet } from "react-native";
+import { SafeAreaView, View, ActivityIndicator } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 // Custom Component
 import TopBar from "../../../components/TopBar";
@@ -44,8 +48,12 @@ const CatProfileSet: FC<CatProfileSetType> = ({
     initialCatProfileSetForm
   );
 
-  // API 호출 시 전달할 managementSpaceId 전역변수 불러오기
-  const { managementSpaceIdGV } = useContext(UserContext);
+  // 로딩
+  const { isLoading, handleLoading } = useLoading();
+
+  // Main에 변경을 알릴 함수와 API 호출 시 전달할 managementSpaceId 전역변수 불러오기
+  const { indicateMainDataChanged, managementSpaceIdGV } =
+    useContext(UserContext);
 
   // '수정'의 경우, formInfo의 값을 getCatProfile API를 호출하여 새로 할당해야 함
   useEffect(() => {
@@ -53,11 +61,13 @@ const CatProfileSet: FC<CatProfileSetType> = ({
 
     // useEffect에서는 async, await를 직접 쓸 수 없기 때문에
     // async 함수를 선언하고 호출해야 함
-    const setPrevFormInfo = async () => {
+    const savePrevFormInfo = async () => {
       try {
+        handleLoading(true);
+
         const res = await getCatProfile(managementSpaceIdGV, catId);
         setFormInfo({
-          catProfilePhotoUrl: res.catProfilePhotoUrl,
+          catProfilePhotoUrl: res.catProfilePhoto,
           catName: res.catName,
           catAge: res.catAge,
           catWeight: res.catWeight,
@@ -69,6 +79,8 @@ const CatProfileSet: FC<CatProfileSetType> = ({
             catWeight: true,
           },
         });
+
+        handleLoading(false);
       } catch (error: any) {
         console.log(
           "CatProfileSet 화면 getCatProfile 호출에서 error 발생 :",
@@ -77,7 +89,7 @@ const CatProfileSet: FC<CatProfileSetType> = ({
         throw error;
       }
     };
-    setPrevFormInfo();
+    savePrevFormInfo();
   }, []);
 
   // ProcessButton의 onPress 이벤트 핸들러 함수
@@ -109,6 +121,8 @@ const CatProfileSet: FC<CatProfileSetType> = ({
     if (method !== "수정") return;
 
     try {
+      handleLoading(true);
+
       const modifySuccess = await modifyCatProfile(
         managementSpaceIdGV,
         catId,
@@ -117,7 +131,13 @@ const CatProfileSet: FC<CatProfileSetType> = ({
         formInfo.catAge,
         formInfo.catWeight
       );
-      if (modifySuccess) goAfterRoute();
+
+      handleLoading(false);
+
+      if (modifySuccess) {
+        indicateMainDataChanged();
+        goAfterRoute();
+      }
     } catch (error: any) {
       console.log(
         "CatProfileSet 화면 modifyButtonPressHandler 이벤트 핸들러 함수의 modifyCatProfile 호출에서 error 발생 :",
@@ -126,15 +146,11 @@ const CatProfileSet: FC<CatProfileSetType> = ({
     }
   }, [formInfo]);
 
-  // ############################################################################################
-  // ####################formInfo 확인용####################
+  // 다시 돌아올 때마다 formInfo 초기화
+  const isFocused = useIsFocused();
   useEffect(() => {
-    console.log(
-      "------------------------------------------------------------------------------------------------------------"
-    );
-    console.log("CatProfileSet 화면의 formInfo를 출력");
-    console.log(formInfo);
-  }, [formInfo]);
+    setFormInfo(initialCatProfileSetForm);
+  }, [isFocused]);
 
   return (
     <SafeAreaView>
@@ -143,51 +159,66 @@ const CatProfileSet: FC<CatProfileSetType> = ({
         backRoute={method !== "첫 등록" ? "Main" : ""}
         title={method === "수정" ? "고양이 프로필 수정" : "고양이 프로필 등록"}
       />
-      <KeyboardAwareScrollView contentContainerStyle={mainViewStyles.mainView}>
-        <ImageInputContainer
-          method="고양이"
-          photoUrl={formInfo.catProfilePhotoUrl}
-          setPhotoUrl={setFormInfo}
-          prop="catProfilePhotoUrl"
-        />
-        <InputContainer
-          value={formInfo.catName}
-          setValue={setFormInfo}
-          prop="catName"
-          title="이름"
-          checkValue={checkEmpty}
-          noResultMsg
-        />
-        <InputContainer
-          value={formInfo.catAge}
-          setValue={setFormInfo}
-          prop="catAge"
-          title="나이 (살)"
-          placeholder="예시) 3"
-          checkValue={checkEmpty}
-          noResultMsg
-        />
-        <InputContainer
-          value={formInfo.catWeight}
-          setValue={setFormInfo}
-          prop="catWeight"
-          title="무게 (Kg)"
-          placeholder="예시) 5.2"
-          checkValue={checkEmpty}
-          noResultMsg
-        />
-        <ProcessButton
-          content={method === "수정" ? method : "다음"}
-          canPress={checkCanPress(formInfo.valid)}
-          onPressHandler={
-            method !== "수정"
-              ? nextButtonPressHandler
-              : modifyButtonPressHandler
-          }
-        />
-      </KeyboardAwareScrollView>
+      {isLoading ? (
+        <View style={[styles.loadingView]}>
+          <ActivityIndicator size="large" color="#59a0ff" />
+        </View>
+      ) : (
+        <KeyboardAwareScrollView
+          contentContainerStyle={mainViewStyles.mainView}>
+          <ImageInputContainer
+            method="고양이"
+            photoUrl={formInfo.catProfilePhotoUrl}
+            setPhotoUrl={setFormInfo}
+            prop="catProfilePhotoUrl"
+          />
+          <InputContainer
+            value={formInfo.catName}
+            setValue={setFormInfo}
+            prop="catName"
+            title="이름"
+            checkValue={checkEmpty}
+            noResultMsg
+          />
+          <InputContainer
+            value={formInfo.catAge}
+            setValue={setFormInfo}
+            prop="catAge"
+            title="나이 (살)"
+            placeholder="예시) 3"
+            checkValue={checkEmpty}
+            noResultMsg
+          />
+          <InputContainer
+            value={formInfo.catWeight}
+            setValue={setFormInfo}
+            prop="catWeight"
+            title="무게 (Kg)"
+            placeholder="예시) 5.2"
+            checkValue={checkEmpty}
+            noResultMsg
+          />
+          <ProcessButton
+            content={method === "수정" ? method : "다음"}
+            canPress={checkCanPress(formInfo.valid)}
+            onPressHandler={
+              method !== "수정"
+                ? nextButtonPressHandler
+                : modifyButtonPressHandler
+            }
+          />
+        </KeyboardAwareScrollView>
+      )}
     </SafeAreaView>
   );
 };
 
 export default CatProfileSet;
+
+const styles = StyleSheet.create({
+  // 로딩
+  loadingView: {
+    marginTop: 30,
+    alignItems: "center",
+  },
+});

@@ -6,9 +6,16 @@ import { UserContext } from "../contexts/UserContext";
 import { useEffect, useContext, useState, useCallback } from "react";
 // Custom Hook
 import { useGoRoute } from "../hooks/useGoScreen";
+import useLoading from "../hooks/useLoading";
 // Dimension, StyleSheet, Component
 import { Dimensions, StyleSheet } from "react-native";
-import { SafeAreaView, View, Image, Text } from "react-native";
+import {
+  SafeAreaView,
+  View,
+  Image,
+  Text,
+  ActivityIndicator,
+} from "react-native";
 // Custom Component
 import SignUpButton from "../components/button/SignUpButton";
 import UnderlineTextButton from "../components/button/UnderlineTextButton";
@@ -16,7 +23,7 @@ import Alert from "../components/alert/Alert";
 // API
 import { setAutoLogin, getAutoLoginInfo } from "../api/common/autoLogin";
 // styles
-import alertBackgroundStyles from "../styles/alertBackgroundStyles";
+// import alertBackgroundStyles from "../styles/alertBackgroundStyles";
 
 // 물먹냥 로고
 const { width } = Dimensions.get("window");
@@ -32,6 +39,9 @@ const Start = () => {
   const goMain = useGoRoute("Main");
   const goHowToGoSpace = useGoRoute("HowToGoSpace");
 
+  // 로딩 표시
+  const { isLoading, handleLoading } = useLoading();
+
   // mount 할 때, AsyncStorage에 sessionID 토큰(자동 로그인용)이 저장되어 있는지 확인
   // 존재한다면, 자동 로그인 함수 호출
   useEffect(() => {
@@ -42,6 +52,8 @@ const Start = () => {
         const { userEmail, managementSpaceId } = res;
         setUserEmailGV(userEmail);
         setManagementSpaceIdGV(managementSpaceId);
+
+        handleLoading(false);
 
         // managementSpaceId 값이 null이 아니라면 (관리 스페이스가 설정된 사용자)
         if (managementSpaceId) {
@@ -64,7 +76,9 @@ const Start = () => {
         // await AsyncStorage.clear();
         const sessionID = await AsyncStorage.getItem("sessionID");
         if (sessionID) {
-          console.log(sessionID);
+          console.log("세션 스토리지에 저장된 sessionID :", sessionID);
+
+          handleLoading(true);
           autoLogin(sessionID);
         }
       } catch (error: any) {
@@ -80,64 +94,72 @@ const Start = () => {
     checkAutoLogin();
   }, []);
 
-  // Alert 관련 property state
-  const [onAlert, setOnAlert] = useState<boolean>(false);
-  const [alertMsg, setAlertMsg] =
-    useState<string>("자동 로그인을\n설정하시겠습니까?");
-  const [alertRoute, setAlertRoute] = useState<string>("Login"); // Login은 확인용
+  // Quick Sign Up 기능 뺌
+  // ------------ Quick Sign Up 관련 ---------------
+  // // Alert 관련 property state
+  // const [onAlert, setOnAlert] = useState<boolean>(false);
+  // const [alertMsg, setAlertMsg] =
+  //   useState<string>("자동 로그인을\n설정하시겠습니까?");
+  // const [alertRoute, setAlertRoute] = useState<string>("Login"); // Login은 확인용
 
-  // 자동 로그인 설정 Alert에서 '예' 버튼을 누를 경우
-  const alertButtonPressHandler = useCallback(async () => {
-    try {
-      // ------------------setAutoLogin API 호출-----------------------
-      const res = await setAutoLogin(userEmailGV);
-      const sessionID = res.sessionID;
-      // 서버에서 생성된 sessionID를 클라이언트의 AsyncStorage에 sessionID로 저장
-      await AsyncStorage.setItem("sessionID", sessionID);
-      // ################sessionID 저장됐나 확인용####################
-      const savedSessionID = await AsyncStorage.getItem("sessionID");
-      console.log(savedSessionID);
-    } catch (error: any) {
-      console.log(
-        "Start 화면 alertButtonPressHandler 이벤트 핸들러 함수의 setAutoLogin 호출에서 error 발생 :",
-        error.message
-      );
-      throw error;
-    }
-  }, []);
+  // // 자동 로그인 설정 Alert에서 '예' 버튼을 누를 경우
+  // const alertButtonPressHandler = useCallback(async () => {
+  //   try {
+  //     // ------------------setAutoLogin API 호출-----------------------
+  //     const res = await setAutoLogin(userEmailGV);
+  //     const sessionID = res.sessionID;
+  //     // 서버에서 생성된 sessionID를 클라이언트의 AsyncStorage에 sessionID로 저장
+  //     await AsyncStorage.setItem("sessionID", sessionID);
+  //     // ################sessionID 저장됐나 확인용####################
+  //     const savedSessionID = await AsyncStorage.getItem("sessionID");
+  //     console.log(savedSessionID);
+  //   } catch (error: any) {
+  //     console.log(
+  //       "Start 화면 alertButtonPressHandler 이벤트 핸들러 함수의 setAutoLogin 호출에서 error 발생 :",
+  //       error.message
+  //     );
+  //     throw error;
+  //   }
+  // }, []);
 
   return (
     <SafeAreaView style={[styles.safeAreaView]}>
       <View style={[styles.mainView]}>
         <Image source={logo} style={[styles.logoImage]} />
-        <View style={[styles.buttonListView]}>
-          {/* Quick Sign Up 기능 뺌 */}
-          {/* <SignUpButton
-            method="Naver"
-            bgColor="#1DC800"
-            setAlertRoute={setAlertRoute}
-            setOnAlert={setOnAlert}
-          />
-          <SignUpButton
-            method="Kakao"
-            bgColor="#FEE500"
-            setAlertRoute={setAlertRoute}
-            setOnAlert={setOnAlert}
-          />
-          <SignUpButton
-            method="Google"
-            bgColor="#ECECEC"
-            setAlertRoute={setAlertRoute}
-            setOnAlert={setOnAlert}
-          /> */}
-          <SignUpButton method="Local" bgColor="white" />
-        </View>
-        <View style={[styles.textButtonView]}>
-          <Text style={[styles.text]}>이미 가입 하셨나요?</Text>
-          <UnderlineTextButton text="로그인" route="Login" />
-        </View>
+        {isLoading ? (
+          <ActivityIndicator size="large" color="#59a0ff" />
+        ) : (
+          <>
+            <View style={[styles.buttonListView]}>
+              {/* ------------ Quick Sign Up 관련 --------------- */}
+              {/* <SignUpButton
+                method="Naver"
+                bgColor="#1DC800"
+                setAlertRoute={setAlertRoute}
+                setOnAlert={setOnAlert}
+              />
+              <SignUpButton
+                method="Kakao"
+                bgColor="#FEE500"
+                setAlertRoute={setAlertRoute}
+                setOnAlert={setOnAlert}
+              />
+              <SignUpButton
+                method="Google"
+                bgColor="#ECECEC"
+                setAlertRoute={setAlertRoute}
+                setOnAlert={setOnAlert}
+              /> */}
+              <SignUpButton method="Local" bgColor="white" />
+            </View>
+            <View style={[styles.textButtonView]}>
+              <Text style={[styles.text]}>이미 가입 하셨나요?</Text>
+              <UnderlineTextButton text="로그인" route="Login" />
+            </View>
+          </>
+        )}
       </View>
-      {/* Quick Sign Up 기능 빼서 자동 로그인 Alert도 필요 없음 */}
+      {/* ------------ Quick Sign Up 관련 --------------- */}
       {/* {onAlert && (
         <View style={[alertBackgroundStyles.alertBackgroundView]}>
           <Alert

@@ -6,6 +6,7 @@ import { CatInfoContext } from "../../../contexts/CatInfoContext";
 import type { FC } from "react";
 // Hook
 import { useState, useContext, useCallback, useEffect } from "react";
+import { useIsFocused } from "@react-navigation/native";
 // StyleSheet, Component
 import { StyleSheet } from "react-native";
 import {
@@ -118,15 +119,11 @@ const CatPhotosForAISet: FC<CatPhotosForAISetType> = ({ goAfterRotue }) => {
     goAfterRotue();
   }, [formInfo]);
 
-  // ############################################################################################
-  // ####################formInfo 확인용####################
+  // 다시 돌아올 때마다 formInfo 초기화
+  const isFocused = useIsFocused();
   useEffect(() => {
-    console.log(
-      "------------------------------------------------------------------------------------------------------------"
-    );
-    console.log("CatPhotosForAISet 화면의 formInfo를 출력");
-    console.log(formInfo);
-  }, [formInfo]);
+    setFormInfo(initialCatPhotosForAISetForm);
+  }, [isFocused]);
 
   return (
     <SafeAreaView>
