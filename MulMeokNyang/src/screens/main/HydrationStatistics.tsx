@@ -1,9 +1,12 @@
 // Context
+import { UserContext } from "../../contexts/UserContext";
 import { CatContext } from "../../contexts/CatContext";
 // FC Type
 import type { FC } from "react";
 // Hook
 import { useState, useContext, useEffect, useCallback } from "react";
+// Custom Hook
+import useLoading from "../../hooks/useLoading";
 // Platform, Dimensions, StyleSheet, Component
 import { Platform, Dimensions, StyleSheet } from "react-native";
 import {
@@ -12,6 +15,7 @@ import {
   FlatList,
   TouchableOpacity,
   Text,
+  ActivityIndicator,
 } from "react-native";
 // Custom Component
 import TopBar from "../../components/TopBar";
@@ -50,7 +54,9 @@ const HydrationStatistics: FC<HydrationStatisticsProps> = ({ route }) => {
   const [currentSelectedCatId, setCurrentSelectedCatId] =
     useState<string>(catId);
 
-  // 2. CatProfileList에 props로 전달할 전역 변수 불러오기
+  // 2. API 호출에 사용할 managementSpaceId 전역 변수,
+  // CatProfileList에 props로 전달할 전역 변수 불러오기
+  const { managementSpaceIdGV } = useContext(UserContext);
   const { catIdArrGV, catProfilePhotoUrlArrGV } = useContext(CatContext);
 
   // 3. 캘린더 관련 state
@@ -103,18 +109,25 @@ const HydrationStatistics: FC<HydrationStatisticsProps> = ({ route }) => {
   // 통계 그래프 데이터 state
   const [hydrationGuageArr, setHydrationGuageArr] = useState<any[]>([]);
 
+  // 6. 로딩 state
+  const { isLoading, handleLoading } = useLoading();
+
   // 2) 통계 보여주기 함수 관련 ---------------------------------------------------------------------
   // 1. "주" 통계 보여주는 함수
   const showWeekStatistics = useCallback(async () => {
     try {
+      handleLoading(true);
+
       const weekHydrationGuageArr = await getCatWeekStatistics(
+        managementSpaceIdGV,
         currentSelectedCatId,
         "week",
         weekRange[0],
         weekRange[weekRange.length - 1]
       );
-
       setHydrationGuageArr(weekHydrationGuageArr);
+
+      handleLoading(false);
     } catch (error: any) {
       console.log(
         "HydrationStatistics 화면 getCatWeekStatistics 호출에서 error 발생 :",
@@ -127,13 +140,17 @@ const HydrationStatistics: FC<HydrationStatisticsProps> = ({ route }) => {
   // 2. "달" 통계 보여주는 함수
   const showMonthStatistics = useCallback(async () => {
     try {
+      handleLoading(true);
+
       const monthHydrationGuageArr = await getCatMonthStatistics(
+        managementSpaceIdGV,
         currentSelectedCatId,
         "month",
         monthRange
       );
-
       setHydrationGuageArr(monthHydrationGuageArr);
+
+      handleLoading(false);
     } catch (error: any) {
       console.log(
         "HydrationStatistics 화면 getCatMonthStatistics 호출에서 error 발생 :",
@@ -146,13 +163,17 @@ const HydrationStatistics: FC<HydrationStatisticsProps> = ({ route }) => {
   // 3. "년" 통계 보여주는 함수
   const showYearStatistics = useCallback(async () => {
     try {
+      handleLoading(true);
+
       const yearHydrationGuageArr = await getCatYearStatistics(
+        managementSpaceIdGV,
         currentSelectedCatId,
         "year",
         yearRange
       );
-
       setHydrationGuageArr(yearHydrationGuageArr);
+
+      handleLoading(false);
     } catch (error: any) {
       console.log(
         "HydrationStatistics 화면 getCatYearStatistics 호출에서 error 발생 :",
@@ -173,20 +194,17 @@ const HydrationStatistics: FC<HydrationStatisticsProps> = ({ route }) => {
       showWeekStatistics();
     } else if (range === "달") {
       setStatisticsRangeText(monthRange);
+      setHydrationGuageArr([]);
+      // showMonthStatistics();
       showMonthStatistics();
     } else if (range === "년") {
       setStatisticsRangeText(yearRange);
+      setHydrationGuageArr([]);
+      // showYearStatistics();
       showYearStatistics();
     }
     setOnStatistics(true);
-  }, [
-    currentSelectedCatId,
-    range,
-    weekRange,
-    monthRange,
-    yearRange,
-    // hydrationGuageArr,
-  ]);
+  }, [currentSelectedCatId, range, weekRange, monthRange, yearRange]);
 
   // 3) useEffect 관련 ---------------------------------------------------------------------------
   // 마운트될 때 showStatistics 함수를 호출할 필요 없음
@@ -234,67 +252,74 @@ const HydrationStatistics: FC<HydrationStatisticsProps> = ({ route }) => {
           />
         </View>
         <View style={[mainViewStyles.mainView]}>
-          <View style={[styles.rangeAndCalendarView]}>
-            <View style={[styles.selectRangeView]}>
-              <FlatList
-                horizontal
-                scrollEnabled={false}
-                data={["주", "달", "년"]}
-                renderItem={({ item }) => (
-                  <TouchableOpacity
-                    onPress={() => setRange(item)}
-                    style={[
-                      styles.range,
-                      item === range && styles.selectedRange,
-                    ]}>
-                    <Text style={[item === range && styles.selectedRangeText]}>
-                      {item}
-                    </Text>
-                  </TouchableOpacity>
-                )}
-                keyExtractor={(item) => item}
-              />
-            </View>
-            <TouchableOpacity onPress={() => setOnCalendar(true)}>
-              <ETIcon name="calendar" size={25} color="#343434" />
-            </TouchableOpacity>
-          </View>
-          <View style={[styles.statisticsRangeTextView]}>
-            <Text style={[styles.statisticsRangeText]}>
-              {range === "주"
-                ? `${statisticsRangeText[0].split("-")[1]}월 ${
-                    statisticsRangeText[0].split("-")[2]
-                  }일 ~ ${statisticsRangeText[1].split("-")[1]}월 ${
-                    statisticsRangeText[1].split("-")[2]
-                  }일`
-                : range === "달"
-                ? `${String(statisticsRangeText).split("-")[0]}년 ${
-                    String(statisticsRangeText).split("-")[1]
-                  }월 `
-                : `${statisticsRangeText}년`}
-            </Text>
-          </View>
-          {onStatistics && (
+          {isLoading ? (
+            <ActivityIndicator size="large" color="#59a0ff" />
+          ) : (
             <>
-              {range === "주" && (
-                <HydrationGraph
-                  range="주"
-                  weekRange={weekRange}
-                  hydrationGuageArr={hydrationGuageArr}
-                />
-              )}
-              {range === "달" && (
-                <HydrationGraph
-                  range="달"
-                  monthRange={monthRange}
-                  hydrationGuageArr={hydrationGuageArr}
-                />
-              )}
-              {range === "년" && (
-                <HydrationGraph
-                  range="년"
-                  hydrationGuageArr={hydrationGuageArr}
-                />
+              <View style={[styles.rangeAndCalendarView]}>
+                <View style={[styles.selectRangeView]}>
+                  <FlatList
+                    horizontal
+                    scrollEnabled={false}
+                    data={["주", "달", "년"]}
+                    renderItem={({ item }) => (
+                      <TouchableOpacity
+                        onPress={() => setRange(item)}
+                        style={[
+                          styles.range,
+                          item === range && styles.selectedRange,
+                        ]}>
+                        <Text
+                          style={[item === range && styles.selectedRangeText]}>
+                          {item}
+                        </Text>
+                      </TouchableOpacity>
+                    )}
+                    keyExtractor={(item) => item}
+                  />
+                </View>
+                <TouchableOpacity onPress={() => setOnCalendar(true)}>
+                  <ETIcon name="calendar" size={25} color="#343434" />
+                </TouchableOpacity>
+              </View>
+              <View style={[styles.statisticsRangeTextView]}>
+                <Text style={[styles.statisticsRangeText]}>
+                  {range === "주"
+                    ? `${statisticsRangeText[0].split("-")[1]}월 ${
+                        statisticsRangeText[0].split("-")[2]
+                      }일 ~ ${statisticsRangeText[1].split("-")[1]}월 ${
+                        statisticsRangeText[1].split("-")[2]
+                      }일`
+                    : range === "달"
+                    ? `${String(statisticsRangeText).split("-")[0]}년 ${
+                        String(statisticsRangeText).split("-")[1]
+                      }월 `
+                    : `${statisticsRangeText}년`}
+                </Text>
+              </View>
+              {onStatistics && (
+                <>
+                  {range === "주" && (
+                    <HydrationGraph
+                      range="주"
+                      weekRange={weekRange}
+                      hydrationGuageArr={hydrationGuageArr}
+                    />
+                  )}
+                  {range === "달" && (
+                    <HydrationGraph
+                      range="달"
+                      monthRange={monthRange}
+                      hydrationGuageArr={hydrationGuageArr}
+                    />
+                  )}
+                  {range === "년" && (
+                    <HydrationGraph
+                      range="년"
+                      hydrationGuageArr={hydrationGuageArr}
+                    />
+                  )}
+                </>
               )}
             </>
           )}

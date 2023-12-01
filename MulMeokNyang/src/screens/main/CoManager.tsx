@@ -124,6 +124,11 @@ const CoManager = () => {
   // 공동 관리자 삭제 Alert에서 "예" 버튼 눌렀을 때 실행될 함수
   const deleteAlertButtonPressHandler = useCallback(async (email: string) => {
     try {
+      handleLoading(true);
+
+      // Alert 닫기
+      setOnDeleteAlert(false);
+
       await deleteCoManager(managementSpaceIdGV, email);
 
       // coManagerInfo에서 해당 공동 관리자 정보 제거
@@ -131,8 +136,7 @@ const CoManager = () => {
         prev.filter((value) => value.email !== email)
       );
 
-      // Alert 닫기
-      setOnDeleteAlert(false);
+      handleLoading(false);
     } catch (error: any) {
       console.log(
         "CoManager 화면 deleteCoManager 호출에서 error 발생 :",

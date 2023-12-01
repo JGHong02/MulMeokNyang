@@ -14,15 +14,12 @@ export const getManagerList = async (spaceId: string) => {
       }
     );
 
-    console.log(res.data);
-    return res.data;
+    const mainManagerUserEmail = res.data.mainManagerUserEmail;
+    const coManagersUserEmail = res.data.coManagersUserEmail;
+    console.log("mainManagerUserEmail :", mainManagerUserEmail);
+    console.log("coManagersUserEmail :", coManagersUserEmail);
 
-    // const mainManagerUserEmail = res.data.mainManagerUserEmail;
-    // const coManagersUserEmail = res.data.coManagersUserEmail;
-    // console.log("mainManagerUserEmail :", mainManagerUserEmail);
-    // console.log("coManagersUserEmail :", coManagersUserEmail);
-
-    // return { mainManagerUserEmail, coManagersUserEmail };
+    return { mainManagerUserEmail, coManagersUserEmail };
   } catch (error: any) {
     console.log("getManagerList API 호출에서 error 발생 :", error.message);
     throw error;

@@ -72,7 +72,7 @@ const XAndBar: FC<XAndBarProps> = ({ left, width, guage, xText }) => {
             style={[
               styles.speechBubbleText,
               Platform.OS === "android" ? { top: 25 } : { top: 30 },
-            ]}>{`${guage}%`}</Text>
+            ]}>{`${guage.toFixed(0)}%`}</Text>
         </View>
       )}
     </View>

@@ -21,12 +21,13 @@ export const userSearch = async (nickname: string) => {
     ) {
       const searchResultExists = res.data.searchResultExists;
       console.log("searchResultExists :", searchResultExists);
+
       return { searchResultExists };
     }
 
     // 검색 결과가 있는 경우
     const userEmail = res.data.userEmail;
-    const userProfilePhotoUrl = res.data.userProfilePhotoUrl;
+    const userProfilePhotoUrl = res.data.userProfilePhoto;
     const userIntroduction = res.data.userIntroduction;
     console.log("userEmail :", userEmail);
     console.log("userProfilePhotoUrl :", userProfilePhotoUrl);

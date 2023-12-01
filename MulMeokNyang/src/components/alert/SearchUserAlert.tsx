@@ -2,9 +2,18 @@
 import type { FC, Dispatch, SetStateAction } from "react";
 // Hook
 import { useState, useCallback } from "react";
+// Custom Hook
+import useLoading from "../../hooks/useLoading";
 // StyleSheet, Component
 import { StyleSheet } from "react-native";
-import { View, TouchableOpacity, Text, TextInput, Image } from "react-native";
+import {
+  View,
+  TouchableOpacity,
+  Text,
+  TextInput,
+  Image,
+  ActivityIndicator,
+} from "react-native";
 // Custom Component
 import ProcessButton from "../button/ProcessButton";
 // API
@@ -39,6 +48,9 @@ const SearchUserAlert: FC<SearchUserAlertProps> = ({
     introduction: "",
   });
 
+  // 로딩
+  const { isLoading, handleLoading } = useLoading();
+
   // 1. 입력값 바뀔 때마다 실행될 함수
   const onChangeText = useCallback(
     (inputNickname: string) => {
@@ -55,6 +67,8 @@ const SearchUserAlert: FC<SearchUserAlertProps> = ({
   // 2. 검색 아이콘 눌렀을 때 실행될 함수
   const searchPressHandler = useCallback(async () => {
     try {
+      handleLoading(true);
+
       const res = await userSearch(searchNickname);
 
       // 검색 결과가 없는 경우
@@ -73,23 +87,16 @@ const SearchUserAlert: FC<SearchUserAlertProps> = ({
         error.message
       );
       throw error;
+    } finally {
+      handleLoading(false);
     }
   }, [searchNickname]);
-
-  // ####################################가짜 검색 함수###############################3
-  const fakeSearchPressHandler = useCallback(() => {
-    setSearchResultInfo({
-      onSearchResult: true,
-      profilePhotoUrl: "",
-      // "file:///data/user/0/host.exp.exponent/cache/ExperienceData/%2540chansolchoi%252Fmulmeoknyang/ImagePicker/00a0b1b7-67e4-49a5-9846-c71ccc0d58bf.jpeg",
-      email: "sample@example.com",
-      introduction: "하하~ 방가방가",
-    });
-  }, []);
 
   // 3. '추가' 버튼을 눌렀을 때 실행될 함수
   const addButtonPressHandler = useCallback(async () => {
     try {
+      handleLoading(true);
+
       await addCoManager(spaceId, searchNickname);
 
       // coManagersInfo에 추가한 관리자 정보 추가
@@ -102,6 +109,8 @@ const SearchUserAlert: FC<SearchUserAlertProps> = ({
           introduction: searchResultInfo.introduction,
         },
       ]);
+
+      handleLoading(false);
 
       // SearchUserAlert 닫기
       setOnSearchUserAlert(false);
@@ -116,22 +125,6 @@ const SearchUserAlert: FC<SearchUserAlertProps> = ({
       throw error;
     }
   }, [searchResultInfo, searchNickname]);
-
-  // ####################################가짜 추가 함수###############################3
-  const fakeAddButtonPressHandler = useCallback(() => {
-    setCoManagersInfo((prev: any) => [
-      ...prev,
-      {
-        profilePhotoUrl:
-          "file:///data/user/0/host.exp.exponent/cache/ExperienceData/%2540chansolchoi%252Fmulmeoknyang/ImagePicker/00a0b1b7-67e4-49a5-9846-c71ccc0d58bf.jpeg",
-        nickname: searchNickname,
-        email: "added88@google.com",
-        introduction: "방금 추가됐지롱 ~ ^^",
-      },
-    ]);
-    setOnSearchUserAlert(false);
-    setOnAddAlert(true);
-  }, [searchNickname]);
 
   return (
     <View style={[styles.alertView]}>
@@ -153,34 +146,40 @@ const SearchUserAlert: FC<SearchUserAlertProps> = ({
       <View style={[styles.searchView]}>
         <View style={[styles.inputView]}>
           <TextInput style={[styles.input]} onChangeText={onChangeText} />
-          {/* <TouchableOpacity onPress={searchPressHandler}> */}
-          <TouchableOpacity onPress={fakeSearchPressHandler}>
+          <TouchableOpacity onPress={searchPressHandler}>
             <Icon name="search1" size={30} color="#343434" />
           </TouchableOpacity>
         </View>
-        {searchResultInfo.onSearchResult && (
-          <View style={[styles.searchResultView]}>
-            <Image
-              source={
-                searchResultInfo.profilePhotoUrl
-                  ? { uri: searchResultInfo.profilePhotoUrl }
-                  : defaultPhoto
-              }
-              style={[styles.image]}
-            />
-            <View>
-              <Text style={[styles.nicknameText]}>{searchNickname}</Text>
-              <Text>{searchResultInfo.email}</Text>
-            </View>
+        {isLoading ? (
+          <View style={[styles.loadingView]}>
+            <ActivityIndicator size="large" color="#59a0ff" />
           </View>
+        ) : (
+          <>
+            {searchResultInfo.onSearchResult && (
+              <View style={[styles.searchResultView]}>
+                <Image
+                  source={
+                    searchResultInfo.profilePhotoUrl
+                      ? { uri: searchResultInfo.profilePhotoUrl }
+                      : defaultPhoto
+                  }
+                  style={[styles.image]}
+                />
+                <View>
+                  <Text style={[styles.nicknameText]}>{searchNickname}</Text>
+                  <Text>{searchResultInfo.email}</Text>
+                </View>
+              </View>
+            )}
+          </>
         )}
       </View>
       <View style={[styles.buttonView]}>
         <ProcessButton
           content="추가"
-          canPress
-          // onPressHandler={addButtonPressHandler}
-          onPressHandler={fakeAddButtonPressHandler}
+          canPress={searchResultInfo.onSearchResult}
+          onPressHandler={addButtonPressHandler}
           isInAlert
         />
       </View>
@@ -261,5 +260,11 @@ const styles = StyleSheet.create({
   buttonView: {
     position: "absolute",
     bottom: 0,
+  },
+
+  // 로딩
+  loadingView: {
+    marginTop: 20,
+    alignItems: "center",
   },
 });

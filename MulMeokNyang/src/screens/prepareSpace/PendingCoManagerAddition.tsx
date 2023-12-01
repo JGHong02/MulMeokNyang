@@ -1,7 +1,7 @@
 // Context
 import { UserContext } from "../../contexts/UserContext";
 // Hook
-import { useContext, useState, useCallback, useEffect } from "react";
+import { useContext, useState, useCallback, useEffect, useRef } from "react";
 // Custom Hook
 import { useGoRoute } from "../../hooks/useGoScreen";
 // StyleSheet, Component
@@ -17,10 +17,14 @@ import mainViewStyles from "../../styles/mainViewStyles";
 
 const PendingCoManagerAddition = () => {
   // managementSpaceId setter 함수 불러오기
-  const { userEmailGV, setManagementSpaceIdGV } = useContext(UserContext);
+  const { userEmailGV, managementSpaceIdGV, setManagementSpaceIdGV } =
+    useContext(UserContext);
 
   // Loading state
-  const [onLoading, setOnLoading] = useState<boolean>(true);
+  const [onLoading, setOnLoading] = useState<any>(true);
+
+  // forInterval state
+  const [forIntervalCnt, setForIntervalCnt] = useState<number>(0);
 
   // managementSpaceId 전역 변수에 저장한 뒤 화면 이동
   const goMain = useGoRoute("Main");
@@ -35,16 +39,21 @@ const PendingCoManagerAddition = () => {
       setOnLoading(false);
       setTimeout(goMain, 1000);
     }
-  }, [setOnLoading]);
+  }, []);
 
-  // 3초마다 waitCoManagerAddition 함수 호출
+  // 5초마다 waitCoManagerAddition 함수 호출
   useEffect(() => {
-    const intervalId = setInterval(waitCoManagerAddition, 3500);
+    const timeoutId = setTimeout(() => {
+      if (managementSpaceIdGV) return;
+
+      waitCoManagerAddition();
+      setForIntervalCnt((prev) => prev + 1);
+    }, 5000);
 
     return () => {
-      clearInterval(intervalId);
+      clearTimeout(timeoutId);
     };
-  }, []);
+  }, [forIntervalCnt, managementSpaceIdGV]);
 
   return (
     <SafeAreaView>
