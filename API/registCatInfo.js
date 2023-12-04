@@ -47,8 +47,8 @@ app.post("/registCatInfo", upload.single("catProfilePhoto"), (req, res) => {
     catFeedStuffMoistureContent,
     isHydrationAuto,
     catGoalHydration,
-    // catColor,
-    // catBreed,
+    catColor,
+    catBreed,
   } = req.body;
 
   console.log(
@@ -62,7 +62,9 @@ app.post("/registCatInfo", upload.single("catProfilePhoto"), (req, res) => {
     catFeedStuffDailyConsumption,
     catFeedStuffMoistureContent,
     isHydrationAuto,
-    catGoalHydration
+    catGoalHydration,
+    catColor,
+    catBreed
   );
   // 파일 첨부 확인
   const catProfilePhoto = req.file;
@@ -102,7 +104,9 @@ app.post("/registCatInfo", upload.single("catProfilePhoto"), (req, res) => {
           cat_feedstuff_moisture_content FLOAT,
           is_hydration_auto BOOLEAN NOT NULL,
           is_eating_feedstuff BOOLEAN NOT NULL,
-          cat_goal_hydration FLOAT NOT NULL
+          cat_goal_hydration FLOAT NOT NULL,
+          cat_color JSON,
+          cat_breed VARCHAR(255)
         )
       `;
 
@@ -120,7 +124,7 @@ app.post("/registCatInfo", upload.single("catProfilePhoto"), (req, res) => {
     // 추가 등록하는 경우
     handleCatInfoQuery(managementSpaceId);
   }
-
+  //step 4) cat_in_management_space_${spaceId}에 정보 추가
   function handleCatInfoQuery(spaceId) {
     // 파일이 첨부된 경우
     let middleSpaceId = spaceId;
@@ -153,15 +157,19 @@ app.post("/registCatInfo", upload.single("catProfilePhoto"), (req, res) => {
     // 공통적인 쿼리
     let finalSpaceId = spaceId;
     console.log("finalSpaceId: ", finalSpaceId);
+    // catColor를 배열로 변환
+    const catColorArray = catColor ? catColor.split(",") : [];
+    console.log("catColorArray: ", catColorArray);
     catInfoQuery = `
-      INSERT INTO cat_in_management_space_${finalSpaceId} (
-        cat_profile_photo, cat_name, cat_age, cat_weight,
-        cat_feedstuff_daily_consumption,
-        cat_feedstuff_moisture_content, is_hydration_auto,
-        is_eating_feedstuff, cat_goal_hydration
-      )
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-    `;
+    INSERT INTO cat_in_management_space_${finalSpaceId} (
+      cat_profile_photo, cat_name, cat_age, cat_weight,
+      cat_feedstuff_daily_consumption,
+      cat_feedstuff_moisture_content, is_hydration_auto,
+      is_eating_feedstuff, cat_goal_hydration,
+      cat_color, cat_breed
+    )
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+  `;
 
     console.log(
       "params: ",
@@ -173,7 +181,9 @@ app.post("/registCatInfo", upload.single("catProfilePhoto"), (req, res) => {
       catFeedStuffMoistureContent,
       isHydrationAutoValue,
       isEatingFeedStuffValue,
-      catGoalHydration
+      catGoalHydration,
+      JSON.stringify(catColorArray),
+      catBreed
     );
 
     connection.query(
@@ -188,6 +198,8 @@ app.post("/registCatInfo", upload.single("catProfilePhoto"), (req, res) => {
         isHydrationAutoValue,
         isEatingFeedStuffValue,
         catGoalHydration,
+        JSON.stringify(catColorArray),
+        catBreed,
       ],
       (err, result) => {
         if (err) {
@@ -195,10 +207,10 @@ app.post("/registCatInfo", upload.single("catProfilePhoto"), (req, res) => {
             .status(500)
             .json({ message: "Database error", error: err });
         }
-
+        //step 5) cat_id 변수 설정
         const catId = result.insertId;
 
-        // Step 7: cat_hydration_statistics table 생성
+        // Step 6) cat_hydration_statistics table 생성
         const catHydrationTableQuery = `
           CREATE TABLE IF NOT EXISTS cat_hydration_statistics_${finalSpaceId}_${catId} (
               date DATE NOT NULL PRIMARY KEY,
@@ -216,7 +228,7 @@ app.post("/registCatInfo", upload.single("catProfilePhoto"), (req, res) => {
               .json({ message: "Database error", error: err });
           }
 
-          // Step 8: cat_hydration_statistics 데이터 삽입
+          // Step 7) cat_hydration_statistics 데이터 삽입
           const catHydrationInsertQuery = `
             INSERT INTO cat_hydration_statistics_${finalSpaceId}_${catId} (
               date, day, goal_hydration
@@ -234,7 +246,7 @@ app.post("/registCatInfo", upload.single("catProfilePhoto"), (req, res) => {
                   .json({ message: "Database error", error: err });
               }
 
-              // Step 9: user 테이블 업데이트
+              // Step 8) user 테이블 업데이트
               const userUpdateQuery = `
                 UPDATE user SET management_space_id = '${finalSpaceId}'
                 WHERE user_email = '${userEmail}'
@@ -247,7 +259,7 @@ app.post("/registCatInfo", upload.single("catProfilePhoto"), (req, res) => {
                     .json({ message: "Database error", error: err });
                 }
 
-                // Step 10: 응답
+                // Step 9) 응답
                 if (managementSpaceId == "null") {
                   res.json({ spaceId: finalSpaceId });
                 } else {
