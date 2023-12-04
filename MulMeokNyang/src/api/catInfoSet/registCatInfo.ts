@@ -9,7 +9,8 @@ export const registCatInfo = async (
   name: string,
   age: string,
   weight: string,
-  photosUrlForAI: string[],
+  breed: string,
+  color: string[],
   isEating: boolean,
   dailyConsumption: string,
   moistureContent: string,
@@ -23,7 +24,8 @@ export const registCatInfo = async (
   console.log("name :", name);
   console.log("age :", age);
   console.log("weight :", weight);
-  console.log("photosUrlForAI :", photosUrlForAI);
+  console.log("breed :", breed);
+  console.log("color :", color);
   console.log("isEating :", isEating);
   console.log("dailyConsumption :", dailyConsumption);
   console.log("isAuto :", isAuto);
@@ -51,28 +53,14 @@ export const registCatInfo = async (
       formData.append("catProfilePhoto", "");
     }
 
-    // // 2) catPhotosUrlForAI (배열) 처리
-    // // 1. 반복문을 돌며 각 이미지 처리
-    // const catPhotosUrlForAIArr = [];
-    // for (let i = 0; i < 5; i++) {
-    //   const photoUrlForAI = photosUrlForAI[i];
-    //   const photoForAIFormData = await localUriToFormData(photoUrlForAI);
-    //   catPhotosUrlForAIArr.push({
-    //     uri: photoUrlForAI,
-    //     name: photoForAIFormData.filename,
-    //     type: photoForAIFormData.type,
-    //   });
-    // }
-
-    // // 2. 'catPhotosUrlForAI'를 'multipart/form-data'의 배열로 추가
-    // formData.append("catPhotosForAI", JSON.stringify(catPhotosUrlForAIArr));
-
     // 3) 나머지 데이터 FormData에 추가
     formData.append("userEmail", email);
     formData.append("managementSpaceId", spaceId ? spaceId : null);
     formData.append("catName", name);
     formData.append("catAge", age);
     formData.append("catWeight", weight);
+    formData.append("catBreed", breed);
+    formData.append("catColor", color);
     formData.append("isEatingFeedStuff", isEating);
     formData.append("catFeedStuffDailyConsumption", dailyConsumption);
     formData.append("catFeedStuffMoistureContent", moistureContent);
@@ -91,8 +79,6 @@ export const registCatInfo = async (
         },
       }
     );
-
-    console.log("----------------------");
 
     // 처음 고양이 프로필을 등록하는 사용자 (= 아직 관리 스페이스가 없는 사용자)
     if (res.data.hasOwnProperty("spaceId")) {

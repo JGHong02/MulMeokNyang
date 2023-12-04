@@ -27,7 +27,10 @@ import {
   CatProfileRegistration,
   CatProfileModification,
 } from "../screens/catInfoSet/catProfileSet";
-import CatPhotosForAIRegistration from "../screens/catInfoSet/catPhotosForAISet/CatPhotosForAIRegistration";
+import {
+  CatPhotosForAIRegistration,
+  AIResult,
+} from "../screens/catInfoSet/catPhotosForAISet";
 import {
   CatFeedStuffRegistration,
   CatFeedStuffModification,
@@ -86,6 +89,7 @@ const MainNavigator = () => {
         name="CatPhotosForAIRegistration"
         component={CatPhotosForAIRegistration}
       />
+      <Stack.Screen name="AIResult" component={AIResult} />
       <Stack.Screen
         name="CatFeedStuffRegistration"
         component={CatFeedStuffRegistration}

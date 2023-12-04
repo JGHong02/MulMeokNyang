@@ -194,13 +194,9 @@ const HydrationStatistics: FC<HydrationStatisticsProps> = ({ route }) => {
       showWeekStatistics();
     } else if (range === "달") {
       setStatisticsRangeText(monthRange);
-      setHydrationGuageArr([]);
-      // showMonthStatistics();
       showMonthStatistics();
     } else if (range === "년") {
       setStatisticsRangeText(yearRange);
-      setHydrationGuageArr([]);
-      // showYearStatistics();
       showYearStatistics();
     }
     setOnStatistics(true);

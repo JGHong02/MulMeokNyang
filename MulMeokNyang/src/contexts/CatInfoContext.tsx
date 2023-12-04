@@ -9,7 +9,8 @@ type CatInfoContextType = {
   catNameGV: string;
   catAgeGV: string;
   catWeightGV: string;
-  catPhotosUrlForAIGV: string[];
+  catBreedGV: string;
+  catColorGV: string[];
   isEatingFeedStuffGV: boolean;
   catFeedStuffDailyConsumptionGV: string;
   catFeedStuffMoistureContentGV: string;
@@ -18,7 +19,8 @@ type CatInfoContextType = {
   setCatNameGV: (name: string) => void;
   setCatAgeGV: (age: string) => void;
   setCatWeightGV: (weight: string) => void;
-  setCatPhotosUrlForAIGV: (photosUrlForAI: string[]) => void;
+  setCatBreedGV: (breed: string) => void;
+  setCatColorGV: (color: string[]) => void;
   setIsEatingFeedStuffGV: (isEatingFeedStuff: boolean) => void;
   setCatFeedStuffDailyConsumptionGV: (FSConsumption: string) => void;
   setCatFeedStuffMoistureContentGV: (FSMoisture: string) => void;
@@ -31,7 +33,8 @@ const defaultCatInfoContext = {
   catNameGV: "",
   catAgeGV: "",
   catWeightGV: "",
-  catPhotosUrlForAIGV: [],
+  catBreedGV: "",
+  catColorGV: [],
   isEatingFeedStuffGV: true,
   catFeedStuffDailyConsumptionGV: "",
   catFeedStuffMoistureContentGV: "",
@@ -41,7 +44,8 @@ const defaultCatInfoContext = {
   setCatNameGV: () => {},
   setCatAgeGV: () => {},
   setCatWeightGV: () => {},
-  setCatPhotosUrlForAIGV: () => {},
+  setCatBreedGV: () => {},
+  setCatColorGV: () => {},
   setIsEatingFeedStuffGV: () => {},
   setCatFeedStuffDailyConsumptionGV: () => {},
   setCatFeedStuffMoistureContentGV: () => {},
@@ -64,7 +68,8 @@ export const CatInfoContextProvider = ({ children }: ProviderProps) => {
   const [catNameGV, setCatNameGV] = useState<string>("");
   const [catAgeGV, setCatAgeGV] = useState<string>("");
   const [catWeightGV, setCatWeightGV] = useState<string>("");
-  const [catPhotosUrlForAIGV, setCatPhotosUrlForAIGV] = useState<string[]>([]);
+  const [catBreedGV, setCatBreedGV] = useState<string>("");
+  const [catColorGV, setCatColorGV] = useState<string[]>([]);
   const [isEatingFeedStuffGV, setIsEatingFeedStuffGV] =
     useState<boolean>(false);
   const [catFeedStuffDailyConsumptionGV, setCatFeedStuffDailyConsumptionGV] =
@@ -83,8 +88,10 @@ export const CatInfoContextProvider = ({ children }: ProviderProps) => {
         setCatAgeGV,
         catWeightGV,
         setCatWeightGV,
-        catPhotosUrlForAIGV,
-        setCatPhotosUrlForAIGV,
+        catBreedGV,
+        setCatBreedGV,
+        catColorGV,
+        setCatColorGV,
         isEatingFeedStuffGV,
         setIsEatingFeedStuffGV,
         catFeedStuffDailyConsumptionGV,

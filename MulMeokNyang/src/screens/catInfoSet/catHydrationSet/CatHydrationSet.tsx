@@ -64,8 +64,10 @@ const CatHydrationSet: FC<CatHydrationSetType> = ({
     setCatAgeGV,
     catWeightGV,
     setCatWeightGV,
-    catPhotosUrlForAIGV,
-    setCatPhotosUrlForAIGV,
+    catBreedGV,
+    setCatBreedGV,
+    catColorGV,
+    setCatColorGV,
     isEatingFeedStuffGV,
     setIsEatingFeedStuffGV,
     catFeedStuffDailyConsumptionGV,
@@ -169,7 +171,8 @@ const CatHydrationSet: FC<CatHydrationSetType> = ({
           catNameGV,
           catAgeGV,
           catWeightGV,
-          catPhotosUrlForAIGV,
+          catBreedGV,
+          catColorGV,
           isEatingFeedStuffGV,
           catFeedStuffDailyConsumptionGV,
           catFeedStuffMoistureContentGV,
@@ -182,7 +185,8 @@ const CatHydrationSet: FC<CatHydrationSetType> = ({
         setCatNameGV("");
         setCatAgeGV("");
         setCatWeightGV("");
-        setCatPhotosUrlForAIGV([]);
+        setCatBreedGV("");
+        setCatColorGV([]);
         setIsEatingFeedStuffGV(false);
         setCatFeedStuffDailyConsumptionGV("");
         setCatFeedStuffMoistureContentGV("");
