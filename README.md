@@ -13,4 +13,4 @@ Cats are known for their discerning palates and can be quite selective, particul
 
 Though there are many object or face recognition models, it is hard to find recognition model for individual animals such as cats. So, we will try to make a Artificial Intelligence(AI) model which recognizes individual cats with classifying cat breed. Assuming that one household own one or more than two cat breed, we can recognize individual cats. If there are two or more cats with the same breed, we are planning to detect them using simple algorithms like color distinguishing. There are requirements that need to be fulfilled. Firstly, the model should be able to detect the cat itself with image data. Secondly, the model should be able to recognize the cat’s breed. For image classification, Convolution Neural Network(CNN) seems to be the best choice therefore, we are going to make use of those AI model.
 
-Blog: <https://medium.com/@junggihong/cat-breed-classification-dd9e92d5c064>
+Blog: <https://medium.com/@junggihong/mulmeoknyangs-second-tech-blog-c281505c5212>
