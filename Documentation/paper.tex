@@ -13,6 +13,14 @@
 \usepackage{filecontents}
 \usepackage{kotex}
 \usepackage{lipsum}
+\usepackage{soul}
+
+\usepackage{wrapfig}
+\usepackage{makecell}
+\usepackage{tabularx}
+\usepackage{supertabular,booktabs}
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 
 \documentclass{scrreprt}
 \makeatletter
@@ -176,19 +184,19 @@ showstringspaces=false,      % Leerzeichen in Strings anzeigen ?
 \IEEEauthorblockA{\textit{Dept. Information Systems} \\
 \textit{Hanyang University}\\
 Seoul, South Korea \\
-email@hanyang.ac.kr}
+hyoju8618@naver.com}
 \and
 \IEEEauthorblockN{Choi Chansol}
 \IEEEauthorblockA{\textit{Dept. Information Systems} \\
 \textit{Hanyang University}\\
 Seoul, South Korea \\
-email@hanyang.ac.kr}
+hjk9216@naver.com}
 \and
 \IEEEauthorblockN{Lee Yunsun}
-\IEEEauthorblockA{\textit{Dept. Information Systems} \\
+\IEEEauthorblockA{\textit{Dept. Film and Theatre} \\
 \textit{Hanyang University}\\
 Seoul, South Korea \\
-email@hanyang.ac.kr}
+justina7182@gmail.com}
 \and
 \IEEEauthorblockN{Hong JunGgi}
 \IEEEauthorblockA{\textit{Dept. Information Systems} \\
@@ -287,65 +295,49 @@ In response to the central proposition concerning the daily water intake recomme
 \section{REQUIREMENTS ANALYSIS}
 \subsection{Sign up}
 \begin{itemize}
-\item{\emph{Basic Information Input Screen:}}
+\item{Basic Information Input}
     \begin{itemize}
-        \item Method 1) Quick Sign-Up Feature
-        \begin{itemize}
-            \item Utilizes the Kakao, Google, and Naver sign-up APIs.
-            \item If a quick sign-up is done, it directly proceeds to the user profile setup screen.
-        \end{itemize}
-        \item Method 2) Local Sign-Up Feature
-        \begin{itemize}
-            \item Email Input: The system checks and displays whether the input is in the correct email format or if the email has already been registered.
-            \item Password and Password Confirmation Input: The system checks if both values match and displays the result on the screen.
-            % \item Phone Number Input and Authentication: Uses the NICE mobile phone authentication API. Once the authentication is complete, it displays the result on the screen.
-        \end{itemize}
-        \item If all the fields are correctly filled out and authentication is complete, the "Next" button is activated, leading the user to the user profile setup screen. \newline 
+        \item Email Input: Check and show the results whether it is in the correct email format or if the email has already been registered.
+        \item Password and Password Confirmation Input: Check if both values match and show the result.
     \end{itemize}
-\item{\emph{User Profile Setup Screen:}}
+\end{itemize}
+\begin{itemize}
+    \item{Request Message Authentication Code}
     \begin{itemize}
-        \item Profile Picture Registration (optional)
-            \begin{itemize}
-            \item Clicking the "Add Photo" button allows the user to either fetch a photo from the album or take one instantly with the camera. The chosen photo can then be registered.
-            \item If no photo is registered separately, a default image is displayed. - Nickname Input (Required)
-            \end{itemize}
-        \item Nickname Input (Required)
-            \begin{itemize}
-            \item The system checks the format and checks for duplicates, then displays the result on the screen.
-            \end{itemize}
-        \item Self-Introduction Input (optional)
-            \begin{itemize}
-            \item A maximum character count is specified.
-            \end{itemize}
-        \item If the nickname is correctly entered, the "Complete Sign-Up" button is activated. After sign-up, the user starts from the <water dispenser device registration> screen in a logged-in state and proceeds through the cat hydration management space creation procedure.\\
+        \item Name Input : Check whether it is an empty value or not and show the result.
+        \item Phone Number Input :  Check if it is in the form of 'XXX-XXXX-XXXX' and show the result.
+        \item If a user press the 'Send' button, send a six-digit authentication number to the phone number.
+    \end{itemize}
+\end{itemize}
+\begin{itemize}
+    \item{Check Authentication Code}
+    \begin{itemize}
+        \item If a user enter the authentication code properly, the sign up will be completed.\\
     \end{itemize}
 \end{itemize}
 
 \subsection{Login}
 \begin{itemize}
-\item{\emph{Method 1) Quick Login:}}
-\item{\emph{Method 2) Local Login}}
-    \begin{itemize}
-        \item The system checks whether the email address and password have been entered.
-        \item If entered, the system verifies if there's a matching user in the database.
-        \item If no match is found, the user is prompted to re-enter. If a match is found, a cookie is generated to maintain the logged-in state continuously.
-        \item If the auto-login checkbox is checked, a session is generated to remember the login details, and upon logging out, the login details are automatically filled in.
-        \item After successful login, if the user has their own space or is a part of any, they are directed to the cat hydration management space.
-        \item Otherwise, they begin from the water dispenser device registration screen and proceed through the cat hydration management space creation procedure.\\
-    \end{itemize}
+    \item Check if the user corresponding to the entered email and password exists in the database, and if so, log them in.
+    \item If the user has checked Automatic Login Check box, store an token in the session storage so that the user can be logged in automatically upon restarting the app.\\
 \end{itemize}
 
 \subsection{Find Email}
 \begin{itemize}
-% \item First, authenticate the user using the NICE Mobile Phone Verification API.
-\item Upon successful authentication, the system searches the database using the phone number and displays the user's email on the screen.\\
+    \item If a user corresponding to the entered name and phone number exists in the database, show the email on the screen.\\
 \end{itemize}
 
-\subsection{Forgot Password}
+\subsection{Find Password}
 \begin{itemize}
-\item Enter the email address for which you want to retrieve the password.
-\item After authentication, the system searches the database using the email and phone number, and then sends the user's password to the specified email.\\
+\item First, input the email and phone number, then request Message Authentication.
+\item If a user enter the authentication code properly, send the password to the respective email.\\
 \end{itemize} 
+
+\subsection{User Profile Registration}
+\begin{itemize}
+    \item Tap the camera icon to access the user's gallery and upload a profile picture.
+    \item Enter a required nickname and optionally input a self-introduction. Upon pressing the registration button, check if the nickname already exists in the database before completing the registration.\\
+\end{itemize}
 
 \subsection{Water Dispenser Device Registration}
 (Step 1 of Creating a Cat Hydration Management Space)
@@ -355,49 +347,34 @@ In response to the central proposition concerning the daily water intake recomme
         \item Provide a picture indicating the location of the pairing button on the dispenser.
     \end{itemize}
 \item Search for available water dispenser devices and display them in a list.
-\item The user selects the desired device from the list.
-\item Once paired successfully, register the device information in the application and then navigate to the cat profile registration screen.\\
+\item The user selects the desired device from the list.\\
 \end{itemize}
 
 \subsection{Cat Profile Registration}
 (Step 2 of Creating a Cat Hydration Management Space)
 \begin{itemize}
-\item{\emph{Basic Information Entry Screen}}
+\item{Basic Information Input}
     \begin{itemize}
-        \item Register a profile picture of the pet cat, and enter its name, weight, and age.
-        \item Once all details are entered, the next button is activated, allowing the user to proceed to the Nose Print Photo Registration screen.
+        \item Tap the camera icon to access the user's gallery, upload a profile picture of the pet cat, and input its name, weight, and age. 
+        \item Except for the profile picture, all other inputs are mandatory.
     \end{itemize}
-\item{\emph{Nose Print Photo Registration Screen}}
+\item{Cat Breed Recognition and Feature Color Extraction}
     \begin{itemize}
-        \item Uses Nose Print Recognition AI model.
-        \item To identify the individual cat, submit multiple photos of the cat's nose from various angles.
-        \item After uploading the photos, you can press the next button to proceed to the Wet Food Intake Information Registration screen.
+        \item Upload five photos of the pet cat that seem suitable for breed and color recognition.
+        \item Press the 'AI Analysis' button to identify the breed and extract feature colors.
+        \item Display the AI analysis results. if unsatisfactory, press 'Previous' to retry the AI analysis.
     \end{itemize}
-\item{\emph{Wet Food Intake Information Entry Screen}}
+\item{Wet Food Intake Information Input}
     \begin{itemize}
-        \item Select 'Yes/No' for consumption status.
-        \item If 'No' is selected, activate the "Next" button.
-        \item If 'Yes' is selected, input the daily intake amount in grams and the moisture content of the food. Once all details are entered, activate the "Next" button.
-        \begin{itemize}
-            \item If the moisture content is unknown, a default value of 70\% is set.
-        \end{itemize}
-        \item Clicking the "Next" button leads to the hydration setting screen.
+        \item Choose whether the pet consumes wet food.
+        \item If yes, input the daily intake amount \(grams\) and moisture content \(\%\). Default to 70\% if unsure of the moisture content.
     \end{itemize}
-\item{\emph{Hydration Setting Screen}}
+\item{Goal Hydration Setting}
     \begin{itemize}
-        \item Choose between 'Automatic setting/Manual setting'.
-        \item If 'Automatic setting' is chosen, the recommended hydration formula is applied, and the "Next" button gets activated.
+        \item Set the goal hydration automatically or manually.
+        \item Choosing automatic calculation utilizes the previously entered cat's weight and wet food intake information to calculate the recommended hydration amount.
         \begin{itemize}
-            \item Daily basis formula: `( Weight(kg) * 50ml ) - ( Wet food amount (g) * Moisture content(\%) )`
-        \end{itemize}
-        \item If 'Manual setting' is chosen, users input the daily target hydration amount, and then the "Next" button gets activated.
-        \item Add another cat button:
-        \begin{itemize}
-            \item Redirects to the second cat profile registration screen.
-        \end{itemize}
-        \item Complete profile registration button:
-        \begin{itemize}
-            \item Directs to the cat hydration management space.\\
+            \item formula: `( Weight(kg) * 50ml ) - ( Wet food amount (g) * Moisture content(\%) )`\\
         \end{itemize}
     \end{itemize}
 \end{itemize}
@@ -405,119 +382,53 @@ In response to the central proposition concerning the daily water intake recomme
 \subsection{Cat Hydration Management Space (Main)}
 \subsubsection{Daily Hydration Info for Each Cat}
 \begin{itemize}
-    \item Cat Profile Selection Top Bar
+    \item View the basic information of registered cats in the space, their daily hydration gauge, and the evaluations based on this gauge.
+    \item Select a cat from the top scrolling cat profile to check its details.
+    \item Utilize the 'Watering' button to simulate the cat-calling sound from the actual water dispenser, encouraging a specific cat's water intake. 
     \begin{itemize}
-        \item By tapping the profile picture, users can access the hydration info screen for that specific cat.
+        \item However, as there's no direct integration with a physical water dispenser, this button UI is for demonstration purposes only.
     \end{itemize}
-    \item Cat Profile
+    \item The hydration gauge is expressed as a percentage of today's hydration amount \/ goal hydration amount, represented by different colors indicating levels: Red signifies 'Danger,' Yellow signifies 'Caution,' Green signifies 'Normal,' and Blue signifies 'Excellent.'
     \begin{itemize}
-        \item Displays the cat's profile picture, name, age, and weight.
-        \item An edit button lets users access a screen where they can modify that cat's profile. (Reuses the Cat Profile Registration screen).
-        \item Tapping the right arrow displays the daily hydration info for the next cat. The last item is a plus button, which leads to a screen to add a new cat profile. (Reuses the Cat Profile Registration screen).
+        \item From 0\% to 29\%: Red
+        \item From 30\% to 59\%: Yellow
+        \item From 60\% to 89\%: Green
+        \item From 90\% to 150\%: Blue
+        \item From 151\% to 200\%: Red
     \end{itemize}
-    \item Daily Hydration Gauge
-    \begin{itemize}
-        \item Displays how much of the daily hydration goal the cat has achieved, as a percentage(\%).
-        \item Different colors indicate hydration ranges:
-        \begin{itemize}
-            \item 0\% ~ 29\%: Red
-            \item 30\% ~ 59\%: Yellow2
-            \item 60\% ~ 89\%: Green
-            \item 90\% ~ Upper Limit: Blue
-            \item Upper Limit ~ 200\%: Blue up to the upper limit, then red
-        \end{itemize}
-        \item The upper limit is set to address excessive hydration, calculated using the recommended formula.
-        \item Push notifications are sent to the user if the upper limit is exceeded.
-    \end{itemize}
-    \item Daily Hydration Evaluation \& Advice
-    \begin{itemize}
-        \item Based on the cat's water intake for the day, an evaluation is given, advising if more water intake is needed.
-    \end{itemize}
-    \item Hydration Statistics Button
-    \begin{itemize}
-        \item Leads to the periodical hydration statistics screen for that cat.
-    \end{itemize}
-    \item Watering Attempt Button
-    \begin{itemize}
-        \item Tapping this button prompts the water dispenser to make a cat-calling sound, enticing the cat to approach and drink.
-        \item If the cat drinks within 30 minutes, a push notification is sent to the user.
-    \end{itemize}
-    \item Navigation Bar
-    \begin{itemize}
-        \item Tapping the NavigationBarIcon slides out the navigation bar from the left.\\
-    \end{itemize}
-\end{itemize}
-\subsubsection{Periodical Hydration Statistics Screen}
-\begin{itemize}
-    \item Cat Profile Selection Top Bar
-    \begin{itemize}
-        \item If accessed from a specific cat's daily hydration info screen, that cat is selected.
-        \item Otherwise, the first cat is selected by default.
-        \item Users can view statistics for other cats by selecting their profiles.
-    \end{itemize}
-    \item By default, displays a bar graph of the past week's hydration data.
-    \item Users can choose between 'One Week/One Month/One Year' durations.
-    \item A calendar button allows users to select specific 'Week/Month/Year'.
-    \item Tapping a bar displays hydration data for that specific 'Day/Week/Month'.
-    \begin{itemize}
-        \item If the graph is set for one week, it displays data for that day.
-        \item If set for one month, it displays data for that week.
-        \item If set for one year, it displays data for that month.
-    \end{itemize}
-    \item At the bottom, an evaluation and advice on hydration are provided.
-    \begin{itemize}
-        \item If 'Red' or 'Yellow' days make up more than half, a message suggests increasing water intake.
-        \item If 'Green' or 'Blue' days make up more than half, a message confirms adequate hydration.
-        \item If days with 'Blue + Red' make up more than half, a message advises consulting with a veterinarian due to excessive water intake.\\
-    \end{itemize}
+    \item Press the 'View Water Intake Statistics by Period' button to navigate to the statistics screen for the currently selected cat.
+    \item Push notifications are sent to the user if the upper limit is exceeded.\\
 \end{itemize}
 
-\subsection{Navigation}
-To quickly transition to the desired screen, navigation links are provided in the navigation bar. The navigation bar is applied to screens where necessary, providing relevant links for each screen.\newline
+\subsubsection{Periodical Hydration Statistics}
 \begin{itemize}
-\item User Profile: Displays the user's nickname, email, profile picture, and self-introduction.
-\item Menu Link List:
-    \begin{itemize}
-        \item Profile Management: Takes the user to a screen where they can modify their profile.
-        \begin{itemize}
-            \item (Reuses the User Profile Setup screen from the sign-up process)
-        \end{itemize}
-        \item Cat Profile Management: Takes the user to a screen where they can modify the cat's profile.
-        \begin{itemize}
-            \item (Reuses the Cat Profile Registration screen)
-        \end{itemize}
-        \item Today's Hydration Info: Takes the user to the screen that displays the day's hydration information.
-        \item Hydration Statistics: Takes the user to the screen that displays periodic hydration statistics.
-        \item Co-admin Management: Takes the user to the Co-admin Management screen.
-    \end{itemize}
-    \item Logout Button:
-    \begin{itemize}
-        \item Upon selection, the app processes the logout and redirects the user to the initial screen (Sign-up and Login).\\
-    \end{itemize}
+    \item Display periodical hydration statistics for the selected cat from the top scrolling cat profile.
+    \item Choose the statistical period unit: week, month, or year, and touch the calendar icon to set specific period.
+    \item Selecting 'Week' shows the daily goal hydration achievement rate for a specific week, Selecting 'Month' displays the average of weekly goal hydration achievement rate for a particular month and Selecting 'Year' displays the average of monthly goal hydration achievement rate for a specific year in a graphical format.
+    \item Above the graph, there's an overall average value for the selected period. Clicking on a specific bar in the graph allows you to see the exact numerical value for that bar.
+    \item The same here, the bar color varies depending on the gauge.\\
 \end{itemize}
 
-\subsection{Co-admin Management}
+\subsection{Co-manager Management}
 To enable the use of the Cat Hydration Management Space at the family level, a co-admin feature is provided.\newline
 \begin{itemize}
-\item Co-admin Profile Card List
-    \begin{itemize}
-        \item Each card displays the co-admin's profile picture, nickname, and self-introduction.
-        \item There is a delete button on the card, which, when pressed, removes the co-admin rights for that user.
-    \end{itemize}
-\item Add Co-admin Button
-    \begin{itemize}
-        \item Pressing this button brings up a dialog box prompting the user to enter the nickname of the co-admin they wish to add.
-        \item If the entered nickname exists in the system, that user will be added as a co-admin. If the nickname does not exist, the user will be prompted to re-enter a valid nickname.
-        \item Once a co-admin is added, a push notification is sent to that user.
-        \item When the newly added co-admin logs into the app, if auto-login is set, they are immediately directed to the Cat Hydration Management Space to which they belong.\\
-    \end{itemize}
+    \item View list of co-managers.
+    \item The person who created this space becomes the main manager and can add other users who haven't created the space yet as co-managers.
+    \item Furthermore, the main manager can remove someone from the list of co-managers by clicking the trash icon on their specific manager card.\\
+\end{itemize}
+
+\subsection{Drawer}
+\begin{itemize}
+    \item The user's profile picture, nickname, email, and bio are displayed at the top.
+    \item By pressing buttons, users can navigate to modifying the user profile, adding a cat profile, modifying a cat information, removing a cat profile, and managing co-manager screen.
+    \item Also, by pressing logout button, the automatic login session will be removed, and the user will be logged out.\\
 \end{itemize}
 
 \newpage
+
 \section{Development Environment}
-% add description if needed
 \subsection{Choice of software development platform}
-We are using windows 11 environment, we are likely to use bash terminal or WSL most of the time. Other tools like vscode or jupyter notebook will be based on windows 11. Windows might not be the best choice for software development environment but it is considered one of the good option and we don't have linux machine so we had no choice. In addition, Visual Studio Code will be used as IDE, and Typescript, Python, and MySQL will be used as languages.
+We are using Windows and MacOS environment and for cli we are likely to use bash terminal or powershell most of the time. Other tools like vscode or jupyter notebook will be based used as well. Windows might not be the best choice for software development environment but it is considered one of the good option and as we don't have any linux machine, we had no choice.
 
 \begin{table}[!htbp]\normalsize
 \begin{center}
@@ -541,14 +452,17 @@ Expo & Expo is a React Native cross platform for development. It was judged that
 \begin{center}
 \begin{tabular}{|p{1.8cm}|p{5.8cm}|}
 \hline
-Node.js & Node.js is commonly used by back-end development beginners because it can quickly process data with an asynchronous event-based architecture and provides most of what is needed in package manager. Most of the team members does not have back-end development experience and have knowledge of JavaScript, so we decide to use Node.js. Using Nest.js that supports Typescript as a framework, we hope to facilitate co-working with front-end developers who use React Native.
+Node.js & Node.js is commonly used by back-end development beginners because it can quickly process data with an asynchronous event-based architecture and provides most of what is needed in package manager. Most of the team members does not have back-end development experience and have knowledge of JavaScript, so we decide to use Node.js. 
 \\ \hline
 MySQL & We need a database to store the user information, user's cat information, list of co-manager, and water consumption data. MySQL is an open-source relational database system language, we decide to use because all team members have used it in the "Database System" class.
 \\ \hline
-Amazon Web Services(AWS) & To back up and manage databases by building and hosting cloud-based servers, we intend to use Amazon Relational Database Service (RDS) and Amazon SageMaker to manage machine learning services. With SageMaker, data scientists and developers can quickly and easily build and train machine learning models, and then directly deploy them into a production-ready hosted environment. We can get a 12-month Free Tier also a reason for choice.
+Amazon Web Services(AWS) & To back up and manage databases by building and hosting cloud-based servers, we intend to use Amazon Relational Database Service (RDS) \st{and Amazon SageMaker to manage machine learning services. With SageMaker, data scientists and developers can quickly and easily build and train machine learning models, and then directly deploy them into a production-ready hosted environment.} We can get a 12-month Free Tier also a reason for choice.
 \\ \hline
 Python 3.11 & Python is an interpreted, object-oriented, high-level programming language with dynamic semantics. Because Python is simple to use and it can be used in Machine Learning development, its popularity in AI and ML development is very high. We will be using libraries like matplotlib for visualization, tensorflow/pytorch for image classification, scikit-learn for data analysis, and all the rest of the necessary libraries like pandas or numpy etc.
 \\ \hline
+Jupyter Notebook & Jupyter Notebook is an open-source web application that allows you to create and share documents that contain live code, equations, visualizations, and narrative text. It supports various programming languages, including but not limited to Python, R, and Julia. Jupyter Notebooks are widely used in data science, machine learning, scientific research, and education.
+\\ \hline
+
 \end{tabular}
 \label{tab1}
 \end{center}
@@ -559,36 +473,46 @@ We will use open source if possible, and servers will also use AWS Free Tier pla
 \newline
 \subsection{Software in use}
 \begin{itemize}
-\item[a.]{\emph{Visual Studio Code(1.83.1)}}
+\item[a.]{Visual Studio Code}
    \newline
    Visual Studio Code (VSCode) is an open-source IDE and can be used in various environments such as Windows, macOS, and Linux. In addition to code editing, it supports various development tasks such as debugging, version management, and terminal access, also there are many extension plug-ins that can increase development productivity with plug-ins such as Prettiers. We chose this IDE because the OS of laptops used by team members is different, also it would be easy for everyone to use the same IDE for smooth cooperative working.
     \\ \end{itemize}
 \begin{itemize}
-\item[b.]{\emph{SKT NUGU}}
-   \newline
-   SKT NUGU is an artificial intelligence(AI) service based on voice recognition. It was intended to increase the user's convenience by notifying the amount of water consumption of cats through the voice of the water supplier even without accessing the application. SKT NUGU has the advantage of providing guidelines for developers to utilize, allowing them to mount artificial intelligence-based functions easily and quickly, and being able to test without NUGU devices in a GUI environment called Play Builder.
-   \\ \end{itemize}
-\begin{itemize}
-\item[c.]{\emph{Git hub}}
+\item[b.]{Git hub}
    \newline
    A version management system based on Git that allows multiple developers to work simultaneously, track changes, and avoid conflicts. The remote storage provided enables collaboration online, and facilitates communication between team members, code review, and issue management. We hope to use GitHub to prevent version problems during collaboration and to check and develop each other's code.
     \\ \end{itemize}
 \begin{itemize}
-\item[d.]{\emph{Database Management System}}
+\item[c.]{\emph{Database Management System}}
    \newline
    A database management system is essential to manage the information of the user, the user's cats, and cats’ water consumption data. To easily and securely store the information associated with it, the database needs to be designed and built.
     \\ \end{itemize}
 \begin{itemize}
-\item[e.]{\emph{Figma}}
+\item[d.]{\emph{Figma}}
    \newline
    Figma is a web-based UI/UX design tool. It supports many designers and developers to collaborate in real-time, and does not require installation. It is easy to build and manage reusable components, making it possible to maintain a consistent design pattern, which also contributes to increasing developer productivity. In addition, it is available for free and is not difficult to use, so we chose it as a software design tool.
     \\ \end{itemize}
 \begin{itemize}
-\item[f.]{\emph{Open CV}}
+\item[e.]{\emph{Open CV}}
    \newline
    This is a library of programming functions mainly for real-time computer vision. We found other alternatives like YOLOv8. However, it is unclear whether it could be used or not due to my limitation on knowledge and time. For now, we are looking to use built-in Haar Cascade alorithm for object detection.
     \\ \end{itemize}
-    
+\begin{itemize}
+\item[e.]{\emph{Flask}}
+   \newline
+   Flask micro web framework written in Python. This framework will be used to communicate between front-end and back-end(AI) locally.
+    \\ \end{itemize}
+\begin{itemize}
+\item[e.]{\emph{PyTorch}}
+   \newline
+    PyTorch is a machine learning framework derived from the Torch library, designed for tasks like computer vision and natural language processing. Initially created by Meta AI and currently under the Linux Foundation umbrella, PyTorch is freely available as open-source software distributed under the modified BSD license. In this context, our objective involves utilizing the pre-trained ResNet50 model within PyTorch and refining it through training, with a specific focus on fine-tuning for the classification of cat breeds.
+    \\ \end{itemize}
+\begin{itemize}
+\item[e.]{\emph{scikit-learn}}
+   \newline
+   Scikit-learn is an open-source machine learning library for the Python programming language. It provides simple and efficient tools for data analysis and modeling, including various machine learning algorithms for tasks such as classification, regression, clustering, dimensionality reduction, and more.
+    \\ \end{itemize}
+
 \newpage
 \subsection{Task distribution}
 \begin{table}[!htbp]\normalsize
@@ -604,7 +528,7 @@ Ann Jukyung \& Lee Yunsun & Back-end &
 The responsibilities for this role encompass various aspects of software development and database management. This includes database design and management, which involves overseeing and organizing user information, device information, and statistical data. Additionally, this position involves server-client communication. This multifaceted role entails not only creating and managing the database structure but also maintaining efficient server-client communication for a seamless and responsive user experience.
 \\ \hline
 Hong Jun Ggi & AI &
-The development environment for this project comprises Python 3.11 within a WSL (Windows Subsystem for Linux) setup. The core objective involves individual cat recognition based on unique nose prints. To achieve this, various libraries are employed, including OpenCV 4 for image processing and the likely integration of scikit-learn (sklearn) for machine learning capabilities. Additionally, for data visualization and analysis, visualization libraries like Matplotlib are utilized. Furthermore, the project explores the realm of generative AI (OpenAI API), possibly in collaboration with SKT NUGU, to enhance its capabilities and further its objectives.
+The development environment for this project comprises Python 3.11. The core objective involves individual cat recognition based on cat breed classification and color distinction. To achieve this, various libraries are employed, including OpenCV 4 for image processing and the integration of scikit-learn (sklearn) for machine learning capabilities. Additionally, for data visualization and analysis, visualization libraries like Matplotlib are utilized.
 \\ \hline
 \end{tabular}
 \label{tab2}
@@ -613,11 +537,13 @@ The development environment for this project comprises Python 3.11 within a WSL 
 
 \section{SPECIFICATIONS}
 \subsection{Database Structure}
-The list below is the tables and schemes for MulMeokNyang database. When creating tables that need to be created in advance and cat's drink measurement management spaces, there are tables that need to be created dynamically.   \\
+The list below is the tables and schemes for MulMeokNyang database. When creating tables that need to be created in advance and cat's drink measurement management spaces, there are tables that need to be created dynamically.\\
 
-Tables that need to be generated in advance include a user table to store data for membership users and a session table to store data related to the automatic login function. \\
+Tables that need to be generated in advance include a user
+table to store data for membership users, a session table
+to store data related to the automatic login function, a message auth table to store message authentication code temporarily and a management space table to store the id of all created spaces and the main and co-managers. \\
 
-Tables that need to be dynamically generated include a management\_space table to store basic data related to management space, a cat\_in\_management\_space table to store basic data for cats to manage in management space, and a cat\_hydration\_statistics table to store data related to the drinking volume of a specific cat. Tables that need to be created dynamically are created together sequentially, and the table name includes the values of the spaceId and catId variables. This allows you to dynamically create and associate tables by management space and individual cat. \\
+Tables that need to be dynamically generated include a management\_space table to store basic data related to management space, a cat\_in\_management\_space table to store basic data for cats to manage in management space, and a cat\_hydration\_statistics table to store data related to the drinking volume of a specific cat. Tables that need to be created dynamically are created together sequentially, and the table name includes the values of the spaceId and catId variables. This allows you to dynamically create and associate tables by management space and individual cat.\\
 
 \subsubsection{Lists of tables that must be created in advance}
 \begin{itemize}
@@ -630,183 +556,214 @@ Tables that need to be dynamically generated include a management\_space table t
         \item user\_profile\_photo
         \item user\_nickname : not null, unique
         \item user\_introduction
-        \item management\_space\_id : default ‘’(Empty String)
+        \item management\_space\_id
     \end{itemize}
     \item session table
     \begin{itemize}
         \item session\_id : primary key, not null, unique
-        \item user\_email : foreign key, not null, unique\\
+        \item user\_email : foreign key, not null, unique
+    \end{itemize}
+    \item message\_auth table
+    \begin{itemize}
+        \item user\_phonenum : primary key, not null, unique
+        \item authcode : not null
+    \end{itemize}
+    \item management\_space table
+    \begin{itemize}
+        \item management\_space\_id : primary key, not null, unique
+        \item main\_manager\_user\_email : foreign key, not null
+        \item co\_managers\_user\_email : JSON\\
     \end{itemize}
 \end{itemize}
 \subsubsection{Lists of tables that are going to be created statically}
 \begin{itemize}
-    \item management\_space\_\$\{spaceId\} table
-    \begin{itemize}
-        \item management\_space\_id : primary key, default \$\{spaceId\}
-        \item main\_manager\_user\_email : foreign key, not null
-        \item co\_managers\_user\_email : JSON, default ‘\{\}’
-    \end{itemize}
     \item cat\_in\_management\_space\_\$\{spaceId\} table
     \begin{itemize}
-        \item session\_id : primary key, not null, unique
-        \item cat\_id : primary key, auto\_increment, default 0
+        \item cat\_id : primary key, auto\_increment, default 1
         \item cat\_profile\_photo : not null
         \item cat\_name : not null
         \item cat\_age : not null
         \item cat\_weight : not null
-        \item cat\_photos : JSON, default ‘\{\}’
+        \item cat\_breed : not null
+        \item cat\_color : not null, JSON
+        \item is\_eating\_feedstuff : not null
         \item cat\_feedstuff\_daily\_consumption : not null
-        \item cat\_feedstuff\_moisture\_content : not null88
+        \item cat\_feedstuff\_moisture\_content : not null
         \item is\_hydration\_auto : not null
         \item cat\_goal\_hydration : not null
     \end{itemize}
-    \item cat\_hydration\_statistics\_\$\{catId\} table
+    \item cat\_hydration\_statistics\_\$\{spaceId\}\_\$\{catId\} table
     \begin{itemize}
         \item date : primary key, CURDATE()
         \item day : default DAYOFWEEK(NOW())
         \item goal\_hydration : not null
         \item actual\_hydration : default 0
-        \item hydration\_guage : default 0
+        \item hydration\_guage : default 0\\
     \end{itemize}
 \end{itemize}
 
 \subsection{Navigation}
-In our application, it uses the Navigation module from the react-navigation package. \\
+In our application, we utilize the Navigation module of the react-navigation package. All screens are implemented through Stack Navigation within the Main Navigation. Additionally, we've custom-built and are using a Drawer. \\
 
-\subsubsection{Main Navigation}
+\subsubsection{Main Navigation Route List}
 \begin{itemize}
-    \item Route List
+    \item Start
+    \item LocalSignUp
     \begin{itemize}
-        \item Start
-        \item Login
-        \item LocalSignUp
-        \item UserProfileRegistration
-        \item Find
-        \begin{itemize}
-            \item FindEmail
-            \item FindEmailResult
-            \item FindPw
-        \end{itemize}
+        \item BasicForm
+        \item RequestMessageAuth
+        \item CheckMessageAuthCodeInLS
+    \end{itemize}
+    \item Login
+    \item Find
+    \begin{itemize}
+        \item FindEmail
+        \item FindEmailResult
+        \item FindPw
+        \item CheckMessageAuthCodeInFP
+    \end{itemize}
+    \item UserProfileRegistration
+    \item PrepareSpace
+    \begin{itemize}
         \item HowToGoSpace
-        \item PendingCoManagerAddition
         \item DeviceRegistration
-        \item CatInfoRegistration
-        \begin{itemize}
-            \item CatProfileRegistration
-            \item CatPhotosRegistration
-            \item CatFeedStuffRegistration
-            \item CatHydrationRegistration
-        \end{itemize}
-        \item Main
-        \item HydrationStatistics \\
+        \item PendingCoManagerAddition
     \end{itemize}
-\end{itemize}
-
-\subsubsection{Drawer Navigation}
-\begin{itemize}
-    \item Route List
+    \item CatInfoRegistration
     \begin{itemize}
-        \item UserProfileModification
-        \item CatInfoRegistration
-        \begin{itemize}
-            \item CatProfileRegistration
-            \item CatPhotosRegistration
-            \item CatFeedStuffRegistration
-            \item CatHydrationRegistration
-        \end{itemize}
-        \item CatInfoModification
-        \begin{itemize}
-            \item CatProfileModification
-            \item CatFeedStuffModification
-            \item CatHydrationModification
-        \end{itemize}
-        \item CoManagerSet \\
+        \item CatProfileRegistration
+        \item CatPhotosForAIRegistration
+        \item AIResult
+        \item CatFeedStuffRegistration
+        \item CatHydrationRegistration
+    \end{itemize}
+    \item Main
+    \begin{itemize}
+        \item Main
+        \item HydrationStatistics
+        \item CoManager\\
     \end{itemize}
 \end{itemize}
 
-\subsection{Frequently Used Custom Component}
-The following five Component are Custom Component used throughout our application. \\
-
-\subsubsection{TopBar Component}
+\subsubsection{Custom Drawer Route List}
 \begin{itemize}
-    \item[] \includegraphics[width=0.3\textwidth]{img/C/1.png}
+    \item UserProfileModification
+    \item CatProfileRegistration
+    \item CatInfoModification
+    \begin{itemize}
+        \item CatProfileModification
+        \item CatFeedStuffModification
+        \item CatHydrationModification
+    \end{itemize}
+    \item CoManager\\
+\end{itemize}
+
+\subsection{Frequently used components}
+\subsubsection{TopBar}
+\begin{itemize}
+    \item[] \includegraphics[width=0.3\textwidth]{img/Component/1.png}
     \item The title of the current screen appears in the center, and depending on what the current screen is, go back icon and menu icon are visible.
     \item It's also used in Drawer Navigation, where it turns into a close icon rather than a backward one. \\
 \end{itemize}
 
-\subsubsection{InputContainer Component}
+\subsubsection{InputContainer}
 \begin{itemize}
-    \item[] \includegraphics[width=0.27\textwidth]{img/C/2.png}
-    \item Used on the Login, Sign Up, and Information Registration page.
-    \item The title on the top of the page represents what that input page is for and if input requirement is not satisfied, msg will deliver information on how to satisfy those input requirements.
+    \item[] \includegraphics[width=0.27\textwidth]{img/Component/2.png}
+    \item Used on the information input screen.
+    \item The title on the top of the screen represents what that input screen is for and if input requirement is not satisfied, msg will deliver information on how to satisfy those input requirements.
     \item Input values such as password and password verification are made invisible.
-    \item If the input window requires a unit, the unit is shown on the right.
     \item On each screen, it passes the required validation function to properly proceed with the validation. If the validation fails, the form submit button is not activated. \\
 \end{itemize}
 
-\subsubsection{Button Component}
-\begin{itemize}
-    \item[] \includegraphics[width=0.25\textwidth]{img/C/3.png}
-    \item Title appear and indicate which button this is inside the button.
-    \item Pressing the button changes the color to navy.
-    \item When it is triggered by Alert Component, it replaces the border raidus to 0.
-    \item The button type includes a button to move to the specific page and a button to select a value. This is distinguished by passing the goRoute for screen movement in method property and the selectOpt value for value selection.\\
-\end{itemize}
-
-\subsubsection{Alert Component}
-\begin{itemize}
-    \item[] \includegraphics[width=0.2\textwidth]{img/C/4.png}
-    \item Before setting up auto login or submitting a form, it appears in the form with the button.
-    \item Once the data is registered or modified in the database after submitting the form, the database notifies you that the processing is complete.
-    \item If you need to move to the specific page, when you press the button or close the icon, it passes the route name of the destination page to the goRoute property. \\
-\end{itemize}
-
-\subsubsection{CatProfileList Component}
-\begin{itemize}
-    \item[] \includegraphics[width=0.3\textwidth]{img/C/5.png}
-    \item When you select a cat to display drink amount information on the Main Screen and Hydration Statistics Screen or when you select a cat to modify or delete information, CatProfileList appears.
-    \item When the number of cats increases that the page overflows, scroll feature is available.
-    \item When a cat is selected, the catId value of that cat is stored in the global variable currentSelectedCat. \\
-\end{itemize}
 \newpage
 
-\subsection{Components and Configuration of each pages and Flow}
-The API that requires a detailed description of the API's call and processing process is described in detail in Section E.
-
-\subsubsection{Start Screen}
+\subsubsection{Button}
 \begin{itemize}
-    \item[] \includegraphics[width=0.27\textwidth]{img/D/1.png}
+    \item[] \includegraphics[width=0.25\textwidth]{img/Component/3.png}
+    \item Title appear and indicate which button this is inside the button.
+    \item If the button is inactivated, the color changes to navy.
+    \item For optional buttons, reduce the size in half.
+    \item When it is triggered by Alert Component, it replaces the border raidus to 0.
+    \item Pass the handler function that needs to be executed on button click as a property.\\
+\end{itemize}
+
+\subsubsection{Alert}
+\begin{itemize}
+    \item[] \includegraphics[width=0.2\textwidth]{img/Component/4.png}
+    \item Once the data is registered or modified in the database after submitting the form, the database notifies you that the processing is complete.
+    \item Before setting up auto login, it appears in the form with the button.
+    \item When a button is pressed or when the close icon is clicked, if there's a need to navigate to another screen, we pass the name of the route to navigate to in the goRoute property. \\
+\end{itemize}
+
+\subsubsection{CatProfileList}
+\begin{itemize}
+    \item[] \includegraphics[width=0.3\textwidth]{img/Component/5.png}
+    \item When you select a cat to display drink amount information on the Main Screen and Hydration Statistics Screen or when you select a cat to modify or delete information, CatProfileList appears.
+    \item When the number of cats increases that the screen overflows, scroll feature is available.
+    \item When a cat is selected, the catId value of that cat is stored in the global variable currentSelectedCat. \\
+\end{itemize}
+
+\subsection{Components Structure and Flow of each Screens}
+The API that requires a detailed description of the API's call and processing process is described in detail in Section E.\\
+
+\subsubsection{Start}
+\begin{itemize}
+    \item[] \includegraphics[width=0.27\textwidth]{img/Screen/1_Start.png}
     \item Components Structure of Screen
     \begin{itemize}
         \item Image Component
         \item SignUpButton Component
-        \begin{itemize}
-            \item Quick SignUp and Local SignUp is distinguished with method property.
-        \end{itemize}
         \item Text Component
         \item UnderlineTextButton Component
     \end{itemize}
     \item Flow of Screen
     \begin{itemize}
-        \item When the app starts, it makes sure that there is a cookie in the React Native App storage.
-        \item If cookie exists, it calls the AutoLogin API because user has auto-login enabled.
-        \item When the button ‘\_\_\_\_\_로 시작하기’ is pressed, QuickSignUp API is called.
-        \item When the button ‘이메일로 회원가입’ is pressed, it moves to the LocalSignUp Screen.
-        \item When the button ‘\underline{로그인}’ is pressed, it moves to the Login Screen. 
+        \item When the app starts, it makes sure that there is a Session ID Token in the React Native App Session storage.
+        \item If token exists, it calls the AutoLogin API because user has auto-login enabled.
+        \item When the button ‘SignUp by Email’ is pressed, it moves to the BasicForm Screen.
+        \item When the button ‘\underline{Login}’ is pressed, it moves to the Login Screen. 
         \\
     \end{itemize}
 \end{itemize}
 \newpage
 
-\subsubsection{Login Screen}
+\subsubsection{LocalSignUp}
 \begin{itemize}
-    \item[] \includegraphics[width=0.27\textwidth]{img/D/2.png}
+    \item[] \includegraphics[width=0.45\textwidth]{img/Screen/2_SignUp.png}
+    \item The BasicForm, RequestMessageAuth, and CheckMessageAuthCode screens in order.
+    \item Components Structure of Screens
+    \begin{itemize}
+        \item TopBar Component
+        \item InputContainer Component
+        \begin{itemize}
+            \item On the BasicForm Screen, checkEmailAvailable, checkPw, checkConrefmPw validation is performed, and the results are displayed below the input box.
+            \item On the RequestMessageAuth Screen, checkEmpty, checkPhoneNum validation is performed, and the result of checkPhoneNum is only displayed below the input box.
+            \item On the CheckMessageAuthCode Screen, checkEmpty validations is only performed.
+        \end{itemize}
+        \item Button Component
+    \end{itemize}
+    \item Flow of Screen
+    \begin{itemize}
+        \item Press the Go Back button to return to the previous Screen.
+        \item On the BasicForm screen, when the email is entered in the correct format, the checkEmailAvailable API is called.
+        \item If validation for email, password, and password confirmation passes, the 'Next' button becomes active, allowing navigation to the Request Message Auth screen.
+        \item On the RequestMessageAuth screen, if validation for name and phone number passes, the 'Authenticate via Message' button becomes active. Pressing this button triggers the messageAuth API and moves to the CheckMessageAuthCode screen.
+        \item Upon entering the authentication code, the 'Complete' button becomes active, triggering the checkMessageAuthCode API. If the authentication code doesn't match, an alert saying 'The authentication code doesn't match' appears.
+        \item If the authentication code matches, the LocalSignUp API is called, completing the sign-up process and moving to the Login screen.
+        \\
+    \end{itemize}
+\end{itemize}
+\newpage
+
+\subsubsection{Login}
+\begin{itemize}
+    \item[] \includegraphics[width=0.27\textwidth]{img/Screen/3_Login.png}
     \item Components Structure of Screen
     \begin{itemize}
         \item TopBar Component
         \item InputContainer Component
         \begin{itemize}
-            \item On the Login screen, only checkEmpty validation is performed, and the results of the check is not displayed below the input box.
+            \item On the Login screen, only checkEmpty validation is performed.
         \end{itemize}
         \item AutoLoginCheckbox Component
         \item Button Component
@@ -816,42 +773,72 @@ The API that requires a detailed description of the API's call and processing pr
     \begin{itemize}
         \item Press the Go Back button to return to the previous Screen.
         \item Enter your email and password, select whether to log-in automatically, and press the 'Log in' button to call the Login API.
-        \item When the button ‘\underline{이메일 찾기}’ is pressed, moves to the FindEmail Screen.
-        \item When the button ‘\underline{비밀번호 찾기}’ is pressed, moves to the FindPw Screen.
-        \item When the button ‘\underline{회원가입}’ is pressed, moves to the LocalSignUp Screen.
+        \item When the button ‘\underline{Find Email}’ is pressed, moves to the FindEmail Screen.
+        \item When the button ‘\underline{Find Pw}’ is pressed, moves to the FindPw Screen.
+        \item When the button ‘\underline{Sign Up}’ is pressed, moves to the LocalSignUp Screen.
         \\
     \end{itemize}
 \end{itemize}
 \newpage
 
-\subsubsection{LocalSignUp Screen}
+\subsubsection{FindEmail}
 \begin{itemize}
-    \item[] \includegraphics[width=0.27\textwidth]{img/D/3.png}
-    \item Components Structure of Screen
+    \item[] \includegraphics[width=0.45\textwidth]{img/Screen/4_FindEmail.png}
+    \item The FindEmail and FindEmailResult screens in order.
+    \item Components Structure of Screens
     \begin{itemize}
         \item TopBar Component
         \item InputContainer Component
         \begin{itemize}
-            \item On the LocalSignUp Screen, checkEmail, checkPw, checkConrefmPw validation is performed, and the results are displayed below the input box.
+            \item On the FindEmail screen, checkEmpty, checkPhoneNum validation is performed, and the results of the inspection are not displayed below the input box.
+        \end{itemize}
+        \item Text Component
+        \item Button Component
+    \end{itemize}
+    \item Flow of Screen
+    \begin{itemize}
+        \item Press the Go Back button to return to the previous Screen.
+        \item Enter your name and phone number, and press the '이메일 찾기' button to call the FindEmail API.
+        \item If there is a serched email, move to the FindEmailResult screen and display the respective email.
+        \item When the button ‘{Login}’ is pressed, moves to the FindEmail Screen.
+        \item When the button ‘{Find Pw}’ is pressed, moves to the FindEmail Screen.
+        \\
+    \end{itemize}
+\end{itemize}
+\newpage
+
+\subsubsection{FindPw}
+\begin{itemize}
+    \item[] \includegraphics[width=0.45\textwidth]{img/Screen/5_FindPw.png}
+    \item The FindPw and CheckMessageAuthCode screens in order.
+    \item Components Structure of Screens
+    \begin{itemize}
+        \item TopBar Component
+        \item InputContainer Component
+        \begin{itemize}
+            \item On the FindPw screen, a checkEmail validation is performed, and the results are displayed below the input box.
+            \item On the CheckMessageAuthCode screen, a checkEmpty validation is only performed.
         \end{itemize}
         \item Button Component
     \end{itemize}
     \item Flow of Screen
     \begin{itemize}
         \item Press the Go Back button to return to the previous Screen.
-        \item After entering e-mail, password, and password verification, press the '본인인증하기' button to call the LocalSignUp API.
+        \item If both email and phone number validations pass, the 'Authenticate via Message' button becomes active. Upon clicking the button, it triggers the messageAuth API and moves to the Check Message Auth Code screen.
+        \item Once the authentication code is entered, the 'Complete' button becomes active, triggering the checkMessageAuthCode API first. If the authentication code doesn't match, an alert saying 'The authentication code doesn't match' appears.
+        \item If the authentication code matches, it calls the SendPw API.
         \\
     \end{itemize}
 \end{itemize}
 \newpage
 
-\subsubsection{UserProfileRegistration Screen}
+\subsubsection{UserProfileRegistration}
 \begin{itemize}
-    \item[] \includegraphics[width=0.27\textwidth]{img/D/4.png}
+    \item[] \includegraphics[width=0.27\textwidth]{img/Screen/6_UserProfile.png}
     \item Components Structure of Screen
     \begin{itemize}
         \item TopBar Component
-        \item PhotoRegist Component
+        \item ImageInputContainer Component
         \begin{itemize}
             \item Uses react-native-image-picker package.
         \end{itemize}
@@ -863,189 +850,134 @@ The API that requires a detailed description of the API's call and processing pr
     \end{itemize}
     \item Flow of Screen
     \begin{itemize}
-        \item Press the Go Back button to return to the previous Screen.
-        \item Press the camera button to select a picture from the gallery, or to register a profile picture by taking a picture with the camera.
-        \item Enter the nickname, which is mandatory, and press the '완료' button to call the RegisterUserProfile API.
+        \item Press the camera button to select a profile photo from user's gallery.
+        \item Enter the nickname, which is mandatory, and press the 'Completion' button to call the RegisterUserProfile API.
         \\
     \end{itemize}
 \end{itemize}
 \newpage
 
-\subsubsection{FindEmail Screen}
+\subsubsection{PrepareSpace}
 \begin{itemize}
-    \item[] \includegraphics[width=0.27\textwidth]{img/D/5.png}
+    \item[] \includegraphics[width=0.45\textwidth]{img/Screen/7, 8.png}
+    \item The HowToGoSpace, DeviceRegistration and PendingCoManagerAddition screens in order.
+    \item HowToGoSpace
+    \begin{itemize}
+        \item Components Structure of Screen
+        \begin{itemize}
+            \item TopBar Component
+            \item Text Component
+            \item Button Component
+        \end{itemize}
+        \item Flow of Screen
+        \begin{itemize}
+            \item Press the 'Create my own management space' button to go to the DeviceRegistration Screen.
+            \item Press the 'Pending on Co-Manager Addition' button to go to the PendingCoManagerAddition Screen.
+            \\
+        \end{itemize}
+    \end{itemize}
+    \item DeviceRegistration
+    \begin{itemize}
+        \item Components Structure of Screen
+        \begin{itemize}
+            \item TopBar Component
+            \item Image Component
+            \item Text Component
+            \item Loading Component
+            \item Button Component
+            \item DeviceSelect Component
+            \item[] \includegraphics[width=0.2\textwidth]{img/Screen/8_Device2.png}
+        \end{itemize}
+        \item Instead of Using API
+        \begin{itemize}
+            \item Since the device cannot actually be registered, it shows an animation during loading for 3 seconds, assuming that the pairing button is being pressed.
+            \item Then, the Device Select Component is displayed and when the user selects Device, the property value of the Loading Component is changed to false and shows the pairing completed animation. Then it goes to the CatProfileRegistration Screen.
+            \\
+        \end{itemize}
+    \end{itemize}
+    \item PendingCoManagerAddition
+    \begin{itemize}
+        \item Components Structure of Screen
+        \begin{itemize}
+            \item TopBar Component
+            \item Text Component
+            \item Loading Component
+        \end{itemize}
+        \item Flow of Screen
+        \begin{itemize}
+            \item Press the Back button to call the clearInterval function and return to the previous Screen.
+            \item Use the setInterval function to call the GetManagementSpaceId API every 5 seconds until you are registered as a co-administrator.
+            \\
+        \end{itemize}
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{CatProfileRegistration}
+\begin{itemize}
+    \item[] \includegraphics[width=0.27\textwidth]{img/Screen/10_CatProfile.png}
     \item Components Structure of Screen
     \begin{itemize}
         \item TopBar Component
+        \item ImageInputContainer Component
         \item InputContainer Component
         \begin{itemize}
-            \item On the FindEmail screen, checkEmpty, checkPhoneNum validation is performed, and the results of the inspection are not displayed below the input box.
+            \item On the CatProfileRegistration screen, a checkEmpty validation is only performed.
         \end{itemize}
         \item Button Component
     \end{itemize}
     \item Flow of Screen
     \begin{itemize}
-        \item Press the Go Back button to return to the previous Screen.
-        \item Enter your name and phone number, and press the '이메일 찾기' button to call the FindEmail API.
-        \\
-    \end{itemize}
-\end{itemize}
-\newpage
-
-\subsubsection{FindEmailResult Screen}
-\begin{itemize}
-    \item[] \includegraphics[width=0.27\textwidth]{img/D/6.png}
-    \item Components Structure of Screen
-    \begin{itemize}
-        \item TopBar Component
-        \item Text Component
-        \begin{itemize}
-            \item Displays property userEmail value.
-        \end{itemize}
-        \item Button Component
-    \end{itemize}
-    \item Flow of Screen
-    \begin{itemize}
-        \item Press the Go Back button to return to the previous Screen.
-        \item Press the '로그인' button to go to the Login Screen.
-        \item Press the '비밀번호 찾기’ button to go to the FindPw Screen.
-        \\
-    \end{itemize}
-\end{itemize}
-\newpage
-
-\subsubsection{FindPw Screen}
-\begin{itemize}
-    \item[] \includegraphics[width=0.27\textwidth]{img/D/7.png}
-    \item Components Structure of Screen
-    \begin{itemize}
-        \item TopBar Component
-        \item InputContainer Component
-        \begin{itemize}
-            \item On the FindPw screen, a checkEmail validation is performed, and the results are displayed below the input box.
-        \end{itemize}
-        \item Button Component
-    \end{itemize}
-    \item Flow of Screen
-    \begin{itemize}
-        \item Press the Go Back button to return to the previous Screen.
-        \item Enter an email and press the '본인인증하기' button to call the FindPw API.
-        \\
-    \end{itemize}
-\end{itemize}
-\newpage
-
-\subsubsection{HowToGoSpace Screen}
-\begin{itemize}
-    \item[] \includegraphics[width=0.27\textwidth]{img/D/8.png}
-    \item Components Structure of Screen
-    \begin{itemize}
-        \item TopBar Component
-        \begin{itemize}
-            \item If there was a go-back button, the go-back button will not appear on the HowToGoSpace screen because it will be moved to the Start, Login screen while logged in.
-        \end{itemize}
-        \item Text Component
-        \item Button Component
-    \end{itemize}
-    \item Flow of Screen
-    \begin{itemize}
-        \item Press the '나만의 관리 스페이스 만들기' button to go to the DeviceRegistration Screen.
-        \item Press the '공동 관리자 등록 대기' button to go to the PendingCoManagerAddition Screen.
-        \\
-    \end{itemize}
-\end{itemize}
-\newpage
-
-\subsubsection{PendingCoManagerAddition Screen}
-\begin{itemize}
-    \item[] \includegraphics[width=0.27\textwidth]{img/D/9.png}
-    \item Components Structure of Screen
-    \begin{itemize}
-        \item TopBar Component
-        \item Text Component
-        \item Loading Component
-    \end{itemize}
-    \item Flow of Screen
-    \begin{itemize}
-        \item Press the Back button to call the clearInterval function and return to the previous Screen.
-        \item Use the setInterval function to call the GetManagementSpaceId API every 5 seconds until you are registered as a co-administrator.
-        \\
-    \end{itemize}
-\end{itemize}
-\newpage
-
-\subsubsection{DeviceRegistration Screen}
-\begin{itemize}
-    \item[] \includegraphics[width=0.27\textwidth]{img/D/10.png}
-    \item Components Structure of Screen
-    \begin{itemize}
-        \item TopBar Component
-        \item Image Component
-        \item Text Component
-        \item Loading Component
-        \item Button Component
-        \item DeviceSelect Component
-        \item[] \includegraphics[width=0.2\textwidth]{img/D/10-1.png}
-    \end{itemize}
-    \item Flow of Screen
-    \begin{itemize}
-        \item Press the Back button to call the clearInterval function and return to the previous Screen.
-    \end{itemize}
-    \item Instead of Using API
-    \begin{itemize}
-        \item Since the device cannot actually be registered, it shows an animation during loading for 3 seconds, assuming that the pairing button is being pressed.
-        \item Then, the Device Select Component is displayed and when the user selects Device, the property value of the Loading Component is changed to false and shows the pairing completed animation. Then it goes to the CatProfileRegistration Screen.
-    \end{itemize}
-\end{itemize}
-\newpage
-
-\subsubsection{CatProfileRegistration Screen}
-\begin{itemize}
-    \item[] \includegraphics[width=0.27\textwidth]{img/D/11.png}
-    \item Components Structure of Screen
-    \begin{itemize}
-        \item TopBar Component
-        \item PhotoRegist Component
-        \item InputContainer Component
-        \begin{itemize}
-            \item On the CatProfileRegistration screen, checkEmpty, checkNumber validation is performed, and the results of the check are displayed below the input box.
-        \end{itemize}
-        \item Button Component
-    \end{itemize}
-    \item Flow of Screen
-    \begin{itemize}
-        \item If the user does not have a management space yet, it displays Alert Component that says, "고양이 프로필을 최소한 한 마리 이상 등록 해야 관리 스페이스가 생성됩니다"
-        \item Press the camera button to select a picture from the gallery, or take a picture with the camera to register a cat profile picture.
+        \item Press the camera button to select a profile photo from user's gallery.
         \item Enter a name, age, and weight, and press the Next button to save the catName, catAge, and catWeight global variables with the Context API and moves to CatPhotosRegistration Screen.
     \end{itemize}
 \end{itemize}
 \newpage
 
-\subsubsection{CatPhotosRegistration Screen}
+\subsubsection{CatPhotosforAISet}
 \begin{itemize}
-    \item[] \includegraphics[width=0.27\textwidth]{img/D/12.png}
-    \item Components Structure of Screen
+    \item[] \includegraphics[width=0.45\textwidth]{img/Screen/11.png}
+    \item The CatPhotosForAIRegistration and AIResult screens in order.
+    \item CatPhotosForAIRegistration
     \begin{itemize}
-        \item TopBar Component
-        \item Text Component
-        \item CatPhotosRegist Component
-        \item Button Component
+        \item Components Structure of Screen
         \begin{itemize}
-            \item User must register 5 photos to activate the button.
+            \item TopBar Component
+            \item Text Component
+            \item Image Component
+            \item Icon Component
+            \item FlatList Component
+            \item Button Component
+            \begin{itemize}
+                \item User must register 5 photos to activate the button.
+            \end{itemize}
+        \end{itemize}
+        \item Flow of Screen
+        \begin{itemize}
+            \item Press the Go Back button to return to the previous Screen.
+            \item Upon tapping the camera button and selecting photos from the gallery, a total of 5 photos are uploaded. Afterward, pressing the 'AI Analysis' button triggers the CallAI API.
+            \item Upon receiving the AI analysis results, it moves to the AI Result screen\\
         \end{itemize}
     \end{itemize}
-    \item Flow of Screen
+    \item AIResult
     \begin{itemize}
-        \item Press the camera button to select a picture from the gallery or take a picture with the camera to register a cat photo.
-        \item Press the Go Back button to return to the previous Screen.
-        \item Register 5 photos, press the 'Next' button to save the catPhotos global variable with the Context API and navigate to the CatFeedStuffRegistration Screen.
+        \item Components Structure of Screen
+        \begin{itemize}
+            \item TopBar Component
+            \item Text Component
+            \item Circle Component
+            \item Button Component
+        \end{itemize}
+        \item Flow of Screen
+        \begin{itemize}
+            \item Pressing the 'Previous' button will navigate back to the previous screen, allowing for a re-analysis via AI.
+            \item Pressing the 'Next' button saves the global variables catBreed and catColor via the Context API, then moves to the CatFeedStuffRegistration screen.\\
+        \end{itemize}
     \end{itemize}
 \end{itemize}
-\newpage
 
-\subsubsection{CatFeedStuffRegistration Screen}
+\subsubsection{CatFeedStuffRegistration}
 \begin{itemize}
-    \item[] \includegraphics[width=0.45\textwidth]{img/D/13.png}
+    \item[] \includegraphics[width=0.27\textwidth]{img/Screen/12_CatFeed.png}
     \item Components Structure of Screen
     \begin{itemize}
         \item TopBar Component
@@ -1056,22 +988,22 @@ The API that requires a detailed description of the API's call and processing pr
         \end{itemize}
         \item InputContainer Component
         \begin{itemize}
-            \item On the CatFeedStuffRegistration screen, checkEmpty, checkNumber validation is performed only when 'Yes' is pressed, and the results are displayed below the input box.
+            \item On the CatFeedStuffRegistration screen, a checkEmpty validation is performed only when 'Yes' is pressed.
         \end{itemize}
     \end{itemize}
     \item Flow of Screen
     \begin{itemize}
         \item Press the Go Back button to return to the previous Screen.
-        \item Press ‘예’ on the intake button and enter daily intake, water content. Then, press Next to save the catFeedStuffDailyConsumption, catFeedStuffMoistureContent global variables in the Context API.
-        \item Press 'No' and then press 'Next' to store 0 in the catFeedStuffDailyConsumption, catFeedStuffMoistureContent global variable.
+        \item Press ‘Yes’ on the intake button and enter daily intake, water content. Then, press Next to save the isEatingFeedStuff, catFeedStuffDailyConsumption and catFeedStuffMoistureContent global variables using the Context API.
+        \item Press 'No' and then press 'Next' to store false in the isEatingFeedStuff and 0 in the catFeedStuffDailyConsumption, catFeedStuffMoistureContent.
         \item Next, it goes to the CatHydrationRegistration Screen.
     \end{itemize}
 \end{itemize}
 \newpage
 
-\subsubsection{CatHydrationRegistration Screen}
+\subsubsection{CatHydrationRegistration}
 \begin{itemize}
-    \item[] \includegraphics[width=0.45\textwidth]{img/D/14.png}
+    \item[] \includegraphics[width=0.27\textwidth]{img/Screen/13_CatHydration.png}
     \item Components Structure of Screen
     \begin{itemize}
         \item TopBar Component
@@ -1080,24 +1012,23 @@ The API that requires a detailed description of the API's call and processing pr
         \item InputContainer Component
         \begin{itemize}
             \item Press 'Auto' to automatically calculate the recommended water intake and automatically enter it into the input box.
-            \item On the CatHyditionRegistration screen, checkEmpty, checkNumber validation is performed, and the results of the inspection are displayed below the input box.
+            \item On the CatHyditionRegistration screen, a checkEmpty  validation is only performed.
         \end{itemize}
     \end{itemize}
     \item Flow of Screen
     \begin{itemize}
         \item Press the Go Back button to return to the previous Screen.
-        \item Press '자동' on how to set the water intake and then press the 'Additional Registration' or 'Registration Completed' button to store true in the isHyditionAuto global variable with the Context API and substitute the values of the global variable catFeedStuffDailyConsumption, catFeedStuffMoistureContent into the recommended drinking volume formula and store the calculated values in the catGoalHydition global variable.
-        \item Press '수동' and enter the daily target water intake, then press the 'Additional Registration' or 'Registration Completed' button to store false in the global variable isHydrationAuto and save the input in the global variable catGoalHydration.
+        \item Press 'Automatically' on how to set the water intake and then press the 'Additional Registration' or 'Registration Completed' button to store true in the isHyditionAuto global variable with the Context API and substitute the values of the global variable catFeedStuffDailyConsumption, catFeedStuffMoistureContent into the recommended drinking volume formula and store the calculated values in the catGoalHydition global variable.
+        \item Press 'Manually' and enter the daily target water intake, then press the 'Additional Registration' or 'Registration Completed' button to store false in the global variable isHydrationAuto and save the input in the global variable catGoalHydration.
         \item Then, call the CatInfoRegist API.
-        \item Once you have pressed the '추가 등록' button, it goes back to the CatProfileRegistration Screen.
-        \item If you press the '등록 완료' button, delete the global variables' value related to cat information and navigate to the Main screen.
+        \item Once you have pressed the 'Additional Register' button, it goes back to the CatProfileRegistration Screen.
+        \item If you press the 'Complete Registration' button, delete the global variables' value related to cat information and navigate to the Main screen.\\
     \end{itemize}
 \end{itemize}
-\newpage
 
-\subsubsection{Main Screen}
+\subsubsection{Main}
 \begin{itemize}
-    \item[] \includegraphics[width=0.27\textwidth]{img/D/15.png}
+    \item[] \includegraphics[width=0.45\textwidth]{img/Screen/14_Main.png}
     \item Components Structure of Screen
     \begin{itemize}
         \item TopBar Component
@@ -1106,11 +1037,11 @@ The API that requires a detailed description of the API's call and processing pr
         \item HydrationButton Component
         \item HydrationGauge Component
         \begin{itemize}
-            \item 0\% \~ 29\% : Red
-            \item 30\% \~ 59\% : Yellow
-            \item 60\% \~ 89\% : Green
-            \item 90\% \~ 149\% : Blue
-            \item 150\% \~ 200\% : Red
+            \item From 0\% to 29\%: Red
+            \item From 30\% to 59\%: Yellow
+            \item From 60\% to 89\%: Green
+            \item From 90\% to 150\%: Blue
+            \item From 151\% to 200\%: Red
         \end{itemize}
         \item EvaluationText Component
         \item Button Component
@@ -1120,59 +1051,53 @@ The API that requires a detailed description of the API's call and processing pr
         \item Call the GetCatProfileList API in the Mount step, process the response, and call the GetCatMainInfo API.
         \item Press the menu button to open the Drawer.
         \item In the cat profile list at the top, call the GetCatMainInfo API whenever user press a picture of another cat profile that is not currently selected.
-        \item When you press the '물주기' button, a cat-calling sound comes out from the built-in speaker, and water comes out when the cat approaches the water supply.
-        \item You will receive a push notification whether the cat drank water or not within 10 minutes.
         \item A water intake gauge shows how much the cat has intaken today so far.
         \item Different assessments appear depending on the gauge.
-        \item Press the '기간별 음수량 통계 보기' button to go to the Hydration Statistics Screen.
+        \item Press the 'View period-based hydrration statistics' button to go to the Hydration Statistics Screen.
     \end{itemize}
 \end{itemize}
 \newpage
 
-\subsubsection{HydrationStatistics Screen}
+\subsubsection{HydrationStatistics}
 \begin{itemize}
-    \item[] \includegraphics[width=0.47\textwidth]{img/D/16.png}
+    \item[] \includegraphics[width=0.45\textwidth]{img/Screen/15_StatisticsGraph.png}
     \item Components Structure of Screen
     \begin{itemize}
         \item TopBar Component
         \item CatProfileList Component
-        \item RangeSet Component
+        \item UnitSelect Component
         \item Calender Component
-        \item[] \includegraphics[width=0.2\textwidth]{img/D/16-1.png}
+        \item[] \includegraphics[width=0.42\textwidth]{img/Screen/16_StatisticsCalendar.png}
         \item AvgText Component
-        \item BarGraph Component
+        \item HydrationGraph Component
         \begin{itemize}
-            \item Bar Component
-            \item BarDetail Component
+            \item XAndBar Component
         \end{itemize}
     \end{itemize}
     \item Flow of Screen
     \begin{itemize}
         \item GetCatStatistics API is called in the Mount step.
         \item Press the Go Back button to return to the previous Screen.
-        \item Press the menu button to open the Drawer.
         \item From the cat profile list at the top, whenever you click cat's picture that is not currently selected, change the statistical period, or select a specific week/month/year in the calendar, GetCatStatistics API is called.
-        \item For '주', if you select a specific date in the calendar, the week containing that date is selected.
-        \item Touch a particular bar to display detailed water intake amount.
+        \item For 'Week', if you select a specific date in the calendar, the week containing that date is selected.
+        \item Touch a particular bar to display specific figures.
     \end{itemize}
 \end{itemize}
 \newpage
 
 \subsubsection{Drawer}
 \begin{itemize}
-    \item[] \includegraphics[width=0.33\textwidth]{img/D/17.png}
+    \item[] \includegraphics[width=0.27\textwidth]{img/Screen/17_Drawer.png}
     \item Components Structure of Screen
     \begin{itemize}
         \item TopBar Component
         \item UserProfile Component
-        \item TextContainerButton Component
-        \begin{itemize}
-            \item For users with only one cat registered, the Delete Cat Profile button does not appear.
-        \end{itemize}
-        \item UnderlineTextButton Component
+        \item DrawerRoute Component
+        \item SubDrawerRotue Component
         \item LogoutButton Component
-        \item LongAlert Component
+        \item SelectCatAlert Component
         \begin{itemize}
+            \item[] \includegraphics[width=0.27\textwidth]{img/Screen/18_CatAlert.png}
             \item IconButton Component
             \item Title Component
             \item Text Component
@@ -1183,20 +1108,19 @@ The API that requires a detailed description of the API's call and processing pr
     \item Flow of Screen
     \begin{itemize}
         \item Press the Close button to close the Drawer.
-        \item Press the '사용자 프로필 수정' button to go to the UserProfileModification Screen.
-        \item Pressing the '프로필', '습식사료', and '음수량' buttons under '고양이 프로필 수정' displays LongAlert Component to select the cat to modify the information.
-        \item Select the cat you want to modify and press the '수정' button to go to the Cat\_\_\_\_\_Modification Screen.
-        \item When you press the 'Delete Cat Profile' button, a LongAlert Component will appear to select the cat to delete all the information.
-        \item Select the cat you want to delete and press the '삭제' button to call the DeleteCatInfo API.
-        \item Press the '공동관리자 관리' button to navigate to the CoManagerSet Screen.
-        \item If user presses the Logout button, the Alert Component that says 'Do you really want to log out?' apeears and when user proceed with 'Yes', the Logout API is called.
+        \item Press the 'Modify User Profile' button to go to the UserProfileModification Screen.
+        \item Press the 'Add Cat Profile' button to go to the CatProfileRegistration Screen.
+        \item Pressing the 'Profile', 'Wet Food', and 'Hydration' buttons under 'Modify Cat Profile' displays SelectCatAlert to select the cat to modify the information.
+        \item Select the cat you want to modify and press the 'Modify' button to go to the Cat\_\_\_\_\_Modification Screen.
+        \item When you press the 'Delete Cat Profile' button, a SelectCatAlert Component will appear to select the cat to delete all the information.
+        \item Select the cat you want to delete and press the 'Delete' button to call the DeleteCatInfo API.
+        \item Press the 'Co-Manager' button to navigate to the CoManager Screen.
+        \item If user presses the Logout button, the Logout API is called.\\
     \end{itemize}
 \end{itemize}
-\newpage
 
-\subsubsection{UserProfileModification Screen}
+\subsubsection{UserProfileModification}
 \begin{itemize}
-    \item[] \includegraphics[width=0.27\textwidth]{img/D/18.png}
     \item Components Structure of Screen
     \begin{itemize}
         \item Identical to UserProfileRegistration Screen.
@@ -1204,15 +1128,13 @@ The API that requires a detailed description of the API's call and processing pr
     \item Flow of Screen
     \begin{itemize}
         \item Call the GetUserProfile API in the Mount step.
-        \item Call the ModifyUserProfile API when the '완료' button is pressed.
-        \item The rest is the same as the UserProfileRegistration Screen.
+        \item Call the ModifyUserProfile API when the 'Modify' button is pressed.
+        \item The rest is the same as the UserProfileRegistration Screen.\\
     \end{itemize}
 \end{itemize}
-\newpage
 
-\subsubsection{CatProfileModification Screen}
+\subsubsection{CatProfileModification}
 \begin{itemize}
-    \item[] \includegraphics[width=0.27\textwidth]{img/D/19.png}
     \item Components Structure of Screen
     \begin{itemize}
         \item Identical to CatProfileRegistration Screen.
@@ -1220,15 +1142,13 @@ The API that requires a detailed description of the API's call and processing pr
     \item Flow of Screen
     \begin{itemize}
         \item Call the GetCatProfile API in the Mount step.
-        \item Call the ModifyUserProfile API when the '완료' button is pressed.
-        \item The rest is the same as the CatProfileRegistration Screen.
+        \item Call the ModifyUserProfile API when the 'Modify' button is pressed.
+        \item The rest is the same as the CatProfileRegistration Screen.\\
     \end{itemize}
 \end{itemize}
-\newpage
 
-\subsubsection{CatFeedStuffModification Screen}
+\subsubsection{CatFeedStuffModification}
 \begin{itemize}
-    \item[] \includegraphics[width=0.27\textwidth]{img/D/20.png}
     \item Components Structure of Screen
     \begin{itemize}
         \item Identical to CatFeedStuffRegistration Screen.
@@ -1236,15 +1156,13 @@ The API that requires a detailed description of the API's call and processing pr
     \item Flow of Screen
     \begin{itemize}
         \item Call the GetCatFeedStuffAPI in the Mount step.
-        \item Call the ModifyCatFeedStuff API when the '완료' button is pressed.
-        \item The rest is the same as the CatFeedStuffRegistration Screen.
+        \item Call the ModifyCatFeedStuff API when the 'Modify' button is pressed.
+        \item The rest is the same as the CatFeedStuffRegistration Screen.\\
     \end{itemize}
 \end{itemize}
-\newpage
 
-\subsubsection{CatHydrationModification Screen}
+\subsubsection{CatHydrationModification}
 \begin{itemize}
-    \item[] \includegraphics[width=0.27\textwidth]{img/D/21.png}
     \item Components Structure of Screen
     \begin{itemize}
         \item Identical to CatHydrationRegistration Screen.
@@ -1252,25 +1170,20 @@ The API that requires a detailed description of the API's call and processing pr
     \item Flow of Screen
     \begin{itemize}
         \item Call the GetCatHydration in the Mount step.
-        \item Call the ModifyCatHydration API when the '완료' button is pressed.
-        \item The rest is the same as the CatHydrationRegistration Screen.
+        \item Call the ModifyCatHydration API when the 'Modify' button is pressed.
+        \item The rest is the same as the CatHydrationRegistration Screen.\\
     \end{itemize}
 \end{itemize}
-\newpage
 
-\subsubsection{CoManagerSet Screen}
+\subsubsection{CoManager}
 \begin{itemize}
-    \item[] \includegraphics[width=0.47\textwidth]{img/D/22.png}
+    \item[] \includegraphics[width=0.45\textwidth]{img/Screen/19_CoManager.png}
     \item Components Structure of Screen
     \begin{itemize}
         \item TopBar Component
-        \item MainManagerCard Component
-        \item CoManagersCardList Component
-        \begin{itemize}
-            \item CoManagerCard Component
-        \end{itemize}
+        \item ManagerCard Component
         \item Button Component
-        \item LongAlert Component
+        \item SearchUserAlert Component
         \begin{itemize}
             \item IconButton Component
             \item Title Component
@@ -1279,44 +1192,45 @@ The API that requires a detailed description of the API's call and processing pr
             \item SearchedUser Component
             \item Button Component
         \end{itemize}
+        \item Alert Component
     \end{itemize}
     \item Flow of Screen
     \begin{itemize}
         \item Call the GetManagerList API in the Mount step.
-        \item Pressing the Add Administrator button to displays the LongAlert Component. After entering a nickname and when you press the search icon, it calls the UserSearch API.
-        \item Select the administrator user wants to add and press the Add button to call the AddCoManager API.
-        \item On the Administrator Screen, the Trash icon appears in the Co Manager Card, and when you press the '예’' button in the Manager Delete Alert Component, the DeleteCoManager API is called.
+        \item Pressing the Add Administrator button to displays the SearchUserAlert Component. After entering a nickname and when you press the search icon, it calls the UserSearch API.
+        \item When pressing the 'Add Co-Manager' button, the SearchUserAlert Component appears. After entering a nickname and clicking the search icon, it triggers the User Search API. Pressing the 'Add' button thereafter calls the AddCoManager API.
+        \item On the Administrator Screen, the Trash icon appears in the Co Manager Card, and when you press the 'Yes' button in the Manager Delete Alert Component, the DeleteCoManager API is called.
         \\
     \end{itemize}
 \end{itemize}
 
-\subsection{API Usage Logic}
+\newpage
+\subsection{BackEnd API Usage Logic}
 \subsubsection{AutoLogin API}
 \begin{itemize}
     \item Client send HTTP Request to Server
     \begin{itemize}
-        \item Case 1) Users with auto login disabled
+        \item Auto Login Case 1) Users with auto login disabled
         \begin{itemize}
-            \item Set the userEmail value to HTTP Request and send the Request to the Server.
+            \item Set the userEmail value to HTTP Request and send the Request(POST) to the Server.
         \end{itemize}
-        \item Case 2) Users with auto login enabled
+        \item Auto Login Case 2) Users with auto login enabled
         \begin{itemize}
-            \item Set the cookie that contains the Session ID in the React Native app storage to HTTP Request and send the request to the Server.
+            \item Set the session that contains the Session ID in the AysncStorage to HTTP Request(GET) and send the request to the Server.
             \\
         \end{itemize}
     \end{itemize}
     \item HTTP Request process in the sever, HTTP Response from server to client
     \begin{itemize}
-        \item Case 1) Users with auto login disabled
+        \item Auto Login Case 1) Users with auto login disabled
         \begin{itemize}
-            \item If the value set in the HTTP Request is userEmail, create a session and add a record along with userEmail to the session table.
-            \item Configure Session ID and generate a cookie.
+            \item If the value set in the HTTP Request is userEmail, generate a sessionID and add a record along with userEmail to the session table.
             \item When querying the record in the user table with userEmail, if there is a value for management\_space\_id, it is saved in the variable managementSpaceId, and if not, it is saved as null.
-            \item Set userEmail, managementSpaceId, and Cookie in HTTP Response to send a response to the Client.
+            \item Set managementSpaceId, and SessionId in HTTP Response to send a response to the Client.
         \end{itemize}
-        \item Case 2) Users with auto login enabled
+        \item Auto Login Case 2) Users with auto login enabled
         \begin{itemize}
-            \item The session ID stored in the cookie set in the HTTP Request inquires the record in the session table and stores the user\_email value in the userEmail variable.
+            \item The session ID stored in the session set in the HTTP Request inquires the record in the session table and stores the user\_email value in the userEmail variable.
             \item When querying the record in the user table with userEmail, if there is a value for management\_space\_id, it is saved in the variable managementSpaceId, and if not, it is saved as null.
             \item Set userEmail, managementSpaceId to HTTP Response and send a response to the Client.
             \\
@@ -1325,64 +1239,9 @@ The API that requires a detailed description of the API's call and processing pr
     \item HTTP Response Processing in Client side
     \begin{itemize}
         \item The userEmail value set in the HTTP Response is stored as a global variable userEmail using the Context API, and if the managementSpaceId value is not null, it is also stored as a global variable managementSpaceId.
-        \item If the cookie is set in HTTP Response, it saves the cookie in the React Native App storage before moving into the screen.
+        \item If the sessionID is set in HTTP Response, it saves the cookie in the AsyncStorage before moving into the screen.
         \item If the user have a managementSpaceId value, go to the Main screen, and if the value is null, go to the HowToGoSpace screen.
         \\
-    \end{itemize}
-\end{itemize}
-
-\subsubsection{QuickSignUp APIs : NaverSignUp, KaKaoSignUp, GoogleSignUp}
-\begin{itemize}
-    \item HTTP Response for Server → Client
-    \begin{itemize}
-        \item Using Naver, Kakao, and Google's simple login APIs and with the user profile information provided, userEmail values are first stored in variables.
-        \item Check the record in the user table with the userEmail value, store true in the userExists variable if there is a registered user, and store false if not.
-        \item Case 1) Registered Users → Easy Login
-        \begin{itemize}
-            \itemIf the userExists value is true, check the record in the user table with the userEmail value, and if there are user\_nickname and management\_space\_id values, store them in the userNickname and managementSpaceId variables, and if not, store null.
-            \item When login is successful, store true to the variable loginSuccess.
-            \item Set loginSucess, userEmail, userNickname, managementSpaceId to HTTP Response and send it to the Client.
-        \end{itemize}
-        \item Case 2) Unregistered users → Easy membership registration
-        \begin{itemize}
-            \item If the userExists value is false, the remaining profile information is also stored in the variable, and add record containing userEmail, userPw, userName, and userPhoneNum values to the user table.
-            \item When registeration is successful, store true to the variable registerSuccess
-            \item Set registerSuccess, userEmail to HTTP Response and send it to Client.
-            \\
-        \end{itemize}
-    \end{itemize}
-    \item HTTP Response Processing in Client side
-    \begin{itemize}
-        \item The userEmail value set in HTTP Response is stored as a global variable userEmail using the Context API.
-        \item Case 1) Registered Users → Easy Login
-        \begin{itemize}
-            \item If loginSuccess is set in HTTP Response, check whether there is a value stored in userNickname or null is stored.
-            \item The existence of the userNickname value means that the user profile has been registered.
-            \item Case 1-1) Users that have profile registration completed
-            \begin{itemize}
-                \item Display an Alert Component that says, ‘자동 로그인을 설정하시겠습니까?’.
-                \item If '예', follow case 1-1-1 below.
-                \item Then, if the managementSpaceId value set in HTTP Response is not null, it is stored as a global variable managementSpaceId using the Context API.
-                \item If the user have a managementSpaceId value, go to the Main screen, and if the value is null, go to the HowToGoSpace screen.
-                \item Case 1-1-1) User who wants auto login
-                \begin{itemize}
-                    \item Set the userEmail value to HTTP Request and send the request to the Auto Login API in the server.
-                    \item This corresponds to Case 1 of the AutoLogin API.
-                    \item Store the cookie set in the HTTP Response sent from the AutoLogin API in the React Native App Storage.
-                \end{itemize}
-            \end{itemize}
-            \begin{itemize}
-                \item Case 1-2) User who needs to register for a user profile
-                \begin{itemize}
-                    \item If the userNickname value is null, go to the UserProfileRegistration screen.
-                \end{itemize}
-            \end{itemize}
-        \end{itemize}
-        \item Case 2) Unregistered users → Easy membership registration
-        \begin{itemize}
-            \item If registerSuccess is set in HTTP Response, go to the UserProfileRegistration screen.
-            \\
-        \end{itemize}
     \end{itemize}
 \end{itemize}
 
@@ -1390,7 +1249,7 @@ The API that requires a detailed description of the API's call and processing pr
 \begin{itemize}
     \item HTTP Request From Client to Server
     \begin{itemize}
-        \item Set userEmail, userPw, and autoLogin values to HTTP Request and send a request to the server.
+        \item Set userEmail, userPw, and autoLogin values to HTTP Request(POST) and send a request to the server.
         \\
     \end{itemize}
     \item HTTP requests process in Server, HTTP Response from Server to Client
@@ -1401,9 +1260,9 @@ The API that requires a detailed description of the API's call and processing pr
             \item If the record has user\_nickname and management\_space\_id values, store them in the userNickname and managementSpaceId variables, respectively, and if not, store null.
             \item Case 1-1) Who checked the Auto Login check box
             \begin{itemize}
-                \item If the userExists value is true and the AutoLogin value set in the HTTP Request is also true, the userEmail value is set in the HTTP Request and the request is sent to the AutoLogin API.
-                \item This corresponds to Case 1 of the Auto Login API.
-                \item The cookie set in the HTTP Response transmitted from the Auto Login API is stored in the variable.
+                \item If the userNickname value is available, and the AutoLogin value set in the HTTP Request is true, the userEmail value is set in the HTTP Request and the request is sent to the Auto Login Case 1 API.
+                \item The SessionID set in the HTTP Response transmitted from the Auto Login API is stored in the variable.
+                \item If the userNickname value is null and AutoLogin value is true, store null in sessionID variable.
                 \item Set userEmail, userNickname, managementSpaceId, and Cookie in HTTP Response to send a response to the Client.
             \end{itemize}
             \item Case 1-2) Users who did not check the Auto Login check box
@@ -1429,7 +1288,7 @@ The API that requires a detailed description of the API's call and processing pr
             \item Case 1-1) User that has completed profile registration
             \begin{itemize}
                 \item If the managementSpaceId value set in HTTP Response is not null, it is stored as a global variable managementSpaceId.
-                \item If the cookie is set in HTTP Response, store the cookie in the React Native App storage.
+                \item If the sessionID is set in HTTP Response, store the sessionID in the  AsyncStorage.
                 \item Then, if the user has a managementSpaceId value, it moves to the Main screen, and if the value is null, it moves to the HowToGoSpace screen.
             \end{itemize}
             \item Case 1-2) User who needs to register user profile
@@ -1445,78 +1304,47 @@ The API that requires a detailed description of the API's call and processing pr
     \end{itemize}
 \end{itemize}
 
-% \subsubsection{NICEAuth API}
-% \begin{itemize}
-%     \item Server → Client로 HTTP Response
-%     \begin{itemize}
-%         \item NICE의 휴대폰 본인인증 API를 사용한다.
-%         \item Case 1) 본인인증 완료
-%         \begin{itemize}
-%             \item 본인 인증 완료 후 사용자의 정보를 제공 받아, 그 중 userName, userPhoneNum 값을 변수에 저장한다.
-%             \item 본인 인증에 성공했음을 true로 변수 sucessAuth에 저장한다.
-%             \item sucessAuth, userName, userPhonenum을 HTTP Response에 설정하여 Client에 전송한다.
-%         \end{itemize}
-%         \item Case 2) 본인인증 실패
-%         \begin{itemize}
-%             \item 만약 본인 인증을 중도에 그만뒀다면, sucessAuth에 false를 저장한다.
-%             \item sucessAuth를 HTTP Response에 설정하여 Client에 전송한다.
-%             \\
-%         \end{itemize}
-%     \end{itemize}
-% \end{itemize}
-
 \subsubsection{LocalSignUp API}
 \begin{itemize}
     \item HTTP Request from Client to Server 
     \begin{itemize}
-        \item Set the userEmail, userPw value to HTTP Request and send the request to the server.
+        \item If the authentication value is true for HTTP Response transmitted from the requested CheckMessageAuthCode API, set the values of userEmail, userPw, userName, and userPhoneNum in the HTTP Request(POST).
+        \item If the value is false, display the Alert Component that says 'The authentication number does not match' and maintain the screen.
         \\
     \end{itemize}
     \item HTTP Request Process in Server side, HTTP Response from Server to Client 
     \begin{itemize}
-        \item Retrieve a record from the user table using the userEmail value set in the HTTP Request. If a registered user exists, store true in the userExists variable; otherwise, store false.
-        \item Case 1) Registered User
-        \begin{itemize}
-            \item If the userExists value is true, set userExists in the HTTP Response and send the response to the client.
-        \end{itemize}
-        \item Case 2) Unregistered User
-        \begin{itemize}
-            \item If the userExists value is false, store the userEmail and userPw set in the HTTP Request in variables.
-            % NICE AUth Part. Comment out?
-            \item Next, send a request to the NICE Auth API to proceed with identity verification.
-            \begin{itemize}
-                \item Case 2-1) Identity Verification Completed
-                \begin{itemize}
-                    \item If the successAuth in the HTTP Response sent by the NICE Auth API is true, add a record to the user table with the userName and userPhonenum values along with the userEmail and userPw variables.
-                    \item Store true in the stepOneDone variable.
-                \end{itemize}
-                \item Case 2-2) Identity Verification Failed
-                \begin{itemize}
-                    \item If the successAuth in the HTTP Response sent by the NICE Auth API is false, store false in the stepOneDone variable.
-                \end{itemize}
-                \item Set stepOneDone and userEmail in the HTTP Response and send the response to the client.
-                \\
-            \end{itemize}
-        \end{itemize}
+        \item Adds userEmail, userPw, userName, and userPhoneNum values set in HTTP requests to the user table
+        \item Saves true in the signUpSuccess variable.
+        \item Set signUpSuccess to HTTP Response and send Response to the Client.
     \end{itemize}
     \item Client-side HTTP Response Handling
     \begin{itemize}
-        \item Case 1) Registered User
-        \begin{itemize}
-            \item If the HTTP Response has userExists set, display an Alert Component with the message "이미 회원 가입된 이메일입니다." and navigate to the Login screen.
-        \end{itemize}
-        \item Case 2) Unregistered User
-        \begin{itemize}
-            \item Case 2-1) Identity Verification Completed
-            \begin{itemize}
-                \item If the stepOneDone value in the HTTP Response is true, save the userEmail value as a global variable using Context API and navigate to the UserProfileRegistration screen.
-            \end{itemize}
-            \item Case 2-2) Identity Verification Failed
-            \begin{itemize}
-                \item If the stepOneDone value in the HTTP Response is false, display an Alert Component with the message "본인 인증에 실패하셨습니다." and stay on the LocalSignUp screen.
-                \\
-            \end{itemize}
-        \end{itemize}
+        \item If signUpSuccess is set in HTTP Response, the value of the userEmail global variable stored using LocalSignUpContext is stored in the userEmail global variable of the userContext.
+        \item Initialize all global variable values of LocalSignUpContext.
+        \item Display the Alert Component that reads '회원가입이 완료되었습니다!' and go to the UserProfile Registration screen.
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{SendPw API}
+\begin{itemize}
+    \item Client → Server HTTP Request
+    \begin{itemize}
+        \item If the authentication value in the HTTP Response transmitted from the requested CheckMessageAuthCode API is true, the userEmail value is set in the HTTP Request and the request is transmitted to the server in the GET method.
+        \item If it is false, display the Alert Component that says '인증번호가 일치하지 않습니다.' and maintain the screen.
+        \\
+    \end{itemize}
+    \item Server-side HTTP Request Handling, Server → Client HTTP Response
+    \begin{itemize}
+        \item Save the userEmail value set in the HTTP Request in the userEmail variable.
+        \item The record is searched in the user table with the userEmail value, and the user\_pw value is stored in the variable userPw.
+        \item Use the nodeemailer module to send userPw to userEmail.
+        \item When the mail transfer is completed, the sendPwSuccess variable stores true.
+        \item Set sendPwSuccess to HTTP Response and send it to the Client.
+    \end{itemize}
+    \item Client-side HTTP Response Handling
+    \begin{itemize}
+        \item If sendPwSuccess is set in HTTP Response, pop up the Alert Component that says '입력하신 이메일로 비밀번호가 전송되었습니다.' and go to the Login screen.
     \end{itemize}
 \end{itemize}
 
@@ -1525,6 +1353,7 @@ The API that requires a detailed description of the API's call and processing pr
     \item Client → Server HTTP Request
     \begin{itemize}
         \item Send userProfilePhoto, userNickname, userIntroduction values, along with the userEmail stored as a global variable, in the HTTP Request from the Client to the Server.
+        \item The userProfilePhoto is transmitted in multipart/form-data format.
         \\
     \end{itemize}
     \item Server-side HTTP Request Handling, Server → Client HTTP Response
@@ -1537,10 +1366,14 @@ The API that requires a detailed description of the API's call and processing pr
         \item Case 2) Non-duplicate Nickname
         \begin{itemize}
             \item If nicknameExists is false, retrieve a record from the user table using the userEmail value set in the HTTP Request, and add userProfilePhoto, userNickname, and userIntroduction values.
-            \item Save true in the stepTwoDone variable.
-            \item Set stepTwoDone in the HTTP Response and send it to the Client.
-            \\
+            \begin{itemize}
+                \item The images sent to userProfilePhoto are processed through the multer middleware and stored in a publicly accessible S3 bucket in the format of images/\${Date.now()}\${path.extname\\(userProfilePhoto.originalname)}.
+                \item Add the S3 url of the uploaded object to the database.
+            \end{itemize}
+            \item Save true in the registSuccess variable.
+            \item Set registSuccess in the HTTP Response and send it to the Client.
         \end{itemize}
+        \\
     \end{itemize}
     \item Client-side HTTP Response Handling
     \begin{itemize}
@@ -1550,164 +1383,49 @@ The API that requires a detailed description of the API's call and processing pr
         \end{itemize}
         \item Case 2) Non-duplicate Nickname
         \begin{itemize}
-            \item If the HTTP Response has stepTwoDone set, display an Alert Component with the message "사용자 프로필 등록이 완료되었습니다. 자동 로그인을 설정하시겠습니까??".
+            \item If the HTTP Response has registSuccess set, display an Alert Component with the message "사용자 프로필 등록이 완료되었습니다. 자동 로그인을 설정하시겠습니까??"
             \item If the user selects ‘예’ follow the instructions in case 2-1.
             \item Then, navigate to HowToGoSpace Screen.
             \item Case 2-1) User Who Wants Automatic Login
             \begin{itemize}
                 \item Set the userEmail value in the HTTP Request and send a request to the Auto Login API on the Server. 
                 \item This corresponds to Case 1 in the Auto Login API.
-                \item Store the Cookie received from the HTTP Response of the Auto Login API in the React Native App's storage.
-                \\
+                \item Store the sessionID received from the HTTP Response of the Auto Login API in the AsyncStorage.
             \end{itemize}
         \end{itemize}
-    \end{itemize}
+    \end{itemize} 
 \end{itemize}
-
-% \subsubsection{FindEmail API}
-% \begin{itemize}
-%     \item Client → Server로 HTTP Request
-%     \begin{itemize}
-%         \item userName, userPhoneNum 값을 HTTP Request에 설정하여 Server에 Request를 전송한다.
-%         \\
-%     \end{itemize}
-%     \item Server에서 HTTP Request 처리, Server → Client로 HTTP Response
-%     \begin{itemize}
-%         \item HTTP Request에 설정된 userName, userPhoneNum 값으로 user table에서 record를 조회해, 등록된 사용자가 존재한다면, user\_email 값을 변수 userEmail에 저장한다.
-%         \item 등록된 사용자가 존재하지 않는다면, userExists 변수에 false 값을 저장한다. 
-%         \item Case 1) 등록된 사용자
-%         \begin{itemize}
-%             \item userEmail을 HTTP Response에 설정하여 Client에 Response를 전송한다.
-%         \end{itemize}
-%         \item Case 2) 등록되지 않은 사용자
-%         \begin{itemize}
-%             \item userExists를 HTTP Response에 설정하여 Client에 Response를 전송한다.
-%             \\
-%         \end{itemize}
-%     \end{itemize}
-%     \item Client에서 HTTP Response 처리, Data Binding
-%     \begin{itemize}
-%         \item Case 1) 등록된 사용자
-%         \begin{itemize}
-%             \item HTTP Response에 userEmail이 설정되어 있다면, userEmail 값을 property로 전달하여 FindEmailResult 화면으로 이동하고, 사용자에게 이메일을 알려준다.
-%         \end{itemize}
-%         \item Case 2) 등록되지 않은 사용자
-%         \begin{itemize}
-%             \item HTTP Response에 설정된 userExists 값이 false라면, ‘해당되는 사용자가 없습니다.’ 라고 쓰인 Alert Component를 띄우고, FindEmail 화면을 유지한다.
-%             \\
-%         \end{itemize}
-%     \end{itemize}
-% \end{itemize}
-
-\subsubsection{FindPw API}
-\begin{itemize}
-    \item Client → Server HTTP Request
-    \begin{itemize}
-        \item userEmail 값을 HTTP Request에 설정하여 Server에 Request를 전송한다.
-        \item Set userEmail value in the HTTP Request and send Request to the Server.
-        \\
-    \end{itemize}
-    \item Server-side HTTP Request Handling, Server → Client HTTP Response
-    \begin{itemize}
-        \item Retrieve a record from the user table using the userEmail value set in the HTTP Request. If a registered user exists, store true in the userExists variable; otherwise, store false.
-        \item Case 1) Registered User
-        \begin{itemize}
-            \item If userExists is true, send a request to the NICE Auth API for identity verification.
-            \item Case 1-1) Identity Verification Completed
-            \begin{itemize}
-                \item If the successAuth in the HTTP Response received from the NICE Auth API is true, retrieve the user\_pw from the user table using userName and userEmail, and store it in the userPw variable.
-                \item Use the express-email package to send the userPw to the user's email.
-                \item Once the email has been sent, store true in the sendMail variable.
-                \item Set sendMail in the HTTP Response and send it to the client.
-            \end{itemize}
-            \item Case 1-2) Identity Verification Failed
-            \begin{itemize}
-                \item If the successAuth in the HTTP Response from the NICE Auth API is false, set successAuth in the HTTP Response and send it to the client.
-            \end{itemize}
-        \end{itemize}
-        \item Case 2) Unregistered User
-        \begin{itemize}
-            \item If userExists is false, set userExists in the HTTP Response and send the response to the client.
-            \\
-        \end{itemize}
-    \end{itemize}
-    \item Client-side HTTP Response Handling
-    \begin{itemize}
-        \item Case 1) Registered User
-        \begin{itemize}
-            \item Case 1-1) Identity Verification Completed
-            \begin{itemize}
-                \item If the HTTP Response has sendMail set, display an Alert Component with the message "비밀번호가 이메일로 전송되었습니다" and navigate to the Login screen.
-            \end{itemize}
-            \item Case 1-2) Identity Verification Failed
-            \begin{itemize}
-                \item If the successAuth value in the HTTP Response is false, display an Alert Component with the message "본인 인증에 실패하셨습니다." and stay on the FindPw screen.
-            \end{itemize}
-        \end{itemize}
-        \item Case 2) Unregistered User
-        \begin{itemize}
-            \item If the userExists value in the HTTP Response is false, display an Alert Component with the message "회원 가입된 이메일이 아닙니다." and stay on the FindPw screen.
-            \\
-        \end{itemize}
-    \end{itemize}
-\end{itemize}
-
-% \subsubsection{GetManagementSpaceId API}
-% \begin{itemize}
-%     \item Client → Server로 HTTP Request
-%     \begin{itemize}
-%         \item 전역 변수로 저장된 userEmail 값을 HTTP Request에 설정하여 Server에 Request를 전송한다.
-%         \\
-%     \end{itemize}
-%     \item Server에서 HTTP Request 처리, Server → Client로 HTTP Response
-%     \begin{itemize}
-%         \item HTTP Request에 설정된 userEmail 값으로 user table에서 record를 조회해, management\_space\_id 값을 변수 managementSpaceId에 저장한다.
-%         \item managementSpaceId를 HTTP Response에 에 설정하여 Client에 Response를 전송한다.
-%         \\
-%     \end{itemize}
-%     \item Client에서 HTTP Response 처리, Data Binding
-%     \begin{itemize}
-%         \item HTTP Response에 managementSpaceId가 설정되어 있는 게 확인이 된다면, cleartInterval 함수를 호출하고 Loading Component의 property 값을 false로 바꿔 등록 완료 애니메이션을 보여준 뒤, Main 화면으로 이동한다.
-%         \\
-%     \end{itemize}
-% \end{itemize}
 
 \subsubsection{RegistCatInfo API}
 \begin{itemize}
     \item Client → Server HTTP Request
     \begin{itemize}
-        \item Case 1) First-time Cat Registration (For users with no existing management space):
-        \begin{itemize}
-            \item Send the userEmail, catProfilePhoto, catName, catAge, catWeight, catPhotos, catFeedStuffDailyConsumption, catFeedStuffMoistureContent, isHydrationAuto, and catGoalHydration values that are saved from global variables in the HTTP Request to the Server.
-        \end{itemize}
-        \item Case 2) Additional Cat Registration (For users with an existing management space):
-        \begin{itemize}
-            \item Include the managementSpaceId value from global variables in the HTTP Request and send it to the Server.
-            \\
-        \end{itemize}
+        \item Send the userEmail, catProfilePhoto, catName, catAge, catWeight, catPhotos, catFeedStuffDailyConsumption, catFeedStuffMoistureContent, isHydrationAuto, and catGoalHydration values that are saved from global variables in the HTTP Request(POST) to the Server.
     \end{itemize}
     \item Server-side HTTP Request Handling, Server → Client HTTP Response
     \begin{itemize}
         \item Case 1) First-time Cat Registration (For users with no existing management space):
         \begin{itemize}
-            \item Step 1) If the managementSpaceId is not set in the HTTP Request, generate a 10-digit random value using the Math.random() method and store it in the spaceId variable.
-            \item Step 2) ynamically create the management\_space\_\$\{spaceId\} table.
-            \item Step 3) Add a record with spaceId and the userEmail value from the HTTP Request.
-            \item Step 4) Dynamically create cat\_in\_management\_\$\{spaceId\} table.
-            \item (common) Step 5) Add records to the cat\_in\_management\_\$\{spaceId\} table with the values of cat information from the HTTP Request.
-            \item (common) Step 6) Retrieve the cat\_id from cat\_in\_management\_\$\{spaceId\} table based on the catName value from the HTTP Request and store it in the catId variable.
-            \item Step 7) Dynamically create cat\_hydration\_statistics\_\$\{catId\} table.
-            \item (common) Step 8) Add a record to the cat\_hydration\_statistics\_\$\{catId\} table with the value of catGoalHydration from the HTTP Request.
-            \item Step 9) Add the spaceId value to the management\_space\_id column in the user table based on the retrieved information, userEmail.
-            \item Step 10) Set spaceId in the HTTP Response and send it to the Client.
+            \item Step 1) If the managementSpaceId value is empty string in the HTTP Request, generate a 10-digit random value using the Math.random() method and store it in the generatedSpaceId variable.
+            \item Step 2) Save generatedSpaceId and userEmail in management\_space\_id table.
+            \item Step 3) Dynamically create \\\\cat\_in\_management\_space\_\$\{generatedSpaceId\}\\\\ table.
+            \item (common) Step 4) Add records to the \\cat\_in\_management\_space\_\$\{generatedSpaceId\}\\ table with the values of cat information from the HTTP Request.
+            \begin{itemize}
+                \item The images sent to catProfilePhoto are processed through the multer middleware and stored in a publicly accessible S3 bucket in the format of catimages/\${Date.now()}\${catProfilePhoto.originalname}.
+                \item Add the S3 url of the uploaded object to the database.
+            \end{itemize}
+            \item (common) Step 5) Retrieve the cat\_id from \\cat\_in\_management\_space\_\$\{generatedSpaceId\}\\ table based on the catName value from the HTTP Request and store it in the catId variable.
+            \item Step 6) Dynamically create \\cat\_hydration\_statistics\_\\\${generatedSpaceId}\_\$\{catId\} table.
+            \item (common) Step 7) Add a record to the \\cat\_hydration\_statistics\_\\\${generatedSpaceId}\_\$\{catId\} table with the value of catGoalHydration from the HTTP Request.
+            \item Step 8) Add the generatedSpaceId value to the management\_space\_id column in the user table based on the retrieved information, userEmail.
+            \item Step 9) Set generatedSpaceId in the HTTP Response and send it to the Client.
         \end{itemize}
         \item Case 2) Additional Cat Registration (For users with an existing management space):
         \begin{itemize}
-            \item Step 1) If the managementSpaceId is set in the HTTP Request, store it in the spaceId variable.
-            \item (common) Step 2) Add records to the cat\_in\_management\_\$\{spaceId\} table with the values of cat information from the HTTP Request.
-            \item (common) Step 3) Retrieve the cat\_id from the cat\_in\_management\_\$\{spaceId\} table based on the catName value from the HTTP Request and store it in the catId variable.
-            \item (common) Step 4) Add a record to the cat\_hydration\_statistics\_\$\{catId\} table with the value of catGoalHydration from the HTTP Request.
-            \item Step 5) Store true in the addCatInfo variable and set addCatInfo in the HTTP Response to send it to the Client.
+            \item Step 1) If the managementSpaceId is not empty string, add records to the cat\_in\_management\_\$\{managementSpaceId\} table with the values of cat information from the HTTP Request.
+            \item (common) Step 2) Retrieve the cat\_id from the cat\_in\_management\_\$\{managementSpaceId\} table based on the catName value from the HTTP Request and store it in the catId variable.
+            \item (common) Step 3) Add a record to the cat\_hydration\_statistics\_\$\{managementSpaceId\}\\\_\$\{catId\} table with the value of catGoalHydration from the HTTP Request.
+            \item Step 4) Store true in the addSuccess variable and set addSuccess in the HTTP Response to send it to the Client.
             \\
         \end{itemize}
     \end{itemize}
@@ -1753,14 +1471,14 @@ The API that requires a detailed description of the API's call and processing pr
 \begin{itemize}
     \item Client → Server HTTP Request
     \begin{itemize}
-        \item Send the currentSelectedCat value and managementSpaceId from the global variables in the HTTP Request to the Server.
+        \item Send the catId value and managementSpaceId from the global variables in the HTTP Request(GET) to the Server.
         \\
     \end{itemize}
     \item Server-side HTTP Request Handling, Server → Client HTTP Response
     \begin{itemize}
-        \item Store the currentSelectedCat value from the HTTP Request in the catId variable, and the managementSpaceId value in the spaceId variable.
-        \item With the catId value, query the cat\_name, cat\_age, cat\_weight from the cat\_in\_management\_space\_\$\{spaceId\} table and store them as catName, catAge, and catWeight variables, respectively.
-        \item Based on the date column, retrieve the most recent record from the cat\_hydration\_statistics\_\$\{catId\} table and store the hydration\_guage value in the hydrationGuage variable.
+        \item Extract the managementSpaceId and catId set in the HTTP Request.
+        \item With the catId value, query the cat\_name, cat\_age, cat\_weight from the cat\_in\_management\_space\_\$\{managementSpaceId\} table and store them as catName, catAge, and catWeight variables, respectively.
+        \item Based on the date column, retrieve the most recent record from the cat\_hydration\_statistics\_\$\{managementSpaceId\}\\\_\{\$catId\} table and store the hydration\_guage value in the hydrationGuage variable.
         \item Set the catName, catAge, catWeight, and hydrationGuage in the HTTP Response to send them to the Client.
         \\
     \end{itemize}
@@ -1792,9 +1510,10 @@ The API that requires a detailed description of the API's call and processing pr
     \item Server-side HTTP Request Handling, Server → Client HTTP Response
     \begin{itemize}
         \item Store the currentSelectedCat value from the HTTP Request to the catId variable
+        \item If none of the data on the corresponding date is queried, save [] an empty array in newHydrationGuageArr and send Response
         \item Case 1) Statistical range is 'week' 
         \begin{itemize}
-            \item If the range value in the HTTP Request is 'week', query records from cat\_hydration\_statistics\_\$\{catId\} table between the startDate and endDate, retrieving the date and hydration\_guage values and storing them in the hydrationGuageArr array.
+            \item If the range value in the HTTP Request is 'week', query records from cat\_hydration\_statistics\_\$\{managementSpaceId\}\\\_\{\$catId\} table between the startDate and endDate, retrieving the date and hydration\_guage values and storing them in the hydrationGuageArr array.
             \begin{itemize}
                 \item The hydrationGuageArr is an array of objects.
                 \item Ex) [\{date: ‘YYYY-MM-DD’, hydration\_guage: n\}, \{date: ‘YYYY-MM-DD’, hydration\_guage: n\}, …]
@@ -1847,7 +1566,7 @@ function getIndexOfWeekInArr(arr, targetValue) {
             \end{lstlisting}
             \item Step 3) Extract the year and month from the month value in the HTTP Request by using the slice method to get 'YYYY' and 'MM' separately. Then, use the parseInt method to convert them into integers and store them in the year and month variables, respectively.
             \item Step 4) Pass the year and month variables as arguments to the getWeeksOfMonth function. Call the function and store the returned value in the weeksOfMonth array variable.
-            \item Step 5) Query records from the cat\_hydration\_statistics\_\$\{catId\} table where the date column matches the month value from the HTTP Request. Retrieve the date, day, and hydration\_guage values and store them in the hydrationGuageArr array.
+            \item Step 5) Query records from the cat\_hydration\_statistics\_\$\{managementSpaceId\}\\\_\{\$catId\} table where the date column matches the month value from the HTTP Request. Retrieve the date, day, and hydration\_guage values and store them in the hydrationGuageArr array.
             \item Step 6) Extract only the 'DD' part from the date attribute of the first element in hydrationGuageArr using the slice method. Then, use the parseInt method to convert it into an integer and store it in the dd variable.
             \item Step 7) Pass the weeksOfMonth and dd variables as arguments to the getIndexOfWeekInArr function. Call the function and store the returned (value + 1) in the weekNum variable.
             \item (common) Step 8) Declare a newHydrationGuageArr array as a constant and initialize it as an empty array.
@@ -1909,353 +1628,628 @@ hydrationGuageArr.forEach((e, i, arr) => {
     \end{itemize}
 \end{itemize}
 
-% \subsubsection{DeleteCatInfo API}
-% \begin{itemize}
-%     \item Client → Server HTTP Request
-%     \begin{itemize}
-%         \item Set the managementSpaceId value stored as a global variable and the catId value, which is the key attribute of the selected Cat Profile Component in the Long Alert Component, in the HTTP Request.
-%         \\
-%     \end{itemize}
-%     \item Server-side HTTP Request Handling, Server → Client HTTP Response
-%     \begin{itemize}
-%         \item Store the managementSpaceId and catId from the HTTP Request in the spaceId and catId variables, respectively.
-%         \item Delete the cat\_hydration\_statistics\_\$\{catId\} table.
-%         \item Query the record in the cat\_in\_management\_space\_\$\{spaceId\} tablewith the catId value and delete the corresponding record.
-%         \item set DeleteDone to true.
-%         \item Include DeleteDone in the HTTP Response and send it to the client.
-%         \\
-%     \end{itemize}
-%     \item Client-side HTTP Response Handling
-%     \begin{itemize}
-%         \item If DeleteDone is included in the HTTP Response, display an Alert Component with the message '고양이 프로필이 삭제되었습니다.' and navigate to the previous screen.
-%         \\
-%     \end{itemize}
-% \end{itemize}
-
-% \subsubsection{Logout API}
-% \begin{itemize}
-%     \item Client → Server HTTP Request
-%     \begin{itemize}
-%         \item Set the userEmail stored as a global variable in the HTTP Request.
-%         \\
-%     \end{itemize}
-%     \item Server-side HTTP Request Handling, Server → Client HTTP Response
-%     \begin{itemize}
-%         \item Query the record in the session table with the userEmail value set in HTTP Request and delete the corresponding record.
-%         \item Set logoutDone to true.
-%         \item Include logoutDone in the HTTP Response and send it to the client.
-%         \\
-%     \end{itemize}
-%     \item Client-side HTTP Response Handling
-%     \begin{itemize}
-%         \item If logoutDone is included in the HTTP Response, remove the cookies stored in the React Native app's storage and navigate to the Start screen.
-%         \\
-%     \end{itemize}
-% \end{itemize}
-
-% \subsubsection{GetUserProfile API}
-% \begin{itemize}
-%     \item Client → Server로 HTTP Request
-%     \begin{itemize}
-%         \item 전역 변수로 저장된 userEmail을 HTTP Request에 설정하여 Server에 Request를 전송한다.
-%         \\
-%     \end{itemize}
-%     \item Server에서 HTTP Request 처리, Server → Client로 HTTP Response
-%     \begin{itemize}
-%         \item HTTP Request에 설정된 userEmail값으로 user table에서 user\_profile\_photo, user\_nickname, user\_introduction을 조회해 각각 userProfilePhoto, userNickname, userIntroduction 변수에 저장한다.
-%         \item 이 변수들을 HTTP Response에 설정하여 Client에 Response를 전송한다.
-%         \\
-%     \end{itemize}
-%     \item Client에서 HTTP Response 처리, Data Binding
-%     \begin{itemize}
-%         \item HTTP Response에 설정된 userProfilePhoto, userNickname, userIntroduction 값을 각각 정해진 Component에 Binding 한다.
-%         \\
-%     \end{itemize}
-% \end{itemize}
-
-% \subsubsection{ModifyUserProfile API}
-% \begin{itemize}
-%     \item Client → Server로 HTTP Request
-%     \begin{itemize}
-%         \item userProfilePhoto, userNickname, userIntroduction 값을 전역 변수로 저장된 userEmail과 함께 HTTP Request에 설정하여 Server에 Request를 전송한다.
-%         \\
-%     \end{itemize}
-%     \item Server에서 HTTP Request 처리, Server → Client로 HTTP Response
-%     \begin{itemize}
-%         \item HTTP Request에 설정된 userNickname 값으로 user table에서 user\_email 값이 HTTP Request에 설정된 userEmail값과 다르다는 조건 하에 record를 조회해, 존재하는 닉네임이라면, nicknameExists 변수에 true 값을 저장한다.
-%         \begin{itemize}
-%             \item 이 조건은 사용자가 닉네임 값을 바꾸지 않고 ‘완료’ 버튼을 눌렀을 때, 해당 사용자의 record는 조회되지 않도록 하는 것이다.
-%             \item 즉, 조회 결과가 없어 nicknameExists 변수에 false 값을 저장한 것은, 사용자가 닉네임을 바꾸지 않은 경우도 포함된다.
-%         \end{itemize}
-%         \item Case 1) 중복되는 닉네임
-%         \begin{itemize}
-%             \item nicknameExists 값이 true라면, nicknameExists를 HTTP Response에 설정하여 Client에 전송한다.
-%         \end{itemize}
-%         \item Case 2) 중복되지 않는 닉네임 (닉네임 바꾸지 않은 경우도 포함)
-%         \begin{itemize}
-%             \item nicknameExists 값이 false라면, 해당 record의 user\_profile\_photo, user\_nickname, user\_introduction 값을 수정한다. 
-%             \item modifyDone 변수에 true를 저장한다.
-%             \item modifyDone을 HTTP Response에 설정하여 Client에 Response를 전송한다.
-%             \\
-%         \end{itemize}
-%     \end{itemize}
-%     \item Client에서 HTTP Response 처리
-%     \begin{itemize}
-%         \item Case 1) 중복되는 닉네임
-%         \begin{itemize}
-%             \item HTTP Response에 설정된 nicknameExists 값이 true라면, ‘이미 존재하는 닉네임입니다.’ 라고 쓰인 Alert Component를 띄우고, UserProfileModification 화면을 유지한다.
-%         \end{itemize}
-%         \item Case 2) 중복되지 않는 닉네임
-%         \begin{itemize}
-%             \item HTTP Response에 modifyDone이 설정되어 있다면, ‘사용자 프로필이 수정되었습니다.’ 라고 쓰인 Alert Component를 띄우고, 이전 화면으로 이동한다.
-%             \\
-%         \end{itemize}
-%     \end{itemize}
-% \end{itemize}
-
-% \subsubsection{GetCatProfile API}
-% \begin{itemize}
-%     \item Client → Server로 HTTP Request
-%     \begin{itemize}
-%         \item 전역 변수로 저장된 managementSpaceId 값과 LongAlert Component에서 선택된 CatProfile Component의 key 속성 값인 catId 값을 HTTP Request에 설정하여 Server에 Request를 전송한다.
-%         \\
-%     \end{itemize}
-%     \item Server에서 HTTP Request 처리, Server → Client로 HTTP Response
-%     \begin{itemize}
-%         \item HTTP Request에 설정된 managementSpaceId 값을 spaceId 변수에 저장한다.
-%         \item HTTP Request에 설정된 cat\_id 값으로 cat\_in\_management\_space\_\$\{spaceId\} table에서 cat\_profile\_photo, cat\_name, cat\_age, cat\_weight를 조회해 각각 catProfilePhoto, catName, catAge, catWeight 변수에 저장한다.
-%         \item 이 변수들을 HTTP Response에 설정하여 Client에 Response를 전송한다.
-%         \\
-%     \end{itemize}
-%     \item Client에서 HTTP Response 처리
-%     \begin{itemize}
-%         \item HTTP Response에 설정된 catProfilePhoto, catName, catAge, catWeight 값을 각각 정해진 Component에 Binding 한다.
-%         \\
-%     \end{itemize}
-% \end{itemize}
-
-% \subsubsection{ModifyCatProfile API}
-% \begin{itemize}
-%     \item Client → Server로 HTTP Request
-%     \begin{itemize}
-%         \item 전역 변수로 저장된 managementSpaceId 값과 LongAlert Component에서 선택된 CatProfile Component의 key 속성 값인 catId 값을 HTTP Request에 설정한다.
-%         \item 그리고 catProfilePhoto, catName, catAge, catWeight 값도 HTTP Request에 설정하여 Server에 Request를 전송한다.
-%         \\
-%     \end{itemize}
-%     \item Server에서 HTTP Request 처리, Server → Client로 HTTP Response
-%     \begin{itemize}
-%         \item HTTP Request에 설정된 managementSpaceId와 catId를 각각 spaceId, catId 변수에 저장한다.
-%         \item catId 값으로 cat\_in\_management\_space\_\$\{spaceId\} table에서 record를 조회해, cat\_profile\_photo, cat\_name, cat\_age, cat\_weight 값을 수정한다.
-%         \item modifyDone 변수에 true를 저장한다.
-%         \item modifyDone을 HTTP Response에 설정하여 Client에 Response를 전송한다.
-%         \\
-%     \end{itemize}
-%     \item Client에서 HTTP Response 처리
-%     \begin{itemize}
-%         \item HTTP Response에 modifyDone이 설정되어 있다면, ‘고양이 프로필이 수정되었습니다.’ 라고 쓰인 Alert Component를 띄우고, 이전 화면으로 이동한다.
-%         \\
-%     \end{itemize}
-% \end{itemize}
-
-% \subsubsection{GetCatFeedStuff API}
-% \begin{itemize}
-%     \item Client → Server로 HTTP Request
-%     \begin{itemize}
-%         \item 전역 변수로 저장된 managementSpaceId 값과 선택된 CatProfile Component의 key 속성 값인 catId 값을 HTTP Request에 설정하여 Server에 Request를 전송한다.
-%         \\
-%     \end{itemize}
-%     \item Server에서 HTTP Request 처리, Server → Client로 HTTP Response
-%     \begin{itemize}
-%         \item HTTP Request에 설정된 managementSpaceId와 catId를 각각 spaceId, catId 변수에 저장한다.
-%         \item catId 값으로 cat\_in\_management\_space\_\$\{spaceId\} table에서 cat\_feedstuff\_daily\_consumption, cat\_feedstuff\_moisture\_content를 조회해 각각 catFeedStuffDailyConsumption, catFeedStuffMoistureContent 변수에 저장한다.
-%         \item 이 변수들을 HTTP Response에 설정하여 Client에 Response를 전송한다.
-%         \\
-%     \end{itemize}
-%     \item Client에서 HTTP Response 처리, Data Binding
-%     \begin{itemize}
-%         \item HTTP Response에 설정된 catFeedStuffDailyConsumption, catFeedStuffMoistureContent 값을 각각 정해진 Component에 Binding 한다.
-%         \\
-%     \end{itemize}
-% \end{itemize}
-
 \subsubsection{ModifyCatFeedStuff API}
 \begin{itemize}
     \item Client → Server HTTP Request
     \begin{itemize}
         \item Set the values of managementSpaceId and catId as HTTP Request parameters, where catId is obtained from the key attribute of the selected CatProfile Component in the LongAlert Component.
-        \item Additionally, set the values of catFeedStuffDailyConsumption and catFeedStuffMoistureContent in the HTTP Request before sending it to the Server.
+        \item Additionally, set the values of isEatingFeedStuff, catFeedStuffDailyConsumption and catFeedStuffMoistureContent in the HTTP Request(PUT) before sending it to the Server.
         \\
     \end{itemize}
     \item Sever-side HTTP Request Handling, Server → Client HTTP Response
     \begin{itemize}
-        \item Retrieve spaceId and catId from the HTTP Request and store them in the respective variables.
-        \item Modify the records in the cat\_in\_management\_space\_\$\{spaceId\} table for the given catId, updating the cat\_feedstuff\_daily\_consumption and cat\_feedstuff\_moisture\_content values.
+        \item Extract the managementSpaceId and catId set in the HTTP Request.
+        \item Modify the records in the cat\_in\_management\_space\_\$\{managementSpaceId\} table for the given catId, updating the cat\_feedstuff\_daily\_consumption, is\_eating\_feedstuff and cat\_feedstuff\_moisture\_content values.
         \item Case 1) Automatic Negative Amount Setting
         \begin{itemize}
             \item If the is\_hydration\_auto value was true in the record, store the values of cat\_weight, cat\_feedstuff\_daily\_consumption, cat\_feedstuff\_moisture\_content to catWeight, catFeedStuffDailyConsumption, and catFeedStuffMoistureContent respectively.
             \item Calculate a new value for the newGoalHydration variable as (catWeight * 50) - (catFeedStuffDailyConsumption * catFeedStuffMoistureContent).
-            \item Retrieve the most recent record from the cat\_hydration\_statistics\_\$\{catId\} table and update the goal\_hydration with the value of newGoalHydration.+
+            \item Retrieve the most recent record from the cat\_hydration\_statistics\_\$\{managementSpaceId\}\\\_\$\{catId\} table and update the goal\_hydration with the value of newGoalHydration.
+            \begin{itemize}
+                \item By default, when recording a negative quantity in the cat\_hydration\_statistics\_\$\{managementSpaceId\}\\\_\$\{catId\} table every day, the goal\_hydration value is always set to the goal\_hydration value stored in the cat\_in\_management\_space\\\_\$\{managementSpaceId\} table.
+            \end{itemize}
         \end{itemize}
-        \item Set modifyDone to true.
-        \item Include modifyDone in the HTTP Response to send and inform the Client of the successful modification.
+        \item Set modifySuccess to true.
+        \item Include modifySuccess in the HTTP Response to send and inform the Client of the successful modification.
         \\
     \end{itemize}
     \item Client-side HTTP Response Handling
     \begin{itemize}
-        \item If the HTTP Response includes modifyDone, display an Alert Component with the message "고양이 습식 사료 정보가 수정되었습니다." and navigate to the previous screen.
+        \item If the HTTP Response includes modifySuccess, display an Alert Component with the message "고양이 습식 사료 정보가 수정되었습니다." and navigate to the previous screen.
         \\
     \end{itemize}
 \end{itemize}
 
-% \subsubsection{GetCatHydration API}
-% \begin{itemize}
-%     \item Client → Server로 HTTP Request
-%     \begin{itemize}
-%         \item 전역 변수로 저장된 managementSpaceId 값과 선택된 CatProfile Component의 key 속성 값인 catId 값을 HTTP Request에 설정하여 Server에 Request를 전송한다.
-%         \\
-%     \end{itemize}
-%     \item Server에서 HTTP Request 처리, Server → Client로 HTTP Response
-%     \begin{itemize}
-%         \item HTTP Request에 설정된 managementSpaceId와 catId를 각각 spaceId, catId 변수에 저장한다.
-%         \item catId 값으로 cat\_in\_management\_space\_\$\{spaceId\} table에서 is\_hydration\_auto, cat\_goal\_hydration을 조회해 각각 isHydrationAuto, catGoalHydration 변수에 저장한다.
-%         \item 이 변수들을 HTTP Response에 설정하여 Client에 Response를 전송한다.
-%         \\
-%     \end{itemize}
-%     \item Client에서 HTTP Response 처리, Data Binding
-%     \begin{itemize}
-%         \item HTTP Response에 설정된 isHydrationAuto, catGoalHydration 값을 각각 정해진 Component에 Binding 한다.
-%         \\
-%     \end{itemize}
-% \end{itemize}
+\subsection{AI}
+\subsubsection{Cat Detection}
+\begin{itemize}
+    \item[] \includegraphics[width=0.35\textwidth]{img/AI/1.png}
+\end{itemize}
+\begin{itemize}
+    \subitem It runs through the footage of cat drinking water using OpenCV. If cat is present, pretrained YOLOv8 model will detect and crop the cat from frame of the footage. YOLOv8 offers save\_text function which will make an txt file containing class(cat=15), annotation, and id information of cropped cats. Rest of the Python script will turn the txt file into Pandas DataFrame and will be used to store captured cats' information. \\
+\end{itemize}
 
-% \subsubsection{ModifyCatHydration API}
-% \begin{itemize}
-%     \item Client → Server로 HTTP Request
-%     \begin{itemize}
-%         \item 전역 변수로 저장된 managementSpaceId 값과 LongAlert Component에서 선택된 CatProfile Component의 key 속성 값인 catId 값을 HTTP Request에 설정한다.
-%         \item 그리고 isHydrationAuto, catGoalHydration 값도 HTTP Request에 설정하여 Server에 Request를 전송한다.
-%         \\
-%     \end{itemize}
-%     \item Server에서 HTTP Request 처리, Server → Client로 HTTP Response
-%     \begin{itemize}
-%         \item HTTP Request에 설정된 managementSpaceId, catId, catGoalHydration을 각각 spaceId, catId, catGoalHydration 변수에 저장한다.
-%         \item catId 값으로 cat\_in\_management\_space\_\$\{spaceId\} table에서 record를 조회해, is\_hydration\_auto, cat\_goal\_hydration 값을 수정한다.
-%         \item cat\_hydration\_statistics\_\$\{catId\} table에서 가장 최신의 record를 조회해, actual\_hydration 값을 actualHydration 변수에 저장한다.
-%         \item hydrationGuage 변수에 actualHydration / catGoalHydration 값을 반내림하여 저장한다.
-%         \item cat\_hydration\_statistics\_\$\{catId\} table에서 가장 최신의 record를 조회해, goal\_hydration, hydration\_guage 값을 수정한다.
-%         \item modifyDone 변수에 true를 저장한다.
-%         \item modifyDone을 HTTP Response에 설정하여 Client에 Response를 전송한다.
-%         \\
-%     \end{itemize}
-%     \item Client에서 HTTP Response 처리
-%     \begin{itemize}
-%         \item HTTP Response에 modifyDone이 설정되어 있다면, ‘고양이 음수량 설정이 수정되었습니다.’ 라고 쓰인 Alert Component를 띄우고, 이전 화면으로 이동한다.
-%         \\
-%     \end{itemize}
-% \end{itemize}
+\subsubsection{Cat Color Detection}
+\begin{itemize}
+    \subitem The Python script employs computer vision and machine learning techniques to analyze images of cats, extracting dominant color information. The Ultralytics YOLO model is first used for object detection and segmentation, isolating cat-related objects in the images. The script then applies K-Means clustering to identify five dominant colors in each segmented image, calculating their frequencies. The dominant color and its associated name are determined, and the color information is integrated into a DataFrame representing cat-related attributes. Additionally, the CIELAB color space is utilized to enhance color representation. The script incorporates functions to handle color similarity, conversion between different color representations, and updates the DataFrame with the extracted color information. Finally, the script saves the processed DataFrame, including dominant color and CIELAB color, back to the original CSV file that contains the image labels and identifiers. \\
+\end{itemize}
 
-% \subsubsection{GetManagerList API}
-% \begin{itemize}
-%     \item Client → Server로 HTTP Request
-%     \begin{itemize}
-%         \item 전역 변수로 저장된 managementSpaceId 값을 HTTP Request에 설정한다.
-%         \\
-%     \end{itemize}
-%     \item Server에서 HTTP Request 처리, Server → Client로 HTTP Response
-%     \begin{itemize}
-%         \item HTTP Request에 설정된 managementSpaceId를 spaceId 변수에 저장한다.
-%         \item spaceId 값으로 management\_space\_\$\{spaceId\} table에서 record를 조회해, main\_manager\_user\_email, co\_managers\_user\_email 값을 각각 mainManagerUserEmail, coManagersUserEmail 변수에 저장한다.
-%         \item mainManagerUserEmail, coManagersUserEmail을 HTTP Response에 설정하여 Client에 Response를 전송한다.
-%         \\
-%     \end{itemize}
-%     \item Client에서 HTTP Response 처리, Data Binding
-%     \begin{itemize}
-%         \item HTTP Response에 설정된 mainManagerUserEmail을 HTTP Request에 설정하여 GetUserProfile API에 Request를 전송한다.
-%         \item GetUserProfile API에서 전송된 HTTP Response에 설정된 userPhoto, userNickname, userIntroduction 값을 MainManagerCart Component에 적절히 Binding 한다.
-%         \item HTTP Response에 설정된 coManagersUserEmail을 배열 형태로 변환하여 변수에 저장한다.
-%         \item map 메소드로 coManagersUserEmail을 순환하며 GetUserProfile API에 Request를 전송한다.
-%         \item Get User Profile API에서 전송된 HTTP Response에 설정된 userPhoto, userNickname, userIntroduction 값을 Co Manager Cart Component에 적절히 Binding 한다.
-%         \\
-%     \end{itemize}
-% \end{itemize}
+\subsubsection{Cat Breed Detection}
+\begin{itemize}
+    \subitem The Python script utilizes a pretrained(custom) ResNet-50 model for image classification on a dataset containing images of cats. The model, loaded with weights, is fine-tuned on the specific task of identifying cat breeds using transfer learning. A custom model head is added to the ResNet-50 architecture, consisting of fully connected layers. The trained model is then used to predict the breed of cats in a set of images, and the results are integrated into a DataFrame representing cat-related attributes. The script incorporates image preprocessing steps, including resizing and normalization, before feeding them into the model. The predicted breed labels are then appended to the DataFrame, and the updated DataFrame is saved back to the original CSV file. The script is designed to handle multiple cat images and categorize them based on their predicted breeds, utilizing the ResNet-50 model's classification capabilities. \\
+\end{itemize}
 
-% \subsubsection{UserSearch API}
-% \begin{itemize}
-%     \item Client → Server로 HTTP Request
-%     \begin{itemize}
-%         \item 전역 변수로 저장된 managementSpaceId와 userNickname 값을 HTTP Request에 설정한다.
-%         \\
-%     \end{itemize}
-%     \item Server에서 HTTP Request 처리, Server → Client로 HTTP Response
-%     \begin{itemize}
-%         \item HTTP Request에 설정된 managementSpaceId를 spacId 변수에 저장한다.
-%         \item HTTP Request에 설정된 userNickname 값으로 user table에서 management\_space\_id 값이 ‘’(빈 문자열)이라는 조건 하에 record를 조회해, user\_email, user\_profile\_photo 값을 각각 userEmail, userProfilePhoto 변수에 저장한다.
-%         \item userEmail, userProfilePhoto를 HTTP Response에 설정하여 Client에 Response를 전송한다.
-%         \\
-%     \end{itemize}
-%     \item Client에서 HTTP Response 처리, Data Binding
-%     \begin{itemize}
-%         \item HTTP Response에 설정된 userEmail, userProfilePhoto 값을 SearchedUser Component에 적절히 Binding한다.
-%         \\
-%     \end{itemize}
-% \end{itemize}
+\newpage
+\section{ARCHITECTURE DESIGN \& IMPLEMENTATION}
+\subsection{Overall architecture}
+\begin{itemize}
+    \item[] \includegraphics[width=0.4\textwidth]{img/Screen/architecture.png}
+\end{itemize}
+The overall architecture of our system is designed with several interconnected modules. Users interact with our application, and any input or information provided through the app is transmitted to the backend server via a REST API. The backend is a infrastructure that leverages MySQL for database management and AWS S3 for scalable storage solutions.\\
 
-% \subsubsection{AddCoManager API}
-% \begin{itemize}
-%     \item Client → Server로 HTTP Request
-%     \begin{itemize}
-%         \item 전역 변수로 저장된 managementSpaceId와 userNickname 값을 HTTP Request에 설정한다.
-%         \\
-%     \end{itemize}
-%     \item Server에서 HTTP Request 처리, Server → Client로 HTTP Response
-%     \begin{itemize}
-%         \item HTTP Request에 설정된 managementSpaceId값을 spaceId 변수에 저장한다.
-%         \item HTTP Request에 설정된 userNickname 값으로 user table에서 record를 조회해, management\_space\_id에 spaceId 값을 저장한다.
-%         \item HTTP Request에 설정된 userNickname 값으로 user table에서 record를 조회해, user\_email 값을 userEmail 변수에 저장한다.
-%         \item management\_space\_\$\{spaceId\} table의 co\_managers\_user\_email 값을 coManagersUserEmail 변수에 저장한다.
-%         \item coManagersUserEmail 값을 배열로 변환한 뒤 userEmail 값을 push 하고 다시 JSON으로 변환한다.
-%         \item management\_space\_\$\{spaceId\} table의 co\_managers\_user\_email 값을 새로운 coManagersUserEmail 값으로 수정한다.
-%         \item addDone 변수에 true를 저장한다.
-%         \item addDone을 HTTP Response에 설정하여 Client에 Response를 전송한다.
-%         \\
-%     \end{itemize}
-%     \item Client에서 HTTP Response 처리
-%     \begin{itemize}
-%         \item HTTP Response에 addDone이 설정되어 있다면, ‘공동 관리자가 추가되었습니다.’ 라고 쓰인 Alert Component를 띄운다.
-%         \\
-%     \end{itemize}
-% \end{itemize}
+The user-facing application serves as the front end, allowing individuals to easily interact with the system. Behind the scenes, the REST API acts as a communication bridge between the application and the backend server. This ensures a standardized and secure method for transmitting data. On the hardware side, we have the CatFeeder module, which also communicates with the backend server through REST API.\\
 
-% \subsubsection{DeleteCoManager API}
-% \begin{itemize}
-%     \item Client → Server로 HTTP Request
-%     \begin{itemize}
-%         \item 전역 변수로 저장된 managementSpaceId와 CoManagerCard Component의 userEmail property 값인 coManagerUserEmail를 HTTP Request에 설정한다.
-%         \\
-%     \end{itemize}
-%     \item Server에서 HTTP Request 처리, Server → Client로 HTTP Response
-%     \begin{itemize}
-%         \item HTTP Request에 설정된 managementSpaceId, coManagerUserEmail 값을 각각 spaceId, userEmail 변수에 저장한다.
-%         \item userEmail 값으로 user table에서 record를 조회해, management\_space\_id 값을 ‘’(빈 문자열) 값으로 수정한다.
-%         \item management\_space\_\$\{spaceId\} table의 co\_managers\_user\_email 값을 coManagerUserEmail변수에 저장한다.
-%         \item coManagersUserEmail 값을 배열로 변환한 뒤 filter 메소드를 사용해 userEmail 값을 제거하고 다시 JSON으로 변환한다.
-%         \item management\_space\_\$\{spaceId\} table의 co\_managers\_user\_email 값을 새로운 coManagersUserEmail 값으로 수정한다.
-%         \item deleteDone 변수에 true를 저장한다.
-%         \item deleteDone을 HTTP Response에 설정하여 Client에 Response를 전송한다.
-%         \\
-%     \end{itemize}
-%     \item Client에서 HTTP Response 처리
-%     \begin{itemize}
-%         \item HTTP Response에 deleteDone이 설정되어 있다면, ‘공동 관리자가 삭제되었습니다.’ 라고 쓰인 Alert Component를 띄운다.
-%         \\
-%     \end{itemize}
-% \end{itemize}
+MySQL serves as the relational database management system, providing a structured and organized storage solution for our data. AWS S3, on the other hand, handles object storage, offering scalability and durability for larger datasets and file storage needs.
 
-% \section{GENERAL APPROACH}
-% \section{DEVELOPMENT ENVIRONMENT}
-% \section{SPECIFICATIONS}
-% \section{ARCHITECTURE IMPLEMENTATION}
-% \section{USE CASES}
-% \section{DISCUSSIONS}
+\newpage
+\subsection{Directory organization}
+\begin{enumerate}
+    \item FrontEnd
+    \begin{flushleft}
+        \tablefirsthead{\toprule Directory & File name \\ \midrule}
+        \tablehead{\toprule Directory & File name \\ \midrule}
+        \tabletail{\midrule }
+        \tablelasttail{\bottomrule}
+        \begin{supertabular}{p{0.42\linewidth} | p{0.5\linewidth}}
+        /root & \makecell[l]{App.tsx}\\
+        \midrule
+        /src/api/common & \makecell[l]{autoLogin.ts\\messageAuth.ts\\checkMessageAuthCode.ts\\getUserProfile.ts}\\
+        \midrule
+        /src/api/localSignUp & \makecell[l]{checkEmailAvailable.ts\\localSignUp.ts}\\
+        \midrule
+        /src/api/login & \makecell[l]{login.ts}\\
+        \midrule
+        /src/api/find & \makecell[l]{checkUserExists.ts\\getFindEmail.ts\\sendPw.ts}\\
+        \midrule
+        /src/api/userProfileSet & \makecell[l]{registUserProfile.ts\\modifyUserProfile.ts}\\
+        \midrule
+        \makecell[l]{\small /src/api\\ \footnotesize/pendingCoManagerAddition} & \makecell[l]{getManagementSpaceId.ts}\\
+        \midrule
+        /src/api/catInfoSet & \makecell[l]{registCatInfo.ts}\\
+        \midrule
+        \makecell[l]{/src/api/catInfoSet\\/catProfileSet} & \makecell[l]{getCatProfile.ts\\modifyCatProfile.ts}\\
+        \midrule
+        \makecell[l]{/src/api/catInfoSet\\/catPhotosForAISet} & \makecell[l]{callAI.ts}\\
+        \midrule
+        \makecell[l]{/src/api/catInfoSet\\/catFeedStuffSet} & \makecell[l]{getCatFeedStuff.ts\\modifyCatFeedStuff.ts}\\
+        \midrule
+        \makecell[l]{/src/api/catInfoSet\\/catHydrationSet} & \makecell[l]{getCatHydration.ts\\modifyCatHydration.ts}\\
+        \midrule
+        /src/api/main & \makecell[l]{getCatProfileList.ts\\getCatMainInfo.ts}\\
+        \midrule
+        /src/api/drawer & \makecell[l]{deleteCatInfo.ts\\logout.ts}\\
+        \midrule
+        {\small /src/api/hydrationStatistics} & \makecell[l]{getCatStatistics.ts}\\
+        \midrule
+        /src/api/coManager & \makecell[l]{getManagerList.ts\\deleteCoManager.ts\\userSearch.ts\\addCoManager.ts}\\
+        \midrule
+        /src/components & \makecell[l]{AutoLoginCheckBox.tsx\\CatProfileList.tsx\\Loading.tsx\\ManagerCard.tsx\\TopBar.tsx}\\
+        \midrule
+        /src/components/button & \makecell[l]{ButtonUI.tsx\\ProcessButton.tsx\\SelectButton.tsx\\SignUpButton.tsx\\UnderlineTextButton.tsx}\\
+        \midrule
+        \makecell[l]{/src/components\\/inputContainer} & \makecell[l]{InputContainer.ts\\ImageInputContainer.tsx}\\
+        \midrule
+        /src/components/alert & \makecell[l]{Alert.tsx\\SearchUserAlert.tsx\\SelectCatAlert.tsx}\\
+        \midrule
+        /src/components/drawer & \makecell[l]{Drawer.tsx\\DrawerRoute.tsx\\SubDrawerRoute.tsx}\\
+        \midrule
+        /src/components/drawer & \makecell[l]{Drawer.tsx\\DrawerRoute.tsx\\SubDrawerRoute.tsx}\\
+        \midrule
+        /src/components/calendar & \makecell[l]{index.ts\\CalendarHeader.tsx\\WeekCalendar.tsx\\MonthCalendar.tsx\\YearCalendar.tsx}\\
+        \midrule
+        /src/components/graph & \makecell[l]{index.ts\\HydrationGraph.tsx\\XAndBar.tsx}\\
+        \midrule
+        /src/contexts & \makecell[l]{UserContext.tsx\\CatContext.tsx\\CatInfoContext.tsx}\\
+        \midrule
+        /src/data/common & \makecell[l]{
+        checkMessageAuthCode\\FormType.ts}\\
+        \midrule
+        /src/data/localSignUp & \makecell[l]{
+        \small localSignUpFormType.ts\\ \small requestMessageAuthFormType.ts}\\
+        \midrule
+        /src/data/login & \makecell[l]{
+        loginFormType.ts}\\
+        \midrule
+        /src/data/find & \makecell[l]{
+        findEmailFormType.ts\\findPwFormType.ts}\\
+        \midrule
+        /src/data/userProfileSet & \makecell[l]{
+        userProfileFormType.ts}\\
+        \midrule
+        \makecell[l]{/src/data/catInfoSet\\catProfileSet} & \makecell[l]{\small catProfileSetFormType.ts}\\
+        \midrule
+        \makecell[l]{/src/data/catInfoSet\\catPhotosForAISet} & \makecell[l]{\small catPhotosForAISetFormType.ts}\\
+        \midrule
+        \makecell[l]{/src/data/catInfoSet\\catFeedStuffSet} & \makecell[l]{\small catFeedStuffSetFormType.ts}\\
+        \midrule
+        \makecell[l]{/src/data/catInfoSet\\catHydrationSet} & \makecell[l]{\small catHydrationSetFormType.ts}\\
+        \midrule
+        /src/hooks & \makecell[l]{
+        useGoScreen.ts\\useLoading.ts}\\
+        \midrule
+        /src/nav & \makecell[l]{
+        MainNavigator.tsx}\\
+        \midrule
+        /src/screens & \makecell[l]{
+        Start.tsx\\Login.tsx}\\
+        \midrule
+        /src/screens/localSignUp & \makecell[l]{
+        index.ts\\BasicForm.tsx\\RequestMessageAuth.tsx\\CheckMessageAuthCode.tsx}\\
+        \midrule
+        /src/screens/find & \makecell[l]{index.ts\\FindEmail.tsx\\FindEmailResult.tsx\\FindPw.tsx\\CheckMessageAuthCode.tsx}\\
+        \midrule
+        \makecell[l]{/src/screens\\/userProfileSet} & \makecell[l]{index.ts\\UserProfileSet.tsx\\UserProfileRegistration.tsx\\UserProfileModification.tsx}\\
+        \midrule
+        \makecell[l]{/src/screens\\/prepareSpace} & \makecell[l]{index.ts\\HowToGoSpace.tsx\\DeviceRegistration.tsx\\ \small PendingCoManagerAddition.tsx}\\
+        \midrule
+        \makecell[l]{/src/screens\\/catInfoSet\\/catProfileSet} & \makecell[l]{index.ts\\CatProfileSet.tsx\\CatProfileRegistration.tsx\\ CatProfileModifiation.tsx}\\
+        \midrule
+        \makecell[l]{/src/screens\\/catInfoSet\\/catPhotosForAISet} & \makecell[l]{index.ts\\CatPhotosForAISet.tsx\\ \small CatPhotosForAIRegistration.tsx\\AIResult.tsx}\\
+        \midrule
+        \makecell[l]{/src/screens\\/catInfoSet\\/catFeedStuffSet} & \makecell[l]{index.ts\\CatFeedStuffSet.tsx\\CatFeedStuffRegistration.tsx\\ CatFeedStuffModifiation.tsx}\\
+        \midrule
+        \makecell[l]{/src/screens\\/catInfoSet\\/catHydrationSet} & \makecell[l]{index.ts\\CatHydrationSet.tsx\\CatHydrationRegistration.tsx\\ CatHydrationModifiation.tsx}\\
+        \midrule
+        \makecell[l]{/src/screens/main} & \makecell[l]{index.ts\\Main.tsx\\HydrationStatistics.tsx\\CoManager.tsx}\\
+        \midrule
+        /src/styles & \makecell[l]{
+        alertBackgroundStyles.ts\\mainView.ts}\\
+        \midrule
+        /src/utils & \makecell[l]{
+        changeDateToString.ts\\checkCanPress.ts\\checkValid.ts\\localUriToFormData.ts}\\
+        \midrule
+        \end{supertabular}
+    \end{flushleft}
+    \vspace{0.5cm}
+
+    \newpage
+    \item BackEnd
+    \begin{flushleft}
+        \tablefirsthead{\toprule Directory & File name \\ \midrule}
+        \tablehead{\toprule Directory & File name \\ \midrule}
+        \tabletail{\midrule }
+        \tablelasttail{\bottomrule}
+        \begin{supertabular}{p{0.42\linewidth} | p{0.5\linewidth}}
+        /API/ & \makecell[l]{addCoManager.js \\ autoLoginCase1.js \\ autoLoginCase2.js \\ checkEmailAvailable.js \\ checkMessageAuthCode.js \\ checkUserExists.js \\ deleteCatInfo.js \\ deleteCoManager.js \\ getCatFeedStuff.js \\ getCatHydration.js \\ getCatMainInfo.js \\ getCatProfile.js \\ getCatProfileList.js \\ getCatStatistics.js \\getFindEmail.js \\  getManagementSpaceId.js \\getManagerList.js \\getUserProfile.js \\ localSignUp.js \\ login.js \\ logout.js \\  messageAuth.js \\ modifyCatFeedStuff.js \\ modifyCatHydration.js \\ modifyCatProfile.js \\ modifyUserProfile.js \\ package-lock.json \\ package.json \\ registCatInfo.js \\ registUserProfile.js \\ sendPw.js \\ serverless.yml \\ userSearch.js}\\
+        \midrule
+        \end{supertabular}
+    \end{flushleft}
+    \vspace{0.5cm}
+
+    \item AI
+    \begin{flushleft}
+        \tablefirsthead{\toprule Directory & File name \\ \midrule}
+        \tablehead{\toprule Directory & File name \\ \midrule}
+        \tabletail{\midrule }
+        \tablelasttail{\bottomrule}
+        \begin{supertabular}{p{0.42\linewidth} | p{0.5\linewidth}}
+        [Front-end /root]/AI/  & \makecell[l]{flask\_app.py\\model.py\\requirements.txt\\./models/resnet50.pth\\./models/yolov8m-seg.pt}\\
+        \midrule
+        /AI/ & \makecell[l]{Cat Analysis AI.ipynb\\readme\\requirements.txt\\yolov8m-seg.onnx\\yolov8m-seg.pt\\yolov8n-seg.pt}\\
+        \midrule
+        /AI/data/ & \makecell[l]{cat.mp4}\\
+        \midrule
+        /AI/img/ & \makecell[l]{out.png}\\
+        \midrule
+        /AI/img/predict/crops/ & \makecell[l]{cropped images}\\
+        \midrule
+        /AI/img/predict/labels/ & \makecell[l]{generated dataframes}\\
+        \midrule
+        /AI/Model Training/ & \makecell[l]{Model Training\\Demonstration.ipynb}\\
+        \midrule
+        /AI/Model Training/data/ & \makecell[l]{Abyssinian\\Bengal\\Birman\\Bombay\\British Shorthair\\Egyptian Mau\\Maine Coon\\Persian\\Ragdoll\\Russian Blue\\Siamese\\Sphynx}\\
+        \midrule
+        /AI/Model Training/images/ & \makecell[l]{train\\val\\test}\\
+        \midrule
+        /AI/Model Training/checkpoints/ & \makecell[l]{best\_checkpoint.pth\\epoch_n_checkpoint.pth}\\
+        \midrule
+        \end{supertabular}
+    \end{flushleft}
+    \vspace{0.5cm}
+\end{enumerate}
+\vspace{0.5cm}
+
+\subsection{FrontEnd Module}
+
+\subsubsection{Utils}
+
+\begin{itemize}
+    \item purpose and functionality : A module containing frequently used functions in various Screens, Components, and API modules
+    \item location of module : src/utils
+    \item modules in Utils module
+    \begin{itemize}
+        \item checkValid: Performs validation differently based on input types and returns the validation results
+        \item checkCanPress: Verifies if validation has been successful and enables buttons accordingly.
+        \item localUriToFormData: Converts uploaded image files from users into formData for uploading to S3
+        \item changeDateToString: Converts Date objects to strings for date comparison since dates from the server are in string. format
+        \vspace{0.5cm}
+    \end{itemize}
+\end{itemize}
+\subsubsection{Data}
+\begin{itemize}
+    \item purpose and functionality : Modularized to specify the type and initial values of formData used in information entry and modification screens, enhancing code readability. It also includes validation results for each input value
+    \item location of module : src/data
+    \vspace{0.5cm}
+\end{itemize}
+
+\subsubsection{Hooks}
+
+\begin{itemize}
+    \item purpose and functionality : A module created for creating custom hooks that handle repetitive state management and side effects. These hooks are intended to be imported and used where necessary
+    \item location of module : src/hooks
+    \item modules in Hooks module
+    \begin{itemize}
+        \item useGoScreen : Navigation to the previous screen, specific screens, and sending parameters while navigating to a specific screen
+        \item useLoading : Displays a loading indicator while waiting for API responses
+        \vspace{0.5cm}
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Contexts}
+
+\begin{itemize}
+    \item purpose and functionality : A module utilizing the Context API to provide globally managed states and setter functions needed across multiple screens through Providers
+    \item location of module : src/contexts
+    \item modules in Contexts module
+    \begin{itemize}
+        \item UserContext : Manages states such as 'isMainDataChanged' determining if the main screen needs re-rendering, 'userEmail' and 'managementSpaceId' required for data binding and API calls across multiple screens. Additionally, 'userPw', 'userName', and 'userPhoneNum' are used to retain information entered in previous screens during signup, email recovery, and password recovery. For security reasons, 'userPw', 'userName', and 'userPhoneNum' are immediately initialized.
+        \item CatInfoContext : The registration of cat information involves passing through screens for profiles, AI photos, wet food input, and finally, the hydration input screen. The API call is triggered upon pressing the registration button on this last screen. Therefore, a state to retain cat information from the previous stages is necessary until hydration input.
+        \item CatContext : The state includes the Id and profile picture for the profile list of cats managed within the space, utilized across the main screen, statistics screen, and cat selection alert.
+        \vspace{0.5cm}
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Components}
+
+\begin{itemize}
+    \item purpose and functionality : Modules designed to be used as common components across various screens or for complex components, enabling their customization and easy implementation wherever required.
+    \item location of module : src/components
+    \item modules in Components module
+    \begin{itemize}
+        \item TopBar : Appears on all screens and consists of a back button, screen title, and a button for opening/closing the drawer.
+        \item inputContainer
+        \begin{itemize}
+            \item Text Input: Used on information input screens, validates input types and displays validation results below the input field if necessary.
+            \item Image Input: Allows users to move to their gallery upon clicking a camera icon and displays the selected image.
+        \end{itemize}
+        \item button : A button to execute a particular logic, a button to choose between two options
+        \item alert : A basic alert, an alert for selecting a cat when modifying/deleting cat information, and a user search alert for adding co-managers.
+        \item CatProfileList : Lists profile pictures of cats managed within a space, allowing selection of a cat profile to view information.drawer : Displays the user profile at the top and includes buttons for modifying a user profile, registering a cat profile, modifying a cat profile, deleting a cat profile, adding co-managers, and logout.button : A button to execute a particular logic, a button to choose between two options
+        \item drawer : Displays the user profile at the top and includes buttons for modifying a user profile, registering a cat profile, modifying a cat profile, deleting a cat profile, adding co-managers, and logout.
+        \item calendar : Contains a header with left and right buttons for changing the period and different designs for weekly, monthly, and yearly.
+        \item graph : Appears on the hydration statistics screen, where the width of bars varies based on the number of x-values.
+        \item ManagerCard : A card displaying the profile picture and information of co-managers.
+        \vspace{0.5cm}
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Styles}
+
+\begin{itemize}
+    \item purpose and functionality : A StyleSheet module used across various screens and components as a common styling
+    \item location of module : src/styles
+    \item modules in Styles module
+    \begin{itemize}
+        \item mainViewStyles : Includes styles for setting marginTop, center alignment, and adjusting component height to device height
+        \item alertBackgroundStyles : Positions the Alert on top of the existing screen in an absolute position. It defines Alert width, height, alignment, and sets the background color of the Alert to gray.
+        \vspace{0.5cm}
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{API}
+
+\begin{itemize}
+    \item purpose and functionality : A module intended for use in functional components to import and utilize API call and handling functions as needed. It utilizes Axios to send API requests to the server and processes responses based on different conditions.
+    \item location of module : src/api
+    \item modules in API module
+    \begin{itemize}
+        \item common : Includes APIs required across multiple screens such as automatic login, requesting SMS authentication, checking SMS verification codes, and fetching user profile information.
+        \item localSignUp : Validates if an email is available and handles user registration based on user input.
+        \item login : Handles login based on user input.
+        \item find : Searches for an email based on user input. For password recovery, checks if there's a registered user matching the input and, if confirmed, sends the password via email.
+        \item userProfileSet : Handles registration and modification of user profiles.
+        \item pendingCoManagerAddition : Wait until confirming that user is registered as a co-manager.
+        \item catInfoSet: Register cat information to manage, get cat profile/wet feed/hydration, modify it.
+        \item main : Get the ID and profile picture of the cat registered in the space, and import main information of the selected cat.
+        \item Drawer : Deletes cat information and logout that is processed immediately without moving the screen in the drawer.
+        \item hydrationStatistics : fetching period-by-period hydration statistics data for selected cats
+        \item coManager : Get a list of co-manager, delete co-manager, search for and add users to add as co-manager.
+        \vspace{0.5cm}
+    \end{itemize}
+\end{itemize}
+
+\subsection{BackEnd Module}
+\subsubsection{Node.js - Serverless}
+    \begin{itemize}
+        \item Purpose : The project, being relatively small in terms of required APIs and involving two backend developers with limited project development experience, led to many considerations regarding server management and modularization. During this collaboration, the developers discovered the AWS Lambda serverless service, realizing that deploying APIs using this service allows for API-specific management without the need for separate server maintenance. Given the need to quickly develop APIs and manage servers, using serverless to modularize APIs and deploy them to the cloud was deemed suitable for the project scale.
+        \item Functionality : Deployment and management of individual API endpoints.
+        \item Location of Source Code
+        \begin{itemize}
+            \item Local: \texttt{API/root}
+            \item AWS Lambda: \texttt{MulMeokNyang-prod/root}
+        \end{itemize}
+        \item Class Components : \texttt{serverless.yml}\\The code was modularized in individual JS files using the \texttt{serverless-http} module. The modularized code was then collectively deployed using the \texttt{serverless.yml} file.
+        \begin{lstlisting}[style=htmlcssjs]
+//getFindEmail.js
+const express = require("express");
+const app = express();
+const mysql = require("mysql2");
+const cors = require("cors");
+const serverless = require("serverless-http");
+const dotenv = require("dotenv");
+
+// API code...
+
+module.exports = {
+  getFindEmail: serverless(app),
+};
+\end{lstlisting}
+\\
+
+\begin{lstlisting}[style=htmlcssjs]
+\\serverless.yml
+service: MulMeokNyang
+frameworkVersion: "3"
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  environment:
+    RDS_HOST: ${.env:RDS_HOST}
+    RDS_USER: ${.env:RDS_USER}
+    RDS_DATABASE: ${.env:RDS_DATABASE}
+    RDS_PASSWORD: ${.env:RDS_PASSWORD}
+    S3_BUCKET_NAME: ${.env:S3_BUCKET_NAME}
+  memorySize: 2048
+  timeout: 15
+  stage: prod
+  region: ap-northeast-2
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - s3:*
+      Resource: arn:aws:s3:::S3_BUCKET_NAME
+
+functions:
+  autoLoginCase1:
+    handler: autoLoginCase1.autoLoginCase1 //handler.module
+    events:
+      - http:
+          path: /autoLoginCase1
+          method: post
+
+ getFindEmail:
+    handler: getFindEmail.getFindEmail //handler.module
+    events:
+      - http:
+          path: /getFindEmail
+          method: get
+% and more
+\end{lstlisting}
+    \end{itemize}
+
+\subsection{AI Module} \\
+Following features are performed when invoked from front-end(by uploading 5 images, it requests via API). Then results are returned to Front-end in JSON format.\\
+\subsubsection{Cat Detection and Cropping (YOLOv8)}
+\begin{itemize}
+    \item Purpose: To identify and crop images of cats from footage using the YOLOv8 model.
+    \item Functionality: The YOLOv8 model performs object detection and segmentation, saving a text file containing class (cat=15), annotation, and ID information of the cropped cats.
+    \item Source Code: From Ultralytics Documentation
+    \item Class Components: YOLOv8 model, OpenCV for video processing.
+    \item Usage Explanation: YOLOv8 is employed for its efficient real-time object detection capabilities, with the script leveraging its save\_text function to store information about detected cats.
+    \vspace{0.5cm}
+\end{itemize}
+
+\subsubsection{Cat Color Detection}
+\begin{itemize}
+    \item Purpose: To analyze images of cats and extract dominant color information.
+    \item Functionality: Uses YOLOv8 for object detection, applies K-Means clustering to identify dominant colors, calculates color frequencies, and utilizes the CIELAB color space for enhanced color representation.
+    \item Source Code: Customized implementation in Python, utilizing OpenCV, PIL, and scikit-learn for image processing and color analysis.
+    \item Class Components: Functions for color analysis, K-Means clustering, and DataFrame manipulation.
+    \item Usage Explanation: The script enhances the cat-related information by extracting dominant color details, contributing to a more comprehensive DataFrame representing cat attributes.
+    \vspace{0.5cm}
+\end{itemize}
+
+\subsubsection{Cat Breed Detection (ResNet-50)}
+\begin{itemize}
+    \item Purpose: To predict the breed of cats in a set of images.
+    \item Functionality: Utilizes a pretrained ResNet-50 model fine-tuned for cat breed classification, integrates predicted breed labels into a DataFrame.
+    \item Source Code: Customized implementation using PyTorch and torchvision for deep learning.
+    \item Class Components: Custom model head, PyTorch functions for model training, DataFrame manipulation.
+    \item Usage Explanation: Transfer learning is employed to leverage the knowledge encoded in the pretrained ResNet-50 model for cat breed classification, enhancing the script's ability to categorize cats based on their predicted breeds.
+    \vspace{0.5cm}
+\end{itemize}
+
+\section{USE CASES}
+
+\subsection{New User of the Application}
+
+\subsubsection{Start}
+\begin{itemize}
+    \begin{itemize}
+        \item Click the "Sign up by email" button to proceed with the registration.
+        \vspace{0.3cm}
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Sign Up}
+\begin{itemize} 
+    \begin{itemize}
+        \item Enter email, password, and confirm the password for account information.
+        \item If the email and password are validated, move to the next screen for name and phone number verification through SMS.
+        \item Enter the 6-digit verification code received via SMS. If user clicks the 'complete' button, verify the code. After verifying, display an alert indicating successful registration and proceed to the login screen.
+        \vspace{0.3cm}
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Login}
+\begin{itemize}
+    \begin{itemize}
+        \item Log in with the email and password entered during registration.
+        \item 'Automatic Login' button is the function for users who completed the user profile registration. If not, display an alert, "Automatic Login is available after user profile registration." Then, move to user profile registration.
+        \item If the user forgets the email, they can click on the 'Fine Email' button.
+        \begin{itemize}
+            \item Enter the name and phone number used during registration.
+            \item If user enter incorrect information, an alert is displayed 'There are no users found.'
+            \item On the next screen, user can check the email when user signed up for membership. After that, user can choose whether to login or find password.
+        \end{itemize}
+        \item If the user forgets the password, they can click on the "Find Password" button.
+        \begin{itemize}
+            \item Enter the email and phone number entered when registering as a member, and press the 'Do message authentication' button. 
+            \item Enter 6 digits of the authentication number sent by SMS and press the 'complete' button. If the authentication number does not match, user can see an alert that says 'It does not match', and if it matches, user can see an alert that says 'The password was sent to the email'.
+            \vspace{0.3cm}
+        \end{itemize}
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{User Profile Registration}
+\begin{itemize}
+    \begin{itemize}
+        \item Enter user's profile picture, nickname, and self-introduction(optional).
+        \item Create a new management space for cats to press 'Create my own management space' button 
+        \item If user wants to join an existing space, press 'Pending on co-manager addition' button.
+        \begin{itemize}
+            \item When the main manager of the space allows the user to access the space, it moves to the main screen that manages the space.
+        \end{itemize}
+        \item Connect the cat watering machine to management space. Upon confirmation, proceed to cat profile registration.
+        \vspace{0.3cm}
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Cat Profile Registration}
+\begin{itemize}
+    \begin{itemize}
+        \item Enter cat's name, age, weight, and profile photo(optional).
+        \item In order for the watering machine to recognize the cat, the user needs to perform AI analysis for classifying the breed and extracting characteristic colors of the cat. The user can upload 5 pictures of their cat. By clicking the camera icon, they can access their gallery and add photos one at a time. If a photo is uploaded mistakenly, it can be deleted by clicking the X icon on the top right  of the photo. Once all 5 photos are uploaded, pressing the AI analysis button starts the analysis. Upon completion of the AI analysis, the breed and characteristic colors of the cat will appear on the screen. If unsatisfied with the analysis, pressing the 'Previous' button allows for a new AI analysis using a different photo."
+        \item Enter the presence or absence of wet feed intake periodically. When the user presses the 'Yes' button, they enter the daily intake and water content of the feed (optional). Press 'No' to move on.
+        \item Set the daily goal hydration. When the user presses the 'automatically' button, the daily goal hydration is automatically calculated and entered in the input below. By pressing 'manually', the user can enter the desired target amount of water consumption quantity.
+        \item Complete the registration. If the user wants to add another cat, proceed to additional registration.
+        \vspace{0.3cm}
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Main}
+\begin{itemize}
+    \begin{itemize}
+        \item After registering the user profile and registering the cat profile, the user accesses the main screen when login on the first screen. On the main screen, user can see a brief profile of the selected cat, daily water intake, and advice messages.
+        \item Click on "View period-based hydration statistics" to see the cat's hydration statistics screen.
+        \item If a user clicks on a different cat's photo at the top, it will switch to the main for that cat.
+        \vspace{0.3cm}
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Cat Hydration Statistics}
+\begin{itemize}
+    \begin{itemize}
+        \item View the cat's hydration statistics on a weekly, monthly, or yearly by clicking each buttons. You can specify a specific time by clicking the calendar icon.
+        \item In weekly statistics, user can check daily goal hydration  achievement rate.
+        \item In monthly statistics, user can check the weekly average of goal hydration achievement rate.
+        \item In the annual statistics, user can check the monthly average of goal hydration achievement rate.
+        \item If user touches a bar, user can see detailed figures.
+        \item If a user clicks on a different cat's photo at the top, it will switch to the main for that cat.
+        \vspace{0.3cm} 
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Drawer}
+\begin{itemize}
+    \begin{itemize}
+        \item Access the overall service through the menu icon in the top right.
+        \item Modify user profile
+            \begin{itemize}
+                \item User can modify the profile picture(optional), nickname, and self-introduction(optional) to be used by the application. Press the 'complete' button to return to the main screen.
+                \vspace{0.3cm}
+            \end{itemize}
+        \item Add a new cat
+            \begin{itemize}
+                \item Go to the screen where user want to add a new cat. User would perform the same process as when registering for a cat profile. When the addition is complete, it returns to the main screen.
+                \vspace{0.3cm}
+            \end{itemize}
+        \item Modify Cat's information 
+            \begin{itemize}
+                \item User can modify a cat's profile, wet food, and daily goal hydration. Clicking on the desired information to modify shows an alert to select the cat's profile for modifying. Upon pressing the 'modify' button, it moves to the cat profile modification screen. Once the modification is complete, it returns to the main screen.
+                \vspace{0.3cm}
+            \end{itemize}
+        \item Delete Cat's profile
+            \begin{itemize}
+                \item When pressing the delete button, an alert appears to select the cat's profile for deletion. Upon pressing the 'Delete' button, it returns to the main screen, confirming the deletion of the cat's information.
+                \vspace{0.3cm}
+            \end{itemize}
+        \item Manage co-administrators.
+            \begin{itemize}
+                \item User can see a list of users who are managing my cat's space. It is divided into main manager and co-managers.
+                \item If user press the 'Add Co-manager' button, an alert will appear where user can add an co-manager. User enters a nickname, then click the search icon. And the search results will appear below. If user presses 'add' button, an alert will appear indicating that an co-manager has been added.
+                \item If a user clicks on the trash can icon located at the bottom right of the co-manager card, an alert appears, asking if the user wants to delete the manager. Selecting 'Yes' enables the deletion of the co-manager.
+                \vspace{0.3cm}
+            \end{itemize}
+    \end{itemize}
+\end{itemize}
+
+\subsection{Users already using the application (With Automatic Login)}
+\begin{itemize}
+    \item The loading occurs on the start screen, and once the loading finishes, it automatically transitions to the main screen.
+    \item Subsequently, the user follows the same steps as described in USE CASE 1.
+\end{itemize}
+
+\section{DISCUSSIONS}
+\subsection{Ann Jukyung}
+Reflecting on this project experience, where my main responsibilities included backend API development and preparing presentation materials, I encountered several challenges, particularly in the realm of backend development. Being my first foray into this area, everything from understanding and implementing libraries and modules to the nuances of code syntax was a steep learning curve.\\
+
+The initial phase of the project was the most daunting. I had to quickly familiarize myself with various backend technologies, understand how different APIs interact, and grasp the essentials of server management. The challenge was not just in learning new concepts but in applying them practically. I often found myself struggling with debugging and optimizing the code, which was both time-consuming and, at times, frustrating. \\
+
+One of the most significant challenges was ensuring efficient communication between the backend and frontend parts of our application. Aligning the data formats, handling requests and responses, and ensuring data security were areas where I had to invest considerable effort and research. \\
+
+Moreover, preparing presentation materials while simultaneously handling the technical aspects was a task that required effective time management. Distilling complex backend processes into understandable segments for the presentation demanded a different skill set. I had to balance between being technically accurate and making the content accessible to non-technical stakeholders. \\
+
+Despite these challenges, the experience was immensely educational. I learned not just about technical aspects but also about resilience, the importance of thorough research, and the value of patience and persistence. Moving forward, I intend to apply the knowledge and collaborative experience gained from this project to numerous future endeavors. The practical insights I've acquired, particularly in backend development and team dynamics, will be invaluable assets in my ongoing professional journey. I aim to continuously integrate and leverage these learnings in upcoming projects, enhancing my technical proficiency and teamwork skills incrementally over time. \\
+
+\subsection{Choi Chansol}
+In this team project, I was responsible for the front-end development using React Native. Although I had prior experience with several development projects, my skills were lacking. I had only worked on small personal projects multiple times. However, through this project, I managed to implement the basic structure of a commercial application. From user registration and login to our service's unique feature of managing hydration spaces, I successfully implemented various functionalities. It feels satisfying to produce a proper outcome for the first time.\\
+
+Especially, creating a mobile app using React Native felt like a significant growth point for me. Previously, React didn't resonate with me, so I mainly developed using vanilla JavaScript. However, inspired by this project, I decided to delve into React Native, a choice favored by many front-end developers. At the beginning of the semester, I spent a month studying theory by purchasing a book and practicing code examples. From mid-October, I began the front-end development and completed it within a month and a half.\\
+
+My primary focus in this development was on modularization. I modularized functions and components that seemed likely to be reused later. Initially, although the functionality was limited, I felt concerned as the folder structure became complex and the number of files increased. However, as I progressed, I realized the importance of modularization. For instance, our application had several input fields. I created a custom component called 'inputContainer', allowing the creation of appropriate input fields on various screens by passing different property values based on the screen. It took me an entire day just to implement this component. Consequently, even though it seemed like I hadn't achieved much that day, creating intricate components resulted in quickly completing screens that required input fields in just about an hour and a half. Also, our application had similar screens for either registering or editing information. Initially, I struggled to figure out an efficient structure for these screens. However, I achieved modularization by passing the 'method' property to identify whether it's a registration or editing screen. Thus, I could implement identical UI/UX designs but handle modifications differently by implementing different callback functions for registration and editing buttons. As I progressed, although the content to be developed became more challenging, the consistent focus on modularization allowed me to progress steadily without delay.\\
+
+However, there were some regrets. This was my first substantial project using React Native, and time was limited. Therefore, when faced with challenging concepts, I opted for an easier route instead of delving deeper. Regrettably, I abandoned two things. Firstly, Redux - I used the Context API to manage global states instead of Redux, which is more suitable for complex global state management. Since Redux was the most challenging part for me, I was unsure if I could handle it within the given time frame. However, due to the considerable number of global variables in our application, the code efficiency was compromised. Secondly, the Drawer component - I couldn't comprehend how to perform nested navigation using the Stack Navigator and Drawer Navigator together. Consequently, I created the Drawer as a custom component, and to navigate using the Drawer, I added screens directly to the Stack Navigator. Although I chose to abandon these due to time constraints, I'm planning to overcome these shortcomings during this winter break by working on new toy-projects.\\
+
+Collaborating with the backend wasn't without challenges. Our team had two backend developers who were completely new to backend development. I took the initiative to create backend development guidelines explaining which APIs to implement and the logic behind them. Development started in November, and assuming the APIs were implemented, I had to write code to call these APIs and bind data. Therefore, it was challenging to verify the accuracy of the code I had written. If even in real-world scenarios, frontend development sometimes initiates before API development, one should become familiar with verifying using mock data for the initial validation.\\
+
+\subsection{Lee Yunsun}
+In my role using Node.js with the Express framework, I took charge of developing backend APIs and overseeing code reviews, subsequently deploying them serverlessly on AWS. The initial foray into API development and AWS services proved challenging, marked by trial and error. Notably, grappling with reading environmental variables in the code and configuring AWS S3 permissions posed difficulties. Branch merges were hindered by version disparities in modules, prompting a shift towards individual API distributions to mitigate collisions, albeit not entirely successfully.\\ 
+
+Navigating through package.json, I gleaned insights into the critical role of version management. Despite encountering challenges, tapping into AWS official documentation and collaborative problem-solving within the team proved instrumental. This project provided a holistic view of software development, encompassing service planning through to distribution, and underscored the significance of teamwork in resolving issues.\\
+
+\subsection{Hong JunGgi}
+In my role overseeing AI development, I feel sorry for our team members, recognizing the challenges we faced throughout the process. The realization of even minor mistakes, including typos, took me several days. Delving into the intricacies of pre-trained models was a time-consuming endeavor, requiring a substantial investment to comprehend their workings effectively, espeically YOLO models from ultralytics.\\
+
+The training phase, on the other hand, proved comparatively straightforward. Thanks to the professor's guidance, the official PyTorch documentation offered comprehensive codes that facilitated a step-by-step understanding of the training process. Troubleshooting became manageable through resources like Stack Overflow, enabling us to address errors as they arose while awaiting the computer's autonomous execution.\\
+
+Yet, the most formidable aspects of the development journey were encountered during implementation, feature engineering, and file organization. Navigating the complexities of connecting the AI components seamlessly with both the front-end and back-end systems presented additional challenges. Deploying the model online initially aimed at utilizing AWS Sagemaker, but due to a time constraint resulting from extensive focus on AI training and development, I couldn't allocate time to master AWS intricacies. This led to a minor financial setback of \$4.4, as I inadvertently left the Sagemaker instance active.\\
+
+Despite this setback, we successfully pivoted to a local deployment using Flask. This experience highlighted the multifaceted nature of AI development, emphasizing the need for a holistic approach that encompasses not only training but also the integration and deployment phases.\\
+
+As we approached the project deadline, a significant realization dawned upon us—we found ourselves increasingly reliant on ChatGPT, even evolving into adept prompt engineers within a short span. This reliance underscored the versatility and efficiency of utilizing language models like ChatGPT in the development process.\\
+
+Furthermore, reflecting on the project experience, I recognized the need to explore AI development with Tensorflow in the future. This shift would facilitate seamless integration of AI models with JavaScript format, particularly beneficial for mobile applications in the front-end. Additionally, I acknowledged the importance of diversifying the dataset, suggesting that in future AI endeavors, I should experiment with a broader range of cat breeds, deliberately ignoring class imbalances to observe the impact on accuracy.\\
+
+The project journey also underscored the significance of soft skills in the realm of software development. Understanding software life cycles, effective communication methods, the importance of documentation, individual responsibilities, and proficient project management all emerged as crucial components. As software developers, it became evident that meticulous consideration of these factors is imperative to navigate through the development process smoothly. Effective communication, in particular, plays a pivotal role in preventing miscommunication and misunderstandings.\\
+
+A key takeaway from this experience is the necessity of collaborative efforts in group development projects. Solo endeavors can lead to inefficiencies and misunderstandings. Instead, fostering open communication, understanding everyone's requirements, and delineating individual tasks contribute to a cohesive and successful development process. It serves as a reminder that the synergy of skills and ideas within a team enhances the overall quality of the project.\\
+
+Frankly, initially, the concept of teaching a computer to analyze images and accurately predict their content, particularly in terms of categorization, struck me as a rather audacious idea. At the time, it seemed almost implausible. Little did I realize that I was somewhat lagging behind the rapid advancements in the modern tech world, and what I perceived as an audacious concept was merely the tip of the iceberg.\\
+
+Through this project, I've come to understand that the AI landscape is continuously evolving, with advancements far beyond what I initially perceived as impossible. The project not only broadened my technical expertise but also shed light on the importance of soft skills in navigating the complexities of the AI industry. It underscored the dynamic nature of technology and the ongoing need for individuals to adapt and stay abreast of the latest developments.\\
+
+In essence, this project has been a catalyst for my personal growth, providing insights into the limitless possibilities within the AI industry. It has ignited a curiosity to delve deeper into the unexplored realms of artificial intelligence, recognizing that there is so much more to be discovered and leveraged for the betterment of the world.\\
 
 \end{document}
