@@ -69,7 +69,7 @@ def upload_files():
         df = pd.DataFrame(combined_results_list)
 
         breed = {'breed': df['breed'].value_counts().idxmax()}
-        color = df.sample(n=1).iloc[:, 1:6].to_dict(orient='records')[0]
+        color = df.iloc[:, 1:6].to_dict(orient='records')[0]
         combined_results = {**breed, **color}
         print(combined_results)
 

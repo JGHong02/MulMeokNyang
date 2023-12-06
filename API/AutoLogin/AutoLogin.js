@@ -1,27 +1,22 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
+const mysql = require('mysql');
 const crypto = require('crypto');
-const app = express();
-const mysql = require('mysql2');
-const cors = require('cors');
-const serverless = require('serverless-http');
-const dotenv = require('dotenv');
 
-app.use(cors());
+const app = express();
+const PORT = 3100;
+
+app.use(express.json());
 app.use(cookieParser());
 
-dotenv.config();
+const db = mysql.createConnection({
+    host: 'mydb-instance.c3emgnv7ms58.eu-north-1.rds.amazonaws.com',
+    user: 'hyoju8618',
+    password: 'ahj6381hyn!',
+    database: 'mydatabase'
+});
 
-const rdsConfig = {
-    host: process.env.RDS_HOST,
-    user: process.env.RDS_USER,
-    database: process.env.RDS_DATABASE,
-    password: process.env.RDS_PASSWORD,
-  };
-  
-  const connection = mysql.createConnection(rdsConfig);
-
-connection.connect((err) => {
+db.connect((err) => {
     if (err) {
         console.error('Error connecting to database: ' + err.stack);
         return;
@@ -31,9 +26,9 @@ connection.connect((err) => {
 
 function generateSessionId() {
     return crypto.randomBytes(16).toString('hex');
-};
+}
 
-app.post('/autoLogin', (req, res) => {
+app.post('/autologin', (req, res) => {
     const userEmail = req.body.userEmail;
     const providedSessionId = req.body.sessionID;
 
@@ -41,7 +36,7 @@ app.post('/autoLogin', (req, res) => {
         const sessionId = generateSessionId();
 
         const query = 'INSERT INTO session (sessionID, userEmail) VALUES (?, ?)';
-        connection.query(query, [sessionId, userEmail], (err) => {
+        db.query(query, [sessionId, userEmail], (err) => {
             if (err) {
                 console.error(err);
                 return res.status(500).json({ error: 'Internal Server Error' });
@@ -52,7 +47,7 @@ app.post('/autoLogin', (req, res) => {
 
     } else if (providedSessionId) {  // Case 2: 자동 로그인이 설정된 사용자
         const query = 'SELECT userEmail FROM session WHERE sessionID = ?';
-        connection.query(query, [providedSessionId], (err, results) => {
+        db.query(query, [providedSessionId], (err, results) => {
             if (err) {
                 console.error(err);
                 return res.status(500).json({ error: 'Internal Server Error' });
@@ -72,7 +67,7 @@ app.post('/autoLogin', (req, res) => {
 
 function sendResponse(userEmail, sessionId, res) {
     const query = 'SELECT management_space_id FROM user WHERE userEmail = ?';
-    connection.query(query, [userEmail], (err, results) => {
+    db.query(query, [userEmail], (err, results) => {
         if (err) {
             console.error(err);
             return res.status(500).json({ error: 'Internal Server Error' });
@@ -90,8 +85,8 @@ function sendResponse(userEmail, sessionId, res) {
 
         res.json(responseObj);
     });
-};
+}
 
-module.exports = {
-    autoLogin: serverless(app),
-};
+app.listen(PORT, () => {
+    console.log(`AutoLogin server is running on http://localhost:${PORT}`);
+});

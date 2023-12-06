@@ -10,8 +10,10 @@
   "license": "ISC",
   "dependencies": {
     "aws-sdk": "^2.1497.0",
+    "axios": "^1.6.2",
     "body-parser": "^1.20.2",
     "cookie-parser": "^1.4.6",
+    "coolsms-node-sdk": "^2.0.1",
     "cors": "^2.8.5",
     "crypto": "^1.0.1",
     "dotenv": "^16.3.1",
@@ -21,8 +23,11 @@
     "multer-s3": "^3.0.1",
     "mysql": "^2.18.1",
     "mysql2": "^3.6.3",
+    "nodemailer": "^6.9.7",
+    "phone": "^3.1.41",
     "serverless-dotenv-plugin": "^6.0.0",
     "serverless-http": "^3.2.0",
+    "twilio": "^4.19.0",
     "uuid4": "^2.0.3"
   },
   "devDependencies": {

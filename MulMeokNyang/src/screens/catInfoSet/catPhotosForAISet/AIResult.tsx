@@ -82,7 +82,7 @@ const AIResult: FC<AlResultType> = ({ route }) => {
           <Text
             style={[
               styles.subText,
-            ]}>{`결과가 마음에 들지 않는다면, 이전 화면으로 돌아가\n사진을 수정하고 다시 AI 분석을 진행해 주세요.`}</Text>
+            ]}>{`색상은 급수기의 그림자를 고려해 살짝 어둡게 추출됩니다.\n결과가 마음에 들지 않는다면, 이전 화면으로 돌아가\n사진을 수정하고 다시 AI 분석을 진행해 주세요.`}</Text>
         </View>
         <View style={[styles.buttonView]}>
           <ProcessButton

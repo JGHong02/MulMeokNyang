@@ -72,7 +72,7 @@ const CatPhotosForAISet: FC<CatPhotosForAISetType> = ({ method }) => {
         // 사진 업로드 전, 자르기 추가 편집 여부
         allowsEditing: false,
         // 사진 압축 여부, 1로 설정하면 가장 높은 품질로 파일 업로드
-        quality: 1,
+        quality: 0.8,
         // 사진 비율
         aspect: [1, 1],
       });
