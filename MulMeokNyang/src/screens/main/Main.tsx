@@ -135,6 +135,9 @@ const Main = () => {
     // currentSelectedCatId가 catIdArrGV에서 몇 번째 index에 위치해 있는 지를 저장할 변수
     const currentArrIdx = catIdArrGV.indexOf(currentSelectedCatId);
 
+    // 삭제된 경우
+    if (currentArrIdx === -1) return;
+
     // currentSelectedCatPhotoUrl 바꾸기
     setCurrentSelectedCatPhotoUrl(catProfilePhotoUrlArrGV[currentArrIdx]);
 

@@ -67,8 +67,8 @@ const SelectCatAlert: FC<SelectCatAlertProps> = ({
 
       await deleteCatInfo(managementSpaceIdGV, currentSelectedCatId);
 
-      handleLoading(false);
       indicateMainDataChanged();
+      handleLoading(false);
 
       // Alert 끄기
       setAlertInfo((prev: any) => ({ ...prev, onSelectCatAlert: false }));
