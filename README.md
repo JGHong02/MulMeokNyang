@@ -13,7 +13,7 @@ The 'MulMeokNyang' service is designed to address the issue of cats' water intak
 
 Limitations include the current breed recognition range and the lack of direct testing with water dispensers. The potential for development lies in enhancing AI accuracy and expanding the technology into other pet care areas. The market analysis indicates a growing demand for such services, promising profitability and market expansion opportunities.
 
-* Demonstration Video
+Demonstration Video
 https://youtu.be/w5-AoBGKgJU?si=pbF0UQpNJNiQSJvY
 
 
