@@ -15,7 +15,7 @@ Limitations include the current breed recognition range and the lack of direct t
 
 * Demonstration Video
 https://youtu.be/w5-AoBGKgJU?si=pbF0UQpNJNiQSJvY
-![demovideo](
+![demovideo](Documentation/img/스크린샷 2023-12-07 23.57.00.png)
 
 
 
