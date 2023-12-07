@@ -9,8 +9,11 @@
 
 ## Proposal
 
-Cats are known for their discerning palates and can be quite selective, particularly when it comes to wet food including water. This dietary preference can lead to dehydration and pose a significant threat to feline health. To address this issue, smart cat water dispensing systems aim to offer a solution through the identification and in-depth analysis of individual cats’ preferences and hydration needs.
+The 'MulMeokNyang' service is designed to address the issue of cats' water intake, which is critical for preventing dehydration-related diseases. It utilizes AI models to recognize individual cats by their breed and distinctive colors. Users can register their cat's profile in the mobile app by uploading photos, and the AI extracts the breed and colors to store in the database. The water dispenser uses these data to identify individual cats through real-time video analysis. The service currently recognizes twelve cat breeds and relies on color differentiation for identification.
 
-Though there are many object or face recognition models, it is hard to find recognition model for individual animals such as cats. So, we will try to make a Artificial Intelligence(AI) model which recognizes individual cats with classifying cat breed. Assuming that one household own one or more than two cat breed, we can recognize individual cats. If there are two or more cats with the same breed, we are planning to detect them using simple algorithms like color distinguishing. There are requirements that need to be fulfilled. Firstly, the model should be able to detect the cat itself with image data. Secondly, the model should be able to recognize the cat’s breed. For image classification, Convolution Neural Network(CNN) seems to be the best choice therefore, we are going to make use of those AI model.
+Limitations include the current breed recognition range and the lack of direct testing with water dispensers. The potential for development lies in enhancing AI accuracy and expanding the technology into other pet care areas. The market analysis indicates a growing demand for such services, promising profitability and market expansion opportunities.
+
+Demonstration Video
+https://youtu.be/w5-AoBGKgJU?si=pbF0UQpNJNiQSJvY
 
 Blog: <https://medium.com/@junggihong/mulmeoknyangs-second-tech-blog-c281505c5212>
