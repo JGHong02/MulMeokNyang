@@ -128,7 +128,7 @@ You can specify a specific time by clicking the calendar icon.
 
 ### 9️⃣ Drawer
 
-<img src="https://github.com/matchlessNostril/catFeeder/assets/77608505/86bfba72-cec7-4967-982e-6d6988f12f8e" alt="17_Drawer" width="600"/>
+<img src="https://github.com/matchlessNostril/catFeeder/assets/77608505/86bfba72-cec7-4967-982e-6d6988f12f8e" alt="17_Drawer" width="200"/>
 
 - The menu icon in the upper right corner allows you to use the following detailed features.
 - Modifying User Profiles
@@ -141,7 +141,7 @@ You can specify a specific time by clicking the calendar icon.
 
 ### 🔟 Comanager
 
-<img src="https://github.com/matchlessNostril/catFeeder/assets/77608505/09f23afd-1830-4ce7-a1e4-49772ccdc0da" alt="19_CoManager" width="200"/>
+<img src="https://github.com/matchlessNostril/catFeeder/assets/77608505/09f23afd-1830-4ce7-a1e4-49772ccdc0da" alt="19_CoManager" width="400"/>
 
 - You can view a list of other users who have been added as co-administrators of the current space.
 - If you are the representative administrator, click the Add Administrator button to add a new administrator,
