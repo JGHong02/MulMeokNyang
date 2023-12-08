@@ -59,7 +59,7 @@ Users who have not yet registered their profile will receive a notification to s
 - If you have forgotten your email, please click on the "Find Email" button.
 By entering only your name and phone number, you can find your email.
 
-<img src="https://github.com/matchlessNostril/catFeeder/assets/77608505/e83718c3-ba9f-467d-a4c0-326166c616cb" alt="6" width="400"/>
+<img src="https://github.com/matchlessNostril/catFeeder/assets/77608505/e83718c3-ba9f-467d-a4c0-326166c616cb" alt="6" width="200"/>
 
 - If you have forgotten your password, click on the "Forgot Password" button to proceed with SMS verification. After that, your password will be sent to the corresponding email.
 
