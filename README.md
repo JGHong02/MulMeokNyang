@@ -2,7 +2,7 @@
 
 ## Demonstration Video
 <img width="1090" alt="스크린샷 2023-12-07 23 57 00" src="https://github.com/matchlessNostril/catFeeder/assets/77608505/01831997-75cf-4eee-b216-cefa4546c917">
-<https://youtu.be/w5-AoBGKgJU?si=pbF0UQpNJNiQSJvY>
+https://youtu.be/w5-AoBGKgJU?si=pbF0UQpNJNiQSJvY
 
 
 
