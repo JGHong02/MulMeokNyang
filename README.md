@@ -7,7 +7,7 @@ https://youtu.be/w5-AoBGKgJU?si=pbF0UQpNJNiQSJvY
 
 
 ## Blog
-https://www.notion.so/MulMeokNyang-e732d36f5a36491f830f0d46bba45064
+<https://www.notion.so/MulMeokNyang-e732d36f5a36491f830f0d46bba45064>
 <https://medium.com/@junggihong/mulmeoknyangs-second-tech-blog-c281505c5212>
 
 ## Team members
