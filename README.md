@@ -134,8 +134,6 @@ You can specify a specific time by clicking the calendar icon.
 - Modifying User Profiles
 - Add, modify (profiles/wet feeds/drinks), delete cat profiles
 
-<img src="https://github.com/matchlessNostril/catFeeder/assets/77608505/6778a714-4397-40ed-a059-00" alt="18_CatAlert" width="200"/>
-
 - To modify and delete, the cat selection notification window appears first.
 - a co-manager
 - Log out
