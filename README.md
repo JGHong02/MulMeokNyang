@@ -65,14 +65,14 @@ By entering only your name and phone number, you can find your email.
 
 ### 4️⃣ User Profile Registration
 
-<img src="https://github.com/matchlessNostril/catFeeder/assets/77608505/f464655b-01d3-4d7a-a383-e068c3d0a135" alt="789" width="200"/>
+<img src="https://github.com/matchlessNostril/catFeeder/assets/77608505/f464655b-01d3-4d7a-a383-e068c3d0a135" alt="789" width="600"/>
 
 
 - Type a profile picture (select), nickname, and self-introduction (select).
 
 ### 5️⃣ Go To Management Space
 
-<img src="https://github.com/matchlessNostril/catFeeder/assets/77608505/662b287a-b31b-4df9-8366-c4c1f3b0bbe2" alt="9_WaitCoManager" width="600"/>
+<img src="https://github.com/matchlessNostril/catFeeder/assets/77608505/662b287a-b31b-4df9-8366-c4c1f3b0bbe2" alt="9_WaitCoManager" width="200"/>
 
 - If you want to create a space to manage my cats
 Press the 'Create your own management space' button,
