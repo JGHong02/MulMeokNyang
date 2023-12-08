@@ -87,11 +87,11 @@ Click 'Wait for co-administrator registration'.
 
 ### 6️⃣ Cat Profile Registration
 
-<img src="https://github.com/matchlessNostril/catFeeder/assets/77608505/36395b31-788d-4eaf-9117-800dd50c0100" alt="11" width="200"/>
+<img src="https://github.com/matchlessNostril/catFeeder/assets/77608505/36395b31-788d-4eaf-9117-800dd50c0100" alt="11" width="400"/>
 
 - Profile picture of the cat (select) Enter the name, age, and weight.
 
-<img src="https://github.com/matchlessNostril/catFeeder/assets/77608505/ebf37b06-ee5b-4184-83f8-fcfc96c6044d" alt="12_CatFeed" width="400"/>
+<img src="https://github.com/matchlessNostril/catFeeder/assets/77608505/ebf37b06-ee5b-4184-83f8-fcfc96c6044d" alt="12_CatFeed" width="200"/>
 
 - In order for the water supply to recognize the cat and record the amount of sound, users should conduct an AI analysis with five photos of a good-looking cat to classify the breed and extract the color of its features.
 - The extracted color is extracted a little darker considering the shadow according to the position of the water supply camera.
@@ -101,7 +101,7 @@ Click 'Wait for co-administrator registration'.
 - Enter the periodic wet feed intake and the amount of intake.
 - Taking this into account, the recommended sound quantity formula is calculated.
 
-<img src="https://github.com/matchlessNostril/catFeeder/assets/77608505/96165aee-ae9c-4f51-b4e1-dcde86b57183" alt="14_Main" width="200"/>
+<img src="https://github.com/matchlessNostril/catFeeder/assets/77608505/96165aee-ae9c-4f51-b4e1-dcde86b57183" alt="14_Main" width="400"/>
 
 
 - Set the target daily volume of sound.
@@ -109,7 +109,7 @@ Click 'Wait for co-administrator registration'.
 
 ### 7️⃣ Main
 
-<img src="https://github.com/matchlessNostril/catFeeder/assets/77608505/6decf4fd-1e79-49c2-9af5-cff86f6dc633" alt="15_StatisticsGraph" width="400"/>
+<img src="https://github.com/matchlessNostril/catFeeder/assets/77608505/6decf4fd-1e79-49c2-9af5-cff86f6dc633" alt="15_StatisticsGraph" width="600"/>
 
 - Select a cat profile at the top to display a brief profile of that cat
 You can see the daily amount of sound, the amount of sound advice message.
@@ -117,7 +117,7 @@ You can see the daily amount of sound, the amount of sound advice message.
 
 ### 8️⃣ Periodical Hydration Statistics
 
-<img src="https://github.com/matchlessNostril/catFeeder/assets/77608505/ba3b9b83-9917-4e9e-9ca2-e32d9047c763" alt="16_StatisticsCalendar" width="600"/>
+<img src="https://github.com/matchlessNostril/catFeeder/assets/77608505/ba3b9b83-9917-4e9e-9ca2-e32d9047c763" alt="16_StatisticsCalendar" width="400"/>
 
 
 - Select a cat profile at the top,
@@ -128,7 +128,7 @@ You can specify a specific time by clicking the calendar icon.
 
 ### 9️⃣ Drawer
 
-<img src="https://github.com/matchlessNostril/catFeeder/assets/77608505/86bfba72-cec7-4967-982e-6d6988f12f8e" alt="17_Drawer" width="200"/>
+<img src="https://github.com/matchlessNostril/catFeeder/assets/77608505/86bfba72-cec7-4967-982e-6d6988f12f8e" alt="17_Drawer" width="600"/>
 
 - The menu icon in the upper right corner allows you to use the following detailed features.
 - Modifying User Profiles
