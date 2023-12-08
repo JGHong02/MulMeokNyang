@@ -36,8 +36,7 @@ Limitations include the current breed recognition range and the lack of direct t
 - Click the "Sign up" button to proceed with the registration via email.
 
 ### 2️⃣ SignUp
-
-<img src="https://github.com/matchlessNostril/catFeeder/assets/77608505/92824135-bd28-4cd4-bce7-d6d5c6687e16" alt="Untitled (1)" width="200"/>
+<img src="https://github.com/matchlessNostril/catFeeder/assets/77608505/c94fb203-614e-4649-a1dd-d920c5a87bc0" alt="2_SignUp" width="600"/>
 
 - Enter information in the email, password, and password confirmation fields.
 - If the email and password are valid, proceed to the next screen.
@@ -45,22 +44,22 @@ Limitations include the current breed recognition range and the lack of direct t
 - Enter the 6-digit verification code sent via SMS and press the complete button to finish the registration.
 
 ### 3️⃣ Login / Find Email / Find Password
-<img src="https://github.com/matchlessNostril/catFeeder/assets/77608505/c94fb203-614e-4649-a1dd-d920c5a87bc0" alt="2_SignUp" width="200"/>
 
+<img src="https://github.com/matchlessNostril/catFeeder/assets/77608505/d261efcb-30d1-4d5a-9707-36bde5cecaf6" alt="Untitled (2)" width="200"/>
 - Log in with the email and password entered during registration.
 - The automatic login setting is only available for users who have completed user profile registration.
 Users who have not yet registered their profile will receive a notification to set up automatic login after registration.
-<img src="https://github.com/matchlessNostril/catFeeder/assets/77608505/d261efcb-30d1-4d5a-9707-36bde5cecaf6" alt="Untitled (2)" width="200"/>
+<img src="https://github.com/matchlessNostril/catFeeder/assets/77608505/14c69909-ad83-4332-9edd-e9bf33a96586" alt="5_FindPw" width="400"/>
+
 
 - If you have forgotten your email, please click on the "Find Email" button.
 By entering only your name and phone number, you can find your email.
-<img src="https://github.com/matchlessNostril/catFeeder/assets/77608505/14c69909-ad83-4332-9edd-e9bf33a96586" alt="5_FindPw" width="200"/>
-
+<img src="https://github.com/matchlessNostril/catFeeder/assets/77608505/e83718c3-ba9f-467d-a4c0-326166c616cb" alt="6" width="400"/>
 - If you have forgotten your password, click on the "Forgot Password" button to proceed with SMS verification. After that, your password will be sent to the corresponding email.
 
 ### 4️⃣ User Profile Registration
 
-<img src="https://github.com/matchlessNostril/catFeeder/assets/77608505/e83718c3-ba9f-467d-a4c0-326166c616cb" alt="6" width="200"/>
+
 
 - Type a profile picture (select), nickname, and self-introduction (select).
 
