@@ -23,7 +23,7 @@ Required Python libraries installation Guide:
 	* install scikit-image: https://scikit-image.org/docs/stable/user_guide/install.html
 	* install PyTorch: https://pytorch.org/get-started/locally/
 
-Launch backend server: 
+Launch backend server (it is located in ./MulMeokNyang/AI) : 
 
 	1. install Flask (refer to https://flask.palletsprojects.com/en/3.0.x/installation/)
 	   ㄴ pip install Flask 
