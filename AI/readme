@@ -1,4 +1,96 @@
-No images files are included due to github performance issue.
+#######################################################
+##                                                   ##
+##     Instructions on how to try our AI module      ##
+##                                                   ##
+#######################################################
 
-Installation Guide:
-pip install -r requirements.txt
+* No images files are included due to github performance issue.
+
+Required Python libraries installation Guide:
+
+	1. go to the directory and run following commands in your terminal
+
+		a. python -m pip install -U pip
+		b. pip install -r requirements.txt
+
+	2. if you get any errors, please install it manually. most of the library will work with: 
+	   pip install library_name
+	
+	* install Ultralytics: https://docs.ultralytics.com/quickstart/
+	* install OpenCV: https://docs.opencv.org/4.x/da/df6/tutorial_py_table_of_contents_setup.html
+	* install Scikit-learn: https://scikit-learn.org/stable/install.html
+	* install matplotlib: https://matplotlib.org/stable/users/installing/index.html
+	* install scikit-image: https://scikit-image.org/docs/stable/user_guide/install.html
+	* install PyTorch: https://pytorch.org/get-started/locally/
+
+Launch backend server: 
+
+	1. install Flask (refer to https://flask.palletsprojects.com/en/3.0.x/installation/)
+	   ㄴ pip install Flask 
+	2. run flask_app.py
+	   ㄴ python flask_app.py
+
+That's it! You can communicate with front or back-end via POST in REST API. 
+When image(s) are uploaded, it will send information of the cat's breed and 5 dominant colors in JSON format. 
+
+Note that folder structure should look like this:
+
+C:.
+│  flask_app.py
+│  imgout.png
+│  model.py
+│  requirements.txt
+│
+├─models
+│      resnet50.pth
+│      yolov8m-seg.pt
+│
+└─uploads
+
+--------------------------------------------------------------------------------------------------
+
+To try our moodel training notebook, image data folder structure should look something like this:
+
+│  ├─Model Training
+│  │  ├─.ipynb_checkpoints
+│  │  ├─checkpoints
+│  │  ├─data
+│  │  │  ├─test
+│  │  │  │  ├─Abyssinian
+│  │  │  │  ├─Bengal
+│  │  │  │  ├─Birman
+│  │  │  │  ├─Bombay
+│  │  │  │  ├─British Shorthair
+│  │  │  │  ├─Egyptian Mau
+│  │  │  │  ├─Maine Coon
+│  │  │  │  ├─Persian
+│  │  │  │  ├─Ragdoll
+│  │  │  │  ├─Russian Blue
+│  │  │  │  ├─Siamese
+│  │  │  │  └─Sphynx
+│  │  │  ├─train
+│  │  │  │  ├─Abyssinian
+│  │  │  │  ├─Bengal
+│  │  │  │  ├─Birman
+│  │  │  │  ├─Bombay
+│  │  │  │  ├─British Shorthair
+│  │  │  │  ├─Egyptian Mau
+│  │  │  │  ├─Maine Coon
+│  │  │  │  ├─Persian
+│  │  │  │  ├─Ragdoll
+│  │  │  │  ├─Russian Blue
+│  │  │  │  ├─Siamese
+│  │  │  │  └─Sphynx
+│  │  │  └─val
+│  │  │      ├─Abyssinian
+│  │  │      ├─Bengal
+│  │  │      ├─Birman
+│  │  │      ├─Bombay
+│  │  │      ├─British Shorthair
+│  │  │      ├─Egyptian Mau
+│  │  │      ├─Maine Coon
+│  │  │      ├─Persian
+│  │  │      ├─Ragdoll
+│  │  │      ├─Russian Blue
+│  │  │      ├─Siamese
+│  │  │      └─Sphynx
