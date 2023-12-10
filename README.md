@@ -137,6 +137,7 @@ You can specify a specific period by clicking the calendar icon.
 The features of the drawer are following below.
 - Modify user profile
 - Add, modify, or delete cat profile
+
 (To modify or delete, the cat selection alert will appear)
 - Co-manager
 - Log out
