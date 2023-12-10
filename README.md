@@ -22,11 +22,12 @@ AI blog:
 - Jun Ggi Hong | Dept. Information Systems at Hanyang University | <sentorino@hanyang.ac.kr>
 - Yun Sun Lee | Dept. Film and Theatre at Hanyang University | <justina7182@gmail.com>
 
-## Proposal
+## Introduction
 
-The 'MulMeokNyang' service is designed to address the issue of cats' water intake, which is critical for preventing dehydration-related diseases. It utilizes AI models to recognize individual cats by their breed and distinctive colors. Users can register their cat's profile in the mobile app by uploading photos, and the AI extracts the breed and colors to store in the database. The water dispenser uses these data to identify individual cats through real-time video analysis. The service currently recognizes twelve cat breeds and relies on color differentiation for identification.
+Our app is designed to manage the hydration of cats kept at home. The app connects to a smart water dispenser device equipped with AI that distinguishes each cat. Through the built-in camera of the dispenser, it updates the daily hydration of each cat in real-time. Users can view today's hydration, evaluations, and previous hydration statistics in the app. Additionally, it offers a co-management feature, allowing family members to collectively oversee the cats.
 
-Limitations include the current breed recognition range and the lack of direct testing with water dispensers. The potential for development lies in enhancing AI accuracy and expanding the technology into other pet care areas. The market analysis indicates a growing demand for such services, promising profitability and market expansion opportunities.
+When creating a management space in the app, upon registering cat information, we collect five pictures of the cat to be used by an AI model. These images are processed through an AI model for breed recognition and extraction of characteristic colors. The resulting data is stored in the database. Using the camera integrated into the water dispenser, the real-time AI analysis of the cat currently drinking water is compared with the breed and color values stored in the database to recognize the individual cat. Subsequently, the hydration amount is updated in the database. However, as the actual connection to the water dispenser is not available, the verification of hydration updates cannot be performed.
+
 
 ## Functionality
 
