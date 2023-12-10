@@ -32,7 +32,9 @@ Limitations include the current breed recognition range and the lack of direct t
 
 
 ### 1️⃣ Start
+
 <img src="https://github.com/matchlessNostril/catFeeder/assets/77608505/4e534fdc-3faa-4ba5-b64a-d3a9c1db6975" alt="Untitled (1)" width="200"/>
+
 - Click the "Sign up" button to proceed with the registration via email.
 
 ### 2️⃣ SignUp
