@@ -56,10 +56,12 @@ Limitations include the current breed recognition range and the lack of direct t
 - The automatic login setting is only available for users who have completed user profile registration.
 Users who have not yet registered their profile will receive an alert to set up automatic login after registration.
 
+
 <img src="https://github.com/matchlessNostril/catFeeder/assets/77608505/14c69909-ad83-4332-9edd-e9bf33a96586" alt="5_FindPw" width="400"/>
 
 - If you have forgotten your email, please click on the "Find Email" button.
 By entering only your name and phone number, you can find your email.
+
 
 <img src="https://github.com/matchlessNostril/catFeeder/assets/77608505/e83718c3-ba9f-467d-a4c0-326166c616cb" alt="6" width="200"/>
 
@@ -109,6 +111,7 @@ Proceed with the water supply registration to work with the management space.
 - If you want to register a new cat, click the additional registration button. Or If you want to go straight to the management space, click tge complete complete registration.
 
 
+
 ### 7️⃣ Main
 
 <img src="https://github.com/matchlessNostril/catFeeder/assets/77608505/6decf4fd-1e79-49c2-9af5-cff86f6dc633" alt="15_StatisticsGraph" width="600"/>
@@ -116,6 +119,7 @@ Proceed with the water supply registration to work with the management space.
 - Select a cat profile at the top to see the main information.
 - You can see the daily goal hydration guage, with an evaluation message corresponding to the value.
 - If you press the Statistics button, navigate to the period-based hydration statistics screen for the currently selected cat.
+
 
 ### 8️⃣ Hydration Statistics
 
