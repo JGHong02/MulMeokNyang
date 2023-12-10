@@ -112,7 +112,7 @@ Proceed with the water supply registration to work with the management space.
 
 
 ### 7️⃣ Main
-<img src="https://github.com/matchlessNostril/catFeeder/assets/77608505/6decf4fd-1e79-49c2-9af5-cff86f6dc633" alt="15_StatisticsGraph" width="600"/>
+<img src="https://github.com/matchlessNostril/catFeeder/assets/77608505/96165aee-ae9c-4f51-b4e1-dcde86b57183" alt="14_Main" width="400"/>
 
 - Select a cat profile at the top to see the main information.
 - You can see the daily goal hydration guage, with an evaluation message corresponding to the value.
@@ -120,6 +120,7 @@ Proceed with the water supply registration to work with the management space.
 
 
 ### 8️⃣ Hydration Statistics
+<img src="https://github.com/matchlessNostril/catFeeder/assets/77608505/6decf4fd-1e79-49c2-9af5-cff86f6dc633" alt="15_StatisticsGraph" width="600"/>
 <img src="https://github.com/matchlessNostril/catFeeder/assets/77608505/ba3b9b83-9917-4e9e-9ca2-e32d9047c763" alt="16_StatisticsCalendar" width="400"/>
 
 - You can check the weekly, monthly, and yearly statistical graphs,
