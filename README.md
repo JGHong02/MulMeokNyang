@@ -1,7 +1,7 @@
 # MulMeokNyang
 
 ## Demonstration Video
-<a href="https://youtu.be/w5-AoBGKgJU?si=pbF0UQpNJNiQSJvY"> <img width="600" alt="thumbnail" src="https://github.com/matchlessNostril/catFeeder/assets/144131324/774b75fc-e567-4128-bcbb-a3ca1e102379"> </a>
+<a href="https://youtu.be/w5-AoBGKgJU?si=pbF0UQpNJNiQSJvY"> <img width="800" alt="thumbnail" src="https://github.com/matchlessNostril/catFeeder/assets/144131324/774b75fc-e567-4128-bcbb-a3ca1e102379"> </a>
 
 
 https://youtu.be/w5-AoBGKgJU?si=pbF0UQpNJNiQSJvY
