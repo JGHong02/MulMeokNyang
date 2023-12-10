@@ -1,7 +1,7 @@
 # MulMeokNyang
 
-## Demonstration Video
-<img width="600" alt="스크린샷 2023-12-07 23 57 00" src="https://github.com/matchlessNostril/catFeeder/assets/77608505/01831997-75cf-4eee-b216-cefa4546c917">
+## Demonstration Video
+<a href="https://youtu.be/w5-AoBGKgJU?si=pbF0UQpNJNiQSJvY"> <img width="600" alt="스크린샷 2023-12-07 23 57 00" src="https://github.com/matchlessNostril/catFeeder/assets/77608505/01831997-75cf-4eee-b216-cefa4546c917"> </a>
 
 
 https://youtu.be/w5-AoBGKgJU?si=pbF0UQpNJNiQSJvY
@@ -147,8 +147,8 @@ You can specify a specific time by clicking the calendar icon.
 - If you are the representative administrator, click the Add Administrator button to add a new administrator,
 You can delete an existing administrator.
 
+## AI
 
+In the back-end side, AI analyzes the images that user uploaded in **Cat Profile Registration** stage and returns detected cat breed and dominant colors in JSON format via API.
 
-
-
-
+![image](https://github.com/matchlessNostril/catFeeder/assets/81696717/1cae15de-b911-4d18-bd37-1af89ad017de)
