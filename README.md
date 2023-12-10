@@ -152,4 +152,5 @@ or you can also delete an existing manager by clicking delete icon.
 ## AI
 
 In the back-end side, AI analyzes the images that user uploaded in **Cat Profile Registration** stage and returns detected cat breed and dominant colors in JSON format via API.
+
 ![image](https://github.com/matchlessNostril/catFeeder/assets/81696717/1cae15de-b911-4d18-bd37-1af89ad017de)
