@@ -13,7 +13,7 @@ Software Engineering blog:
 <https://www.notion.so/MulMeokNyang-e732d36f5a36491f830f0d46bba45064>  
 
 AI blog:  
-<https://medium.com/@junggihong/mulmeoknyangs-second-tech-blog-c281505c5212>  
+<https://medium.com/@junggihong/mulmeoknyangs-final-tech-blog-598b15253f13>  
 
 ## Team members
 
