@@ -13,7 +13,7 @@ Software Engineering blog:
 <https://bit.ly/3R9cJQA>
 
 AI blog:  
-<https://bit.ly/41hQUD5>  
+<https://bit.ly/3tfp9yn>  
 
 ## Team members
 
