@@ -10,10 +10,10 @@ https://youtu.be/w5-AoBGKgJU?si=pbF0UQpNJNiQSJvY
 
 ## Blog
 Software Engineering blog:  
-<https://www.notion.so/MulMeokNyang-e732d36f5a36491f830f0d46bba45064>  
+<https://bit.ly/3R9cJQA>
 
 AI blog:  
-<https://medium.com/@junggihong/mulmeoknyangs-final-tech-blog-c281505c5212>  
+<https://bit.ly/41hQUD5>  
 
 ## Team members
 
