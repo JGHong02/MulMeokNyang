@@ -105,7 +105,7 @@ Proceed with the water supply registration to work with the management space.
 - Enter the wet food consumption information.
 - It will be used as a calculation for the amount of recommended hydration.
 
-<img src="https://github.com/matchlessNostril/catFeeder/assets/144131324/63203aa2-017e-45fc-90ca-84b4f1fe4cfa" alt="12_CatHydration" width="400"/>
+<img src="https://github.com/matchlessNostril/catFeeder/assets/144131324/63203aa2-017e-45fc-90ca-84b4f1fe4cfa" alt="12_CatHydration" width="200"/>
 
 - Set the daily goal hydaration.
 - If you want to register a new cat, click the additional registration button. Or If you want to go straight to the management space, click tge complete complete registration.
