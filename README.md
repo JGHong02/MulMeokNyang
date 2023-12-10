@@ -111,9 +111,7 @@ Proceed with the water supply registration to work with the management space.
 - If you want to register a new cat, click the additional registration button. Or If you want to go straight to the management space, click tge complete complete registration.
 
 
-
 ### 7️⃣ Main
-
 <img src="https://github.com/matchlessNostril/catFeeder/assets/77608505/6decf4fd-1e79-49c2-9af5-cff86f6dc633" alt="15_StatisticsGraph" width="600"/>
 
 - Select a cat profile at the top to see the main information.
@@ -122,7 +120,6 @@ Proceed with the water supply registration to work with the management space.
 
 
 ### 8️⃣ Hydration Statistics
-
 <img src="https://github.com/matchlessNostril/catFeeder/assets/77608505/ba3b9b83-9917-4e9e-9ca2-e32d9047c763" alt="16_StatisticsCalendar" width="400"/>
 
 - You can check the weekly, monthly, and yearly statistical graphs,
@@ -132,7 +129,6 @@ You can specify a specific period by clicking the calendar icon.
 
 
 ### 9️⃣ Drawer
-
 <img src="https://github.com/matchlessNostril/catFeeder/assets/77608505/86bfba72-cec7-4967-982e-6d6988f12f8e" alt="17_Drawer" width="200"/>
 
 - If you press the menu icon on the top right, the drawer will bring up from the right side.
@@ -145,12 +141,11 @@ The features of the drawer are following below.
 
 
 ### 🔟 Co-manager
-
 <img src="https://github.com/matchlessNostril/catFeeder/assets/77608505/09f23afd-1830-4ce7-a1e4-49772ccdc0da" alt="19_CoManager" width="400"/>
 
 - You can see a list of other users who have been added as co-manager of the current space.
 - If you are the representative manager, you can click the add co-manager button to add a new manager,
-or you can also delete an existing manager by cliking delete icon.
+or you can also delete an existing manager by clicking delete icon.
 
 
 ## AI
